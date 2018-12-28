@@ -1,0 +1,18 @@
+
+
+.appName {
+  text-align: left;
+}
+::ng-deep .dx-drawer-panel-content .dx-template-wrapper {
+  background-color: #328CC1;
+  border: 5p solid black;
+}
+
+.callTableBox {
+  border: 15px solid #476981;
+  border-top: 0px solid #476981;
+  border-bottom: 0px solid #476981;
+  background-color: #328CC1;
+  padding-top: 0px;
+}
+

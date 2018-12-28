@@ -1,0 +1,14 @@
+<div>
+  <dx-toolbar
+    [items]="callOfficerToolbarItems"
+    class="officersContainer">
+  </dx-toolbar>
+  <dx-list
+    [dataSource]="callService.activeCall.officers"
+    [height]="100"
+    [searchEnabled]="true">
+  <div *dxTemplate="let data of 'item'">
+    <div class="officerName badge{{data.id}} active{{data.active}}">{{data.last_name}}, {{data.first_name}} ({{data.badge_number}})</div>
+  </div>
+</dx-list>
+</div>

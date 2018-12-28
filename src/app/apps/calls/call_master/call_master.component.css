@@ -1,0 +1,42 @@
+.callDetailsOfficersBox {
+  border: 2px solid #328CC1;
+  height: 100%;
+  padding: 5px;
+}
+
+.callDetailsBox {
+  border: 2px solid #328CC1;
+  height: 100%;
+  padding: 5px;
+}
+
+.callDetailsNotesBox {
+  border: 2px solid #328CC1;
+  height: 100%;
+  padding: 5px;
+}
+
+.fieldSet {
+  padding: 0px;
+  margin: 0px;
+}
+
+.formSelect {
+  background-color: #328CC1;
+}
+
+.formSelectContainer {
+  background-color: #328CC1;
+  width: 100%;
+  text-align: -webkit-right;
+  padding: 5px;
+}
+
+.selectLabel{
+  color: white;
+  font-size: large;
+}
+
+::ng-deep .dx-datagrid-rowsview .dx-row > .dx-master-detail-cell {
+  padding: 0px;
+}

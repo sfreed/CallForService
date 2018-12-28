@@ -1,0 +1,23 @@
+.officerName {
+  text-align: left;
+}
+
+.dx-list-item-content
+{
+    padding: 0!important;
+}
+
+.activetrue {
+  padding: 10px;
+  background-color: rgb(23, 105, 23);
+  font-weight: bold;
+  font-size: 115%;
+}
+
+.activefalse {
+  padding: 10px;
+  background-color: rgb(145, 41, 41);
+  font-weight: bold;
+  font-size: 115%;
+  color: white;
+}

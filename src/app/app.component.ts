@@ -1,10 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
+import { Officer } from './models/officer';
+import { DispatcherHistoryService } from './apps/services/dispatcher.service';
+import { DxDrawerComponent } from 'devextreme-angular';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+    selector: 'app-root',
+    templateUrl: 'app.component.html',
+    styleUrls: ['app.component.css'],
+    providers: [  ]
 })
-export class AppComponent {
-  title = 'CallForService';
+
+export class AppComponent implements OnInit {
+  @ViewChild(DxDrawerComponent) drawer: DxDrawerComponent;
+
+  officers: Officer[];
+
+  public window: Window = window;
+
+  constructor(private dispatcherService: DispatcherHistoryService) {
+    dispatcherService.drawer = this.drawer;
+  }
+
+  ngOnInit() {
+    this.dispatcherService.drawer = this.drawer;
+  }
+
+
+
 }

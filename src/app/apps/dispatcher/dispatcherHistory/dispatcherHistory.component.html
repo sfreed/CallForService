@@ -1,0 +1,11 @@
+<dx-list
+  [dataSource]="dispatcherHistory.history"
+  [height]="window.innerHeight/9 * 8 + 20"
+  selectionMode = "single"
+  [menuMode]="'context'"
+  [menuItems]="menuItems">
+  <div *dxTemplate="let data of 'item'">
+    <div class="historyItem">{{data.time}}</div>
+    <div class="historyItem">{{data.action}} : {{data.last_name}}, {{data.first_name}}</div>
+  </div>
+</dx-list>

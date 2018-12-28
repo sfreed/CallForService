@@ -1,0 +1,17 @@
+<dx-list
+  [dataSource]="activeOfficers"
+  [height]="window.innerHeight/9 * 8.20"
+  [searchEnabled]="true"
+  selectionMode = "single"
+  searchExpr="last_name"
+  searchMode="contains"
+  [nextButtonText]="'Load More Officers'"
+  [menuItems]="menuItems">
+  <div *dxTemplate="let data of 'item'">
+    <div id="switchdiv{{data.id}}" class="officerName badge{{data.id}} active{{data.active}}">{{data.last_name}}, {{data.first_name}} ({{data.badge_number}})
+      <dx-switch id="switch{{data.id}}" style="float:right;" ([value])="!data.active" (valueChange)="onActiveChange(data)"></dx-switch></div>
+  </div>
+</dx-list>
+
+
+
