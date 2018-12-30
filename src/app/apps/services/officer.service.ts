@@ -8,8 +8,7 @@ import { DispatcherHistoryService } from './dispatcher.service';
   providedIn: 'root'
 })
 export class OfficerService {
-
-  officers: Promise<Officer[]>;
+  private officers: Promise<Officer[]>;
 
   constructor(private http: Http, private dispatcherHistory: DispatcherHistoryService) {
     this.officers = this.http.get('assets/data/officers.json')
@@ -17,11 +16,17 @@ export class OfficerService {
       .then(res => <Officer[]> res.json());
   }
 
+  getOfficerList(): Promise<Officer[]> {
+    return this.officers;
+  }
+
   changeDutyStatus(officer: Officer) {
+    console.log('changing duty status');
     if (officer.active) {
       officer.active = false;
 
-      this.dispatcherHistory.addHistory({id: '0',
+      this.dispatcherHistory.addHistoryItem({
+        id: 0,
         action: 'Clock Out',
         first_name: officer.first_name,
         last_name: officer.last_name,
@@ -30,7 +35,8 @@ export class OfficerService {
     } else {
       officer.active = true;
 
-      this.dispatcherHistory.addHistory({id: '0',
+      this.dispatcherHistory.addHistoryItem({
+        id: 0,
         action: 'Clock In',
         first_name: officer.first_name,
         last_name: officer.last_name,

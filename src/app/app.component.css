@@ -9,10 +9,11 @@
 }
 
 .callTableBox {
-  border: 15px solid #476981;
+  border: 10px solid #476981;
   border-top: 0px solid #476981;
   border-bottom: 0px solid #476981;
   background-color: #328CC1;
   padding-top: 0px;
+  margin: 0px;
 }
 

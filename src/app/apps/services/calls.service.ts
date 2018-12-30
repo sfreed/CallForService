@@ -2,16 +2,19 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Call } from 'src/app/models/call';
 import { Officer } from 'src/app/models/officer';
+import { DxDataGridComponent } from 'devextreme-angular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CallsService {
-  calls: Promise<Call[]>;
+  private callGrid: DxDataGridComponent;
 
-  activeCall: Call;
+  private calls: Promise<Call[]>;
 
-  callForms: any = [{
+  private activeCall: Call;
+
+  private callForms: any = [{
     id: 0,
     name: 'Traffic Call'
   }, {
@@ -25,11 +28,33 @@ export class CallsService {
       .then(res => <Call[]> res.json());
   }
 
+  setCallGrid(callGrid: DxDataGridComponent) {
+    this.callGrid = callGrid;
+  }
+  getCallList(): Promise<Call[]> {
+    return this.calls;
+  }
+
   setActiveCall(call: Call) {
     this.activeCall = call;
   }
 
-  assignOfficerToActiveCall(officer: Officer) {
+  getActiveCall(): Call {
+     return this.activeCall;
+  }
+
+  getCallForms(): any[] {
+    return this.callForms;
+  }
+
+  assignOfficerToActiveCall(officer: Officer, call: Call) {
+    officer.current_call = call.id;
+    officer.call_status = 'ACTIVE';
     this.activeCall.officers.push(officer);
+  }
+
+  selectCall(id: number) {
+    this.callGrid.instance.selectRows([id], false);
+    this.callGrid.instance.expandRow(id);
   }
 }

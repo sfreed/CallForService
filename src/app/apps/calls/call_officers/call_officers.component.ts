@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CallsService } from '../../services/calls.service';
+import { Officer } from 'src/app/models/officer';
+import DataSource from 'devextreme/data/data_source';
+import CustomStore from 'devextreme/data/custom_store';
 
 @Component({
   selector: 'app-call-officers',
@@ -7,6 +10,7 @@ import { CallsService } from '../../services/calls.service';
   styleUrls: ['./call_officers.component.css']
 })
 export class CallOfficersComponent implements OnInit {
+  activeOfficers: Officer[];
 
   callOfficerToolbarItems: any;
 
@@ -23,6 +27,6 @@ export class CallOfficersComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.activeOfficers = this.callService.getActiveCall().officers;
   }
-
 }

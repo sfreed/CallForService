@@ -4,7 +4,7 @@
     class="officersContainer">
   </dx-toolbar>
   <dx-list
-    [dataSource]="callService.activeCall.officers"
+    [dataSource]="activeOfficers"
     [height]="100"
     [searchEnabled]="true">
   <div *dxTemplate="let data of 'item'">

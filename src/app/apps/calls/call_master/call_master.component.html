@@ -25,9 +25,22 @@
     [rowAlternationEnabled]="true"
     [showBorders]="true"
     (onRowClick)="callSelected($event)"
-    [focusedRowEnabled]="true"
     [masterDetail]="{ enabled: true, template: 'detail' }"
-    [height]="window.innerHeight - 130">
+    [height]="window.innerHeight - 130"
+    (onRowPrepared)="callSelected($event)"
+    (onInitialized)="tableInitialized()">
+
+    <dxo-editing
+      mode="popup"
+      [allowUpdating]="true">
+      <dxo-popup
+        title="Employee Info"
+        [showTitle]="true"
+        [width]="700"
+        [height]="345"
+        [position]="{ my: 'top', at: 'top', of: window }">
+        </dxo-popup>
+    </dxo-editing>
     <dxo-paging [pageSize]="20"></dxo-paging>
     <dxo-pager
         [showPageSizeSelector]="true"

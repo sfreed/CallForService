@@ -17,14 +17,9 @@ export class AppComponent implements OnInit {
 
   public window: Window = window;
 
-  constructor(private dispatcherService: DispatcherHistoryService) {
-    dispatcherService.drawer = this.drawer;
-  }
+  constructor(private dispatcherService: DispatcherHistoryService) {}
 
   ngOnInit() {
-    this.dispatcherService.drawer = this.drawer;
+    this.dispatcherService.setHistoryDrawer(this.drawer);
   }
-
-
-
 }

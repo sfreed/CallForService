@@ -1,7 +1,7 @@
 import { Officer } from './officer';
 
 export class Call {
-  id: string;
+  id: number;
   date: Date;
   time: string;
   dispatcher_name: string;

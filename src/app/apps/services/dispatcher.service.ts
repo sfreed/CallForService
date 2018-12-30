@@ -6,18 +6,33 @@ import { DispatcherHistory } from 'src/app/models/dispatcher_history';
   providedIn: 'root'
 })
 export class DispatcherHistoryService {
-  drawer: DxDrawerComponent;
+  private historyDrawer: DxDrawerComponent;
 
-  public history: DispatcherHistory[] = [];
+  private historyList: DispatcherHistory[] = [];
 
   constructor() { }
 
-  public addHistory(historyItem: DispatcherHistory) {
-    this.history.push(historyItem);
+  getDispatcherHistoryList(): DispatcherHistory[] {
+    return this.historyList;
+  }
+
+  getHistoryDrawer(): DxDrawerComponent {
+    return this.historyDrawer;
+  }
+
+  setHistoryDrawer(historyDrawer: DxDrawerComponent) {
+    this.historyDrawer = historyDrawer;
+  }
+
+  public addHistoryItem(historyItem: DispatcherHistory) {
+    this.historyList.push(historyItem);
+  }
+
+  public removeHistoryItem(historyItem: DispatcherHistory) {
+    this.historyList.splice(this.historyList.findIndex(item => item.id === historyItem.id), 1);
   }
 
   toggleDispatcherHistory() {
-    this.drawer.instance.toggle();
+    this.historyDrawer.instance.toggle();
   }
-
 }

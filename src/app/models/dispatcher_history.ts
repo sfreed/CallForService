@@ -1,5 +1,5 @@
 export class DispatcherHistory {
-  id: string;
+  id: number;
   action: string;
   first_name: string;
   last_name: string;

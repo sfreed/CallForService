@@ -6,10 +6,20 @@
   searchExpr="last_name"
   searchMode="contains"
   [nextButtonText]="'Load More Officers'"
-  [menuItems]="menuItems">
+  (onItemClick)="selectOfficer($event)">
   <div *dxTemplate="let data of 'item'">
     <div id="switchdiv{{data.id}}" class="officerName badge{{data.id}} active{{data.active}}">{{data.last_name}}, {{data.first_name}} ({{data.badge_number}})
-      <dx-switch id="switch{{data.id}}" style="float:right;" ([value])="!data.active" (valueChange)="onActiveChange(data)"></dx-switch></div>
+      <dx-switch id="switch{{data.id}}" style="float:right;" ([value])="!data.active" (valueChange)="onActiveChange(data)"></dx-switch>
+    </div>
+
+    <dx-context-menu
+      id="cm{{data.id}}"
+      [items]="menuItems"
+      [width]="200"
+      target="#switchdiv{{data.id}}"
+      (onItemClick)="contextItemClick($event, data)"
+      (onShowing)="configureMenu($event, data)">
+    </dx-context-menu>
   </div>
 </dx-list>
 
