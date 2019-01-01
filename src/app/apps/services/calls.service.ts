@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import DataSource from 'devextreme/data/data_source';
+import ArrayStore from 'devextreme/data/array_store';
 import { Call } from 'src/app/models/call';
 import { Officer } from 'src/app/models/officer';
 import { DxDataGridComponent } from 'devextreme-angular';
+import { DataService } from './data';
+import notify from 'devextreme/ui/notify';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +13,7 @@ import { DxDataGridComponent } from 'devextreme-angular';
 export class CallsService {
   private callGrid: DxDataGridComponent;
 
-  private calls: Promise<Call[]>;
+  private callList: DataSource;
 
   private activeCall: Call;
 
@@ -22,17 +25,24 @@ export class CallsService {
     name: 'Domestic Call'
   }];
 
-  constructor(private http: Http) {
-    this.calls = this.http.get('assets/data/calls.json')
-      .toPromise()
-      .then(res => <Call[]> res.json());
+  constructor(private dataService: DataService) {
+    this.callList = new DataSource({
+        store : new ArrayStore({
+          key : 'id',
+          data : this.dataService.getCallList()
+        }) ,
+        sort : ['date',  'time'],
+        paginate : true,
+        pageSize : 18
+      });
   }
 
   setCallGrid(callGrid: DxDataGridComponent) {
     this.callGrid = callGrid;
   }
-  getCallList(): Promise<Call[]> {
-    return this.calls;
+
+  getCallList(): DataSource {
+    return this.callList;
   }
 
   setActiveCall(call: Call) {
@@ -47,14 +57,32 @@ export class CallsService {
     return this.callForms;
   }
 
-  assignOfficerToActiveCall(officer: Officer, call: Call) {
+  assignOfficerToActiveCall(officer: Officer, call: Call): boolean {
     officer.current_call = call.id;
     officer.call_status = 'ACTIVE';
-    this.activeCall.officers.push(officer);
+    const d: Date = new Date();
+
+    let officerIsAssigned = true;
+
+    this.activeCall.officers.forEach(activeOfficer => {
+      if (activeOfficer.officer.id === officer.id) {
+        officerIsAssigned = false;
+      }
+    });
+
+    if (officerIsAssigned) {
+      this.activeCall.officers.push({officer: officer, time: d.getHours() + ':' + d.getMinutes()});
+    }
+
+    return officerIsAssigned;
   }
 
   selectCall(id: number) {
     this.callGrid.instance.selectRows([id], false);
     this.callGrid.instance.expandRow(id);
+  }
+
+  initializeGrid() {
+    this.callGrid.instance.selectRowsByIndexes([0]);
   }
 }

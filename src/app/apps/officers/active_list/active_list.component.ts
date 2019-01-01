@@ -4,9 +4,7 @@ import { DispatcherHistoryService } from '../../services/dispatcher.service';
 import { CallsService } from '../../services/calls.service';
 import { OfficerService } from '../../services/officer.service';
 import DataSource from 'devextreme/data/data_source';
-import CustomStore from 'devextreme/data/custom_store';
 import Switch from 'devextreme/ui/switch';
-import ContextMenu from 'devextreme/ui/context_menu';
 import notify from 'devextreme/ui/notify';
 
 @Component({
@@ -25,24 +23,16 @@ export class ActiveListComponent implements OnInit {
 
   constructor(public officerService: OfficerService, public dispatcherHistory: DispatcherHistoryService, public callService: CallsService) {
     this.menuItems = [{
-      text: 'Assign To Current Call',
+      text: 'Dispatch To Current Call',
+      disabled: false
+    }, {
+      text: 'Update Dispatch',
       disabled: false
     }];
   }
 
   ngOnInit() {
-    this.activeOfficers = new DataSource({
-      store: new CustomStore({
-        key: 'id',
-        loadMode: 'raw',
-        load: () => {
-            return this.officerService.getOfficerList();
-        }
-      }),
-      sort: ['duty_status', 'last_name'],
-      paginate: true,
-      pageSize: 25
-    });
+    this.activeOfficers = this.officerService.getOfficerList();
   }
 
   onActiveChange(officer) {
@@ -53,18 +43,20 @@ export class ActiveListComponent implements OnInit {
     if (this.callService.getActiveCall() == null) {
       notify('Please Select a Call in which to assign  ' + officer.first_name + ' ' + officer.last_name  + '.');
       return;
-    }
+     }
 
-    if (!officer.active) {
+     if (!officer.active) {
       // needed to manually adjust list item css
       const instance = Switch.getInstance(document.getElementById('switch' + officer.id)) as Switch;
       instance.option('value', true);
       document.getElementById('switchdiv' + officer.id).className = 'officerName badge' + officer.id + ' activetrue';
-    }
+     }
 
-    this.callService.assignOfficerToActiveCall(officer, this.callService.getActiveCall());
-
-    notify('Assigning Officer ' + officer.first_name + ' ' + officer.last_name  + ' to Active Call.');
+     if (this.callService.assignOfficerToActiveCall(officer, this.callService.getActiveCall())) {
+      notify('Assigning Officer ' + officer.first_name + ' ' + officer.last_name  + ' to Active Call.');
+     } else {
+      notify('Officer ' + officer.first_name + ' ' + officer.last_name  + ' is already assigned to this Call.');
+     }
 
     this.dispatcherHistory.addHistoryItem({
       id: 0,
@@ -73,17 +65,6 @@ export class ActiveListComponent implements OnInit {
       last_name: officer.last_name,
       badge_number: officer.badge_number,
       time: new Date()
-    });
-  }
-
-  configureMenu(e, officer) {
-    const instance = ContextMenu.getInstance(document.getElementById('cm' + officer.id)) as ContextMenu;
-
-    instance.option('items').forEach(item => {
-      if (officer.call_status !== 'INACTIVE') {
-        item.disabled = true;
-        item.text = 'Assigned to Call: ' + officer.call_status;
-      }
     });
   }
 

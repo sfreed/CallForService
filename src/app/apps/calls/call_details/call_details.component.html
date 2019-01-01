@@ -1,5 +1,28 @@
-<dx-toolbar
-  [items]="callDetailsToolbarItems"
-  class="detailsContainer" >
-</dx-toolbar>
-
+<div class="detailsContainer">
+  <dx-toolbar
+    [items]="callDetailsToolbarItems"
+    class="detailsToolBar"
+    width="100%"
+    style="border: 2px solid black">
+  </dx-toolbar>
+  <div class="formSelectContainer">
+    <div class="dx-field formSelect">
+      <div class="dx-field-value" >
+        <div style="display:table-cell; vertical-align: middle;">
+          <dx-select-box
+            #itemDetail
+            [dataSource]="callForms"
+            displayExpr="name"
+            valueExpr="id">
+          </dx-select-box>
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+          <dx-button
+            icon="add"
+            (onClick)="addCallDetail($event, itemDetail)">
+          </dx-button>
+        </div>
+      </div>
+    </div>
+</div>
+</div>

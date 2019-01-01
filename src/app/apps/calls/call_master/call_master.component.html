@@ -24,23 +24,10 @@
     [allowColumnReordering]="true"
     [rowAlternationEnabled]="true"
     [showBorders]="true"
-    (onRowClick)="callSelected($event)"
-    [masterDetail]="{ enabled: true, template: 'detail' }"
-    [height]="window.innerHeight - 130"
-    (onRowPrepared)="callSelected($event)"
-    (onInitialized)="tableInitialized()">
+    [masterDetail]="{ enabled: false, template: 'detail' }"
+    [height]="window.innerHeight -139"
+    (onSelectionChanged)="selectionChanged($event)">
 
-    <dxo-editing
-      mode="popup"
-      [allowUpdating]="true">
-      <dxo-popup
-        title="Employee Info"
-        [showTitle]="true"
-        [width]="700"
-        [height]="345"
-        [position]="{ my: 'top', at: 'top', of: window }">
-        </dxo-popup>
-    </dxo-editing>
     <dxo-paging [pageSize]="20"></dxo-paging>
     <dxo-pager
         [showPageSizeSelector]="true"
@@ -55,8 +42,8 @@
 
     <dxo-sorting mode="multiple"> </dxo-sorting>
 
-    <dxi-column dataField="date" dataType=date [sortIndex]="0" sortOrder="desc"></dxi-column>
-    <dxi-column dataField="time" dataType=dat [sortIndex]="1" sortOrder="desc"></dxi-column>
+    <dxi-column dataField="date" dataType="date" [sortIndex]="0" sortOrder="desc"></dxi-column>
+    <dxi-column dataField="time" dataType="date" [sortIndex]="1" sortOrder="desc"></dxi-column>
     <dxi-column dataField="dispatcher_name" dataType="string"></dxi-column>
     <dxi-column dataField="call_type" dataType="string"></dxi-column>
     <dxi-column dataField="location" dataType="string" [calculateCellValue]="createAddress"></dxi-column>

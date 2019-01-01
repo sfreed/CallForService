@@ -9,6 +9,23 @@ export class CallDetailsComponent implements OnInit {
 
   callDetailsToolbarItems: any;
 
+  callForms: any = [{
+      id: 0,
+      name: 'Ambulance'
+    }, {
+      id: 1,
+      name: 'Tow Truck'
+    }, {
+      id: 2,
+      name: 'Involved Person'
+    }, {
+      id: 3,
+      name: 'Complaintant'
+    }, {
+      id: 4,
+      name: 'Vehicle'
+    }];
+
   constructor() {
     this.callDetailsToolbarItems = [
       {
@@ -24,4 +41,7 @@ export class CallDetailsComponent implements OnInit {
   ngOnInit() {
   }
 
+  addCallDetail(event, data) {
+    console.log('about to add Detail item ', data.selectedItem);
+  }
 }

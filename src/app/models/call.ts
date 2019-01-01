@@ -1,8 +1,9 @@
 import { Officer } from './officer';
+import { AssignedOfficer } from './assignedOfficer';
 
 export class Call {
   id: number;
-  date: Date;
+  date: string;
   time: string;
   dispatcher_name: string;
   call_type: string;
@@ -11,5 +12,5 @@ export class Call {
   state: string;
   caller_name: string;
   caller_phone_number: string;
-  officers: Officer[];
+  officers: AssignedOfficer[];
 }

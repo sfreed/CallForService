@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NotesService } from '../../services/notes.service';
+import { Note } from 'src/app/models/note';
 
 @Component({
   selector: 'app-call-notes',
@@ -9,7 +11,11 @@ export class CallNotesComponent implements OnInit {
 
   callNotesToolbarItems: any;
 
-  constructor() {
+  notes: Note[] = [];
+
+  currentNote: string;
+
+  constructor(public notesService: NotesService) {
     this.callNotesToolbarItems = [
       {
         location: 'center',
@@ -24,4 +30,9 @@ export class CallNotesComponent implements OnInit {
   ngOnInit() {
   }
 
+  saveNote(e) {
+    const d: Date = new Date();
+    this.notes.unshift({id: this.notes.length, time: d.getHours() + ':' + d.getMinutes(), text: this.currentNote});
+    this.currentNote = '';
+  }
 }

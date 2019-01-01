@@ -1,4 +1,9 @@
-.detailsContainer{
+.detailsContainer {
+  width: 100%;
+  text-align: -webkit-right;
+}
+
+.detailsToolBar {
   background-color: #476981;
   color: white;
   font-size: xx-large;

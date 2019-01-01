@@ -1,18 +1,32 @@
-import { Injectable, ViewChild } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { DxDrawerComponent } from 'devextreme-angular';
-import { DispatcherHistory } from 'src/app/models/dispatcher_history';
-
+import { DispatcherHistory } from 'src/app/models/history';
+import { DataService } from './data';
+import DataSource from 'devextreme/data/data_source';
+import ArrayStore from 'devextreme/data/array_store';
 @Injectable({
   providedIn: 'root'
 })
 export class DispatcherHistoryService {
   private historyDrawer: DxDrawerComponent;
 
-  private historyList: DispatcherHistory[] = [];
+  private historyList: DataSource;
 
-  constructor() { }
+  constructor(private dataService: DataService) {
+    this.historyList = new DataSource({
+      store : new ArrayStore({
+        key : 'id',
+        data : dataService.getHistoryList()
+      }) ,
+      sort : ['date',  'time'],
+      paginate : true,
+      pageSize : 18
+    });
 
-  getDispatcherHistoryList(): DispatcherHistory[] {
+
+  }
+
+  getDispatcherHistoryList(): DataSource {
     return this.historyList;
   }
 
@@ -25,11 +39,11 @@ export class DispatcherHistoryService {
   }
 
   public addHistoryItem(historyItem: DispatcherHistory) {
-    this.historyList.push(historyItem);
+    this.historyList.store().push([historyItem]);
   }
 
   public removeHistoryItem(historyItem: DispatcherHistory) {
-    this.historyList.splice(this.historyList.findIndex(item => item.id === historyItem.id), 1);
+    this.historyList.store().remove(historyItem.id);
   }
 
   toggleDispatcherHistory() {
