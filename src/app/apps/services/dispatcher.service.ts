@@ -20,10 +20,9 @@ export class DispatcherHistoryService {
       }) ,
       sort : ['date',  'time'],
       paginate : true,
-      pageSize : 18
+      pageSize : 18,
+      onChanged: (e) => { console.log(e); }
     });
-
-
   }
 
   getDispatcherHistoryList(): DataSource {
@@ -39,7 +38,7 @@ export class DispatcherHistoryService {
   }
 
   public addHistoryItem(historyItem: DispatcherHistory) {
-    this.historyList.store().push([historyItem]);
+    this.historyList.store().push([{ type: 'insert', data: historyItem }]);
   }
 
   public removeHistoryItem(historyItem: DispatcherHistory) {

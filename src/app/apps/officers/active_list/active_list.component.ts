@@ -6,6 +6,7 @@ import { OfficerService } from '../../services/officer.service';
 import DataSource from 'devextreme/data/data_source';
 import Switch from 'devextreme/ui/switch';
 import notify from 'devextreme/ui/notify';
+import uuid from 'UUID';
 
 @Component({
   selector: 'app-active-list',
@@ -23,9 +24,19 @@ export class ActiveListComponent implements OnInit {
 
   constructor(public officerService: OfficerService, public dispatcherHistory: DispatcherHistoryService, public callService: CallsService) {
     this.menuItems = [{
+      id: 0,
+      text: 'Clock in',
+      disabled: false
+    }, {
+      id: 1,
+      text: 'Clock Out',
+      disabled: false
+    }, {
+      id: 2,
       text: 'Dispatch To Current Call',
       disabled: false
     }, {
+      id: 3,
       text: 'Update Dispatch',
       disabled: false
     }];
@@ -35,37 +46,44 @@ export class ActiveListComponent implements OnInit {
     this.activeOfficers = this.officerService.getOfficerList();
   }
 
-  onActiveChange(officer) {
-    this.officerService.changeDutyStatus(officer);
-  }
-
   contextItemClick(e, officer) {
-    if (this.callService.getActiveCall() == null) {
-      notify('Please Select a Call in which to assign  ' + officer.first_name + ' ' + officer.last_name  + '.');
-      return;
-     }
+    if (e.itemData.id === 0) {
+      if (officer.active) {
+        notify(officer.first_name + ' ' + officer.last_name  + ' is already clocked in.', 'warning');
+      } else {
+        this.officerService.changeDutyStatus(officer);
+      }
+    } else if (e.itemData.id === 1) {
+      if (!officer.active) {
+        notify(officer.first_name + ' ' + officer.last_name  + ' is already clocked out.', 'warning');
+      } else {
+        this.officerService.changeDutyStatus(officer);
+      }
+    } else {
+      if (this.callService.getActiveCall() == null) {
+        notify('Please Select a Call in which to assign  ' + officer.first_name + ' ' + officer.last_name  + '.', 'waring');
+        return;
+      }
 
-     if (!officer.active) {
-      // needed to manually adjust list item css
-      const instance = Switch.getInstance(document.getElementById('switch' + officer.id)) as Switch;
-      instance.option('value', true);
-      document.getElementById('switchdiv' + officer.id).className = 'officerName badge' + officer.id + ' activetrue';
-     }
+      if (!officer.active) {
+        this.officerService.changeDutyStatus(officer);
+      }
 
-     if (this.callService.assignOfficerToActiveCall(officer, this.callService.getActiveCall())) {
-      notify('Assigning Officer ' + officer.first_name + ' ' + officer.last_name  + ' to Active Call.');
-     } else {
-      notify('Officer ' + officer.first_name + ' ' + officer.last_name  + ' is already assigned to this Call.');
-     }
+      if (this.callService.assignOfficerToActiveCall(officer, this.callService.getActiveCall())) {
+        notify('Assigning Officer ' + officer.first_name + ' ' + officer.last_name  + ' to Active Call.', 'success');
+      } else {
+        notify('Officer ' + officer.first_name + ' ' + officer.last_name  + ' is already assigned to this Call.', 'warning');
+      }
 
-    this.dispatcherHistory.addHistoryItem({
-      id: 0,
-      action: 'Assigning to Call ' + this.callService.getActiveCall().id,
-      first_name: officer.first_name,
-      last_name: officer.last_name,
-      badge_number: officer.badge_number,
-      time: new Date()
-    });
+      this.dispatcherHistory.addHistoryItem({
+        id: uuid(),
+        action: 'Assigning to Call ' + this.callService.getActiveCall().id,
+        first_name: officer.first_name,
+        last_name: officer.last_name,
+        badge_number: officer.badge_number,
+        time: new Date()
+      });
+    }
   }
 
   selectOfficer(e) {

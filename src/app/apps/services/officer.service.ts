@@ -4,6 +4,7 @@ import { DispatcherHistoryService } from './dispatcher.service';
 import DataSource from 'devextreme/data/data_source';
 import ArrayStore from 'devextreme/data/array_store';
 import { DataService } from './data';
+import uuid from 'UUID';
 
 @Injectable({
   providedIn:  'root'
@@ -33,7 +34,7 @@ export class OfficerService {
       officer.active = false;
 
       this.dispatcherHistory.addHistoryItem({
-        id : 0,
+        id : uuid(),
         action : 'Clock Out',
         first_name : officer.first_name,
         last_name : officer.last_name,
@@ -43,7 +44,7 @@ export class OfficerService {
       officer.active = true;
 
       this.dispatcherHistory.addHistoryItem({
-        id :  0 ,
+        id :  uuid(),
         action : 'Clock In',
         first_name : officer.first_name,
         last_name : officer.last_name,
