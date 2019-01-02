@@ -1,6 +1,7 @@
 import { Officer } from 'src/app/models/officer';
 import { Injectable } from '@angular/core';
 import { Call } from 'src/app/models/call';
+import { DispatcherHistory } from 'src/app/models/history';
 
 @Injectable()
 export class DataService {
@@ -13,10 +14,12 @@ export class DataService {
     }
 
     getHistoryList() {
-      return [];
+      return historyList;
     }
 
 }
+const historyList: DispatcherHistory[] = [];
+
 const officerList:  Officer[] = [
   {'id' : 1 , 'first_name' : 'Roxie' , 'last_name' : 'Casellas' , 'badge_number' : 99 , 'active' : false , 'call_status' : 'INACTIVE' ,  'current_call' :  0} ,
   {'id' : 2 , 'first_name' : 'Lucian' , 'last_name' : 'Lowdiane' , 'badge_number' : 13 , 'active' : false , 'call_status' : 'INACTIVE' ,  'current_call' :  0} ,

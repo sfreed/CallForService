@@ -5,7 +5,8 @@ import { Call } from 'src/app/models/call';
 import { Officer } from 'src/app/models/officer';
 import { DxDataGridComponent } from 'devextreme-angular';
 import { DataService } from './data';
-import notify from 'devextreme/ui/notify';
+import PriorityQueue from 'priorityqueue';
+import { QueueScheduler } from 'rxjs/internal/scheduler/QueueScheduler';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,8 @@ export class CallsService {
   private callList: DataSource;
 
   private activeCall: Call;
+
+  officerQueue = new Map();
 
   private callForms: any = [{
     id: 0,
@@ -74,6 +77,8 @@ export class CallsService {
       this.activeCall.officers.push({officer: officer, time: d.getHours() + ':' + d.getMinutes()});
     }
 
+    // this.addCallToOfficerQueue(officer, call);
+
     return officerIsAssigned;
   }
 
@@ -84,5 +89,19 @@ export class CallsService {
 
   initializeGrid() {
     this.callGrid.instance.selectRowsByIndexes([0]);
+  }
+
+  addCallToOfficerQueue(officer: Officer, call: Call) {
+    let queue: PriorityQueue = this.officerQueue.get(officer.id);
+
+    if (queue == null) {
+      queue = new PriorityQueue({
+        comparator: (a, b) =>
+          a.order !== b.order ? a.order - b.order : a.order - b.order
+      });
+    }
+    queue.push({order: queue.size(), call});
+
+    this.officerQueue.set(officer.id, queue);
   }
 }

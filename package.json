@@ -29,6 +29,7 @@
     "hammerjs": "^2.0.8",
     "ng-dock-panel": "^1.0.1",
     "ng2-dragula": "^2.1.1",
+    "priorityqueue": "^0.2.1",
     "rxjs": "~6.2.0",
     "stream": "0.0.2",
     "streams": "^0.1.0",
@@ -36,7 +37,7 @@
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.8.0",
+    "@angular-devkit/build-angular": "^0.11.4",
     "@angular/cli": "~6.2.3",
     "@angular/compiler-cli": "^6.1.0",
     "@angular/language-service": "^6.1.0",
