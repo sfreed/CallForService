@@ -4,9 +4,10 @@ import { DispatcherHistoryService } from '../../services/dispatcher.service';
 import { CallsService } from '../../services/calls.service';
 import { OfficerService } from '../../services/officer.service';
 import DataSource from 'devextreme/data/data_source';
-import Switch from 'devextreme/ui/switch';
 import notify from 'devextreme/ui/notify';
 import uuid from 'UUID';
+import { Officer } from 'src/app/models/officer';
+import PriorityQueue from 'priorityqueue';
 
 @Component({
   selector: 'app-active-list',
@@ -21,6 +22,10 @@ export class ActiveListComponent implements OnInit {
   activeOfficers: DataSource;
 
   menuItems: any;
+
+  showOfficerQueue = false;
+
+  officerQueue: PriorityQueue;
 
   constructor(public officerService: OfficerService, public dispatcherHistory: DispatcherHistoryService, public callService: CallsService) {
     this.menuItems = [{
@@ -37,7 +42,7 @@ export class ActiveListComponent implements OnInit {
       disabled: false
     }, {
       id: 3,
-      text: 'Update Dispatch',
+      text: 'View Officer Call Queue',
       disabled: false
     }];
   }
@@ -59,6 +64,9 @@ export class ActiveListComponent implements OnInit {
       } else {
         this.officerService.changeDutyStatus(officer);
       }
+    } else if (e.itemData.id === 3) {
+      this.officerQueue = this.callService.getOfficerQueue(officer);
+      this.showOfficerQueue = true;
     } else {
       if (this.callService.getActiveCall() == null) {
         notify('Please Select a Call in which to assign  ' + officer.first_name + ' ' + officer.last_name  + '.', 'waring');
@@ -92,5 +100,28 @@ export class ActiveListComponent implements OnInit {
     }
 
     this.callService.selectCall(e.itemData.current_call);
+  }
+
+  getOfficerQueue(officer: Officer): number {
+    const q = this.callService.getOfficerQueue(officer);
+    if (q) {
+      return q.size();
+    } else {
+      return 0;
+    }
+  }
+
+  createAddress(data) {
+    return data.call.address + ' ' + data.call.city + ', ' + data.call.state;
+  }
+
+  moveRowUp(cell, options) {
+    options.instance.selectRowsByIndexes([cell.rowIndex]).then(r => r[0].order = r[0].order - 1  );
+    options.instance.selectRowsByIndexes([cell.rowIndex - 1]).then(r => r[0].order = r[0].order + 1 );
+  }
+
+  moveRowDown(cell, options) {
+    options.instance.selectRowsByIndexes([cell.rowIndex]).then(r => r[0].order = r[0].order + 1  );
+    options.instance.selectRowsByIndexes([cell.rowIndex - 1]).then(r => r[0].order = r[0].order - 1 );
   }
 }

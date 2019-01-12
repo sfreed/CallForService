@@ -6,7 +6,6 @@ import { Officer } from 'src/app/models/officer';
 import { DxDataGridComponent } from 'devextreme-angular';
 import { DataService } from './data';
 import PriorityQueue from 'priorityqueue';
-import { QueueScheduler } from 'rxjs/internal/scheduler/QueueScheduler';
 
 @Injectable({
   providedIn: 'root'
@@ -77,7 +76,7 @@ export class CallsService {
       this.activeCall.officers.push({officer: officer, time: d.getHours() + ':' + d.getMinutes()});
     }
 
-    // this.addCallToOfficerQueue(officer, call);
+    this.addCallToOfficerQueue(officer, call);
 
     return officerIsAssigned;
   }
@@ -103,5 +102,11 @@ export class CallsService {
     queue.push({order: queue.size(), call});
 
     this.officerQueue.set(officer.id, queue);
+
+    console.log(queue.toArray());
+  }
+
+  getOfficerQueue(officer: Officer): PriorityQueue {
+    return this.officerQueue.get(officer.id);
   }
 }

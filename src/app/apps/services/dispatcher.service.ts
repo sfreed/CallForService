@@ -20,8 +20,7 @@ export class DispatcherHistoryService {
       }) ,
       sort : ['date',  'time'],
       paginate : true,
-      pageSize : 18,
-      onChanged: (e) => { console.log(e); }
+      pageSize : 18
     });
   }
 

@@ -3,7 +3,7 @@ import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { DxBoxModule, DxListModule, DxDataGridModule, DxSwitchModule, DxToolbarModule, DxSelectBoxModule,
-  DxButtonModule, DxDrawerModule, DxScrollViewModule, DxContextMenuModule, DxTextAreaModule} from 'devextreme-angular';
+  DxButtonModule, DxDrawerModule, DxScrollViewModule, DxContextMenuModule, DxTextAreaModule, DxPopupModule} from 'devextreme-angular';
 import { ActiveListComponent} from './officers/active_list/active_list.component';
 import { OfficerService } from './services/officer.service';
 import { DispatcherHistoryComponent } from './dispatcher/dispatcherHistory/dispatcherHistory.component';
@@ -18,7 +18,7 @@ import { DataService } from './services/data';
 @NgModule({
   imports: [ BrowserModule, BrowserAnimationsModule, HttpModule,
     DxBoxModule, DxListModule, DxDataGridModule, DxSwitchModule, DxToolbarModule, DxSelectBoxModule, DxButtonModule,
-    DxDrawerModule, DxScrollViewModule, DxContextMenuModule, DxTextAreaModule ],
+    DxDrawerModule, DxScrollViewModule, DxContextMenuModule, DxTextAreaModule, DxPopupModule ],
   declarations: [ActiveListComponent, DispatcherHistoryComponent, CallMasterComponent, CallOfficersComponent,
                 CallDetailsComponent, CallNotesComponent ],
   providers: [ OfficerService, DispatcherHistory, DataService ],
