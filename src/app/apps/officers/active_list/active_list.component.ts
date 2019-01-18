@@ -98,8 +98,6 @@ export class ActiveListComponent implements OnInit {
     if (e.itemData.call_status === 'INACTIVE') {
       notify('Officer ' + e.itemData.first_name + ' ' + e.itemData.last_name  + ' not assigned to an Active Call.');
     }
-
-    this.callService.selectCall(e.itemData.current_call);
   }
 
   getOfficerQueue(officer: Officer): number {

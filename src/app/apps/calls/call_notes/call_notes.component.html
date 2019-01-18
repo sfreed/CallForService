@@ -2,30 +2,29 @@
   [items]="callNotesToolbarItems"
   class="notesContainer" >
 </dx-toolbar>
-<dx-data-grid id="gridContainer"
-    [dataSource]="notes"
-    [rowAlternationEnabled]="true"
-    [showBorders]="true"
-    [showColumnHeaders]="true"
-    height="275">
-    <dxo-scrolling mode="virtual"></dxo-scrolling>
-    <dxo-selection mode="single"></dxo-selection>
-    <dxi-column dataField="time" dataType="string" [sortIndex]="0" width="20%"></dxi-column>
-    <dxi-column dataField="text" dataType="string"></dxi-column>
-</dx-data-grid>
+<div *ngIf="callService.getActiveCall()" class="detailsContainer">
+  <dx-data-grid id="gridContainer"
+      [dataSource]="callService.getActiveCall().notes"
+      [rowAlternationEnabled]="true"
+      [showBorders]="true"
+      [showColumnHeaders]="true"
+      height="275">
+      <dxo-scrolling mode="virtual"></dxo-scrolling>
+      <dxo-selection mode="single"></dxo-selection>
+      <dxi-column dataField="time" dataType="string" [sortIndex]="0" width="20%"></dxi-column>
+      <dxi-column dataField="text" dataType="string"></dxi-column>
+  </dx-data-grid>
 
-<hr>
-<dx-text-area class="currentNoteTextField"
-  [(value)]="currentNote"
-  [height]="80"
-  placeholder="Type note here...">
-</dx-text-area>
-
-<dx-button class="saveButton"
-  width='100%'
-  text="Save Note"
-  (onClick)="saveNote($event)">
-</dx-button>
-
-
-
+  <hr>
+  <dx-text-area class="currentNoteTextField"
+    [(value)]="currentNote"
+    [height]="80"
+    placeholder="Type note here...">
+  </dx-text-area>
+  <hr>
+  <dx-button class="saveButton"
+    width='100%'
+    text="Save Note"
+    (onClick)="saveNote($event)">
+  </dx-button>
+</div>

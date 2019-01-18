@@ -38,11 +38,30 @@
                 <dx-box
                   direction="col"
                   width="100%"
-                  [height]="window.innerHeight - 70">
+                  [height]="window.innerHeight+200">
                   <dxi-item
                     class="rect callTableBox"
                     [ratio]="1">
                       <app-call-master></app-call-master>
+                  </dxi-item>
+                  <dxi-item
+                    class="rect"
+                   [ratio]="2">
+                   <dx-box
+                   direction="row"
+                   width="100%"
+                   [height]="window.innerHeight">
+                   <dxi-item
+                     class="rect callDetailsBox"
+                     [ratio]="2">
+                     <app-call-details></app-call-details>
+                   </dxi-item>
+                   <dxi-item
+                     class="rect callDetailsNotesBox"
+                     [ratio]="1">
+                     <app-call-notes></app-call-notes>
+                   </dxi-item>
+                 </dx-box>
                   </dxi-item>
                 </dx-box>
             </dx-drawer>

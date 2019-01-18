@@ -1,28 +1,33 @@
-<div class="detailsContainer">
-  <dx-toolbar
-    [items]="callDetailsToolbarItems"
-    class="detailsToolBar"
-    width="100%"
-    style="border: 2px solid black">
-  </dx-toolbar>
-  <div class="formSelectContainer">
-    <div class="dx-field formSelect">
-      <div class="dx-field-value" >
-        <div style="display:table-cell; vertical-align: middle;">
-          <dx-select-box
-            #itemDetail
-            [dataSource]="callForms"
-            displayExpr="name"
-            valueExpr="id">
-          </dx-select-box>
-        </div>
-        <div style="display:table-cell; vertical-align: middle;">
-          <dx-button
-            icon="add"
-            (onClick)="addCallDetail($event, itemDetail)">
-          </dx-button>
-        </div>
-      </div>
-    </div>
-</div>
+<dx-toolbar
+  class="detailsToolBar"
+  width="100%">
+  <dxi-item [location]="'center'" locateInMenu="never">
+      <div style="font-size: large;">Call Details</div>
+  </dxi-item>
+</dx-toolbar>
+<div *ngIf="callService.getActiveCall()" class="detailsContainer">
+  <dx-tab-panel
+    [height]="425"
+    [loop]="false"
+    [noDataText]="'No Items added to Call!'">
+
+    <dxi-item class="tabpanel-item" title="Officers">
+      <app-call-officers></app-call-officers>
+    </dxi-item>
+    <dxi-item class="tabpanel-item" title="Complaintants">
+        <app-complaintants></app-complaintants>
+    </dxi-item>
+    <dxi-item class="tabpanel-item" title="Involved Persons">
+        <app-involved-persons></app-involved-persons>
+    </dxi-item>
+    <dxi-item class="tabpanel-item" title="Ambulances">
+      <app-ambulances></app-ambulances>
+    </dxi-item>
+    <dxi-item class="tabpanel-item" title="Tow Trucks">
+      <app-tow-trucks></app-tow-trucks>
+    </dxi-item>
+    <dxi-item class="tabpanel-item" title="Vehicles">
+      <app-vehicles></app-vehicles>
+    </dxi-item>
+  </dx-tab-panel>
 </div>

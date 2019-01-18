@@ -24,51 +24,28 @@
     [allowColumnReordering]="true"
     [rowAlternationEnabled]="true"
     [showBorders]="true"
-    [masterDetail]="{ enabled: false, template: 'detail' }"
-    [height]="window.innerHeight -139"
+    [height]="window.innerHeight / 2 - 135"
     (onSelectionChanged)="selectionChanged($event)">
 
+    <dxo-editing
+      mode="popup"
+      [allowUpdating]="true">
+    </dxo-editing>
     <dxo-paging [pageSize]="20"></dxo-paging>
     <dxo-pager
         [showPageSizeSelector]="true"
         [allowedPageSizes]="[20, 40, 60]"
         [showInfo]="true">
     </dxo-pager>
-    <dxo-filter-row
-        [visible]="true"></dxo-filter-row>
-    <dxo-header-filter
-        [visible]="true"></dxo-header-filter>
+    <dxo-filter-row [visible]="true"></dxo-filter-row>
+    <dxo-header-filter [visible]="true"></dxo-header-filter>
     <dxo-selection mode="single"></dxo-selection>
-
     <dxo-sorting mode="multiple"> </dxo-sorting>
 
     <dxi-column dataField="date" dataType="date" [sortIndex]="0" sortOrder="desc"></dxi-column>
-    <dxi-column dataField="time" dataType="date" [sortIndex]="1" sortOrder="desc"></dxi-column>
+    <dxi-column dataField="time" dataType="string" [sortIndex]="1" sortOrder="desc"></dxi-column>
     <dxi-column dataField="dispatcher_name" dataType="string"></dxi-column>
     <dxi-column dataField="call_type" dataType="string"></dxi-column>
     <dxi-column dataField="location" dataType="string" [calculateCellValue]="createAddress"></dxi-column>
     <dxi-column dataField="caller_name" dataType="string"></dxi-column>
-
-    <div *dxTemplate="let call of 'detail'">
-      <dx-box
-        direction="row"
-        width="100%"
-        [height]="window.innerHeight / 2">
-        <dxi-item
-          class="rect callDetailsOfficersBox"
-          [ratio]="1">
-          <app-call-officers></app-call-officers>
-        </dxi-item>
-        <dxi-item
-          class="rect callDetailsBox"
-          [ratio]="2">
-          <app-call-details></app-call-details>
-        </dxi-item>
-        <dxi-item
-          class="rect callDetailsNotesBox"
-          [ratio]="1">
-          <app-call-notes></app-call-notes>
-        </dxi-item>
-      </dx-box>
-    </div>
 </dx-data-grid>

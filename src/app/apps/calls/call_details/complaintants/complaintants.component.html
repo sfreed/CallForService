@@ -1,0 +1,21 @@
+<div *ngIf="callService.getActiveCall()">
+  <dx-data-grid id="complaintantsGrid"
+    [dataSource]="callService.getActiveCall().complaintants"
+    [rowAlternationEnabled]="true"
+    [showBorders]="true"
+    [showColumnHeaders]="true"
+    height="420">
+    <dxo-scrolling mode="virtual"></dxo-scrolling>
+    <dxo-selection mode="single"></dxo-selection>
+    <dxo-editing
+      mode="popup"
+      [allowUpdating]="true"
+      [allowDeleting]="true"
+      [allowAdding]="true">
+    </dxo-editing>
+    <dxi-column dataField="id" dataType="number" [visible]="false"></dxi-column>
+    <dxi-column dataField="first_name" dataType="string"></dxi-column>
+    <dxi-column dataField="last_name" dataType="string"></dxi-column>
+    <dxi-column dataField="address" dataType="string"></dxi-column>
+  </dx-data-grid>
+</div>

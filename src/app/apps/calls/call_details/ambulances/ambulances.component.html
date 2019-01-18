@@ -1,0 +1,21 @@
+<div *ngIf="callService.getActiveCall()">
+  <dx-data-grid id="ambulanceGrid"
+    [dataSource]="callService.getActiveCall().ambulances"
+    [rowAlternationEnabled]="true"
+    [showBorders]="true"
+    [showColumnHeaders]="true"
+    height="420">
+    <dxo-scrolling mode="virtual"></dxo-scrolling>
+    <dxo-selection mode="single"></dxo-selection>
+    <dxo-editing
+      mode="popup"
+      [allowUpdating]="true"
+      [allowDeleting]="true"
+      [allowAdding]="true">
+    </dxo-editing>
+    <dxi-column dataField="id" dataType="string" [visible]="false"></dxi-column>
+    <dxi-column dataField="ambulance_number" dataType="string"></dxi-column>
+    <dxi-column dataField="driver_name" dataType="string"></dxi-column>
+    <dxi-column dataField="dispatch_time" dataType="Date"></dxi-column>
+  </dx-data-grid>
+</div>

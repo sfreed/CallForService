@@ -9,4 +9,15 @@
   font-size: xx-large;
   padding-top:0px;
   margin-top: 0px;
+  align-content: center;
+}
+
+::ng-deep .tabpanel-item {
+  background-color: #fff;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }

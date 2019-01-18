@@ -11,7 +11,7 @@
     <div
       id="switchdiv{{data.id}}"
       class="officerName badge{{data.id}} active{{data.active}}">
-        #{{data.badge_number}}:{{data.last_name}}, {{data.first_name}} ({{getOfficerQueue(data)}})
+        #{{data.badge_number}} : {{data.last_name}}, {{data.first_name}} <span style="float:right;">({{getOfficerQueue(data)}})</span>
     </div>
 
     <dx-context-menu

@@ -1,5 +1,9 @@
-import { Officer } from './officer';
 import { AssignedOfficer } from './assignedOfficer';
+import { Note } from './note';
+import { Ambulance } from './ambulance';
+import { TowTruck } from './towTruck';
+import { Vehicle } from './vehicle';
+import { Person } from './person';
 
 export class Call {
   id: number;
@@ -12,5 +16,11 @@ export class Call {
   state: string;
   caller_name: string;
   caller_phone_number: string;
-  officers: AssignedOfficer[];
+  officers?: AssignedOfficer[];
+  notes?: Note[];
+  ambulances?: Ambulance[];
+  towTrucks?: TowTruck[];
+  complaintants?: Person[];
+  vehicles?: Vehicle[];
+  involvedPersons?: Person[];
 }

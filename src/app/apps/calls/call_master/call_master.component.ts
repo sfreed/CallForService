@@ -38,9 +38,7 @@ export class CallMasterComponent implements OnInit {
   }
 
   selectionChanged(e) {
+    console.log(e.selectedRowsData[0]);
     this.callService.setActiveCall(e.selectedRowsData[0]);
-    e.component.collapseAll(-1);
-    e.component.expandRow(e.currentSelectedRowKeys[0]);
-
   }
 }

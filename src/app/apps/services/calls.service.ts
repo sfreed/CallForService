@@ -74,20 +74,10 @@ export class CallsService {
 
     if (officerIsAssigned) {
       this.activeCall.officers.push({officer: officer, time: d.getHours() + ':' + d.getMinutes()});
+      this.addCallToOfficerQueue(officer, call);
     }
 
-    this.addCallToOfficerQueue(officer, call);
-
     return officerIsAssigned;
-  }
-
-  selectCall(id: number) {
-    this.callGrid.instance.selectRows([id], false);
-    this.callGrid.instance.expandRow(id);
-  }
-
-  initializeGrid() {
-    this.callGrid.instance.selectRowsByIndexes([0]);
   }
 
   addCallToOfficerQueue(officer: Officer, call: Call) {

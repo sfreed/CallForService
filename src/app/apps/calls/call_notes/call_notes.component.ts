@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NotesService } from '../../services/notes.service';
 import { Note } from 'src/app/models/note';
+import { CallsService } from '../../services/calls.service';
+import { Call } from 'src/app/models/call';
 
 @Component({
   selector: 'app-call-notes',
@@ -8,14 +10,11 @@ import { Note } from 'src/app/models/note';
   styleUrls: ['./call_notes.component.css']
 })
 export class CallNotesComponent implements OnInit {
-
   callNotesToolbarItems: any;
-
-  notes: Note[] = [];
 
   currentNote: string;
 
-  constructor(public notesService: NotesService) {
+  constructor(public notesService: NotesService, public callService: CallsService) {
     this.callNotesToolbarItems = [
       {
         location: 'center',
@@ -27,12 +26,11 @@ export class CallNotesComponent implements OnInit {
     ];
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   saveNote(e) {
     const d: Date = new Date();
-    this.notes.unshift({id: this.notes.length, time: d.getHours() + ':' + d.getMinutes(), text: this.currentNote});
+    this.callService.getActiveCall().notes.unshift({id: this.callService.getActiveCall().notes.length, time: d.getHours() + ':' + d.getMinutes(), text: this.currentNote});
     this.currentNote = '';
   }
 }
