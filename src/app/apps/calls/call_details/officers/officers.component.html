@@ -4,10 +4,15 @@
     [rowAlternationEnabled]="true"
     [showBorders]="true"
     [showColumnHeaders]="true"
-    height="420">
+    height="380">
     <dxo-scrolling mode="virtual"></dxo-scrolling>
     <dxo-selection mode="single"></dxo-selection>
+    <dxo-editing
+      mode="popup"
+      [allowDeleting]="true"
+      [allowAdding]="true">
 
+    </dxo-editing>
     <dxi-column dataField="time" dataType="string"></dxi-column>
     <dxi-column dataField="officer.last_name" dataType="string" caption="First Name"></dxi-column>
     <dxi-column dataField="officer.first_name" dataType="string" caption="Last Name"></dxi-column>

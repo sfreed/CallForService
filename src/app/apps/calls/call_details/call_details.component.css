@@ -1,6 +1,5 @@
 .detailsContainer {
   width: 100%;
-  text-align: -webkit-right;
 }
 
 .detailsToolBar {
@@ -20,4 +19,7 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+.bolded {
+  font-weight: bold;
 }

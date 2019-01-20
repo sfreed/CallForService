@@ -1,0 +1,26 @@
+<div *ngIf="callService.getActiveCall()">
+  <dx-form id="callForm" class="callForm"
+    [formData]="callService.getActiveCall()"
+    [colCount]="2">
+    <dxi-item itemType="group" caption="Call Information" [widthRatio]="1">
+      <dxi-item dataField="id"></dxi-item>
+      <dxi-item dataField="date"></dxi-item>
+      <dxi-item dataField="time"></dxi-item>
+      <dxi-item dataField="dispatcher_name"></dxi-item>
+      <dxi-item dataField="call_type"></dxi-item>
+    </dxi-item>
+    <dxi-item itemType="group" caption="Caller Information" [widthRatio]="1">
+      <dxi-item dataField="address"></dxi-item>
+      <dxi-item dataField="city"></dxi-item>
+      <dxi-item dataField="state"></dxi-item>
+      <dxi-item dataField="caller_name"></dxi-item>
+      <dxi-item dataField="caller_phone_number"></dxi-item>
+    </dxi-item>
+    <dxi-item itemType="group"></dxi-item>
+    <dxi-item
+      itemType="button"
+      horizontalAlignment="right"
+      [buttonOptions]="buttonOptions">
+    </dxi-item>
+  </dx-form>
+  </div>

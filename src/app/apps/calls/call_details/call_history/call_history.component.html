@@ -1,0 +1,14 @@
+<div *ngIf="callService.getActiveCall()">
+  <dx-data-grid id="callHistoryGrid"
+    [dataSource]="callService.getActiveCall().call_history"
+    [rowAlternationEnabled]="true"
+    [showBorders]="true"
+    [showColumnHeaders]="true"
+    height="380">
+    <dxo-scrolling mode="virtual"></dxo-scrolling>
+    <dxo-selection mode="single"></dxo-selection>
+    <dxi-column dataField="id" dataType="number" [visible]="false"></dxi-column>
+    <dxi-column dataField="time" dataType="string"></dxi-column>
+    <dxi-column dataField="action" dataType="string"></dxi-column>
+  </dx-data-grid>
+</div>

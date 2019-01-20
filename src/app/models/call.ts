@@ -23,4 +23,5 @@ export class Call {
   complaintants?: Person[];
   vehicles?: Vehicle[];
   involvedPersons?: Person[];
+  call_history?: Note[];
 }
