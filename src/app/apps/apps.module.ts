@@ -3,7 +3,7 @@ import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { DxBoxModule, DxListModule, DxDataGridModule, DxSwitchModule, DxToolbarModule, DxSelectBoxModule,
-  DxButtonModule, DxDrawerModule, DxScrollViewModule, DxContextMenuModule, DxTextAreaModule, DxPopupModule, DxTabPanelModule, DxFormModule} from 'devextreme-angular';
+  DxButtonModule, DxDrawerModule, DxScrollViewModule, DxContextMenuModule, DxTextAreaModule, DxPopupModule, DxTabPanelModule, DxFormModule, DxAccordionModule} from 'devextreme-angular';
 import { ActiveListComponent} from './officers/active_list/active_list.component';
 import { OfficerService } from './services/officer.service';
 import { DispatcherHistoryComponent } from './dispatcher/dispatcherHistory/dispatcherHistory.component';
@@ -20,11 +20,12 @@ import { InvolvedPersonsComponent } from './calls/call_details/involved_persons/
 import { TowTrucksComponent } from './calls/call_details/tow_trucks/tow_trucks.component';
 import { CallHistoryComponent } from './calls/call_details/call_history/call_history.component';
 import { DetailsComponent } from './calls/call_details/details/details.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
-  imports: [ BrowserModule, BrowserAnimationsModule, HttpModule,
+  imports: [ BrowserModule, BrowserAnimationsModule, HttpModule, DragDropModule,
     DxBoxModule, DxListModule, DxDataGridModule, DxSwitchModule, DxToolbarModule, DxSelectBoxModule, DxButtonModule,
-    DxDrawerModule, DxTabPanelModule, DxContextMenuModule, DxTextAreaModule, DxPopupModule, DxFormModule ],
+    DxDrawerModule, DxTabPanelModule, DxContextMenuModule, DxTextAreaModule, DxPopupModule, DxFormModule, DxAccordionModule ],
   declarations: [ActiveListComponent, DispatcherHistoryComponent, CallMasterComponent,
     CallDetailsComponent, CallNotesComponent, CallHistoryComponent, DetailsComponent,
     OfficersComponent, AmbulancesComponent, VehiclesComponent, ComplaintantsComponent, InvolvedPersonsComponent, TowTrucksComponent ],

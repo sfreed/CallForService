@@ -11,22 +11,38 @@ import uuid from 'UUID';
 })
 export class OfficerService {
 
-  private officerList:  DataSource;
+  private activeOfficersList:  DataSource;
+
+  private inactiveOfficerList:  DataSource;
 
   constructor(private dispatcherHistory: DispatcherHistoryService, dataService: DataService) {
-    this.officerList = new DataSource({
+    this.activeOfficersList = new DataSource({
       store : new ArrayStore({
         key : 'id',
         data : dataService.getOfficerList()
       }) ,
+      filter: [ 'active' , true ],
       sort : ['duty_status',  'last_name'],
-      paginate : true,
-      pageSize : 18
+      paginate: false
+    });
+
+    this.inactiveOfficerList = new DataSource({
+      store : new ArrayStore({
+        key : 'id',
+        data : dataService.getOfficerList()
+      }) ,
+      filter: [ 'active' , false ],
+      sort : ['duty_status',  'last_name'],
+      paginate: false
     });
   }
 
-  getOfficerList():  DataSource {
-    return this.officerList;
+  getActiveOfficerList():  DataSource {
+    return this.activeOfficersList;
+  }
+
+  getInactiveOfficerList():  DataSource {
+    return this.inactiveOfficerList;
   }
 
   changeDutyStatus(officer: Officer) {
@@ -40,6 +56,9 @@ export class OfficerService {
         last_name : officer.last_name,
         badge_number : officer.badge_number,
         time : new Date()});
+
+        this.activeOfficersList.store().push(([{ type: 'remove', key: officer.id }]));
+        this.inactiveOfficerList.store().push(([{ type: 'insert', data: officer }]));
     } else {
       officer.active = true;
 
@@ -50,6 +69,9 @@ export class OfficerService {
         last_name : officer.last_name,
         badge_number : officer.badge_number,
         time : new Date()});
+
+        this.inactiveOfficerList.store().push(([{ type: 'remove', key: officer.id }]));
+        this.activeOfficersList.store().push(([{ type: 'insert', data: officer }]));
     }
   }
 }

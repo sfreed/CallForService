@@ -8,6 +8,7 @@ import notify from 'devextreme/ui/notify';
 import uuid from 'UUID';
 import { Officer } from 'src/app/models/officer';
 import PriorityQueue from 'priorityqueue';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-active-list',
@@ -15,24 +16,26 @@ import PriorityQueue from 'priorityqueue';
   styleUrls: ['./active_list.component.css'],
 })
 export class ActiveListComponent implements OnInit {
-  @ViewChild(DxListComponent) list: DxListComponent;
+  @ViewChild('inActiveOfficersList') inActiveOfficersList: DxListComponent;
+
+  @ViewChild('activeOfficersList') activeOfficersList: DxListComponent;
 
   public window: Window = window;
 
+  inActiveOfficers: DataSource;
+
   activeOfficers: DataSource;
 
-  menuItems: any;
+  activeMenuItems: any;
+
+  inactiveMenuItems: any;
 
   showOfficerQueue = false;
 
   officerQueue: PriorityQueue;
 
   constructor(public officerService: OfficerService, public dispatcherHistory: DispatcherHistoryService, public callService: CallsService) {
-    this.menuItems = [{
-      id: 0,
-      text: 'Clock in',
-      disabled: false
-    }, {
+    this.activeMenuItems = [{
       id: 1,
       text: 'Clock Out',
       disabled: false
@@ -45,10 +48,17 @@ export class ActiveListComponent implements OnInit {
       text: 'View Officer Call Queue',
       disabled: false
     }];
+
+    this.inactiveMenuItems = [{
+      id: 0,
+      text: 'Clock in',
+      disabled: false
+    }];
   }
 
   ngOnInit() {
-    this.activeOfficers = this.officerService.getOfficerList();
+    this.activeOfficers = this.officerService.getActiveOfficerList();
+    this.inActiveOfficers = this.officerService.getInactiveOfficerList();
   }
 
   contextItemClick(e, officer) {
@@ -92,6 +102,8 @@ export class ActiveListComponent implements OnInit {
         time: new Date()
       });
     }
+    this.inActiveOfficersList.instance.reload();
+    this.activeOfficersList.instance.reload();
   }
 
   selectOfficer(e) {
@@ -121,5 +133,23 @@ export class ActiveListComponent implements OnInit {
   moveRowDown(cell, options) {
     options.instance.selectRowsByIndexes([cell.rowIndex]).then(r => r[0].order = r[0].order + 1  );
     options.instance.selectRowsByIndexes([cell.rowIndex - 1]).then(r => r[0].order = r[0].order - 1 );
+  }
+
+  drop(event: CdkDragDrop<Officer>) {
+    if (event.previousContainer === event.container) {
+      return;
+    }
+    const e = {
+      itemData: {
+        id: 1
+      }
+    };
+    const officer = event.item.data;
+
+    if (event.container.id === 'activeOfficers') {
+      e.itemData.id = 0;
+    }
+
+    this.contextItemClick(e, officer);
   }
 }

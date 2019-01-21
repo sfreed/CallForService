@@ -7,8 +7,9 @@
 </dx-toolbar>
 <div *ngIf="callService.getActiveCall()" class="detailsContainer">
   <dx-tab-panel
-    [height]="425"
+    [height]="'100%'"
     [loop]="false"
+    [scrollingEnabled]="true"
     [noDataText]="'No Items added to Call!'">
 
     <dxi-item class="tabpanel-item" title="Current Call">

@@ -1,52 +1,63 @@
-<div class="formSelectContainer">
-      <div class="dx-field formSelect">
-        <div class="dx-field-value" >
-          <div style="display:table-cell; vertical-align: middle;">
-            <dx-select-box
-              #callForm
-              [dataSource]="callForms"
-              displayExpr="name"
-              valueExpr="id">
-            </dx-select-box>
-          </div>
-          <div style="display:table-cell; vertical-align: middle;">
-            <dx-button
-              icon="tel"
-              (onClick)="formSelected($event, callForm)">
-            </dx-button>
+<dx-accordion
+    #accordion
+    [collapsible]="false"
+    [multiple]="false"
+    [animationDuration]="300"
+    [height]="window.innerHeight / 2 - 45">
+  <dxi-item title="Calls">
+    <div class="formSelectContainer">
+        <div class="dx-field formSelect">
+          <div class="dx-field-value" >
+            <div style="display:table-cell; vertical-align: middle;">
+              <dx-select-box
+                #callForm
+                [dataSource]="callForms"
+                displayExpr="name"
+                valueExpr="id">
+              </dx-select-box>
+            </div>
+            <div style="display:table-cell; vertical-align: middle;">
+              <dx-button
+                icon="tel"
+                (onClick)="formSelected($event, callForm)">
+              </dx-button>
+            </div>
           </div>
         </div>
-      </div>
-</div>
-<dx-data-grid id="gridContainer"
-    [dataSource]="calls"
-    [remoteOperations]="false"
-    [allowColumnReordering]="true"
-    [rowAlternationEnabled]="true"
-    [showBorders]="true"
-    [height]="window.innerHeight / 2 - 135"
-    (onSelectionChanged)="selectionChanged($event)">
+    </div>
+    <dx-data-grid id="gridContainer"
+        [dataSource]="calls"
+        [remoteOperations]="false"
+        [allowColumnReordering]="true"
+        [rowAlternationEnabled]="true"
+        [showBorders]="true"
+        [height]="window.innerHeight / 2 - 200"
+        (onSelectionChanged)="selectionChanged($event)">
+      <dxo-editing
+        mode="popup"
+        [allowUpdating]="true">
+      </dxo-editing>
+      <dxo-paging [pageSize]="20"></dxo-paging>
+      <dxo-pager
+          [showPageSizeSelector]="true"
+          [allowedPageSizes]="[20, 40, 60]"
+          [showInfo]="true">
+      </dxo-pager>
+      <dxo-filter-row [visible]="true"></dxo-filter-row>
+      <dxo-header-filter [visible]="true"></dxo-header-filter>
+      <dxo-selection mode="single"></dxo-selection>
+      <dxo-sorting mode="multiple"> </dxo-sorting>
 
-    <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
-    <dxo-editing
-      mode="popup"
-      [allowUpdating]="true">
-    </dxo-editing>
-    <dxo-paging [pageSize]="20"></dxo-paging>
-    <dxo-pager
-        [showPageSizeSelector]="true"
-        [allowedPageSizes]="[20, 40, 60]"
-        [showInfo]="true">
-    </dxo-pager>
-    <dxo-filter-row [visible]="true"></dxo-filter-row>
-    <dxo-header-filter [visible]="true"></dxo-header-filter>
-    <dxo-selection mode="single"></dxo-selection>
-    <dxo-sorting mode="multiple"> </dxo-sorting>
+      <dxi-column dataField="date" dataType="date" [sortIndex]="0" sortOrder="desc"></dxi-column>
+      <dxi-column dataField="time" dataType="string" [sortIndex]="1" sortOrder="desc"></dxi-column>
+      <dxi-column dataField="dispatcher_name" dataType="string"></dxi-column>
+      <dxi-column dataField="call_type" dataType="string"></dxi-column>
+      <dxi-column dataField="location" dataType="string" [calculateCellValue]="createAddress"></dxi-column>
+      <dxi-column dataField="caller_name" dataType="string"></dxi-column>
+    </dx-data-grid>
+  </dxi-item>
+  <dxi-item title="Search">
 
-    <dxi-column dataField="date" dataType="date" [sortIndex]="0" sortOrder="desc"></dxi-column>
-    <dxi-column dataField="time" dataType="string" [sortIndex]="1" sortOrder="desc"></dxi-column>
-    <dxi-column dataField="dispatcher_name" dataType="string"></dxi-column>
-    <dxi-column dataField="call_type" dataType="string"></dxi-column>
-    <dxi-column dataField="location" dataType="string" [calculateCellValue]="createAddress"></dxi-column>
-    <dxi-column dataField="caller_name" dataType="string"></dxi-column>
-</dx-data-grid>
+  </dxi-item>
+</dx-accordion>
+

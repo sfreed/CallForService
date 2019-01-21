@@ -1,71 +1,64 @@
 <dx-box
   direction="col"
-  width="100%"
-  [height]="window.innerHeight">
+  [height]="'100%'">
   <dxi-item
-      class="rect header"
-      [ratio]=".55">
+      [baseSize]="'100%'">
       <app-header></app-header>
   </dxi-item>
   <dxi-item
-      [ratio]="6"
-      [baseSize]="0"
-      class="content">
-      <dx-box
-          direction="row"
-          width="100%">
-          <dxi-item
-              [ratio]="1">
-            <app-active-list></app-active-list>
-          </dxi-item>
-          <dxi-item
-              [ratio]="6">
-              <dx-drawer
-                openedStateMode="overlap"
-                revealMode="expand"
-                maxSize="400"
-                minSize="0"
-                position="right"
-                template="template"
-                [opened]="false"
-                [height]="window.innerHeight/9 * 8.2"
-                [closeOnOutsideClick]="true">
-                <div *dxTemplate="let data of 'template'">
-                  <app-dispatcher-history></app-dispatcher-history>
-                </div>
-
-
-                <dx-box
-                  direction="col"
+      [baseSize]="'100%'">
+    <dx-box
+        direction="row"
+        [height]="'100%'">
+      <dxi-item
+          [baseSize]="'15%'">
+        <app-active-list></app-active-list>
+      </dxi-item>
+      <dxi-item
+          [baseSize]="'85%'">
+        <dx-drawer
+            openedStateMode="overlap"
+            revealMode="expand"
+            maxSize="400"
+            minSize="0"
+            position="right"
+            template="template"
+            [opened]="false"
+            [height]="'100%'"
+            [closeOnOutsideClick]="true">
+          <div *dxTemplate="let data of 'template'">
+            <app-dispatcher-history></app-dispatcher-history>
+          </div>
+          <dx-box
+              direction="col"
+              [height]="'100%'">
+            <dxi-item
+                class="callTableBox"
+                [baseSize]="'100%'">
+              <app-call-master></app-call-master>
+            </dxi-item>
+            <dxi-item
+                [baseSize]="'100%'">
+              <dx-box
+                  direction="row"
                   width="100%"
-                  [height]="window.innerHeight+200">
-                  <dxi-item
-                    class="rect callTableBox"
-                    [ratio]="1">
-                      <app-call-master></app-call-master>
-                  </dxi-item>
-                  <dxi-item
-                    class="rect"
-                   [ratio]="2">
-                   <dx-box
-                   direction="row"
-                   width="100%"
-                   [height]="window.innerHeight">
-                   <dxi-item
-                     class="rect callDetailsBox"
-                     [ratio]="2">
-                     <app-call-details></app-call-details>
-                   </dxi-item>
-                   <dxi-item
-                     class="rect callDetailsNotesBox"
-                     [ratio]="1">
-                     <app-call-notes></app-call-notes>
-                   </dxi-item>
-                 </dx-box>
-                  </dxi-item>
-                </dx-box>
-            </dx-drawer>
-          </dxi-item>
-      </dx-box>
+                  [height]="'100%'">
+                <dxi-item
+                    class="callDetailsBox"
+                    [baseSize]="'70%'">
+                  <app-call-details></app-call-details>
+                </dxi-item>
+                <dxi-item
+                    class="callDetailsNotesBox"
+                    [baseSize]="'30%'">
+                  <app-call-notes></app-call-notes>
+                </dxi-item>
+              </dx-box>
+            </dxi-item>
+          </dx-box>
+        </dx-drawer>
+      </dxi-item>
+    </dx-box>
   </dxi-item>
 </dx-box>
+

@@ -1,28 +1,90 @@
-<dx-list
-  [dataSource]="activeOfficers"
-  [height]="window.innerHeight/9 * 8.20"
-  [searchEnabled]="true"
-  selectionMode = "single"
-  searchExpr="last_name"
-  searchMode="contains"
-  [nextButtonText]="'Load More Officers'"
-  (onItemClick)="selectOfficer($event)">
-  <div *dxTemplate="let data of 'item'">
-    <div
-      id="switchdiv{{data.id}}"
-      class="officerName badge{{data.id}} active{{data.active}}">
-        #{{data.badge_number}} : {{data.last_name}}, {{data.first_name}} <span style="float:right;">({{getOfficerQueue(data)}})</span>
-    </div>
+<dx-box
+  direction="col">
+  <dxi-item
+      [baseSize]="'50%'">
+    <dx-toolbar
+        class="detailsToolBar"
+        width="100%">
+      <dxi-item [location]="'center'" locateInMenu="never">
+          <div style="font-size: large;">Active Officers</div>
+      </dxi-item>
+    </dx-toolbar>
+    <dx-list
+      id="activeOfficers"
+      #activeOfficersList
+      [dataSource]="activeOfficers"
+      [height]="window.innerHeight / 2.4"
+      selectionMode = "single"
+      (onItemClick)="selectOfficer($event)"
+      class="example-container"
+      cdkDropList
+      #activeOfficersDnD="cdkDropList"
+      (cdkDropListDropped)="drop($event)"
+      [cdkDropListConnectedTo]="[inActiveOfficersListDnD]">
+      <div *dxTemplate="let data of 'item'">
+        <div
+          id="switchdiv{{data.id}}"
+          class="officerName badge{{data.id}} active{{data.active}} example-box" cdkDrag [cdkDragData]="data">
+            #{{data.badge_number}} : {{data.last_name}}, {{data.first_name}} <span style="float:right;">({{getOfficerQueue(data)}})</span>
+        </div>
 
-    <dx-context-menu
-      id="cm{{data.id}}"
-      [items]="menuItems"
-      [width]="200"
-      target="#switchdiv{{data.id}}"
-      (onItemClick)="contextItemClick($event, data)">
-    </dx-context-menu>
-  </div>
-</dx-list>
+        <dx-context-menu
+          id="cm{{data.id}}"
+          [items]="activeMenuItems"
+          [width]="200"
+          target="#switchdiv{{data.id}}"
+          (onItemClick)="contextItemClick($event, data)">
+        </dx-context-menu>
+      </div>
+    </dx-list>
+  </dxi-item>
+  <dxi-item
+      [baseSize]="'50%'">
+    <dx-toolbar
+      class="detailsToolBar"
+      width="100%">
+      <dxi-item [location]="'center'" locateInMenu="never">
+          <div style="font-size: large;">Inactive Officers</div>
+      </dxi-item>
+    </dx-toolbar>
+    <dx-list
+      id="inActiveOfficers"
+      #inActiveOfficersList
+      [dataSource]="inActiveOfficers"
+      [height]="window.innerHeight / 2.4 - 4"
+      [searchEnabled]="true"
+      selectionMode = "single"
+      searchExpr="last_name"
+      searchMode="contains"
+      (onItemClick)="selectOfficer($event)"
+      class="example-container"
+      cdkDropList
+      #inActiveOfficersListDnD="cdkDropList"
+      (cdkDropListDropped)="drop($event)"
+      [cdkDropListConnectedTo]="[activeOfficersDnD]">
+      <div *dxTemplate="let data of 'item'">
+        <div
+          id="switchdiv{{data.id}}"
+          class="officerName badge{{data.id}} active{{data.active}} example-box" cdkDrag [cdkDragData]="data">
+            #{{data.badge_number}} : {{data.last_name}}, {{data.first_name}} <span style="float:right;">({{getOfficerQueue(data)}})</span>
+        </div>
+
+        <dx-context-menu
+          id="cm{{data.id}}"
+          [items]="inactiveMenuItems"
+          [width]="200"
+          target="#switchdiv{{data.id}}"
+          (onItemClick)="contextItemClick($event, data)">
+        </dx-context-menu>
+      </div>
+    </dx-list>
+
+  </dxi-item>
+</dx-box>
+
+
+
+
 
 <dx-popup
   class="popup"
