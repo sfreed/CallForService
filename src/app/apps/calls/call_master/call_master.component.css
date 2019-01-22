@@ -1,3 +1,17 @@
+.accordianHeader {
+  font-size: small;
+  padding: 0px;
+}
+
+::ng-deep .dx-accordion-item-title {
+  padding: 10px;
+
+}
+
+.callGrid {
+  padding: 0px;
+}
+
 .fieldSet {
   padding: 0px;
   margin: 0px;

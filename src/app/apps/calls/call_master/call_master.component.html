@@ -3,8 +3,8 @@
     [collapsible]="false"
     [multiple]="false"
     [animationDuration]="300"
-    [height]="window.innerHeight / 2 - 45">
-  <dxi-item title="Calls">
+    [height]="window.innerHeight / 2 - 35">
+  <dxi-item title="Calls" class="accordianHeader">
     <div class="formSelectContainer">
         <div class="dx-field formSelect">
           <div class="dx-field-value" >
@@ -25,13 +25,13 @@
           </div>
         </div>
     </div>
-    <dx-data-grid id="gridContainer"
+    <dx-data-grid id="gridContainer" class="callGrid"
         [dataSource]="calls"
         [remoteOperations]="false"
         [allowColumnReordering]="true"
         [rowAlternationEnabled]="true"
         [showBorders]="true"
-        [height]="window.innerHeight / 2 - 200"
+        [height]="window.innerHeight / 2 - 180"
         (onSelectionChanged)="selectionChanged($event)">
       <dxo-editing
         mode="popup"
@@ -56,7 +56,7 @@
       <dxi-column dataField="caller_name" dataType="string"></dxi-column>
     </dx-data-grid>
   </dxi-item>
-  <dxi-item title="Search">
+  <dxi-item title="Search" class="accordianHeader">
 
   </dxi-item>
 </dx-accordion>
