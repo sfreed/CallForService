@@ -1,4 +1,4 @@
-export class Ambulance {
+export class Hospital {
   id: number;
   ambulance_number: number;
   driver_name: string;

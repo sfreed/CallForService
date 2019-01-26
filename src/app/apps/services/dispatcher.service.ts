@@ -7,10 +7,12 @@ import ArrayStore from 'devextreme/data/array_store';
 @Injectable({
   providedIn: 'root'
 })
-export class DispatcherHistoryService {
+export class DispatcherService {
   private historyDrawer: DxDrawerComponent;
 
   private historyList: DataSource;
+
+  private dispatcherList: DataSource;
 
   constructor(private dataService: DataService) {
     this.historyList = new DataSource({
@@ -22,10 +24,22 @@ export class DispatcherHistoryService {
       paginate : true,
       pageSize : 18
     });
+
+    this.dispatcherList = new DataSource({
+      store : new ArrayStore({
+        key : 'id',
+        data : this.dataService.getDispatcherList()
+      }) ,
+      sort : ['fullName']
+    });
   }
 
   getDispatcherHistoryList(): DataSource {
     return this.historyList;
+  }
+
+  getDispatcherList(): DataSource {
+    return this.dispatcherList;
   }
 
   getHistoryDrawer(): DxDrawerComponent {

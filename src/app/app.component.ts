@@ -1,6 +1,6 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Officer } from './models/officer';
-import { DispatcherHistoryService } from './apps/services/dispatcher.service';
+import { DispatcherService } from './apps/services/dispatcher.service';
 import { DxDrawerComponent } from 'devextreme-angular';
 
 @Component({
@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
 
   public window: Window = window;
 
-  constructor(private dispatcherService: DispatcherHistoryService) {}
+  constructor(private dispatcherService: DispatcherService) {}
 
   ngOnInit() {
     this.dispatcherService.setHistoryDrawer(this.drawer);

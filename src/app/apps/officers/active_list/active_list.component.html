@@ -20,7 +20,7 @@
       cdkDropList
       #activeOfficersDnD="cdkDropList"
       (cdkDropListDropped)="drop($event)"
-      [cdkDropListConnectedTo]="[inActiveOfficersListDnD]">
+      [cdkDropListConnectedTo]="[inActiveOfficersListDnD, 'officerContainer']">
       <div *dxTemplate="let data of 'item'">
         <div
           id="switchdiv{{data.id}}"
@@ -52,10 +52,7 @@
       #inActiveOfficersList
       [dataSource]="inActiveOfficers"
       [height]="window.innerHeight / 2.4 - 4"
-      [searchEnabled]="true"
       selectionMode = "single"
-      searchExpr="last_name"
-      searchMode="contains"
       (onItemClick)="selectOfficer($event)"
       class="example-container"
       cdkDropList

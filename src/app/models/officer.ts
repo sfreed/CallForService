@@ -5,5 +5,5 @@ export class Officer {
   badge_number: number;
   active: boolean;
   call_status: string;
-  current_call: number;
+  current_call: string;
 }

@@ -11,12 +11,22 @@
       mode="popup"
       [allowUpdating]="true"
       [allowDeleting]="true"
-      [allowAdding]="true">
+      [allowAdding]="true"
+      [useIcons]="true">
     </dxo-editing>
     <dxi-column dataField="id" dataType="string" [visible]="false"></dxi-column>
     <dxi-column dataField="license_plate_number" dataType="string"></dxi-column>
     <dxi-column dataField="driver_name" dataType="string"></dxi-column>
     <dxi-column dataField="dispatch_time" dataType="Date"></dxi-column>
+    <dxi-column type="buttons" [width]="150">
+        <dxi-button name="edit"></dxi-button>
+        <dxi-button name="delete"></dxi-button>
+        <dxi-button
+            hint="Assign To Wrecker Service"
+            icon="fa fa-truck"
+            [onClick]="assignToWreckerService">
+        </dxi-button>
+      </dxi-column>
   </dx-data-grid>
 </div>
 

@@ -13,4 +13,7 @@ export class InvolvedPersonsComponent implements OnInit {
   ngOnInit() {
   }
 
+  assignToHospital() {
+    console.log('clicked');
+  }
 }

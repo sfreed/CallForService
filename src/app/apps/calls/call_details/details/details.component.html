@@ -1,6 +1,6 @@
 <div *ngIf="callService.getActiveCall()">
   <dx-form id="callForm" class="callForm"
-    [formData]="callService.getActiveCall()"
+    [formData]="callService.getActiveCall().complaintant"
     height="350"
     [colCount]="2">
     <dxi-item itemType="group" caption="Call Information" [widthRatio]="1">

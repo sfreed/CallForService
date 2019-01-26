@@ -48,16 +48,46 @@
       <dxo-selection mode="single"></dxo-selection>
       <dxo-sorting mode="multiple"> </dxo-sorting>
 
-      <dxi-column dataField="date" dataType="date" [sortIndex]="0" sortOrder="desc"></dxi-column>
-      <dxi-column dataField="time" dataType="string" [sortIndex]="1" sortOrder="desc"></dxi-column>
-      <dxi-column dataField="dispatcher_name" dataType="string"></dxi-column>
-      <dxi-column dataField="call_type" dataType="string"></dxi-column>
-      <dxi-column dataField="location" dataType="string" [calculateCellValue]="createAddress"></dxi-column>
-      <dxi-column dataField="caller_name" dataType="string"></dxi-column>
+      <dxi-column dataField="receivedDateTime" dataType="string" [sortIndex]="0" sortOrder="desc"></dxi-column>
+      <dxi-column dataField="dispatchedDateTime" dataType="string"></dxi-column>
+      <dxi-column dataField="dispatchByPersonId" dataType="string" [caption]="'Dispatcher'">
+        <dxo-lookup
+            [dataSource]="dispatchers.store()"
+            valueExpr="id"
+            displayExpr="fullName">
+        </dxo-lookup>
+      </dxi-column>
+      <dxi-column dataField="callTypeId" dataType="string" [caption]="'Call Type'">
+          <dxo-lookup
+          [dataSource]="callTypes.store()"
+          valueExpr="id"
+          displayExpr="description">
+      </dxo-lookup>
+      </dxi-column>
+      <dxi-column dataField="locationPrimary.city" dataType="string" [caption]="'City'"></dxi-column>
+      <dxi-column dataType="string" [calculateCellValue]="getComplainantName" [caption]="'Complaintant'"></dxi-column>
     </dx-data-grid>
   </dxi-item>
   <dxi-item title="Search" class="accordianHeader">
-
+    <dx-form id="callForm" class="callForm"
+        [formData]="searchCall"
+        height="350"
+        [colCount]="2">
+      <dxi-item itemType="group" caption="Call Information" [widthRatio]="1">
+        <dxi-item dataField="date" dataType="date"></dxi-item>
+        <dxi-item dataField="time" dataType="string"></dxi-item>
+      </dxi-item>
+      <dxi-item itemType="group" caption="Call Information" [widthRatio]="1">
+          <dxi-item dataField="dispatcher_name" dataType="string"></dxi-item>
+          <dxi-item dataField="call_type" dataType="string"></dxi-item>
+          <dxi-item dataField="caller_name" dataType="string"></dxi-item>
+      </dxi-item>
+      <dxi-item [colSpan]="2"
+         itemType="button"
+        horizontalAlignment="right"
+        [buttonOptions]="buttonOptions">
+      </dxi-item>
+    </dx-form>
   </dxi-item>
 </dx-accordion>
 

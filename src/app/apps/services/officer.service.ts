@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Officer } from '../../models/officer';
-import { DispatcherHistoryService } from './dispatcher.service';
+import { DispatcherService } from './dispatcher.service';
 import DataSource from 'devextreme/data/data_source';
 import ArrayStore from 'devextreme/data/array_store';
 import { DataService } from './data';
@@ -15,7 +15,9 @@ export class OfficerService {
 
   private inactiveOfficerList:  DataSource;
 
-  constructor(private dispatcherHistory: DispatcherHistoryService, dataService: DataService) {
+  private allOfficerList:  DataSource;
+
+  constructor(private dispatcherHistory: DispatcherService, public dataService: DataService) {
     this.activeOfficersList = new DataSource({
       store : new ArrayStore({
         key : 'id',
@@ -35,6 +37,16 @@ export class OfficerService {
       sort : ['duty_status',  'last_name'],
       paginate: false
     });
+
+    this.allOfficerList =  new DataSource({
+      store : new ArrayStore({
+        key : 'id',
+        data : this.dataService.getOfficerList()
+      }),
+      sort : ['last_name'],
+      paginate: true,
+      pageSize: 10
+    });
   }
 
   getActiveOfficerList():  DataSource {
@@ -43,6 +55,10 @@ export class OfficerService {
 
   getInactiveOfficerList():  DataSource {
     return this.inactiveOfficerList;
+  }
+
+  getAllOfficersList() {
+    return this.allOfficerList;
   }
 
   changeDutyStatus(officer: Officer) {

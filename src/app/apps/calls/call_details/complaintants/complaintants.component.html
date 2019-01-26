@@ -1,21 +1,16 @@
 <div *ngIf="callService.getActiveCall()">
-  <dx-data-grid id="complaintantsGrid"
-    [dataSource]="callService.getActiveCall().complaintants"
-    [rowAlternationEnabled]="true"
-    [showBorders]="true"
-    [showColumnHeaders]="true"
-    height="350">
-    <dxo-scrolling mode="virtual"></dxo-scrolling>
-    <dxo-selection mode="single"></dxo-selection>
-    <dxo-editing
-      mode="popup"
-      [allowUpdating]="true"
-      [allowDeleting]="true"
-      [allowAdding]="true">
-    </dxo-editing>
-    <dxi-column dataField="id" dataType="number" [visible]="false"></dxi-column>
-    <dxi-column dataField="first_name" dataType="string"></dxi-column>
-    <dxi-column dataField="last_name" dataType="string"></dxi-column>
-    <dxi-column dataField="address" dataType="string"></dxi-column>
-  </dx-data-grid>
+  <dx-form id="callForm" class="callForm" height="350"
+      [formData]="callService.getActiveCall().complaintant">
+    <dxi-item itemType="group" caption="Personal Information" [widthRatio]="1">
+      <dxi-item dataField="id" dataType="number" [visible]="false"></dxi-item>
+      <dxi-item dataField="first_name" dataType="string"></dxi-item>
+      <dxi-item dataField="last_name" dataType="string"></dxi-item>
+      <dxi-item dataField="address" dataType="string"></dxi-item>
+    </dxi-item>
+    <dxi-item [colSpan]="2"
+      itemType="button"
+      horizontalAlignment="right"
+      [buttonOptions]="buttonOptions">
+  </dxi-item>
+  </dx-form>
 </div>

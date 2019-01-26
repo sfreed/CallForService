@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import DataSource from 'devextreme/data/data_source';
 import ArrayStore from 'devextreme/data/array_store';
-import { Call } from 'src/app/models/call';
+import { CallDetails } from 'src/app/models/CallDetails';
 import { Officer } from 'src/app/models/officer';
 import { DxDataGridComponent } from 'devextreme-angular';
 import { DataService } from './data';
@@ -15,7 +15,11 @@ export class CallsService {
 
   private callList: DataSource;
 
-  private activeCall: Call;
+  private callTypeList: DataSource;
+
+  private callStatusList: DataSource;
+
+  private activeCall: CallDetails;
 
   officerQueue = new Map();
 
@@ -37,6 +41,22 @@ export class CallsService {
         paginate : true,
         pageSize : 18
       });
+
+      this.callTypeList = new DataSource({
+        store : new ArrayStore({
+          key : 'id',
+          data : this.dataService.getCallTypesList()
+        }) ,
+        sort : ['description']
+      });
+
+      this.callStatusList = new DataSource({
+        store : new ArrayStore({
+          key : 'id',
+          data : this.dataService.getCallStatusList()
+        }) ,
+        sort : ['description']
+      });
   }
 
   setCallGrid(callGrid: DxDataGridComponent) {
@@ -47,11 +67,19 @@ export class CallsService {
     return this.callList;
   }
 
-  setActiveCall(call: Call) {
+  getCallStatusList(): DataSource {
+    return this.callStatusList;
+  }
+
+  getCallTypeList(): DataSource {
+    return this.callTypeList;
+  }
+
+  setActiveCall(call: CallDetails) {
     this.activeCall = call;
   }
 
-  getActiveCall(): Call {
+  getActiveCall(): CallDetails {
      return this.activeCall;
   }
 
@@ -59,8 +87,8 @@ export class CallsService {
     return this.callForms;
   }
 
-  assignOfficerToActiveCall(officer: Officer, call: Call): boolean {
-    officer.current_call = call.id;
+  assignOfficerToActiveCall(officer: Officer, call: CallDetails): boolean {
+    officer.current_call = call.callInfoId;
     officer.call_status = 'ACTIVE';
     const d: Date = new Date();
 
@@ -80,7 +108,7 @@ export class CallsService {
     return officerIsAssigned;
   }
 
-  addCallToOfficerQueue(officer: Officer, call: Call) {
+  addCallToOfficerQueue(officer: Officer, call: CallDetails) {
     let queue: PriorityQueue = this.officerQueue.get(officer.id);
 
     if (queue == null) {

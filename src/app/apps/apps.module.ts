@@ -13,11 +13,11 @@ import { OfficersComponent } from './calls/call_details/officers/officers.compon
 import { CallDetailsComponent } from './calls/call_details/call_details.component';
 import { CallNotesComponent } from './calls/call_notes/call_notes.component';
 import { DataService } from './services/data';
-import { AmbulancesComponent } from './calls/call_details/ambulances/ambulances.component';
+import { HospitalsComponent } from './calls/call_details/hospitals/hospitals.component';
 import { VehiclesComponent } from './calls/call_details/vehicles/vehicles.component';
 import { ComplaintantsComponent } from './calls/call_details/complaintants/complaintants.component';
 import { InvolvedPersonsComponent } from './calls/call_details/involved_persons/involved_persons.component';
-import { TowTrucksComponent } from './calls/call_details/tow_trucks/tow_trucks.component';
+import { WreckersComponent } from './calls/call_details/wreckers/wreckers.component';
 import { CallHistoryComponent } from './calls/call_details/call_history/call_history.component';
 import { DetailsComponent } from './calls/call_details/details/details.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
@@ -28,7 +28,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     DxDrawerModule, DxTabPanelModule, DxContextMenuModule, DxTextAreaModule, DxPopupModule, DxFormModule, DxAccordionModule ],
   declarations: [ActiveListComponent, DispatcherHistoryComponent, CallMasterComponent,
     CallDetailsComponent, CallNotesComponent, CallHistoryComponent, DetailsComponent,
-    OfficersComponent, AmbulancesComponent, VehiclesComponent, ComplaintantsComponent, InvolvedPersonsComponent, TowTrucksComponent ],
+    OfficersComponent, HospitalsComponent, VehiclesComponent, ComplaintantsComponent, InvolvedPersonsComponent, WreckersComponent ],
   providers: [ OfficerService, DispatcherHistory, DataService ],
   bootstrap: [  ],
   exports: [ActiveListComponent, DispatcherHistoryComponent, CallMasterComponent, OfficersComponent,

@@ -11,11 +11,21 @@
       mode="popup"
       [allowUpdating]="true"
       [allowDeleting]="true"
-      [allowAdding]="true">
+      [allowAdding]="true"
+      [useIcons]="true">
     </dxo-editing>
     <dxi-column dataField="id" dataType="string" [visible]="false"></dxi-column>
     <dxi-column dataField="first_name" dataType="string"></dxi-column>
     <dxi-column dataField="last_name" dataType="string"></dxi-column>
     <dxi-column dataField="address" dataType="string"></dxi-column>
+    <dxi-column type="buttons" [width]="150">
+      <dxi-button name="edit"></dxi-button>
+      <dxi-button name="delete"></dxi-button>
+      <dxi-button
+          hint="Assign To Hospital"
+          icon="fa fa-hospital-o"
+          [onClick]="assignToHospital">
+      </dxi-button>
+    </dxi-column>
   </dx-data-grid>
 </div>

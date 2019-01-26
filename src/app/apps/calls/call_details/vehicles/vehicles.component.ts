@@ -13,4 +13,8 @@ export class VehiclesComponent implements OnInit {
   ngOnInit() {
   }
 
+  assignToWreckerService() {
+    console.log('clicked');
+  }
+
 }

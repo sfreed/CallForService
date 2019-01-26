@@ -1,6 +1,6 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { DxListComponent } from 'devextreme-angular';
-import { DispatcherHistoryService } from '../../services/dispatcher.service';
+import { DispatcherService } from '../../services/dispatcher.service';
 import { CallsService } from '../../services/calls.service';
 import { OfficerService } from '../../services/officer.service';
 import DataSource from 'devextreme/data/data_source';
@@ -34,7 +34,7 @@ export class ActiveListComponent implements OnInit {
 
   officerQueue: PriorityQueue;
 
-  constructor(public officerService: OfficerService, public dispatcherHistory: DispatcherHistoryService, public callService: CallsService) {
+  constructor(public officerService: OfficerService, public dispatcherHistory: DispatcherService, public callService: CallsService) {
     this.activeMenuItems = [{
       id: 1,
       text: 'Clock Out',
@@ -95,7 +95,7 @@ export class ActiveListComponent implements OnInit {
 
       this.dispatcherHistory.addHistoryItem({
         id: uuid(),
-        action: 'Assigning to Call ' + this.callService.getActiveCall().id,
+        action: 'Assigning to Call ' + this.callService.getActiveCall().callInfoId,
         first_name: officer.first_name,
         last_name: officer.last_name,
         badge_number: officer.badge_number,

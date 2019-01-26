@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { DispatcherHistoryService } from 'src/app/apps/services/dispatcher.service';
+import { DispatcherService } from 'src/app/apps/services/dispatcher.service';
 import { CallsService } from 'src/app/apps/services/calls.service';
 import notify from 'devextreme/ui/notify';
+import { OfficerService } from 'src/app/apps/services/officer.service';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +15,11 @@ export class HeaderComponent implements OnInit {
 
   menuItems: any[];
 
-  constructor(dispatcherService: DispatcherHistoryService, public callService: CallsService) {
+  officerPanelVisible = false;
+
+  dispatcherPanelVisible = false;
+
+  constructor(public dispatcherService: DispatcherService, public callService: CallsService, public officerService: OfficerService) {
 
     this.items = [{
       location: 'before',
@@ -27,7 +32,7 @@ export class HeaderComponent implements OnInit {
       widget: 'dxButton',
       locateInMenu: 'never',
       options: {
-          icon: 'toolbox',
+          icon: 'fa fa-truck',
           onClick: () => {
               notify('Add button has been clicked!');
           }
@@ -42,13 +47,13 @@ export class HeaderComponent implements OnInit {
       locateInMenu: 'always',
       text: 'Add Officers',
       onClick: () => {
-          notify('Add Officers has been clicked!');
+          this.officerPanelVisible = true;
       }
     }, {
       locateInMenu: 'always',
       text: 'Add Dispatcher',
       onClick: () => {
-          notify('Add Dispatcher has been clicked!');
+          this.dispatcherPanelVisible = true;
       }
     }];
   }

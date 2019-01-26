@@ -7,6 +7,10 @@ import { CallsService } from 'src/app/apps/services/calls.service';
   styleUrls: ['./complaintants.component.css']
 })
 export class ComplaintantsComponent implements OnInit {
+  buttonOptions: any = {
+    text: 'Save',
+    type: 'success'
+  };
 
   constructor(public callService: CallsService) { }
 

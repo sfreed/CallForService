@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DxListComponent } from 'devextreme-angular';
 import notify from 'devextreme/ui/notify';
 import { _ } from 'underscore';
-import { DispatcherHistoryService } from '../../services/dispatcher.service';
+import { DispatcherService } from '../../services/dispatcher.service';
 import DataSource from 'devextreme/data/data_source';
 
 @Component({
@@ -19,7 +19,7 @@ export class DispatcherHistoryComponent implements OnInit {
 
   historyList: DataSource;
 
-  constructor(public dispatcherHistory: DispatcherHistoryService) {
+  constructor(public dispatcherHistory: DispatcherService) {
     this.menuItems = [{
         text: 'Delete',
         action: function (e) {
