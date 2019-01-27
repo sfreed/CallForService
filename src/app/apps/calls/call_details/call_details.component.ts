@@ -12,8 +12,4 @@ export class CallDetailsComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  getTitle(tab: any): string {
-    return tab + ' (' + this.callService.getActiveCall().officers.length + ')';
-  }
 }

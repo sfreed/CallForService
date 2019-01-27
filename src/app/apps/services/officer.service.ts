@@ -3,7 +3,7 @@ import { Officer } from '../../models/officer';
 import { DispatcherService } from './dispatcher.service';
 import DataSource from 'devextreme/data/data_source';
 import ArrayStore from 'devextreme/data/array_store';
-import { DataService } from './data';
+import { UserDataService } from './UserData';
 import uuid from 'UUID';
 
 @Injectable({
@@ -17,7 +17,7 @@ export class OfficerService {
 
   private allOfficerList:  DataSource;
 
-  constructor(private dispatcherHistory: DispatcherService, public dataService: DataService) {
+  constructor(private dispatcherHistory: DispatcherService, public dataService: UserDataService) {
     this.activeOfficersList = new DataSource({
       store : new ArrayStore({
         key : 'id',

@@ -1,6 +1,6 @@
 <div *ngIf="callService.getActiveCall()">
   <dx-data-grid id="vehicleGrid"
-    [dataSource]="callService.getActiveCall().vehicles"
+    [dataSource]="callService.getActiveCallDetails().vehicles"
     [rowAlternationEnabled]="true"
     [showBorders]="true"
     [showColumnHeaders]="true"

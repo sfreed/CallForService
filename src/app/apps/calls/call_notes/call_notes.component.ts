@@ -29,7 +29,7 @@ export class CallNotesComponent implements OnInit {
 
   saveNote(e) {
     const d: Date = new Date();
-    this.callService.getActiveCall().notes.unshift({id: this.callService.getActiveCall().notes.length, time: d.getHours() + ':' + d.getMinutes(), text: this.currentNote});
+    this.callService.getActiveCallDetails().notes.unshift({id: this.callService.getActiveCallDetails().notes.length, time: d.getHours() + ':' + d.getMinutes(), text: this.currentNote});
     this.currentNote = '';
   }
 }

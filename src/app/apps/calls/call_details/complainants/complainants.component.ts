@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { CallsService } from 'src/app/apps/services/calls.service';
 
 @Component({
-  selector: 'app-complaintants',
-  templateUrl: './complaintants.component.html',
-  styleUrls: ['./complaintants.component.css']
+  selector: 'app-complainants',
+  templateUrl: './complainants.component.html',
+  styleUrls: ['./complainants.component.css']
 })
-export class ComplaintantsComponent implements OnInit {
+export class ComplainantsComponent implements OnInit {
   buttonOptions: any = {
     text: 'Save',
     type: 'success'

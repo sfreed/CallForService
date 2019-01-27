@@ -2,8 +2,8 @@ export class Call {
   id: string;
   callTypeId: string;
   callStatusId: string;
-  receivedDateTime: string;
-  dispatchedDateTime: string;
+  receivedDateTime: Date;
+  dispatchedDateTime: Date;
   dispatchByPersonId: string;
   complainantPerson: {
     id: string;

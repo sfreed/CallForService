@@ -1,26 +1,63 @@
 <div *ngIf="callService.getActiveCall()">
-  <dx-form id="callForm" class="callForm"
-    [formData]="callService.getActiveCall().complaintant"
-    height="350"
-    [colCount]="2">
-    <dxi-item itemType="group" caption="Call Information" [widthRatio]="1">
-      <dxi-item dataField="id"></dxi-item>
-      <dxi-item dataField="date"></dxi-item>
-      <dxi-item dataField="time"></dxi-item>
-      <dxi-item dataField="dispatcher_name"></dxi-item>
-      <dxi-item dataField="call_type"></dxi-item>
-    </dxi-item>
-    <dxi-item itemType="group" caption="Caller Information" [widthRatio]="1">
-      <dxi-item dataField="address"></dxi-item>
-      <dxi-item dataField="city"></dxi-item>
-      <dxi-item dataField="state"></dxi-item>
-      <dxi-item dataField="caller_name"></dxi-item>
-      <dxi-item dataField="caller_phone_number"></dxi-item>
-    </dxi-item>
-    <dxi-item [colSpan]="2"
-      itemType="button"
-      horizontalAlignment="right"
-      [buttonOptions]="buttonOptions">
-    </dxi-item>
-  </dx-form>
+    <dx-form id="callForm" class="callForm"
+        [formData]="activeCall"
+        height="350"
+        [colCount]="2">
+      <dxi-item itemType="group" caption="Call Information" [widthRatio]="1">
+        <dxi-item>
+            <dxo-label text="Received Date Time"></dxo-label>
+            <dx-date-box
+                id="selected-date"
+                width="100%"
+                [(value)]="activeCall.receivedDateTime">
+            </dx-date-box>
+        </dxi-item>
+        <dxi-item>
+          <dxo-label text="Dispatched Date Time"></dxo-label>
+          <dx-date-box
+            id="selected-date"
+            width="100%"
+            [(value)]="activeCall.dispatchedDateTime">
+        </dx-date-box>
+        </dxi-item>
+        <dxi-item>
+          <dxo-label text="Call Type"></dxo-label>
+          <dx-select-box
+            [dataSource]="listService.getCallTypeList()"
+            displayExpr="description"
+            valueExpr="id"
+            [value]="activeCall.callTypeId"
+          ></dx-select-box>
+        </dxi-item>
+        <dxi-item>
+          <dxo-label text="Call Status"></dxo-label>
+          <dx-select-box
+            [dataSource]="listService.getCallStatusList()"
+            displayExpr="description"
+            valueExpr="id"
+            [value]="activeCall.callStatusId"
+          ></dx-select-box>
+        </dxi-item>
+      </dxi-item>
+      <dxi-item itemType="group" caption="Call Information" [widthRatio]="1">
+          <dxi-item>
+            <dxo-label text="Dispatched By"></dxo-label>
+            <dx-select-box
+              [dataSource]="dispatcherService.getDispatcherList()"
+              displayExpr="fullName"
+              valueExpr="id"
+              [value]="activeCall.dispatchByPersonId"
+            ></dx-select-box>
+          </dxi-item>
+          <dxi-item>
+              <dxo-label text="Complainant Name"></dxo-label>
+              <dx-text-box [value]="getComplainantName()" ></dx-text-box>
+          </dxi-item>
+      </dxi-item>
+      <dxi-item [colSpan]="2"
+        itemType="button"
+        horizontalAlignment="right"
+        [buttonOptions]="buttonOptions">
+      </dxi-item>
+    </dx-form>
   </div>

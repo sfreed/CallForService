@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DxDrawerComponent } from 'devextreme-angular';
 import { DispatcherHistory } from 'src/app/models/history';
-import { DataService } from './data';
+import { UserDataService } from './UserData';
 import DataSource from 'devextreme/data/data_source';
 import ArrayStore from 'devextreme/data/array_store';
 @Injectable({
@@ -14,7 +14,7 @@ export class DispatcherService {
 
   private dispatcherList: DataSource;
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: UserDataService) {
     this.historyList = new DataSource({
       store : new ArrayStore({
         key : 'id',

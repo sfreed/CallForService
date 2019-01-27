@@ -87,7 +87,7 @@ export class ActiveListComponent implements OnInit {
         this.officerService.changeDutyStatus(officer);
       }
 
-      if (this.callService.assignOfficerToActiveCall(officer, this.callService.getActiveCall())) {
+      if (this.callService.assignOfficerToActiveCall(officer, this.callService.getActiveCallDetails())) {
         notify('Assigning Officer ' + officer.first_name + ' ' + officer.last_name  + ' to Active Call.', 'success');
       } else {
         notify('Officer ' + officer.first_name + ' ' + officer.last_name  + ' is already assigned to this Call.', 'warning');
@@ -95,7 +95,7 @@ export class ActiveListComponent implements OnInit {
 
       this.dispatcherHistory.addHistoryItem({
         id: uuid(),
-        action: 'Assigning to Call ' + this.callService.getActiveCall().callInfoId,
+        action: 'Assigning to Call ' + this.callService.getActiveCallDetails().callInfoId,
         first_name: officer.first_name,
         last_name: officer.last_name,
         badge_number: officer.badge_number,

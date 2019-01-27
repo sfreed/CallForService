@@ -52,20 +52,20 @@
       <dxi-column dataField="dispatchedDateTime" dataType="string"></dxi-column>
       <dxi-column dataField="dispatchByPersonId" dataType="string" [caption]="'Dispatcher'">
         <dxo-lookup
-            [dataSource]="dispatchers.store()"
-            valueExpr="id"
-            displayExpr="fullName">
+          [dataSource]="dispatchers.store()"
+          valueExpr="id"
+          displayExpr="fullName">
         </dxo-lookup>
       </dxi-column>
       <dxi-column dataField="callTypeId" dataType="string" [caption]="'Call Type'">
-          <dxo-lookup
+        <dxo-lookup
           [dataSource]="callTypes.store()"
           valueExpr="id"
           displayExpr="description">
-      </dxo-lookup>
+       </dxo-lookup>
       </dxi-column>
       <dxi-column dataField="locationPrimary.city" dataType="string" [caption]="'City'"></dxi-column>
-      <dxi-column dataType="string" [calculateCellValue]="getComplainantName" [caption]="'Complaintant'"></dxi-column>
+      <dxi-column dataType="string" [calculateCellValue]="getComplainantName" [caption]="'Complainant'"></dxi-column>
     </dx-data-grid>
   </dxi-item>
   <dxi-item title="Search" class="accordianHeader">
@@ -74,13 +74,52 @@
         height="350"
         [colCount]="2">
       <dxi-item itemType="group" caption="Call Information" [widthRatio]="1">
-        <dxi-item dataField="date" dataType="date"></dxi-item>
-        <dxi-item dataField="time" dataType="string"></dxi-item>
+        <dxi-item dataField="receivedDateTime" dataType="Date">
+            <dx-date-box
+                id="selected-date"
+                width="100%"
+                [(value)]="searchCall.receivedDateTime">
+            </dx-date-box>
+        </dxi-item>
+        <dxi-item dataField="dispatchedDateTime" dataType="Date">
+          <dx-date-box
+            id="selected-date"
+            width="100%"
+            [(value)]="searchCall.dispatchedDateTime">
+        </dx-date-box>
+        </dxi-item>
+        <dxi-item dataField="callTypeId" dataType="string">
+          <dxo-label text="Call Type"></dxo-label>
+          <dx-select-box
+            [dataSource]="callTypes"
+            displayExpr="description"
+            valueExpr="id"
+            [value]="searchCall.callTypeId"
+          ></dx-select-box>
+        </dxi-item>
+        <dxi-item dataField="callStatusId" dataType="string">
+          <dxo-label text="Call Status"></dxo-label>
+          <dx-select-box
+            [dataSource]="callStatus"
+            displayExpr="description"
+            valueExpr="id"
+            [value]="searchCall.callStatusId"
+          ></dx-select-box>
+        </dxi-item>
       </dxi-item>
       <dxi-item itemType="group" caption="Call Information" [widthRatio]="1">
-          <dxi-item dataField="dispatcher_name" dataType="string"></dxi-item>
-          <dxi-item dataField="call_type" dataType="string"></dxi-item>
-          <dxi-item dataField="caller_name" dataType="string"></dxi-item>
+          <dxi-item dataField="dispatchByPersonId" dataType="string">
+            <dxo-label text="Dispatched By"></dxo-label>
+            <dx-select-box
+              [dataSource]="dispatchers"
+              displayExpr="fullName"
+              valueExpr="id"
+              [value]="searchCall.dispatchByPersonId"
+            ></dx-select-box>
+          </dxi-item>
+          <dxi-item dataField="searchCall.complainantPerson.fullName" dataType="string">
+              <dxo-label text="Complainant Name"></dxo-label>
+          </dxi-item>
       </dxi-item>
       <dxi-item [colSpan]="2"
          itemType="button"

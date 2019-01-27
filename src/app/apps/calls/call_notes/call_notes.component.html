@@ -4,7 +4,7 @@
 </dx-toolbar>
 <div *ngIf="callService.getActiveCall()" class="detailsContainer">
   <dx-data-grid id="gridContainer"
-      [dataSource]="callService.getActiveCall().notes"
+      [dataSource]="callService.getActiveCallDetails().notes"
       [rowAlternationEnabled]="true"
       [showBorders]="true"
       [showColumnHeaders]="true"

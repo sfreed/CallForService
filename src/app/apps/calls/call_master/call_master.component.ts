@@ -1,10 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CallsService } from '../../services/calls.service';
 import DataSource from 'devextreme/data/data_source';
-import { DxDataGridComponent } from 'devextreme-angular';
-import { CallDetails } from 'src/app/models/CallDetails';
 import { DispatcherService } from '../../services/dispatcher.service';
 import { Call } from 'src/app/models/Call';
+import { ListsService } from '../../services/lists.service';
 
 @Component({
   selector: 'app-call-master',
@@ -12,9 +11,7 @@ import { Call } from 'src/app/models/Call';
   styleUrls: ['./call_master.component.css']
 })
 export class CallMasterComponent implements OnInit {
-  @ViewChild(DxDataGridComponent) callGrid;
-
-  searchCall: CallDetails;
+  searchCall: Call = new Call();
 
   calls: DataSource;
 
@@ -35,24 +32,21 @@ export class CallMasterComponent implements OnInit {
     type: 'success'
   };
 
-  constructor(public callService: CallsService, public dispatcherService: DispatcherService) {}
+  constructor(public callService: CallsService, public dispatcherService: DispatcherService, public listDataService: ListsService) {}
 
   ngOnInit() {
-    this.callService.setCallGrid(this.callGrid);
-
-    this.callForms = this.callService.getCallForms();
+    this.callForms = this.listDataService.getCallForms();
 
     this.dispatchers = this.dispatcherService.getDispatcherList();
 
-    this.callTypes = this.callService.getCallTypeList();
+    this.callTypes = this.listDataService.getCallTypeList();
 
-    this.callStatus = this.callService.getCallStatusList();
+    this.callStatus = this.listDataService.getCallStatusList();
 
     this.calls = this.callService.getCallList();
   }
 
   getComplainantName(data: Call) {
-
     if (data.complainantPerson.isBusiness) {
       return data.complainantPerson.businessName;
     } else {
@@ -65,7 +59,6 @@ export class CallMasterComponent implements OnInit {
   }
 
   selectionChanged(e) {
-    console.log(e.selectedRowsData[0]);
     this.callService.setActiveCall(e.selectedRowsData[0]);
   }
 }

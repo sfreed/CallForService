@@ -21,7 +21,7 @@ export class OfficersComponent implements OnInit {
 
     const officer = event.item.data;
 
-    this.callService.assignOfficerToActiveCall(officer, this.callService.getActiveCall());
+    this.callService.assignOfficerToActiveCall(officer, this.callService.getActiveCallDetails());
   }
 
 }

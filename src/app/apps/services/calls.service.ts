@@ -1,107 +1,91 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import DataSource from 'devextreme/data/data_source';
 import ArrayStore from 'devextreme/data/array_store';
 import { CallDetails } from 'src/app/models/CallDetails';
 import { Officer } from 'src/app/models/officer';
-import { DxDataGridComponent } from 'devextreme-angular';
-import { DataService } from './data';
+import { UserDataService } from './UserData';
 import PriorityQueue from 'priorityqueue';
+import { Call } from 'src/app/models/Call';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class CallsService {
-  private callGrid: DxDataGridComponent;
+  callEmitter = new EventEmitter<Call>();
 
   private callList: DataSource;
 
-  private callTypeList: DataSource;
+  private callDetailList: DataSource;
 
-  private callStatusList: DataSource;
+  private activeCall: Call;
 
-  private activeCall: CallDetails;
+  private activeCallDetails: CallDetails;
 
   officerQueue = new Map();
 
-  private callForms: any = [{
-    id: 0,
-    name: 'Traffic Call'
-  }, {
-    id: 1,
-    name: 'Domestic Call'
-  }];
-
-  constructor(private dataService: DataService) {
+  constructor(private userDataService: UserDataService) {
     this.callList = new DataSource({
         store : new ArrayStore({
           key : 'id',
-          data : this.dataService.getCallList()
+          data : this.userDataService.getCallList()
         }) ,
         sort : ['date',  'time'],
         paginate : true,
         pageSize : 18
       });
 
-      this.callTypeList = new DataSource({
+      this.callDetailList = new DataSource({
         store : new ArrayStore({
-          key : 'id',
-          data : this.dataService.getCallTypesList()
-        }) ,
-        sort : ['description']
+          key : 'callInfoId',
+          data : this.userDataService.getCallDetailsList()
+        })
       });
-
-      this.callStatusList = new DataSource({
-        store : new ArrayStore({
-          key : 'id',
-          data : this.dataService.getCallStatusList()
-        }) ,
-        sort : ['description']
-      });
-  }
-
-  setCallGrid(callGrid: DxDataGridComponent) {
-    this.callGrid = callGrid;
   }
 
   getCallList(): DataSource {
     return this.callList;
   }
 
-  getCallStatusList(): DataSource {
-    return this.callStatusList;
+  getCallDetailsList(): DataSource {
+    return this.callDetailList;
   }
 
-  getCallTypeList(): DataSource {
-    return this.callTypeList;
-  }
-
-  setActiveCall(call: CallDetails) {
+  setActiveCall(call: Call) {
     this.activeCall = call;
+
+    this.callDetailList.filter(['callInfoId', call.id]);
+
+    this.callDetailList.load().then(result => {
+      this.activeCallDetails = result[0];
+    })
+    .then(result => this.callEmitter.emit(this.activeCall));
   }
 
-  getActiveCall(): CallDetails {
+  getActiveCall(): Call {
      return this.activeCall;
   }
 
-  getCallForms(): any[] {
-    return this.callForms;
-  }
+  getActiveCallDetails(): CallDetails {
+    return this.activeCallDetails;
+ }
 
   assignOfficerToActiveCall(officer: Officer, call: CallDetails): boolean {
+    console.log('active', this.activeCallDetails);
     officer.current_call = call.callInfoId;
     officer.call_status = 'ACTIVE';
     const d: Date = new Date();
 
     let officerIsAssigned = true;
 
-    this.activeCall.officers.forEach(activeOfficer => {
+    this.activeCallDetails.officers.forEach(activeOfficer => {
       if (activeOfficer.officer.id === officer.id) {
         officerIsAssigned = false;
       }
     });
 
     if (officerIsAssigned) {
-      this.activeCall.officers.push({officer: officer, time: d.getHours() + ':' + d.getMinutes()});
+      this.activeCallDetails.officers.push({officer: officer, time: d.getHours() + ':' + d.getMinutes()});
       this.addCallToOfficerQueue(officer, call);
     }
 
