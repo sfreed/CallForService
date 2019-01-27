@@ -1,11 +1,11 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import DataSource from 'devextreme/data/data_source';
 import ArrayStore from 'devextreme/data/array_store';
-import { CallDetails } from 'src/app/models/CallDetails';
+import { CallDetail } from 'src/app/models/call/CallDetail';
 import { Officer } from 'src/app/models/officer';
 import { UserDataService } from './UserData';
 import PriorityQueue from 'priorityqueue';
-import { Call } from 'src/app/models/Call';
+import { Call } from 'src/app/models/call/Call';
 
 
 @Injectable({
@@ -20,7 +20,7 @@ export class CallsService {
 
   private activeCall: Call;
 
-  private activeCallDetails: CallDetails;
+  private activeCallDetails: CallDetail;
 
   officerQueue = new Map();
 
@@ -66,12 +66,11 @@ export class CallsService {
      return this.activeCall;
   }
 
-  getActiveCallDetails(): CallDetails {
+  getActiveCallDetails(): CallDetail {
     return this.activeCallDetails;
  }
 
-  assignOfficerToActiveCall(officer: Officer, call: CallDetails): boolean {
-    console.log('active', this.activeCallDetails);
+  assignOfficerToActiveCall(officer: Officer, call: CallDetail): boolean {
     officer.current_call = call.callInfoId;
     officer.call_status = 'ACTIVE';
     const d: Date = new Date();
@@ -92,7 +91,7 @@ export class CallsService {
     return officerIsAssigned;
   }
 
-  addCallToOfficerQueue(officer: Officer, call: CallDetails) {
+  addCallToOfficerQueue(officer: Officer, call: CallDetail) {
     let queue: PriorityQueue = this.officerQueue.get(officer.id);
 
     if (queue == null) {
@@ -104,8 +103,6 @@ export class CallsService {
     queue.push({order: queue.size(), call});
 
     this.officerQueue.set(officer.id, queue);
-
-    console.log(queue.toArray());
   }
 
   getOfficerQueue(officer: Officer): PriorityQueue {

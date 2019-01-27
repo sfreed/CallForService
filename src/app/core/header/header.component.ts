@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { DispatcherService } from 'src/app/apps/services/dispatcher.service';
 import { CallsService } from 'src/app/apps/services/calls.service';
 import notify from 'devextreme/ui/notify';
 import { OfficerService } from 'src/app/apps/services/officer.service';
+import { AgencyService } from 'src/app/apps/services/agency.service';
+import { ListsService } from 'src/app/apps/services/lists.service';
+import { AvailableUnitService } from 'src/app/apps/services/availableUnit.service.';
 
 @Component({
   selector: 'app-header',
@@ -10,18 +13,23 @@ import { OfficerService } from 'src/app/apps/services/officer.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
-  items: any[];
-
   menuItems: any[];
 
   officerPanelVisible = false;
 
   dispatcherPanelVisible = false;
 
-  constructor(public dispatcherService: DispatcherService, public callService: CallsService, public officerService: OfficerService) {
+  agencyPanelVisible = false;
 
-    this.items = [{
+  @Output()
+  hospitalPanelVisible = false;
+
+  availableUnitsPanelVisible = false;
+
+  constructor(public dispatcherService: DispatcherService, public callService: CallsService, public officerService: OfficerService, public agencyService: AgencyService,
+    public listDataService: ListsService, public availableUnitService: AvailableUnitService) {
+
+    this.menuItems = [{
       location: 'before',
       locateInMenu: 'never',
       template: () => {
@@ -55,27 +63,27 @@ export class HeaderComponent implements OnInit {
       onClick: () => {
           this.dispatcherPanelVisible = true;
       }
+    }, {
+      locateInMenu: 'always',
+      text: 'Add Agency',
+      onClick: () => {
+          this.agencyPanelVisible = true;
+      }
+    }, {
+      locateInMenu: 'always',
+      text: 'Add Hospital',
+      onClick: () => {
+          this.hospitalPanelVisible = true;
+      }
+    }, {
+      locateInMenu: 'always',
+      text: 'Add Unit',
+      onClick: () => {
+          this.availableUnitsPanelVisible = true;
+      }
     }];
   }
 
   ngOnInit() {
-    this.menuItems = [{
-      id: '1',
-      name: 'Video Players',
-      items: [{
-          id: '1_1',
-          name: 'HD Video Player',
-          price: 220
-      }, {
-          id: '1_2',
-          name: 'SuperHD Video Player',
-          price: 270
-      }]
-    }];
   }
-
-  itemClick(e) {
-
-  }
-
 }

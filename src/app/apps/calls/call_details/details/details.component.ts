@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CallsService } from 'src/app/apps/services/calls.service';
 import { ListsService } from 'src/app/apps/services/lists.service';
-import { Call } from 'src/app/models/Call';
+import { Call } from 'src/app/models/call/Call';
 import { DispatcherService } from 'src/app/apps/services/dispatcher.service';
 
 @Component({

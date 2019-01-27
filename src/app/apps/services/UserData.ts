@@ -1,33 +1,50 @@
 import { Officer } from 'src/app/models/officer';
 import { Injectable } from '@angular/core';
-import { CallDetails } from 'src/app/models/CallDetails';
+import { CallDetail } from 'src/app/models/call/CallDetail';
 import { DispatcherHistory } from 'src/app/models/history';
 import { Dispatcher } from 'src/app/models/dispatcher';
-import { Call } from 'src/app/models/Call';
+import { Call } from 'src/app/models/call/Call';
+import { Agency } from 'src/app/models/sources/Agency';
+import { Hospital } from 'src/app/models/sources/Hospital';
+import { AvailableUnit } from 'src/app/models/AvailableUnit';
 
 @Injectable()
 export class UserDataService {
-    getOfficerList() {
+    getOfficerList(): Officer[] {
         return officerList;
     }
 
-    getCallList() {
+    getCallList(): Call[] {
       return callList;
     }
 
-    getCallDetailsList() {
+    getCallDetailsList(): CallDetail[] {
       return callDetailList;
     }
 
-    getHistoryList() {
+    getHistoryList(): DispatcherHistory[] {
       return historyList;
     }
 
-    getDispatcherList() {
+    getDispatcherList(): Dispatcher[] {
       return dispatcherList;
+    }
+
+    getAgencyList(): Agency[] {
+      return agencyList;
+    }
+
+    getHospitalList(): Hospital[] {
+      return hospitalList;
+    }
+
+    getAvailableUnitList(): AvailableUnit[] {
+      return availableUnit;
     }
   }
   const historyList: DispatcherHistory[] = [];
+
+  const availableUnit: AvailableUnit[] = [];
 
   const dispatcherList: Dispatcher[] = [
     {'id': '82393b70-0e60-45f6-ab91-3db4b12ed7d5', 'userName': 'sfreed', 'fullName': 'Shane Freed'},
@@ -35,6 +52,16 @@ export class UserDataService {
     {'id': 'd8be62cc-ec1e-4289-aa0b-f60dac96dd75', 'userName': 'jnorton', 'fullName': 'Jason Norton'},
     {'id': '26059055-7bcf-4715-9a46-2dce3c4bfec1', 'userName': 'rlong', 'fullName': 'Ray Long'},
     {'id': 'e4342e69-fdf7-4806-a156-b24486f7dac5', 'userName': 'dhosea', 'fullName': 'David Hosea'}
+  ];
+
+  const hospitalList: Hospital[] = [
+    {'id': '7d47ert8-63d9-437a-b2a8-76a8aacff173', 'hospitalName': 'Clayton County Hospital' , 'isActive': true, 'isUserEditable': true},
+    {'id': 'ec1b6yul-cae6-41ad-9d9c-ceed61607049', 'hospitalName': 'Piedmont Hospital Clayton', 'isActive': true, 'isUserEditable': true}
+  ];
+
+  const agencyList: Agency[] = [
+    {'id': '7d47ert8-63d9-437a-b2a8-76a8aacff173', 'agencyCode': 'CCPD', 'agencyName': 'Clayton County Police Dept', 'agencyTypeCodeId': '7d47ert8-63d9-437a-b2a8-76a8aacff173', 'ncicCode': 'qe234', 'conversionNumber': '1.0', 'isActive': true, 'isUserEditable': true},
+    {'id': 'ec1b6yul-cae6-41ad-9d9c-ceed61607049', 'agencyCode': 'CCFD', 'agencyName': 'Clayton County Fire Dept', 'agencyTypeCodeId': 'ec1b6yul-cae6-41ad-9d9c-ceed61607049', 'ncicCode': 'sdgsd98', 'conversionNumber': '1.0', 'isActive': true, 'isUserEditable': true}
   ];
 
   const officerList:  Officer[] = [
@@ -91,7 +118,7 @@ export class UserDataService {
   ];
 
 
-  const callDetailList: CallDetails[] = [
+  const callDetailList: CallDetail[] = [
     {'callInfoId': 'ea7e6cd0-1084-47f8-8592-c8626ca0ff55', 'officers': [], 'involvedPersons': [], 'hospitals': [], 'wreckers': [], 'vehicles': [], 'call_history': [], 'notes': []},
     {'callInfoId': 'a8aefbb2-464c-4064-829f-ad13eae03285', 'officers': [], 'involvedPersons': [], 'hospitals': [], 'wreckers': [], 'vehicles': [], 'call_history': [], 'notes': []},
     {'callInfoId': 'a36033f5-a386-4a40-9345-7313b779ba72', 'officers': [], 'involvedPersons': [], 'hospitals': [], 'wreckers': [], 'vehicles': [], 'call_history': [], 'notes': []},

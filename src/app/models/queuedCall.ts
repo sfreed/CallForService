@@ -1,6 +1,6 @@
-import { CallDetails } from './CallDetails';
+import { CallDetail } from './call/CallDetail';
 
 export class QueuedCall {
   order: number;
-  call: CallDetails;
+  call: CallDetail;
 }

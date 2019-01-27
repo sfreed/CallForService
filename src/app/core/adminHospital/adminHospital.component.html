@@ -1,0 +1,28 @@
+<dx-popup
+    class="popup"
+    [width]="'50%'"
+    [height]="'50%'"
+    [showTitle]="true"
+    title="Hospital Panel"
+    [dragEnabled]="false"
+    [closeOnOutsideClick]="false"
+    [(visible)]="hospitalPanelVisible"
+    [showCloseButton]="true">
+  <dx-data-grid id="hospitalGrid"
+      [dataSource]="hospitalService"
+      [rowAlternationEnabled]="true"
+      [showBorders]="true"
+      [showColumnHeaders]="true"
+      height="350">
+    <dxo-scrolling mode="virtual"></dxo-scrolling>
+    <dxo-selection mode="single"></dxo-selection>
+    <dxo-editing
+      mode="popup"
+      [allowUpdating]="true"
+      [allowDeleting]="true"
+      [allowAdding]="true">
+    </dxo-editing>
+    <dxi-column dataField="id" dataType="string" [visible]="false"></dxi-column>
+    <dxi-column dataField="hospitalName" dataType="string"></dxi-column>
+  </dx-data-grid>
+</dx-popup>

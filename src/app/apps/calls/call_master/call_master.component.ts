@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { CallsService } from '../../services/calls.service';
 import DataSource from 'devextreme/data/data_source';
 import { DispatcherService } from '../../services/dispatcher.service';
-import { Call } from 'src/app/models/Call';
+import { Call } from 'src/app/models/call/Call';
 import { ListsService } from '../../services/lists.service';
 
 @Component({
@@ -54,8 +54,8 @@ export class CallMasterComponent implements OnInit {
     }
   }
 
-  formSelected(e, callForm) {
-    console.log('About to Start:', callForm.selectedItem);
+  formSelected(e: any, callForm: any) {
+    console.log('Launching call form', callForm);
   }
 
   selectionChanged(e) {

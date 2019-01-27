@@ -19,6 +19,8 @@ export class ListsService {
 
   private callStatusList: DataSource;
 
+  private agencyTypeList: DataSource;
+
   constructor(private listDataService: ListDataService) {
       this.callTypeList = new DataSource({
         store : new ArrayStore({
@@ -35,6 +37,14 @@ export class ListsService {
         }) ,
         sort : ['description']
       });
+
+      this.agencyTypeList = new DataSource({
+        store : new ArrayStore({
+          key : 'id',
+          data : this.listDataService.getAgencyTypeList()
+        }) ,
+        sort : ['description']
+      });
   }
 
   getCallForms(): any[] {
@@ -47,5 +57,9 @@ export class ListsService {
 
   getCallTypeList(): DataSource {
     return this.callTypeList;
+  }
+
+  getAgencyTypeList(): DataSource {
+    return this.agencyTypeList;
   }
 }
