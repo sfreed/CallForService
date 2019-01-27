@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { HospitalService } from '../../apps/services/hospital.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { HospitalService } from '../../apps/services/hospital.service';
 })
 
 export class AdminHospitalComponent implements OnInit {
-  hospitalPanelVisible = false;
+  @Input() visible = false;
 
   constructor(public hospitalService: HospitalService) { }
 

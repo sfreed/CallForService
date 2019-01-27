@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DispatcherService } from 'src/app/apps/services/dispatcher.service';
 import { CallsService } from 'src/app/apps/services/calls.service';
 import notify from 'devextreme/ui/notify';
@@ -21,7 +21,6 @@ export class HeaderComponent implements OnInit {
 
   agencyPanelVisible = false;
 
-  @Output()
   hospitalPanelVisible = false;
 
   availableUnitsPanelVisible = false;

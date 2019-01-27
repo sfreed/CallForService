@@ -6,10 +6,10 @@
     title="Hospital Panel"
     [dragEnabled]="false"
     [closeOnOutsideClick]="false"
-    [(visible)]="hospitalPanelVisible"
+    [(visible)]="visible"
     [showCloseButton]="true">
   <dx-data-grid id="hospitalGrid"
-      [dataSource]="hospitalService"
+      [dataSource]="hospitalService.getHospitalList()"
       [rowAlternationEnabled]="true"
       [showBorders]="true"
       [showColumnHeaders]="true"

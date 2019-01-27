@@ -8,40 +8,7 @@ import { Agency } from 'src/app/models/sources/Agency';
 import { Hospital } from 'src/app/models/sources/Hospital';
 import { AvailableUnit } from 'src/app/models/AvailableUnit';
 
-@Injectable()
-export class UserDataService {
-    getOfficerList(): Officer[] {
-        return officerList;
-    }
 
-    getCallList(): Call[] {
-      return callList;
-    }
-
-    getCallDetailsList(): CallDetail[] {
-      return callDetailList;
-    }
-
-    getHistoryList(): DispatcherHistory[] {
-      return historyList;
-    }
-
-    getDispatcherList(): Dispatcher[] {
-      return dispatcherList;
-    }
-
-    getAgencyList(): Agency[] {
-      return agencyList;
-    }
-
-    getHospitalList(): Hospital[] {
-      return hospitalList;
-    }
-
-    getAvailableUnitList(): AvailableUnit[] {
-      return availableUnit;
-    }
-  }
   const historyList: DispatcherHistory[] = [];
 
   const availableUnit: AvailableUnit[] = [];
@@ -225,3 +192,38 @@ export class UserDataService {
     {'id': 'f36b3af9-6726-417d-8614-800d6d140933', 'receivedDateTime':  new Date( '2018-06-11T15:01:23Z'), 'dispatchedDateTime':  new Date('2018-04-24T04:16:25Z'), 'complainantPerson': {'id': 'c66c014e-07cf-4fe3-a502-0dca831908ea', 'isBusiness': true, 'businessName': 'Twiyo', 'fullName': 'Kiley Steddall'}, 'locationPrimary': {'id': '46bed7e3-852b-4478-b3a2-ce40caa8d52a', 'city': 'Lyski', 'latitude': 50.12514, 'longitude': 18.3810394}, 'dispatchByPersonId': 'e4342e69-fdf7-4806-a156-b24486f7dac5', 'callStatusId': '7d47e17c-63d9-437a-b2a8-76a8aacff173', 'callTypeId': '7d47ert8-63d9-437a-b2a8-76a8aacff173'},
     {'id': '7319cbd9-03c1-43ee-b544-98270b041dfd', 'receivedDateTime':  new Date( '2018-10-29T14:05:38Z'), 'dispatchedDateTime':  new Date('2018-07-08T01:20:53Z'), 'complainantPerson': {'id': '5648bb06-cc8f-438a-b434-7f06ff7d77b7', 'isBusiness': false, 'businessName': 'Brightdog', 'fullName': 'Benjamen Baynton'}, 'locationPrimary': {'id': '9e433991-9160-46a9-963f-d436f7d0aec5', 'city': 'Salinas', 'latitude': -2.2233633, 'longitude': -80.958462}, 'dispatchByPersonId': '82393b70-0e60-45f6-ab91-3db4b12ed7d5', 'callStatusId': 'ec1b6827-cae6-41ad-9d9c-ceed61607049', 'callTypeId': 'ec1b6yul-cae6-41ad-9d9c-ceed61607049'},
   ];
+
+  @Injectable()
+  export class UserDataService {
+    getOfficerList(): Officer[] {
+        return officerList;
+    }
+
+    getCallList(): Call[] {
+      return callList;
+    }
+
+    getCallDetailsList(): CallDetail[] {
+      return callDetailList;
+    }
+
+    getHistoryList(): DispatcherHistory[] {
+      return historyList;
+    }
+
+    getDispatcherList(): Dispatcher[] {
+      return dispatcherList;
+    }
+
+    getAgencyList(): Agency[] {
+      return agencyList;
+    }
+
+    getHospitalList(): Hospital[] {
+      return hospitalList;
+    }
+
+    getAvailableUnitList(): AvailableUnit[] {
+      return availableUnit;
+    }
+  }
