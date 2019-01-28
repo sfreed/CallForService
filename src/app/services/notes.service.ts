@@ -1,21 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Note } from 'src/app/models/note';
-import { Http } from '@angular/http';
-
+import DataSource from 'devextreme/data/data_source';
+import ArrayStore from 'devextreme/data/array_store';
+import { UserDataService } from './UserData';
 @Injectable({
   providedIn: 'root'
 })
 export class NotesService {
-  private notes: Promise<Note[]>;
+  private notesList: DataSource;
 
-  constructor(private http: Http) {
-    this.notes = this.http.get('assets/data/notes.json')
-      .toPromise()
-      .then(res => <Note[]> res.json());
+  constructor(private dataService: UserDataService) {
+    this.notesList = new DataSource({
+      store : new ArrayStore({
+        key : 'id',
+        data : dataService.getNotesList()
+      })
+    });
   }
 
-  public getNotes(): Promise<Note[]> {
-    return this.notes;
+  public getNotes(): DataSource {
+    return this.notesList;
   }
 
 }

@@ -21,5 +21,4 @@ export class AvailableUnitService {
   getAvailableUnitList(): DataSource {
     return this.availableUnitList;
   }
-
 }

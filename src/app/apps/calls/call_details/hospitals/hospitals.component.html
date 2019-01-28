@@ -1,10 +1,14 @@
 <div *ngIf="callService.getActiveCall()">
-  <dx-data-grid id="ambulanceGrid"
+  <dx-data-grid id="hospitalGrid"
     [dataSource]="callService.getActiveCallDetails().hospitals"
     [rowAlternationEnabled]="true"
     [showBorders]="true"
     [showColumnHeaders]="true"
-    height="350">
+    height="350"
+    cdkDropList
+    #inActiveOfficersListDnD="cdkDropList"
+    (cdkDropListDropped)="drop($event)"
+    cdkDropListConnectedTo="activeOfficers">
     <dxo-scrolling mode="virtual"></dxo-scrolling>
     <dxo-selection mode="single"></dxo-selection>
     <dxo-editing

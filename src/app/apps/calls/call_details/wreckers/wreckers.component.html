@@ -1,10 +1,14 @@
 <div *ngIf="callService.getActiveCall()">
-  <dx-data-grid id="towTruckGrid"
+  <dx-data-grid id="wreckerGrid"
     [dataSource]="callService.getActiveCallDetails().wreckers"
     [rowAlternationEnabled]="true"
     [showBorders]="true"
     [showColumnHeaders]="true"
-    height="350">
+    height="350"
+    cdkDropList
+    #inActiveOfficersListDnD="cdkDropList"
+    (cdkDropListDropped)="drop($event)"
+    cdkDropListConnectedTo="activeOfficers">
     <dxo-scrolling mode="virtual"></dxo-scrolling>
     <dxo-selection mode="single"></dxo-selection>
     <dxo-editing

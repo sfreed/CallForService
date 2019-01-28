@@ -20,7 +20,7 @@
       cdkDropList
       #activeOfficersDnD="cdkDropList"
       (cdkDropListDropped)="drop($event)"
-      [cdkDropListConnectedTo]="['callTabsContainer']">
+      [cdkDropListConnectedTo]="['callHistoryGrid', 'complainantForm', 'hospitalGrid', 'involvedPersonsGrid', 'officerContainer', 'vehicleGrid', 'callDetailForm', 'wreckerGrid']">
       <div *dxTemplate="let data of 'item'">
         <div
           id="switchdiv{{data.id}}"

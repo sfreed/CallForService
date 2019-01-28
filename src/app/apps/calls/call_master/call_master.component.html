@@ -48,7 +48,14 @@
       <dxo-selection mode="single"></dxo-selection>
       <dxo-sorting mode="multiple"> </dxo-sorting>
 
-      <dxi-column dataField="receivedDateTime" dataType="string" [sortIndex]="0" sortOrder="desc"></dxi-column>
+      <dxi-column dataField="callStatusId" dataType="string" [caption]="'Call Status'" [sortIndex]="0" sortOrder="asc">
+        <dxo-lookup
+          [dataSource]="callStatus.store()"
+          valueExpr="id"
+          displayExpr="description">
+        </dxo-lookup>
+      </dxi-column>
+      <dxi-column dataField="receivedDateTime" dataType="string" [sortIndex]="1" sortOrder="desc"></dxi-column>
       <dxi-column dataField="dispatchedDateTime" dataType="string"></dxi-column>
       <dxi-column dataField="dispatchByPersonId" dataType="string" [caption]="'Dispatcher'">
         <dxo-lookup

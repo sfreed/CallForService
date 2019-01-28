@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { DxBoxModule, DxListModule, DxDataGridModule, DxSwitchModule, DxToolbarModule, DxSelectBoxModule,
@@ -24,7 +23,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ListDataService } from '../services/ListData';
 
 @NgModule({
-  imports: [ BrowserModule, BrowserAnimationsModule, HttpModule, DragDropModule,
+  imports: [ BrowserModule, BrowserAnimationsModule, DragDropModule,
     DxBoxModule, DxListModule, DxDataGridModule, DxSwitchModule, DxToolbarModule, DxSelectBoxModule, DxButtonModule,
     DxDrawerModule, DxTabPanelModule, DxContextMenuModule, DxTextAreaModule, DxPopupModule, DxFormModule, DxAccordionModule,
     DxDateBoxModule, DxTextBoxModule ],

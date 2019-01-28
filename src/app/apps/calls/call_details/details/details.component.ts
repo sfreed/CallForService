@@ -3,6 +3,7 @@ import { CallsService } from 'src/app/services/calls.service';
 import { ListsService } from 'src/app/services/lists.service';
 import { Call } from 'src/app/models/call/Call';
 import { DispatcherService } from 'src/app/services/dispatcher.service';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-details',
@@ -34,5 +35,18 @@ export class DetailsComponent implements OnInit {
     } else {
       return this.activeCall.complainantPerson.fullName;
     }
+  }
+
+  drop(event: CdkDragDrop<any>) {
+    if (event.previousContainer === event.container) {
+      return;
+    }
+
+    if (event.item.element.nativeElement.classList.contains('OFFICER')) {
+      const officer = event.item.data;
+
+      this.callService.assignOfficerToActiveCall(officer, this.callService.getActiveCallDetails());
+    }
+
   }
 }

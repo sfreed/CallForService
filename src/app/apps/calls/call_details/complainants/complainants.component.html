@@ -1,6 +1,10 @@
 <div *ngIf="callService.getActiveCall()">
-  <dx-form id="callForm" class="callForm" height="350"
-      [formData]="callService.getActiveCall().complainantPerson">
+  <dx-form id="complainantForm" class="complainantForm" height="350"
+      [formData]="callService.getActiveCall().complainantPerson"
+      cdkDropList
+      #inActiveOfficersListDnD="cdkDropList"
+      (cdkDropListDropped)="drop($event)"
+      cdkDropListConnectedTo="activeOfficers">
     <dxi-item itemType="group" caption="Personal Information" [widthRatio]="1">
       <dxi-item dataField="id" dataType="number" [visible]="false"></dxi-item>
       <dxi-item dataField="first_name" dataType="string"></dxi-item>

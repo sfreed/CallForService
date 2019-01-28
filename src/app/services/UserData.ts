@@ -7,9 +7,12 @@ import { Call } from 'src/app/models/call/Call';
 import { Agency } from 'src/app/models/sources/Agency';
 import { Hospital } from 'src/app/models/sources/Hospital';
 import { AvailableUnit } from 'src/app/models/AvailableUnit';
+import { Note } from '../models/note';
 
 
   const historyList: DispatcherHistory[] = [];
+
+  const notesList: Note[] = [];
 
   const availableUnit: AvailableUnit[] = [];
 
@@ -225,5 +228,9 @@ import { AvailableUnit } from 'src/app/models/AvailableUnit';
 
     getAvailableUnitList(): AvailableUnit[] {
       return availableUnit;
+    }
+
+    getNotesList(): Note[] {
+      return notesList;
     }
   }
