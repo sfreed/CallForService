@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AgencyService } from 'src/app/apps/services/agency.service';
-import { ListsService } from 'src/app/apps/services/lists.service';
-import { AdminService } from 'src/app/apps/services/admin.service';
+import { AgencyService } from 'src/app/services/agency.service';
+import { ListsService } from 'src/app/services/lists.service';
+import { AdminService } from 'src/app/services/admin.service';
 
 @Component({
   selector: 'app-admin-agency',

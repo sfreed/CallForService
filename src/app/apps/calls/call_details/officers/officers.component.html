@@ -4,18 +4,13 @@
     [rowAlternationEnabled]="true"
     [showBorders]="true"
     [showColumnHeaders]="true"
-    height="350"
-    cdkDropList
-    #inActiveOfficersListDnD="cdkDropList"
-    (cdkDropListDropped)="drop($event)"
-    cdkDropListConnectedTo="activeOfficers">
+    height="350">
     <dxo-scrolling mode="virtual"></dxo-scrolling>
     <dxo-selection mode="single"></dxo-selection>
     <dxo-editing
       mode="popup"
       [allowDeleting]="true"
       [allowAdding]="true">
-
     </dxo-editing>
     <dxi-column dataField="time" dataType="string"></dxi-column>
     <dxi-column dataField="officer.last_name" dataType="string" caption="First Name"></dxi-column>

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CallsService } from 'src/app/apps/services/calls.service';
-import { ListsService } from 'src/app/apps/services/lists.service';
+import { CallsService } from 'src/app/services/calls.service';
+import { ListsService } from 'src/app/services/lists.service';
 import { Call } from 'src/app/models/call/Call';
-import { DispatcherService } from 'src/app/apps/services/dispatcher.service';
+import { DispatcherService } from 'src/app/services/dispatcher.service';
 
 @Component({
   selector: 'app-details',

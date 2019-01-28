@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NotesService } from '../../services/notes.service';
-
-import { CallsService } from '../../services/calls.service';
+import { NotesService } from 'src/app/services/notes.service';
+import { CallsService } from 'src/app/services/calls.service';
 
 @Component({
   selector: 'app-call-notes',

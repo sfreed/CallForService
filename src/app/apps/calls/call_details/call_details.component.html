@@ -7,10 +7,15 @@
 </dx-toolbar>
 <div *ngIf="callService.getActiveCall()" class="detailsContainer">
   <dx-tab-panel
+    id="callTabsContainer"
     [height]="'100%'"
     [loop]="false"
     [scrollingEnabled]="true"
-    [noDataText]="'No Items added to Call!'">
+    [noDataText]="'No Items added to Call!'"
+    cdkDropList
+    #inActiveOfficersListDnD="cdkDropList"
+    (cdkDropListDropped)="drop($event)"
+    cdkDropListConnectedTo="activeOfficers">
 
     <dxi-item class="tabpanel-item" title="Current Call">
       <app-details></app-details>

@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
-import { DispatcherService } from 'src/app/apps/services/dispatcher.service';
+import { DispatcherService } from 'src/app/services/dispatcher.service';
 import notify from 'devextreme/ui/notify';
-import { AdminService } from 'src/app/apps/services/admin.service';
+import { AdminService } from 'src/app/services/admin.service';
 
 @Component({
   selector: 'app-header',
@@ -76,6 +76,12 @@ export class HeaderComponent implements OnInit {
       text: 'Add Unit',
       onClick: () => {
         this.adminService.adminFormEmitter.emit(['availableUnitsPanelVisible', true]);
+      }
+    }, {
+      locateInMenu: 'always',
+      text: 'Add Types',
+      onClick: () => {
+        this.adminService.adminFormEmitter.emit(['typesPanelVisible', true]);
       }
     }];
   }

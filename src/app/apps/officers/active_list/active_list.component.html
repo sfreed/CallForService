@@ -20,11 +20,11 @@
       cdkDropList
       #activeOfficersDnD="cdkDropList"
       (cdkDropListDropped)="drop($event)"
-      [cdkDropListConnectedTo]="[inActiveOfficersListDnD, 'officerContainer']">
+      [cdkDropListConnectedTo]="['callTabsContainer']">
       <div *dxTemplate="let data of 'item'">
         <div
           id="switchdiv{{data.id}}"
-          class="officerName badge{{data.id}} active{{data.active}} example-box" cdkDrag [cdkDragData]="data">
+          class="OFFICER officerName badge{{data.id}} active{{data.active}} example-box" cdkDrag [cdkDragData]="data">
             #{{data.badge_number}} : {{data.last_name}}, {{data.first_name}} <span style="float:right;">({{getOfficerQueue(data)}})</span>
         </div>
 

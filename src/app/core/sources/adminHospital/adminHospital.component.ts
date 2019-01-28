@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { HospitalService } from '../../apps/services/hospital.service';
-import { AdminService } from 'src/app/apps/services/admin.service';
+import { AdminService } from '../../../services/admin.service';
+import { HospitalService } from '../../../services/hospital.service';
 
 @Component({
   selector: 'app-admin-hospital',

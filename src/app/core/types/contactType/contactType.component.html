@@ -1,0 +1,18 @@
+<dx-data-grid id="contactTypeGrid"
+    [dataSource]="listDataService.getContactTypeList()"
+    [rowAlternationEnabled]="true"
+    [showBorders]="true"
+    [showColumnHeaders]="true"
+    height="350">
+  <dxo-scrolling mode="virtual"></dxo-scrolling>
+  <dxo-selection mode="single"></dxo-selection>
+  <dxo-editing
+    mode="popup"
+    [allowUpdating]="true"
+    [allowDeleting]="true"
+    [allowAdding]="true">
+  </dxo-editing>
+  <dxi-column dataField="id" dataType="string" [visible]="false"></dxi-column>
+  <dxi-column dataField="contactTypeCode" dataType="string"></dxi-column>
+  <dxi-column dataField="contactTypeCodeDescription" dataType="string"></dxi-column>
+</dx-data-grid>

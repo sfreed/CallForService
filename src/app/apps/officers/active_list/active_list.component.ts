@@ -1,8 +1,8 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { DxListComponent } from 'devextreme-angular';
-import { DispatcherService } from '../../services/dispatcher.service';
-import { CallsService } from '../../services/calls.service';
-import { OfficerService } from '../../services/officer.service';
+import { DispatcherService } from 'src/app/services/dispatcher.service';
+import { CallsService } from 'src/app/services/calls.service';
+import { OfficerService } from 'src/app/services/officer.service';
 import DataSource from 'devextreme/data/data_source';
 import notify from 'devextreme/ui/notify';
 import uuid from 'UUID';

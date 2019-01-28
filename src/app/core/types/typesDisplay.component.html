@@ -1,0 +1,30 @@
+<dx-popup
+    class="popup"
+    [width]="'50%'"
+    [height]="'50%'"
+    [showTitle]="true"
+    title="Types Panel"
+    [dragEnabled]="false"
+    [closeOnOutsideClick]="false"
+    [(visible)]="isVisible"
+    [showCloseButton]="true">
+  <dx-tab-panel
+      id="typesTabsContainer"
+      [height]="'100%'"
+      [loop]="false"
+      [scrollingEnabled]="true"
+      [noDataText]="'No Items added to Call!'">
+    <dxi-item class="tabpanel-item" title="Address Types">
+      <app-address-type></app-address-type>
+    </dxi-item>
+    <dxi-item class="tabpanel-item" title="Agency Types" >
+      <app-agency-type></app-agency-type>
+    </dxi-item>
+    <dxi-item class="tabpanel-item" title="Contact Type">
+      <app-contact-type></app-contact-type>
+    </dxi-item>
+    <dxi-item class="tabpanel-item" title="Officer Rank">
+      <app-officer-rank></app-officer-rank>
+    </dxi-item>
+  </dx-tab-panel>
+</dx-popup>

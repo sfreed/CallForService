@@ -1,6 +1,6 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Officer } from './models/officer';
-import { DispatcherService } from './apps/services/dispatcher.service';
+import { DispatcherService } from './services/dispatcher.service';
 import { DxDrawerComponent } from 'devextreme-angular';
 
 @Component({

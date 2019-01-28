@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { OfficerService } from 'src/app/apps/services/officer.service';
-import { AdminService } from 'src/app/apps/services/admin.service';
+import { OfficerService } from 'src/app/services/officer.service';
+import { AdminService } from 'src/app/services/admin.service';
 
 @Component({
   selector: 'app-admin-officers',

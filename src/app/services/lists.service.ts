@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import DataSource from 'devextreme/data/data_source';
 import ArrayStore from 'devextreme/data/array_store';
-import { ListDataService } from 'src/app/apps/services/ListData';
+import { ListDataService } from './ListData';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +20,12 @@ export class ListsService {
   private callStatusList: DataSource;
 
   private agencyTypeList: DataSource;
+
+  private addressTypeList: DataSource;
+
+  private contactTypeList: DataSource;
+
+  private officerRankList: DataSource;
 
   constructor(private listDataService: ListDataService) {
       this.callTypeList = new DataSource({
@@ -45,6 +51,30 @@ export class ListsService {
         }) ,
         sort : ['description']
       });
+
+      this.addressTypeList = new DataSource({
+        store : new ArrayStore({
+          key : 'id',
+          data : this.listDataService.getAddressTypeList()
+        }) ,
+        sort : ['description']
+      });
+
+      this.contactTypeList = new DataSource({
+        store : new ArrayStore({
+          key : 'id',
+          data : this.listDataService.getContactTypeList()
+        }) ,
+        sort : ['description']
+      });
+
+      this.officerRankList = new DataSource({
+        store : new ArrayStore({
+          key : 'id',
+          data : this.listDataService.getOfficerRankList()
+        }) ,
+        sort : ['description']
+      });
   }
 
   getCallForms(): any[] {
@@ -61,5 +91,17 @@ export class ListsService {
 
   getAgencyTypeList(): DataSource {
     return this.agencyTypeList;
+  }
+
+  getAddressTypeList(): DataSource {
+    return this.addressTypeList;
+  }
+
+  getContactTypeList(): DataSource {
+    return this.contactTypeList;
+  }
+
+  getOfficerRankList(): DataSource {
+    return this.officerRankList;
   }
 }

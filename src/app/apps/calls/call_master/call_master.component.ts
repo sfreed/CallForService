@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CallsService } from '../../services/calls.service';
+import { CallsService } from 'src/app/services/calls.service';
 import DataSource from 'devextreme/data/data_source';
-import { DispatcherService } from '../../services/dispatcher.service';
+import { DispatcherService } from 'src/app/services/dispatcher.service';
 import { Call } from 'src/app/models/call/Call';
-import { ListsService } from '../../services/lists.service';
+import { ListsService } from 'src/app/services/lists.service';
 
 @Component({
   selector: 'app-call-master',
