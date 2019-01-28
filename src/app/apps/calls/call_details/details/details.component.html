@@ -6,7 +6,7 @@
         cdkDropList
         #inActiveOfficersListDnD="cdkDropList"
         (cdkDropListDropped)="drop($event)"
-        cdkDropListConnectedTo="activeOfficers">
+        [cdkDropListConnectedTo]="['activeOfficers']">
       <dxi-item itemType="group" caption="Call Information" [widthRatio]="1">
         <dxi-item>
             <dxo-label text="Received Date Time"></dxo-label>
