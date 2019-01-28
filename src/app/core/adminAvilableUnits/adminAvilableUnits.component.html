@@ -3,13 +3,13 @@
     [width]="'50%'"
     [height]="'50%'"
     [showTitle]="true"
-    title="Hospital Panel"
+    title="Agency Panel"
     [dragEnabled]="false"
     [closeOnOutsideClick]="false"
     [(visible)]="isVisible"
     [showCloseButton]="true">
-  <dx-data-grid id="hospitalGrid"
-      [dataSource]="hospitalService.getHospitalList()"
+  <dx-data-grid id="availableUnitsGrid"
+      [dataSource]="availableUnitService.getAvailableUnitList()"
       [rowAlternationEnabled]="true"
       [showBorders]="true"
       [showColumnHeaders]="true"
@@ -23,6 +23,15 @@
       [allowAdding]="true">
     </dxo-editing>
     <dxi-column dataField="id" dataType="string" [visible]="false"></dxi-column>
-    <dxi-column dataField="hospitalName" dataType="string"></dxi-column>
+    <dxi-column dataField="unitDescription" dataType="string"></dxi-column>
+    <dxi-column dataField="officerPersonId" dataType="string"></dxi-column>
+    <dxi-column dataField="unitType" dataType="string"></dxi-column>
+    <dxi-column dataField="unitAgencyId" dataType="string">
+      <dxo-lookup
+        [dataSource]="agencyService.getAgencyList().store()"
+        valueExpr="id"
+        displayExpr="agencyName">
+      </dxo-lookup>
+    </dxi-column>
   </dx-data-grid>
 </dx-popup>

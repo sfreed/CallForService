@@ -3,13 +3,13 @@
     [width]="'50%'"
     [height]="'50%'"
     [showTitle]="true"
-    title="Hospital Panel"
+    title="Officer Panel"
     [dragEnabled]="false"
     [closeOnOutsideClick]="false"
     [(visible)]="isVisible"
     [showCloseButton]="true">
-  <dx-data-grid id="hospitalGrid"
-      [dataSource]="hospitalService.getHospitalList()"
+  <dx-data-grid id="officerGrid"
+      [dataSource]="officerService.getAllOfficersList()"
       [rowAlternationEnabled]="true"
       [showBorders]="true"
       [showColumnHeaders]="true"
@@ -23,6 +23,8 @@
       [allowAdding]="true">
     </dxo-editing>
     <dxi-column dataField="id" dataType="string" [visible]="false"></dxi-column>
-    <dxi-column dataField="hospitalName" dataType="string"></dxi-column>
+    <dxi-column dataField="badge_number" dataType="string"></dxi-column>
+    <dxi-column dataField="first_name" dataType="string"></dxi-column>
+    <dxi-column dataField="last_name" dataType="Date"></dxi-column>
   </dx-data-grid>
 </dx-popup>

@@ -3,13 +3,13 @@
     [width]="'50%'"
     [height]="'50%'"
     [showTitle]="true"
-    title="Hospital Panel"
+    title="Dispatcher Panel"
     [dragEnabled]="false"
     [closeOnOutsideClick]="false"
     [(visible)]="isVisible"
     [showCloseButton]="true">
-  <dx-data-grid id="hospitalGrid"
-      [dataSource]="hospitalService.getHospitalList()"
+  <dx-data-grid id="dispatcherGrid"
+      [dataSource]="dispatcherService.getDispatcherList()"
       [rowAlternationEnabled]="true"
       [showBorders]="true"
       [showColumnHeaders]="true"
@@ -23,6 +23,7 @@
       [allowAdding]="true">
     </dxo-editing>
     <dxi-column dataField="id" dataType="string" [visible]="false"></dxi-column>
-    <dxi-column dataField="hospitalName" dataType="string"></dxi-column>
+    <dxi-column dataField="userName" dataType="string"></dxi-column>
+    <dxi-column dataField="fullName" dataType="Date"></dxi-column>
   </dx-data-grid>
 </dx-popup>
