@@ -6,7 +6,7 @@ import { OfficerService } from 'src/app/services/officer.service';
 import DataSource from 'devextreme/data/data_source';
 import notify from 'devextreme/ui/notify';
 import uuid from 'UUID';
-import { Officer } from 'src/app/models/officer';
+import { Officer } from 'src/app/models/sources/Officer';
 import PriorityQueue from 'priorityqueue';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 

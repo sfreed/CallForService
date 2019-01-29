@@ -2,7 +2,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 import DataSource from 'devextreme/data/data_source';
 import ArrayStore from 'devextreme/data/array_store';
 import { CallDetail } from 'src/app/models/call/CallDetail';
-import { Officer } from 'src/app/models/officer';
+import { Officer } from 'src/app/models/sources/Officer';
 import { UserDataService } from './UserData';
 import PriorityQueue from 'priorityqueue';
 import { Call } from 'src/app/models/call/Call';

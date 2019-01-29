@@ -5,6 +5,7 @@ import { AgencyType } from 'src/app/models/types/AgencyType';
 import { AddressType } from '../models/types/AddressType';
 import { ContactType } from '../models/types/ContactType';
 import { OfficerRank } from '../models/types/OfficerRank';
+import { UnitType } from '../models/types/UnitType';
 
   const callStatusList: CallStatus[] = [
     {'id': '7d47e17c-63d9-437a-b2a8-76a8aacff173', 'description': 'ACTIVE', 'isActive': true, 'isEditable': true},
@@ -36,6 +37,13 @@ import { OfficerRank } from '../models/types/OfficerRank';
     {'id': 'ec1b6yul-cae6-41ad-9d9c-ceed61607049', 'officerRankCode': '2', 'officerRankCodeDescription': 'Captian', 'isActive': true, 'isEditable': true}
   ];
 
+  const unitTypeList: UnitType[] = [
+    {'id': '7d47ert8-63d9-437a-b2a8-76a8aacff173', 'unitCode': 'LE', 'unitDescription': 'LAW ENFORCEMENT', 'unitImage': 'saddsads', 'unitColorBackground': 'Black', 'unitColorForground': 'Silver', 'isActive': true, 'isUserEditable': true},
+    {'id': 'ec1b6yul-cae6-41ad-9d9c-ceed61607049', 'unitCode': 'AM', 'unitDescription': 'AMBULANCE', 'unitImage': 'adfdasa43rweff', 'unitColorBackground': 'Blue', 'unitColorForground': 'Black', 'isActive': true, 'isUserEditable': true},
+    {'id': 'ec1b6yul-cae6-41ad-9d9c-ceed61607049', 'unitCode': 'CN', 'unitDescription': 'CORONER', 'unitImage': 'adfdasa43rweff', 'unitColorBackground': 'White', 'unitColorForground': 'Black', 'isActive': true, 'isUserEditable': true},
+    {'id': 'ec1b6yul-cae6-41ad-9d9c-ceed61607049', 'unitCode': 'DF', 'unitDescription': 'DFACS', 'unitImage': 'adfdasa43rweff', 'unitColorBackground': 'Red', 'unitColorForground': 'Black', 'isActive': true, 'isUserEditable': true}
+  ];
+
   @Injectable()
   export class ListDataService {
     getCallTypesList(): CallType[] {
@@ -60,6 +68,10 @@ import { OfficerRank } from '../models/types/OfficerRank';
 
     getOfficerRankList(): OfficerRank[] {
       return officerRankList;
+    }
+
+    getUnitTypeList(): UnitType[] {
+      return unitTypeList;
     }
   }
 

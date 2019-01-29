@@ -1,4 +1,4 @@
-export class AvailableUnit {
+export class Unit {
   id: string;
   unitDescription: string;
   officerPersonId: string;

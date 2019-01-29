@@ -14,12 +14,13 @@ import { AgencyTypeComponent } from './core/types/agencyType/agencyType.componen
 import { ContactTypeComponent } from './core/types/contactType/contactType.component';
 import { OfficerRankComponent } from './core/types/officerRank/officerRank.component';
 import { TypesDisplayComponent } from './core/types/typesDisplay.component';
+import { UnitTypeComponent } from './core/types/unitType/unitType.component';
 
 @NgModule({
   imports: [ BrowserModule, AppsModule,
     DxBoxModule, DxButtonModule, DxDrawerModule, DxListModule, DxToolbarModule, DxMenuModule, DxPopupModule, DxDataGridModule, DxTabPanelModule ],
   declarations: [ AppComponent, HeaderComponent, AdminHospitalComponent, AdminAgencyComponent, AdminAvilableUnitsComponent,
-    AdminDispatchersComponent, AdminOfficersComponent, AddressTypeComponent, AgencyTypeComponent, ContactTypeComponent, OfficerRankComponent,
+    AdminDispatchersComponent, AdminOfficersComponent, AddressTypeComponent, AgencyTypeComponent, ContactTypeComponent, OfficerRankComponent, UnitTypeComponent,
     TypesDisplayComponent],
   providers: [ ],
   bootstrap: [ AppComponent ]

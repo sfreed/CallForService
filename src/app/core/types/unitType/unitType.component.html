@@ -1,0 +1,20 @@
+<dx-data-grid id="UnitTypeGrid"
+    [dataSource]="listDataService.getUnitTypeList()"
+    [rowAlternationEnabled]="true"
+    [showBorders]="true"
+    [showColumnHeaders]="true"
+    height="350">
+  <dxo-scrolling mode="virtual"></dxo-scrolling>
+  <dxo-selection mode="single"></dxo-selection>
+  <dxo-editing
+    mode="popup"
+    [allowUpdating]="true"
+    [allowDeleting]="true"
+    [allowAdding]="true">
+  </dxo-editing>
+  <dxi-column dataField="id" dataType="string" [visible]="false"></dxi-column>
+  <dxi-column dataField="unitCode" dataType="string"></dxi-column>
+  <dxi-column dataField="unitDescription" dataType="string"></dxi-column>
+  <dxi-column dataField="unitColorBackground" dataType="string"></dxi-column>
+  <dxi-column dataField="unitColorForground" dataType="string"></dxi-column>
+</dx-data-grid>

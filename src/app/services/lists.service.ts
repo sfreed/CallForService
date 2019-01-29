@@ -27,6 +27,8 @@ export class ListsService {
 
   private officerRankList: DataSource;
 
+  private unitTypeList: DataSource;
+
   constructor(private listDataService: ListDataService) {
       this.callTypeList = new DataSource({
         store : new ArrayStore({
@@ -75,6 +77,14 @@ export class ListsService {
         }) ,
         sort : ['description']
       });
+
+      this.unitTypeList = new DataSource({
+        store : new ArrayStore({
+          key : 'id',
+          data : this.listDataService.getUnitTypeList()
+        }) ,
+        sort : ['description']
+      });
   }
 
   getCallForms(): any[] {
@@ -103,5 +113,9 @@ export class ListsService {
 
   getOfficerRankList(): DataSource {
     return this.officerRankList;
+  }
+
+  getUnitTypeList(): DataSource {
+    return this.unitTypeList;
   }
 }

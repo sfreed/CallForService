@@ -1,4 +1,4 @@
-import { Officer } from './officer';
+import { Officer } from './sources/Officer';
 
 export class AssignedOfficer {
   officer: Officer;

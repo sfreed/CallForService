@@ -1,4 +1,4 @@
-import { Officer } from 'src/app/models/officer';
+import { Officer } from 'src/app/models/sources/Officer';
 import { Injectable } from '@angular/core';
 import { CallDetail } from 'src/app/models/call/CallDetail';
 import { DispatcherHistory } from 'src/app/models/history';
@@ -6,15 +6,15 @@ import { Dispatcher } from 'src/app/models/dispatcher';
 import { Call } from 'src/app/models/call/Call';
 import { Agency } from 'src/app/models/sources/Agency';
 import { Hospital } from 'src/app/models/sources/Hospital';
-import { AvailableUnit } from 'src/app/models/AvailableUnit';
 import { Note } from '../models/note';
+import { Unit } from '../models/sources/Unit';
 
 
   const historyList: DispatcherHistory[] = [];
 
   const notesList: Note[] = [];
 
-  const availableUnit: AvailableUnit[] = [];
+  const availableUnit: Unit[] = [];
 
   const dispatcherList: Dispatcher[] = [
     {'id': '82393b70-0e60-45f6-ab91-3db4b12ed7d5', 'userName': 'sfreed', 'fullName': 'Shane Freed'},
@@ -226,7 +226,7 @@ import { Note } from '../models/note';
       return hospitalList;
     }
 
-    getAvailableUnitList(): AvailableUnit[] {
+    getAvailableUnitList(): Unit[] {
       return availableUnit;
     }
 

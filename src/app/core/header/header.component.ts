@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { DispatcherService } from 'src/app/services/dispatcher.service';
-import notify from 'devextreme/ui/notify';
 import { AdminService } from 'src/app/services/admin.service';
+import notify from 'devextreme/ui/notify';
 
 @Component({
   selector: 'app-header',
@@ -24,7 +24,6 @@ export class HeaderComponent implements OnInit {
   availableUnitsPanelVisible = false;
 
   constructor(public dispatcherService: DispatcherService, public adminService: AdminService) {
-
     this.menuItems = [{
       location: 'before',
       locateInMenu: 'never',
@@ -42,48 +41,66 @@ export class HeaderComponent implements OnInit {
           }
       }
     }, {
-      locateInMenu: 'always',
-      text: 'History',
-      onClick: () => {
-        dispatcherService.toggleDispatcherHistory();
+      location: 'after',
+      widget: 'dxButton',
+      locateInMenu: 'never',
+      options: {
+        icon: 'fa fa-pencil',
+        onClick: () => {
+          dispatcherService.toggleDispatcherHistory();
+        }
       }
     }, {
-      locateInMenu: 'always',
-      text: 'Add Officers',
-      onClick: () => {
-          this.adminService.adminFormEmitter.emit(['officerPanelVisible', true]);
-      }
+        locateInMenu: 'always',
+        text: 'Settings',
+        onClick: () => {
+            notify('Settings Clicked!');
+        }
     }, {
       locateInMenu: 'always',
-      text: 'Add Dispatcher',
+      text: 'Preferences',
       onClick: () => {
-        this.adminService.adminFormEmitter.emit(['dispatcherPanelVisible', true]);
+          notify('Preferences Clicked!');
       }
-    }, {
-      locateInMenu: 'always',
-      text: 'Add Agency',
-      onClick: () => {
-        this.adminService.adminFormEmitter.emit(['agencyPanelVisible', true]);
-      }
-    }, {
-      locateInMenu: 'always',
-      text: 'Add Hospital',
-      onClick: () => {
-        this.adminService.adminFormEmitter.emit(['hospitalPanelVisible', true]);
-      }
-    }, {
-      locateInMenu: 'always',
-      text: 'Add Unit',
-      onClick: () => {
-        this.adminService.adminFormEmitter.emit(['availableUnitsPanelVisible', true]);
-      }
-    }, {
-      locateInMenu: 'always',
-      text: 'Add Types',
-      onClick: () => {
-        this.adminService.adminFormEmitter.emit(['typesPanelVisible', true]);
-      }
-    }];
+    }
+    // }, {
+    //   locateInMenu: 'always',
+    //   text: 'Add Officers',
+    //   onClick: () => {
+    //       this.adminService.adminFormEmitter.emit(['officerPanelVisible', true]);
+    //   }
+    // }, {
+    //   locateInMenu: 'always',
+    //   text: 'Add Dispatcher',
+    //   onClick: () => {
+    //     this.adminService.adminFormEmitter.emit(['dispatcherPanelVisible', true]);
+    //   }
+    // }, {
+    //   locateInMenu: 'always',
+    //   text: 'Add Agency',
+    //   onClick: () => {
+    //     this.adminService.adminFormEmitter.emit(['agencyPanelVisible', true]);
+    //   }
+    // }, {
+    //   locateInMenu: 'always',
+    //   text: 'Add Hospital',
+    //   onClick: () => {
+    //     this.adminService.adminFormEmitter.emit(['hospitalPanelVisible', true]);
+    //   }
+    // }, {
+    //   locateInMenu: 'always',
+    //   text: 'Add Unit',
+    //   onClick: () => {
+    //     this.adminService.adminFormEmitter.emit(['availableUnitsPanelVisible', true]);
+    //   }
+    // }, {
+    //   locateInMenu: 'always',
+    //   text: 'Add Types',
+    //   onClick: () => {
+    //     this.adminService.adminFormEmitter.emit(['typesPanelVisible', true]);
+    //   }
+    // }
+    ];
   }
 
   ngOnInit() {
