@@ -9,7 +9,7 @@
     [(visible)]="isVisible"
     [showCloseButton]="true">
   <dx-data-grid id="availableUnitsGrid"
-      [dataSource]="availableUnitService.getAvailableUnitList()"
+      [dataSource]="dsService.getAvailableUnitList()"
       [rowAlternationEnabled]="true"
       [showBorders]="true"
       [showColumnHeaders]="true"
@@ -28,7 +28,7 @@
     <dxi-column dataField="unitType" dataType="string"></dxi-column>
     <dxi-column dataField="unitAgencyId" dataType="string">
       <dxo-lookup
-        [dataSource]="agencyService.getAgencyList().store()"
+        [dataSource]="dsService.getAgencyList().store()"
         valueExpr="id"
         displayExpr="agencyName">
       </dxo-lookup>

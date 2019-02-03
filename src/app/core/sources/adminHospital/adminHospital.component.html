@@ -9,7 +9,7 @@
     [(visible)]="isVisible"
     [showCloseButton]="true">
   <dx-data-grid id="hospitalGrid"
-      [dataSource]="hospitalService.getHospitalList()"
+      [dataSource]="dsService.getHospitalList()"
       [rowAlternationEnabled]="true"
       [showBorders]="true"
       [showColumnHeaders]="true"

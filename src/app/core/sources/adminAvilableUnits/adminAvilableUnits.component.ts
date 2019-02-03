@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AgencyService } from 'src/app/services/agency.service';
-import { AvailableUnitService } from 'src/app/services/availableUnit.service.';
-import { AdminService } from 'src/app/services/admin.service';
+import { AdminService } from 'src/app/common/services/admin.service';
+import { DatasourcesService } from 'src/app/common/datasources/Datasources.service';
 
 @Component({
   selector: 'app-admin-avilable-units',
@@ -11,7 +10,7 @@ import { AdminService } from 'src/app/services/admin.service';
 export class AdminAvilableUnitsComponent implements OnInit {
   @Input() isVisible = false;
 
-  constructor(public agencyService: AgencyService, public availableUnitService: AvailableUnitService, public adminService: AdminService) {
+  constructor(public dsService: DatasourcesService, public adminService: AdminService) {
     this.adminService.adminFormEmitter.subscribe(
       (data: [string, boolean]) => {
         if (data[0] === 'availableUnitsPanelVisible') {

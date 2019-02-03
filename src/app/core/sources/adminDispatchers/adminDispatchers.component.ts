@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DispatcherService } from 'src/app/services/dispatcher.service';
-import { AdminService } from 'src/app/services/admin.service';
+import { DispatcherService } from 'src/app/common/services/dispatcher.service';
+import { AdminService } from 'src/app/common/services/admin.service';
 
 @Component({
   selector: 'app-admin-dispatchers',

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CallsService } from 'src/app/services/calls.service';
-import { ListsService } from 'src/app/services/lists.service';
-import { Call } from 'src/app/models/call/Call';
-import { DispatcherService } from 'src/app/services/dispatcher.service';
+import { CallsService } from 'src/app/common/services/calls.service';
+import { Call } from 'src/app/common/models/call/Call';
+import { DispatcherService } from 'src/app/common/services/dispatcher.service';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
@@ -18,7 +17,7 @@ export class DetailsComponent implements OnInit {
 
   activeCall: Call;
 
-  constructor(public callService: CallsService,  public dispatcherService: DispatcherService, public listService: ListsService) {
+  constructor(public callService: CallsService,  public dispatcherService: DispatcherService) {
     this.callService.callEmitter.subscribe(
       (data: Call) => {
         this.activeCall = data;

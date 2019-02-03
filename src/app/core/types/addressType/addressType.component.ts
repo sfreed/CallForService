@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ListsService } from 'src/app/services/lists.service';
+import { LocationLookupService } from 'src/app/common/services/lookup/LocationLookup.service';
 
 @Component({
   selector: 'app-address-type',
@@ -8,7 +8,7 @@ import { ListsService } from 'src/app/services/lists.service';
 })
 export class AddressTypeComponent implements OnInit {
 
-  constructor(public listDataService: ListsService) { }
+  constructor(public locationLookupService: LocationLookupService) { }
 
   ngOnInit() {
   }

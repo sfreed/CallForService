@@ -1,0 +1,35 @@
+<dx-popup
+  class="popup"
+  [width]="'75%'"
+  [height]="'50%'"
+  [showTitle]="true"
+  title="Officer Call Queue"
+  [dragEnabled]="false"
+  [closeOnOutsideClick]="true"
+  [(visible)]="isVisible">
+<div *dxTemplate="let data of 'content'">
+    <dx-data-grid #gridContainer
+      [dataSource]="officerQueue.toArray()"
+      [remoteOperations]="false"
+      [allowColumnReordering]="true"
+      [rowAlternationEnabled]="true"
+      [showBorders]="true">
+      <dxi-column cellTemplate="cellTemplate" [width]="80"></dxi-column>
+      <div *dxTemplate="let cell of 'cellTemplate'">
+          <dx-button icon="arrowup" [stylingMode]="'text'" (onClick)="moveRowUp(cell, gridContainer)" *ngIf="cell.rowIndex > 0"></dx-button>
+          <dx-button icon="arrowdown" [stylingMode]="'text'" (onClick)="moveRowDown()"></dx-button>
+      </div>
+      <dxi-column dataField="order" dataType="number" [sortIndex]="0" sortOrder="asc" [width]="40"></dxi-column>
+      <dxi-column dataField="call.date" dataType="date"></dxi-column>
+      <dxi-column dataField="call.time" dataType="string"></dxi-column>
+      <dxi-column dataField="call.dispatcher_name" dataType="string"></dxi-column>
+      <dxi-column dataField="location" dataType="string" [calculateCellValue]="createAddress"></dxi-column>
+      <dxi-column dataField="call.call_type" dataType="string"></dxi-column>
+
+      <dxi-column dataField="call.caller_name" dataType="string"></dxi-column>
+    </dx-data-grid>
+    <div style="width:100%; padding-top: 20px;">
+        <dx-button text="Save" (onClick)="moveRowDown()" style="float:right"></dx-button>
+    </div>
+</div>
+</dx-popup>

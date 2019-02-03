@@ -1,9 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CallsService } from 'src/app/services/calls.service';
+import { CallsService } from 'src/app/common/services/calls.service';
 import DataSource from 'devextreme/data/data_source';
-import { DispatcherService } from 'src/app/services/dispatcher.service';
-import { Call } from 'src/app/models/call/Call';
-import { ListsService } from 'src/app/services/lists.service';
+import { DispatcherService } from 'src/app/common/services/dispatcher.service';
+import { Call } from 'src/app/common/models/call/Call';
+import { PersonLookupService } from 'src/app/common/services/lookup/PersonLookup.service';
+import { CallForServiceLookupService } from 'src/app/common/services/lookup/CallForServiceLookup.service';
+import { VehicleLookupService } from 'src/app/common/services/lookup/VehicleLookup.service';
+import { LocationLookupService } from 'src/app/common/services/lookup/LocationLookup.service';
+import { CallForServiceType, CallForServiceStatus } from 'src/app/common/models/lookups/CallForServiceLookup';
 
 @Component({
   selector: 'app-call-master',
@@ -17,31 +21,37 @@ export class CallMasterComponent implements OnInit {
 
   dispatchers: DataSource;
 
-  callTypes: DataSource;
+  callTypes: CallForServiceType[];
 
-  callStatus: DataSource;
+  callStatus: CallForServiceStatus[];
 
   isRowSelected = false;
 
   window: Window = window;
 
-  callForms: any[];
+  callForms: any = [{
+    id: 0,
+    name: 'Traffic Call'
+  }, {
+    id: 1,
+    name: 'Domestic Call'
+  }];
 
   buttonOptions: any = {
     text: 'Search',
     type: 'success'
   };
 
-  constructor(public callService: CallsService, public dispatcherService: DispatcherService, public listDataService: ListsService) {}
+  constructor(public callService: CallsService, public dispatcherService: DispatcherService, private personLookupService: PersonLookupService,
+    private cfsLookupService: CallForServiceLookupService, private vehicleLookupService: VehicleLookupService, private locationLookupService: LocationLookupService) {}
 
   ngOnInit() {
-    this.callForms = this.listDataService.getCallForms();
 
     this.dispatchers = this.dispatcherService.getDispatcherList();
 
-    this.callTypes = this.listDataService.getCallTypeList();
+    this.callTypes = this.cfsLookupService.callForServiceTypeList;
 
-    this.callStatus = this.listDataService.getCallStatusList();
+    this.callStatus = this.cfsLookupService.callForServiceStatusList;
 
     this.calls = this.callService.getCallList();
   }

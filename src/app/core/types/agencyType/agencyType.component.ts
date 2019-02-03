@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ListsService } from 'src/app/services/lists.service';
+import { PersonLookupService } from 'src/app/common/services/lookup/PersonLookup.service';
 
 @Component({
   selector: 'app-agency-type',
@@ -8,7 +8,7 @@ import { ListsService } from 'src/app/services/lists.service';
 })
 export class AgencyTypeComponent implements OnInit {
 
-  constructor(public listDataService: ListsService) { }
+  constructor(public personLookupService: PersonLookupService) { }
 
   ngOnInit() {
   }

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AdminService } from '../../../services/admin.service';
-import { HospitalService } from '../../../services/hospital.service';
+import { DatasourcesService } from 'src/app/common/datasources/Datasources.service';
+import { AdminService } from 'src/app/common/services/admin.service';
 
 @Component({
   selector: 'app-admin-hospital',
@@ -11,7 +11,7 @@ import { HospitalService } from '../../../services/hospital.service';
 export class AdminHospitalComponent implements OnInit {
   isVisible = false;
 
-  constructor(public hospitalService: HospitalService, public adminService: AdminService) {
+  constructor(public dsService: DatasourcesService, public adminService: AdminService) {
     adminService.adminFormEmitter.subscribe(
       (data: [string, boolean]) => {
         if (data[0] === 'hospitalPanelVisible') {

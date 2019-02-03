@@ -15,9 +15,11 @@ import { ContactTypeComponent } from './core/types/contactType/contactType.compo
 import { OfficerRankComponent } from './core/types/officerRank/officerRank.component';
 import { TypesDisplayComponent } from './core/types/typesDisplay.component';
 import { UnitTypeComponent } from './core/types/unitType/unitType.component';
+import { AppLoadModule } from './common/init/app_load.module';
+
 
 @NgModule({
-  imports: [ BrowserModule, AppsModule,
+  imports: [ BrowserModule, AppsModule, AppLoadModule,
     DxBoxModule, DxButtonModule, DxDrawerModule, DxListModule, DxToolbarModule, DxMenuModule, DxPopupModule, DxDataGridModule, DxTabPanelModule ],
   declarations: [ AppComponent, HeaderComponent, AdminHospitalComponent, AdminAgencyComponent, AdminAvilableUnitsComponent,
     AdminDispatchersComponent, AdminOfficersComponent, AddressTypeComponent, AgencyTypeComponent, ContactTypeComponent, OfficerRankComponent, UnitTypeComponent,

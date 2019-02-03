@@ -1,14 +1,15 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, EventEmitter } from '@angular/core';
 import { DxListComponent } from 'devextreme-angular';
-import { DispatcherService } from 'src/app/services/dispatcher.service';
-import { CallsService } from 'src/app/services/calls.service';
-import { OfficerService } from 'src/app/services/officer.service';
+import { DispatcherService } from 'src/app/common/services/dispatcher.service';
+import { CallsService } from 'src/app/common/services/calls.service';
+import { OfficerService } from 'src/app/common/services/officer.service';
 import DataSource from 'devextreme/data/data_source';
 import notify from 'devextreme/ui/notify';
 import uuid from 'UUID';
-import { Officer } from 'src/app/models/sources/Officer';
-import PriorityQueue from 'priorityqueue';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { Officer } from 'src/app/common/models/sources/Officer';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { AdminService } from 'src/app/common/services/admin.service';
+import { DatasourcesService } from 'src/app/common/datasources/Datasources.service';
 
 @Component({
   selector: 'app-active-list',
@@ -20,6 +21,8 @@ export class ActiveListComponent implements OnInit {
 
   @ViewChild('activeOfficersList') activeOfficersList: DxListComponent;
 
+  adminFormEmitter: any;
+
   public window: Window = window;
 
   inActiveOfficers: DataSource;
@@ -30,11 +33,10 @@ export class ActiveListComponent implements OnInit {
 
   inactiveMenuItems: any;
 
-  showOfficerQueue = false;
+  constructor(public officerService: OfficerService, public dispatcherHistory: DispatcherService, public callService: CallsService, public adminService: AdminService,
+    private dsService: DatasourcesService) {
+    this.adminFormEmitter = adminService.adminFormEmitter;
 
-  officerQueue: PriorityQueue;
-
-  constructor(public officerService: OfficerService, public dispatcherHistory: DispatcherService, public callService: CallsService) {
     this.activeMenuItems = [{
       id: 1,
       text: 'Clock Out',
@@ -57,8 +59,8 @@ export class ActiveListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.activeOfficers = this.officerService.getActiveOfficerList();
-    this.inActiveOfficers = this.officerService.getInactiveOfficerList();
+    this.activeOfficers = this.dsService.getActiveOfficerList();
+    this.inActiveOfficers = this.dsService.getInactiveOfficerList();
   }
 
   contextItemClick(e, officer) {
@@ -75,8 +77,7 @@ export class ActiveListComponent implements OnInit {
         this.officerService.changeDutyStatus(officer);
       }
     } else if (e.itemData.id === 3) {
-      this.officerQueue = this.callService.getOfficerQueue(officer);
-      this.showOfficerQueue = true;
+      this.adminFormEmitter.emit(['officerQueue', true, officer]);
     } else {
       if (this.callService.getActiveCall() == null) {
         notify('Please Select a Call in which to assign  ' + officer.first_name + ' ' + officer.last_name  + '.', 'waring');
@@ -112,27 +113,13 @@ export class ActiveListComponent implements OnInit {
     }
   }
 
-  getOfficerQueue(officer: Officer): number {
+  getOfficerQueueCount(officer: Officer): number {
     const q = this.callService.getOfficerQueue(officer);
     if (q) {
       return q.size();
     } else {
       return 0;
     }
-  }
-
-  createAddress(data) {
-    return data.call.address + ' ' + data.call.city + ', ' + data.call.state;
-  }
-
-  moveRowUp(cell, options) {
-    options.instance.selectRowsByIndexes([cell.rowIndex]).then(r => r[0].order = r[0].order - 1  );
-    options.instance.selectRowsByIndexes([cell.rowIndex - 1]).then(r => r[0].order = r[0].order + 1 );
-  }
-
-  moveRowDown(cell, options) {
-    options.instance.selectRowsByIndexes([cell.rowIndex]).then(r => r[0].order = r[0].order + 1  );
-    options.instance.selectRowsByIndexes([cell.rowIndex - 1]).then(r => r[0].order = r[0].order - 1 );
   }
 
   drop(event: CdkDragDrop<Officer>) {

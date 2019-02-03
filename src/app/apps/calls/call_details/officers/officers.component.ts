@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CallsService } from 'src/app/services/calls.service';
-import { Officer } from 'src/app/models/sources/Officer';
+import { CallsService } from 'src/app/common/services/calls.service';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({

@@ -9,7 +9,7 @@
     [(visible)]="isVisible"
     [showCloseButton]="true">
   <dx-data-grid id="agencyGrid"
-      [dataSource]="agencyService.getAgencyList()"
+      [dataSource]="dsService.getAgencyList()"
       [rowAlternationEnabled]="true"
       [showBorders]="true"
       [showColumnHeaders]="true"
@@ -26,7 +26,7 @@
     <dxi-column dataField="agencyCode" dataType="string"></dxi-column>
     <dxi-column dataField="agencyTypeCodeId" dataType="string">
       <dxo-lookup
-        [dataSource]="listDataService.getAgencyTypeList().store()"
+        [dataSource]="personLookupService.agencyTypeList"
         valueExpr="id"
         displayExpr="agencyTypeCodeDescription">
       </dxo-lookup>

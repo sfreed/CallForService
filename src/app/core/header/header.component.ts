@@ -1,6 +1,5 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
-import { DispatcherService } from 'src/app/services/dispatcher.service';
-import { AdminService } from 'src/app/services/admin.service';
+import { Component, OnInit } from '@angular/core';
+import { DispatcherService } from 'src/app/common/services/dispatcher.service';
 import notify from 'devextreme/ui/notify';
 
 @Component({
@@ -9,8 +8,6 @@ import notify from 'devextreme/ui/notify';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  adminFormEmitter = new EventEmitter<[string, boolean]>();
-
   menuItems: any[];
 
   officerPanelVisible = false;
@@ -23,7 +20,7 @@ export class HeaderComponent implements OnInit {
 
   availableUnitsPanelVisible = false;
 
-  constructor(public dispatcherService: DispatcherService, public adminService: AdminService) {
+  constructor(public dispatcherService: DispatcherService) {
     this.menuItems = [{
       location: 'before',
       locateInMenu: 'never',
