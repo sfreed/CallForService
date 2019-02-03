@@ -27,7 +27,7 @@
         <dxi-item>
           <dxo-label text="Call Type"></dxo-label>
           <dx-select-box
-            [dataSource]="listService.getCallTypeList()"
+            [dataSource]="callTypesList"
             displayExpr="description"
             valueExpr="id"
             [value]="activeCall.callTypeId"
@@ -36,7 +36,7 @@
         <dxi-item>
           <dxo-label text="Call Status"></dxo-label>
           <dx-select-box
-            [dataSource]="listService.getCallStatusList()"
+            [dataSource]="callStatusList"
             displayExpr="description"
             valueExpr="id"
             [value]="activeCall.callStatusId"

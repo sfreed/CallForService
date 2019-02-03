@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { OfficerService } from 'src/app/common/services/officer.service';
 import { AdminService } from 'src/app/common/services/admin.service';
+import { DatasourcesService } from 'src/app/common/datasources/Datasources.service';
 
 @Component({
   selector: 'app-admin-officers',
@@ -10,7 +10,7 @@ import { AdminService } from 'src/app/common/services/admin.service';
 export class AdminOfficersComponent implements OnInit {
   @Input() isVisible = false;
 
-  constructor(public officerService: OfficerService, public adminService: AdminService) {
+  constructor(public dsService: DatasourcesService, public adminService: AdminService) {
     this.adminService.adminFormEmitter.subscribe(
       (data: [string, boolean]) => {
         if (data[0] === 'officerPanelVisible') {

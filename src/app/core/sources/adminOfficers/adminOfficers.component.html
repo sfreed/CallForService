@@ -9,7 +9,7 @@
     [(visible)]="isVisible"
     [showCloseButton]="true">
   <dx-data-grid id="officerGrid"
-      [dataSource]="officerService.getAllOfficersList()"
+      [dataSource]="dsService.getAllOfficersList()"
       [rowAlternationEnabled]="true"
       [showBorders]="true"
       [showColumnHeaders]="true"
