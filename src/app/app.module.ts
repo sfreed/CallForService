@@ -16,6 +16,7 @@ import { OfficerRankComponent } from './core/types/officerRank/officerRank.compo
 import { TypesDisplayComponent } from './core/types/typesDisplay.component';
 import { UnitTypeComponent } from './core/types/unitType/unitType.component';
 import { AppLoadModule } from './common/init/app_load.module';
+import { SplashScreenComponent } from './core/splash-screen/splash-screen.component';
 
 
 @NgModule({
@@ -23,8 +24,9 @@ import { AppLoadModule } from './common/init/app_load.module';
     DxBoxModule, DxButtonModule, DxDrawerModule, DxListModule, DxToolbarModule, DxMenuModule, DxPopupModule, DxDataGridModule, DxTabPanelModule ],
   declarations: [ AppComponent, HeaderComponent, AdminHospitalComponent, AdminAgencyComponent, AdminAvilableUnitsComponent,
     AdminDispatchersComponent, AdminOfficersComponent, AddressTypeComponent, AgencyTypeComponent, ContactTypeComponent, OfficerRankComponent, UnitTypeComponent,
-    TypesDisplayComponent],
+    TypesDisplayComponent, SplashScreenComponent],
   providers: [ ],
-  bootstrap: [ AppComponent ]
+  bootstrap: [ AppComponent ],
+  exports:[SplashScreenComponent]
 })
 export class AppModule { }

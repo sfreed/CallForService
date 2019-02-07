@@ -14,7 +14,6 @@ export class OfficersComponent implements OnInit {
   ngOnInit() {}
 
   drop(event: CdkDragDrop<any>) {
-    console.log(event);
     if (event.previousContainer === event.container) {
       return;
     }

@@ -7,8 +7,14 @@
   <dxi-item title="Calls" class="accordianHeader">
     <div class="formSelectContainer">
         <div class="dx-field formSelect">
-          <div class="dx-field-value" >
-            <div style="display:table-cell; vertical-align: middle;">
+          <div class="dx-field-value" style="width: 100%;" >
+              <div style="display:table-cell; vertical-align: middle;  float: left">
+                  <dx-button
+                  icon="dx-icon dx-icon-column-chooser"
+                  (onClick)="showColumnChooser()">
+                </dx-button>
+              </div>
+            <div style="display:table-cell; vertical-align: middle;  float: right">
               <dx-select-box
                 #callForm
                 [dataSource]="callForms"
@@ -16,7 +22,7 @@
                 valueExpr="id">
               </dx-select-box>
             </div>
-            <div style="display:table-cell; vertical-align: middle;">
+            <div style="display:table-cell; vertical-align: middle; float: right">
               <dx-button
                 icon="tel"
                 (onClick)="formSelected($event, callForm)">
@@ -25,7 +31,9 @@
           </div>
         </div>
     </div>
-    <dx-data-grid id="gridContainer" class="callGrid"
+    <dx-data-grid
+        #mastergrid
+        id="gridContainer" class="callGrid"
         [dataSource]="calls"
         [remoteOperations]="false"
         [allowColumnReordering]="true"
@@ -51,8 +59,8 @@
           displayExpr="callForServiceStatusDescription">
         </dxo-lookup>
       </dxi-column>
-      <dxi-column dataField="receivedDateTime" dataType="string" [sortIndex]="1" sortOrder="desc"></dxi-column>
-      <dxi-column dataField="dispatchedDateTime" dataType="string"></dxi-column>
+      <dxi-column dataField="receivedDateTime" dataType="string" [sortIndex]="1" sortOrder="desc" [format]="'shortDateShortTime'"></dxi-column>
+      <dxi-column dataField="dispatchedDateTime" dataType="string" [format]="'shortDateShortTime'"></dxi-column>
       <dxi-column dataField="dispatchByPersonId" dataType="string" [caption]="'Dispatcher'">
         <dxo-lookup
           [dataSource]="dispatchers.store()"

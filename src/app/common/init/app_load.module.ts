@@ -2,6 +2,7 @@ import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppLoadService } from './app_load.service';
+import { DxPopupModule } from 'devextreme-angular';
 
 export function init_app(appLoadService: AppLoadService) {
     return () => appLoadService.initializeApp();
@@ -24,7 +25,7 @@ export function getLocationLookups(appLoadService: AppLoadService) {
 }
 
 @NgModule({
-  imports: [HttpClientModule],
+  imports: [HttpClientModule, DxPopupModule],
   providers: [
     AppLoadService,
     { provide: APP_INITIALIZER, useFactory: init_app, deps: [AppLoadService], multi: true },

@@ -6,6 +6,7 @@ import { VehicleLookupService } from 'src/app/common/services/lookup/VehicleLook
 import { LocationLookupService } from 'src/app/common/services/lookup/LocationLookup.service';
 import { PersonLookupService } from 'src/app/common/services/lookup/PersonLookup.service';
 
+
 @Injectable()
 export class AppLoadService {
 
@@ -15,12 +16,11 @@ export class AppLoadService {
     initializeApp(): Promise<any> {
       return new Promise((resolve, reject) => {
         console.log(`initializeApp:: inside promise`);
-
         setTimeout(() => {
           console.log(`initializeApp:: inside setTimeout`);
-          // doing something
+
           resolve();
-        }, 3000);
+        }, 1000);
       });
     }
 

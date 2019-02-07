@@ -8,6 +8,7 @@ import { CallForServiceLookupService } from 'src/app/common/services/lookup/Call
 import { VehicleLookupService } from 'src/app/common/services/lookup/VehicleLookup.service';
 import { LocationLookupService } from 'src/app/common/services/lookup/LocationLookup.service';
 import { CallForServiceType, CallForServiceStatus } from 'src/app/common/models/lookups/CallForServiceLookup';
+import { DxDataGridComponent } from 'devextreme-angular';
 
 @Component({
   selector: 'app-call-master',
@@ -15,6 +16,8 @@ import { CallForServiceType, CallForServiceStatus } from 'src/app/common/models/
   styleUrls: ['./call_master.component.css']
 })
 export class CallMasterComponent implements OnInit {
+  @ViewChild(DxDataGridComponent) dataGrid: DxDataGridComponent;
+
   searchCall: Call = new Call();
 
   calls: DataSource;
@@ -69,5 +72,9 @@ export class CallMasterComponent implements OnInit {
 
   selectionChanged(e) {
     this.callService.setActiveCall(e.selectedRowsData[0]);
+  }
+
+  showColumnChooser () {
+   this.dataGrid.instance.showColumnChooser();
   }
 }
