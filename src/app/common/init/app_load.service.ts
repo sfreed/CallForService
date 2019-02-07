@@ -12,10 +12,31 @@ export class AppLoadService {
   constructor(private httpClient: HttpClient, private personLookupService: PersonLookupService, private cfsLookupService: CallForServiceLookupService,
     private vehicleLookupService: VehicleLookupService, private locationLookupService: LocationLookupService) { }
 
-  initializeApp() {
-    this.locationLookupService.initialize();
-    this.vehicleLookupService.initialize();
-    this.personLookupService.initialize();
-    // this.cfsLookupService.initialize();
+    initializeApp(): Promise<any> {
+      return new Promise((resolve, reject) => {
+        console.log(`initializeApp:: inside promise`);
+
+        setTimeout(() => {
+          console.log(`initializeApp:: inside setTimeout`);
+          // doing something
+          resolve();
+        }, 3000);
+      });
+    }
+
+  getCFSLookups(): Promise<any> {
+    return this.cfsLookupService.initialize();
+  }
+
+  getPersonLookups(): Promise<any> {
+    return this.personLookupService.initialize();
+  }
+
+  getVehicleLookups(): Promise<any> {
+    return this.vehicleLookupService.initialize();
+  }
+
+  getLocationLookups(): Promise<any> {
+    return this.locationLookupService.initialize();
   }
 }

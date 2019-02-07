@@ -33,10 +33,6 @@
         [showBorders]="true"
         [height]="window.innerHeight / 2 - 180"
         (onSelectionChanged)="selectionChanged($event)">
-      <dxo-editing
-        mode="popup"
-        [allowUpdating]="true">
-      </dxo-editing>
       <dxo-paging [pageSize]="20"></dxo-paging>
       <dxo-pager
           [showPageSizeSelector]="true"
@@ -108,7 +104,7 @@
           <dxo-label text="Call Status"></dxo-label>
           <dx-select-box
             [dataSource]="callStatus"
-            displayExpr="description"
+            displayExpr="callForServiceStatusDescription"
             valueExpr="id"
             [value]="searchCall.callStatusId"
           ></dx-select-box>

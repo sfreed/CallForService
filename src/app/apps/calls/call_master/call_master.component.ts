@@ -46,7 +46,6 @@ export class CallMasterComponent implements OnInit {
     private cfsLookupService: CallForServiceLookupService, private vehicleLookupService: VehicleLookupService, private locationLookupService: LocationLookupService) {}
 
   ngOnInit() {
-
     this.dispatchers = this.dispatcherService.getDispatcherList();
 
     this.callTypes = this.cfsLookupService.callForServiceTypeList;

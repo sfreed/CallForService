@@ -37,7 +37,7 @@
           <dxo-label text="Call Status"></dxo-label>
           <dx-select-box
             [dataSource]="callStatusList"
-            displayExpr="description"
+            displayExpr="callForServiceStatusDescription"
             valueExpr="id"
             [value]="activeCall.callStatusId"
           ></dx-select-box>

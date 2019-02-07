@@ -26,7 +26,7 @@ export class PersonLookupService {
 
   constructor(private httpClient: HttpClient) {}
 
-  initialize() {
+  initialize(): Promise<any> {
     const promise = this.httpClient.get<PersonLookup>(URL.PERSON_LOOKUP_SERVICE_ADDRESS)
       .toPromise()
       .then(settings => {
@@ -45,6 +45,9 @@ export class PersonLookupService {
         this.nameSuffixList = settings.nameSuffix;
         this.officerRankList = settings.officerRank;
         this.raceList = settings.race;
+        return settings;
       });
+
+      return promise;
   }
 }

@@ -19,7 +19,7 @@ export class VehicleLookupService {
 
   constructor(private httpClient: HttpClient) {}
 
-  initialize() {
+  initialize(): Promise<any> {
     const promise = this.httpClient.get<VehicleLookup>(URL.VEHICLE_LOOKUP_SERVICE_ADDRESS)
       .toPromise()
       .then(settings => {
@@ -32,6 +32,9 @@ export class VehicleLookupService {
         this.vehicleStyleList = settings.vehicleStyle;
         this.vehicleTransmissionTypeList = settings.vehicleTransmissionType;
         this.vehicleTypeList = settings.vehicleType;
+        return settings;
       });
+
+      return promise;
   }
 }

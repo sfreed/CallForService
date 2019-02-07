@@ -16,7 +16,7 @@ export class CallForServiceLookupService {
 
   constructor(private httpClient: HttpClient) {}
 
-  initialize() {
+  initialize(): Promise<any> {
     const promise = this.httpClient.get<CallForServiceLookup>(URL.CFS_LOOKUP_SERVICE_ADDRESS)
       .toPromise()
       .then(settings => {
@@ -26,6 +26,10 @@ export class CallForServiceLookupService {
         this.callForServiceStatusList = settings.callForServiceStatus;
         this.callForServiceTypeList = settings.callForServiceType;
         this.callForServiceUnitTypeList = settings.callForServiceUnitType;
+
+        return settings;
       });
+
+      return promise;
   }
 }

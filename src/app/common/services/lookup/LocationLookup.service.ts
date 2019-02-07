@@ -22,7 +22,7 @@ export class LocationLookupService {
 
   constructor(private httpClient: HttpClient) {}
 
-  initialize() {
+  initialize(): Promise<any> {
     const promise = this.httpClient.get<LocationLookup>(URL.LOCATION_LOOKUP_SERVICE_ADDRESS)
       .toPromise()
       .then(settings => {
@@ -37,6 +37,10 @@ export class LocationLookupService {
         this.streetNameDirectionList = settings.streetNameDirection;
         this.StreetNameSuffixList = settings.StreetNameSuffix;
         this.ZoneList = settings.Zone;
+
+        return settings;
       });
+
+      return promise;
   }
 }
