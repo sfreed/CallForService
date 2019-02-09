@@ -1,66 +1,42 @@
-
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { throwError } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class AuthService {
+import { environment } from 'src/environments/environment';
+import { User } from '../models/user';
 
-  serverUrl = 'http://localhost/dev/blogger/';
-  errorData: {};
+@Injectable({ providedIn: 'root' })
+export class AuthenticationService {
+    private currentUserSubject: BehaviorSubject<User>;
+    public currentUser: Observable<User>;
 
-  isLoggedIn = false;
-
-  constructor(private http: HttpClient) { }
-
-  redirectUrl: string;
-
-  login(username: string, password: string) {
-    return this.http.post<any>(`${this.serverUrl}api/login`, {username: username, password: password})
-    .pipe(map(user => {
-        if (user && user.token) {
-          localStorage.setItem('currentUser', JSON.stringify(user));
-          this.isLoggedIn = true;
-        }
-      }),
-      catchError(this.handleError)
-    );
-  }
-
-  getAuthorizationToken() {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    return currentUser.token;
-  }
-
-  logout() {
-    localStorage.removeItem('currentUser');
-    this.isLoggedIn = false;
-  }
-
-  private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-
-      // A client-side or network error occurred. Handle it accordingly.
-
-      console.error('An error occurred:', error.error.message);
-    } else {
-
-      // The backend returned an unsuccessful response code.
-
-      // The response body may contain clues as to what went wrong.
-
-      console.error(`Backend returned code ${error.status}, ` + `body was: ${error.error}`);
+    constructor(private http: HttpClient) {
+        this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+        this.currentUser = this.currentUserSubject.asObservable();
     }
 
-    // return an observable with a user-facing error message
+    public get currentUserValue(): User {
+        return this.currentUserSubject.value;
+    }
 
-    this.errorData = {
-      errorTitle: 'Oops! Request for document failed',
-      errorDesc: 'Something bad happened. Please try again later.'
-    };
-    return throwError(this.errorData);
-  }
+    login(username: string, password: string) {
+        return this.http.post<any>(`${environment.apiUrl}/users/authenticate`, { username, password })
+            .pipe(map(user => {
+                // login successful if there's a jwt token in the response
+                if (user && user.token) {
+                    // store user details and jwt token in local storage to keep user logged in between page refreshes
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    this.currentUserSubject.next(user);
+                }
+
+                return user;
+            }));
+    }
+
+    logout() {
+        // remove user from local storage to log user out
+        localStorage.removeItem('currentUser');
+        this.currentUserSubject.next(null);
+    }
 }

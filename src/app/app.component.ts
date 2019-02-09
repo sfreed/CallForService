@@ -1,25 +1,12 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
-import { Officer } from './common/models/sources/Officer';
-import { DispatcherService } from './common/services/dispatcher.service';
-import { DxDrawerComponent } from 'devextreme-angular';
+import { Component } from '@angular/core';
+import { AuthenticationService } from './common/auth/auth.service';
+import { User } from './common/models/user';
 
-@Component({
-    selector: 'app-root',
-    templateUrl: 'app.component.html',
-    styleUrls: ['app.component.css'],
-    providers: [  ]
-})
+@Component({ selector: 'app-root', templateUrl: 'app.component.html' })
+export class AppComponent {
+    currentUser: User;
 
-export class AppComponent implements OnInit {
-  @ViewChild(DxDrawerComponent) drawer: DxDrawerComponent;
-
-  officers: Officer[];
-
-  public window: Window = window;
-
-  constructor(private dispatcherService: DispatcherService) {}
-
-  ngOnInit() {
-    this.dispatcherService.setHistoryDrawer(this.drawer);
-  }
+    constructor(private authenticationService: AuthenticationService) {
+        this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    }
 }

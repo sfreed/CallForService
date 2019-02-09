@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DispatcherService } from 'src/app/common/services/dispatcher.service';
 import notify from 'devextreme/ui/notify';
+import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/common/auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -20,7 +22,9 @@ export class HeaderComponent implements OnInit {
 
   availableUnitsPanelVisible = false;
 
-  constructor(public dispatcherService: DispatcherService) {
+  constructor(public dispatcherService: DispatcherService,
+    private router: Router,
+    private authenticationService: AuthenticationService) {
     this.menuItems = [{
       location: 'before',
       locateInMenu: 'never',
@@ -58,6 +62,13 @@ export class HeaderComponent implements OnInit {
       text: 'Preferences',
       onClick: () => {
           notify('Preferences Clicked!');
+      }
+    }, {
+      locateInMenu: 'always',
+      text: 'Logout',
+      onClick: () => {
+          this.authenticationService.logout();
+          this.router.navigate(['/login']);
       }
     }
     // }, {
@@ -101,5 +112,10 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  logout() {
+    this.authenticationService.logout();
+    this.router.navigate(['/login']);
   }
 }
