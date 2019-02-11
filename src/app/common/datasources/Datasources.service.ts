@@ -12,9 +12,9 @@ export class DatasourcesService {
   private availableUnitList: DataSource;
   private hospitalList: DataSource;
 
-  private activeOfficersList:  DataSource;
-  private inactiveOfficerList:  DataSource;
-  private allOfficerList:  DataSource;
+  private activeUnitsList:  DataSource;
+  private inactiveUnitsList:  DataSource;
+  private allUnitsList:  DataSource;
 
   constructor(private personLookupService: PersonLookupService, private dataService: UserDataService) {
     this.agencyList = new DataSource({
@@ -38,30 +38,30 @@ export class DatasourcesService {
       })
     });
 
-    this.activeOfficersList = new DataSource({
+    this.activeUnitsList = new DataSource({
       store : new ArrayStore({
         key : 'id',
-        data : dataService.getOfficerList()
+        data : dataService.getUnitList()
       }) ,
       filter: [ 'active' , true ],
       sort : ['duty_status',  'last_name'],
       paginate: false
     });
 
-    this.inactiveOfficerList = new DataSource({
+    this.inactiveUnitsList = new DataSource({
       store : new ArrayStore({
         key : 'id',
-        data : dataService.getOfficerList()
+        data : dataService.getUnitList()
       }) ,
       filter: [ 'active' , false ],
       sort : ['duty_status',  'last_name'],
       paginate: false
     });
 
-    this.allOfficerList =  new DataSource({
+    this.allUnitsList =  new DataSource({
       store : new ArrayStore({
         key : 'id',
-        data : this.dataService.getOfficerList()
+        data : this.dataService.getUnitList()
       }),
       sort : ['last_name'],
       paginate: true,
@@ -81,16 +81,16 @@ export class DatasourcesService {
     return this.hospitalList;
   }
 
-  getActiveOfficerList():  DataSource {
-    return this.activeOfficersList;
+  getActiveUnitsList():  DataSource {
+    return this.activeUnitsList;
   }
 
-  getInactiveOfficerList():  DataSource {
-    return this.inactiveOfficerList;
+  getInactiveUnitsList():  DataSource {
+    return this.inactiveUnitsList;
   }
 
-  getAllOfficersList() {
-    return this.allOfficerList;
+  getAllUnitsList() {
+    return this.allUnitsList;
   }
 
 }

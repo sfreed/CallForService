@@ -6,9 +6,8 @@
     [showColumnHeaders]="true"
     height="350"
     cdkDropList
-    #inActiveOfficersListDnD="cdkDropList"
     (cdkDropListDropped)="drop($event)"
-    [cdkDropListConnectedTo]="['activeOfficers']">
+    [cdkDropListConnectedTo]="['activeUnits']">
     <dxo-scrolling mode="virtual"></dxo-scrolling>
     <dxo-selection mode="single"></dxo-selection>
     <dxo-editing

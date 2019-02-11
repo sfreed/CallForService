@@ -1,4 +1,4 @@
-export class Person {
+export class VehicleDriverPerson {
   id: string;
   namePrefixCodeId: number;
   firstName: string;

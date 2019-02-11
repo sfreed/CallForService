@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { AppsModule } from './apps/apps.module';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DxBoxModule, DxButtonModule, DxDrawerModule, DxListModule, DxToolbarModule, DxMenuModule, DxPopupModule, DxDataGridModule, DxTabPanelModule } from 'devextreme-angular';
 import { HeaderComponent } from './core/header/header.component';
 import { AdminHospitalComponent } from './core/sources/adminHospital/adminHospital.component';
 import { AdminAgencyComponent } from './core/sources/adminAgency/adminAgency.component';
 import { AdminAvilableUnitsComponent } from './core/sources/adminAvilableUnits/adminAvilableUnits.component';
 import { AdminDispatchersComponent } from './core/sources/adminDispatchers/adminDispatchers.component';
-import { AdminOfficersComponent } from './core/sources/adminOfficers/adminOfficers.component';
+import { AdminUnitsComponent } from './core/sources/adminUnits/adminUnits.component';
 import { AddressTypeComponent } from './core/types/addressType/addressType.component';
 import { AgencyTypeComponent } from './core/types/agencyType/agencyType.component';
 import { ContactTypeComponent } from './core/types/contactType/contactType.component';
@@ -30,13 +30,11 @@ import { fakeBackendProvider } from './common/auth/fake.interceptor';
 import { RegisterComponent } from './core/register/register.component';
 import { AlertComponent } from './core/alert/alert.component';
 
-
-
 @NgModule({
   imports: [ BrowserModule, AppsModule, AppLoadModule, ReactiveFormsModule,
     DxBoxModule, DxButtonModule, DxDrawerModule, DxListModule, DxToolbarModule, DxMenuModule, DxPopupModule, DxDataGridModule, DxTabPanelModule, routing ],
   declarations: [ AppComponent, HeaderComponent, AdminHospitalComponent, AdminAgencyComponent, AdminAvilableUnitsComponent,
-    AdminDispatchersComponent, AdminOfficersComponent, AddressTypeComponent, AgencyTypeComponent, ContactTypeComponent, OfficerRankComponent, UnitTypeComponent,
+    AdminDispatchersComponent, AdminUnitsComponent, AddressTypeComponent, AgencyTypeComponent, ContactTypeComponent, OfficerRankComponent, UnitTypeComponent,
     TypesDisplayComponent, SplashScreenComponent, HomeComponent, AlertComponent, LoginComponent, RegisterComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

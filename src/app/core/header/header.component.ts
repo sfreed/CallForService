@@ -12,7 +12,7 @@ import { AuthenticationService } from 'src/app/common/auth/auth.service';
 export class HeaderComponent implements OnInit {
   menuItems: any[];
 
-  officerPanelVisible = false;
+  unitPanelVisible = false;
 
   dispatcherPanelVisible = false;
 

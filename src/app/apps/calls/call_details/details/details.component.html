@@ -4,9 +4,8 @@
         height="350"
         [colCount]="2"
         cdkDropList
-        #inActiveOfficersListDnD="cdkDropList"
         (cdkDropListDropped)="drop($event)"
-        [cdkDropListConnectedTo]="['activeOfficers']">
+        [cdkDropListConnectedTo]="['activeUnits']">
       <dxi-item itemType="group" caption="Call Information" [widthRatio]="1">
         <dxi-item>
             <dxo-label text="Received Date Time"></dxo-label>
@@ -30,7 +29,7 @@
             [dataSource]="callTypesList"
             displayExpr="description"
             valueExpr="id"
-            [value]="activeCall.callTypeId"
+            [value]="activeCall.callForServiceTypeId"
           ></dx-select-box>
         </dxi-item>
         <dxi-item>
@@ -39,7 +38,7 @@
             [dataSource]="callStatusList"
             displayExpr="callForServiceStatusDescription"
             valueExpr="id"
-            [value]="activeCall.callStatusId"
+            [value]="activeCall.callForServiceTypeId"
           ></dx-select-box>
         </dxi-item>
       </dxi-item>
@@ -50,7 +49,7 @@
               [dataSource]="dispatcherService.getDispatcherList()"
               displayExpr="fullName"
               valueExpr="id"
-              [value]="activeCall.dispatchByPersonId"
+              [value]="activeCall.dispatchedByPerson"
             ></dx-select-box>
           </dxi-item>
           <dxi-item>

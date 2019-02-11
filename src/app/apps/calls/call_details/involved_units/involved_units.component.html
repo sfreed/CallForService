@@ -1,0 +1,30 @@
+<div *ngIf="callService.getActiveCall()">
+  <dx-data-grid id="unitContainer"
+    [dataSource]="callService.getActiveCallDetails().involvedUnits"
+    [rowAlternationEnabled]="true"
+    [showBorders]="true"
+    [showColumnHeaders]="true"
+    height="350"
+    cdkDropList
+    (cdkDropListDropped)="drop($event)"
+    [cdkDropListConnectedTo]="['activeUnits']">
+    <dxo-scrolling mode="virtual"></dxo-scrolling>
+    <dxo-selection mode="single"></dxo-selection>
+    <dxo-editing
+      mode="popup"
+      [allowDeleting]="true"
+      [allowAdding]="true">
+    </dxo-editing>
+    <dxi-column dataField="callForServiceUnit.dispatchDateTime" dataType="string" [format]="'shortDateShortTime'"></dxi-column>
+    <dxi-column dataField="callForServiceUnit.unitType" dataType="string" caption="Unit Type">
+      <dxo-lookup
+        [dataSource]="unitType"
+        valueExpr="id"
+        displayExpr="unitDescription">
+    </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="callForServiceUnit.officerPerson.firstName" dataType="string" caption="First Name"></dxi-column>
+    <dxi-column dataField="callForServiceUnit.officerPerson.lastName" dataType="string" caption="Last Name"></dxi-column>
+    <dxi-column dataField="callForServiceUnit.officerPerson.badgeNumber" dataType="string" caption="Badge Number"></dxi-column>
+  </dx-data-grid>
+</div>

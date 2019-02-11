@@ -7,23 +7,22 @@
     [height]="window.innerHeight-60">
   <dxi-item title="Active" class="accordianHeader" [heightRatio]="1">
     <dx-list
-      id="activeOfficers"
-      #activeOfficersList
-      [dataSource]="activeOfficers"
+      id="activeUnits"
+      #activeUnitsList
+      [dataSource]="activeUnits"
       [height]="window.innerHeight"
       [scrollingEnabled]="true"
       selectionMode = "single"
-      (onItemClick)="selectOfficer($event)"
+      (onItemClick)="selectUnit($event)"
       class="example-container"
       cdkDropList
-      #activeOfficersDnD="cdkDropList"
       (cdkDropListDropped)="drop($event)"
-      [cdkDropListConnectedTo]="['callHistoryGrid', 'complainantForm', 'hospitalGrid', 'involvedPersonsGrid', 'officerContainer', 'vehicleGrid', 'callDetailForm', 'wreckerGrid']">
+      [cdkDropListConnectedTo]="['callHistoryGrid', 'complainantForm', 'hospitalGrid', 'involvedPersonsGrid', 'unitContainer', 'vehicleGrid', 'callDetailForm', 'wreckerGrid']">
       <div *dxTemplate="let data of 'item'">
         <div
           id="switchdiv{{data.id}}"
-          class="OFFICER officerName badge{{data.id}} active{{data.active}} example-box" cdkDrag [cdkDragData]="data">
-            #{{data.badge_number}} : {{data.last_name}}, {{data.first_name}} <span style="float:right;">({{getOfficerQueueCount(data)}})</span>
+          class="OFFICER unitName badge{{data.id}} active{{data.active}} example-box" cdkDrag [cdkDragData]="data">
+            #{{data.badge_number}} : {{data.last_name}}, {{data.first_name}} <span style="float:right;">({{getUnitQueueCount(data)}})</span>
         </div>
 
         <dx-context-menu
@@ -38,23 +37,22 @@
   </dxi-item>
   <dxi-item title="Inactive" class="accordianHeader" [selected]="true" [heightRatio]="1">
     <dx-list
-      id="inActiveOfficers"
-      #inActiveOfficersList
-      [dataSource]="inActiveOfficers"
+      id="inActiveUnits"
+      #inActiveUnitsList
+      [dataSource]="inActiveUnits"
       [height]="window.innerHeight"
       [scrollingEnabled]="true"
       selectionMode = "single"
-      (onItemClick)="selectOfficer($event)"
+      (onItemClick)="selectUnit($event)"
       class="example-container"
       cdkDropList
-      #inActiveOfficersListDnD="cdkDropList"
       (cdkDropListDropped)="drop($event)"
-      [cdkDropListConnectedTo]="['activeOfficers', 'callHistoryGrid', 'complainantForm', 'hospitalGrid', 'involvedPersonsGrid', 'officerContainer', 'vehicleGrid', 'callDetailForm', 'wreckerGrid']">
+      [cdkDropListConnectedTo]="['activeUnits', 'callHistoryGrid', 'complainantForm', 'hospitalGrid', 'involvedPersonsGrid', 'unitContainer', 'vehicleGrid', 'callDetailForm', 'wreckerGrid']">
       <div *dxTemplate="let data of 'item'">
         <div
           id="switchdiv{{data.id}}"
-          class="OFFICER officerName badge{{data.id}} active{{data.active}} example-box" cdkDrag [cdkDragData]="data">
-            #{{data.badge_number}} : {{data.last_name}}, {{data.first_name}} <span style="float:right;">({{getOfficerQueueCount(data)}})</span>
+          class="OFFICER unitName badge{{data.id}} active{{data.active}} example-box" cdkDrag [cdkDragData]="data">
+            #{{data.badge_number}} : {{data.last_name}}, {{data.first_name}} <span style="float:right;">({{getUnitQueueCount(data)}})</span>
         </div>
 
         <dx-context-menu
@@ -69,5 +67,4 @@
   </dxi-item>
 </dx-accordion>
 
-<app-officer-queue></app-officer-queue>
-
+<app-unit-queue></app-unit-queue>

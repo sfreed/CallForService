@@ -40,11 +40,7 @@ export class DetailsComponent implements OnInit {
   }
 
   getComplainantName() {
-    if (this.activeCall.complainantPerson.isBusiness) {
-      return this.activeCall.complainantPerson.businessName;
-    } else {
-      return this.activeCall.complainantPerson.fullName;
-    }
+    return this.activeCall.complainantPerson.fullName;
   }
 
   drop(event: CdkDragDrop<any>) {
@@ -55,7 +51,7 @@ export class DetailsComponent implements OnInit {
     if (event.item.element.nativeElement.classList.contains('OFFICER')) {
       const officer = event.item.data;
 
-      this.callService.assignOfficerToActiveCall(officer, this.callService.getActiveCallDetails());
+      this.callService.assignUnitToActiveCall(officer);
     }
 
   }

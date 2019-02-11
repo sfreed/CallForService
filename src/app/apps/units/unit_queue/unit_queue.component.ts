@@ -2,24 +2,24 @@ import { Component, OnInit } from '@angular/core';
 import PriorityQueue from 'priorityqueue';
 import { AdminService } from 'src/app/common/services/admin.service';
 import { CallsService } from 'src/app/common/services/calls.service';
-import { Officer } from 'src/app/common/models/sources/Officer';
+import { CallForServiceUnit } from 'src/app/common/models/call/CallForServiceUnit';
 
 @Component({
-  selector: 'app-officer-queue',
-  templateUrl: './officerQueue.component.html',
-  styleUrls: ['./officerQueue.component.css']
+  selector: 'app-unit-queue',
+  templateUrl: './unit_queue.component.html',
+  styleUrls: ['./unit_queue.component.css']
 })
-export class OfficerQueueComponent implements OnInit {
+export class UnitQueueComponent implements OnInit {
   isVisible = false;
 
-  officerQueue: PriorityQueue;
+  unitQueue: PriorityQueue;
 
   constructor(public callService: CallsService, public adminService: AdminService) {
     this.adminService.adminFormEmitter.subscribe(
-      (data: [string, boolean, Officer]) => {
-        if (data[0] === 'officerQueue') {
+      (data: [string, boolean, CallForServiceUnit]) => {
+        if (data[0] === 'unitQueue') {
           this.isVisible = data[1];
-          this.officerQueue = this.callService.getOfficerQueue(data[2]);
+          this.unitQueue = this.callService.getUnitCalllQueue(data[2]);
         }
       });
   }

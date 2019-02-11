@@ -26,7 +26,7 @@ export class InvolvedPersonsComponent implements OnInit {
     if (event.item.element.nativeElement.classList.contains('OFFICER')) {
       const officer = event.item.data;
 
-      this.callService.assignOfficerToActiveCall(officer, this.callService.getActiveCallDetails());
+      this.callService.assignUnitToActiveCall(officer);
     }
 
   }

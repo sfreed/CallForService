@@ -58,12 +58,21 @@ export class CallMasterComponent implements OnInit {
     this.calls = this.callService.getCallList();
   }
 
-  getComplainantName(data: Call) {
-    if (data.complainantPerson.isBusiness) {
-      return data.complainantPerson.businessName;
-    } else {
-      return data.complainantPerson.fullName;
+  getPrimaryLocation(data: Call) {
+    if (!data) {
+      return;
     }
+
+    const loc = data.locationPrimary;
+    return loc.name;
+  }
+
+  getSecondaryLocation(data: Call) {
+    if (!data) {
+      return;
+    }
+    const loc = data.secondaryLocationLocation;
+    return loc.name;
   }
 
   formSelected(e: any, callForm: any) {

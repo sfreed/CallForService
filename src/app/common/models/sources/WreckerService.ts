@@ -1,12 +1,12 @@
 export class WreckerService {
-  id: string;
-  wreckerService: string;
+  id: number;
+  wreckerServiceName: string;
   contact: string;
   phoneNumber: string;
   onCallPhoneNo: string;
   rotationSequence: number;
   towingFee: number;
-  callForServiceWreckerRotationType: number;
+  wreckerRotationType: number;
   isActive: boolean;
   isUserEditable: boolean;
 }

@@ -2,11 +2,13 @@ import { Injectable, EventEmitter } from '@angular/core';
 import DataSource from 'devextreme/data/data_source';
 import ArrayStore from 'devextreme/data/array_store';
 import { CallDetail } from 'src/app/common/models/call/CallDetail';
-import { Officer } from 'src/app/common/models/sources/Officer';
+
 import { UserDataService } from './UserData';
 import PriorityQueue from 'priorityqueue';
 import { Call } from 'src/app/common/models/call/Call';
-
+import { CallForServiceUnit } from '../models/call/CallForServiceUnit';
+import { InvolvedUnit } from '../models/call/InvolvedUnit';
+import uuid from 'UUID';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +24,7 @@ export class CallsService {
 
   private activeCallDetails: CallDetail;
 
-  officerQueue = new Map();
+  unitCallQueue = new Map();
 
   constructor(private userDataService: UserDataService) {
     this.callList = new DataSource({
@@ -67,29 +69,36 @@ export class CallsService {
     return this.activeCallDetails;
  }
 
-  assignOfficerToActiveCall(officer: Officer, call: CallDetail): boolean {
-    officer.current_call = call.callInfoId;
-    officer.call_status = 'ACTIVE';
+  assignUnitToActiveCall(unit: CallForServiceUnit): boolean {
     const d: Date = new Date();
 
-    let officerIsAssigned = true;
+    let isUnitAssigned = true;
 
-    this.activeCallDetails.officers.forEach(activeOfficer => {
-      if (activeOfficer.officer.id === officer.id) {
-        officerIsAssigned = false;
+    this.activeCallDetails.involvedUnits.forEach(activeunit => {
+      if (activeunit.id === unit.id) {
+        isUnitAssigned = false;
       }
     });
 
-    if (officerIsAssigned) {
-      this.activeCallDetails.officers.push({officer: officer, time: d.getHours() + ':' + d.getMinutes()});
-      this.addCallToOfficerQueue(officer, call);
+    const involvedUnit = new InvolvedUnit();
+    involvedUnit.id = uuid();
+    involvedUnit.callForServiceUnit = unit;
+    involvedUnit.callForServiceId = this.getActiveCall().id;
+    involvedUnit.isPrimaryUnit = true;
+    involvedUnit.callForServiceDateTime = this.getActiveCall().receivedDateTime;
+    involvedUnit.dispatchDateTime = new Date().toDateString();
+
+
+    if (isUnitAssigned) {
+      this.activeCallDetails.involvedUnits.push(involvedUnit);
+      this.addCallToUnitQueue(unit, this.activeCallDetails);
     }
 
-    return officerIsAssigned;
+    return isUnitAssigned;
   }
 
-  addCallToOfficerQueue(officer: Officer, call: CallDetail) {
-    let queue: PriorityQueue = this.officerQueue.get(officer.id);
+  addCallToUnitQueue(unit: CallForServiceUnit, call: CallDetail) {
+    let queue: PriorityQueue = this.unitCallQueue.get(unit.id);
 
     if (queue == null) {
       queue = new PriorityQueue({
@@ -99,10 +108,10 @@ export class CallsService {
     }
     queue.push({order: queue.size(), call});
 
-    this.officerQueue.set(officer.id, queue);
+    this.unitCallQueue.set(unit.id, queue);
   }
 
-  getOfficerQueue(officer: Officer): PriorityQueue {
-    return this.officerQueue.get(officer.id);
+  getUnitCalllQueue(unit: CallForServiceUnit): PriorityQueue {
+    return this.unitCallQueue.get(unit.id);
   }
 }

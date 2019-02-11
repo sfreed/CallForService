@@ -3,13 +3,13 @@
   [width]="'75%'"
   [height]="'50%'"
   [showTitle]="true"
-  title="Officer Call Queue"
+  title="Unit Call Queue"
   [dragEnabled]="false"
   [closeOnOutsideClick]="true"
   [(visible)]="isVisible">
 <div *dxTemplate="let data of 'content'">
     <dx-data-grid #gridContainer
-      [dataSource]="officerQueue.toArray()"
+      [dataSource]="unitQueue.toArray()"
       [remoteOperations]="false"
       [allowColumnReordering]="true"
       [rowAlternationEnabled]="true"
