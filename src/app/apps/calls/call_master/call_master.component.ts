@@ -69,23 +69,6 @@ export class CallMasterComponent implements OnInit {
     });
   }
 
-  getPrimaryLocation(data: CallForService) {
-    if (!data) {
-      return;
-    }
-
-    const loc = data.locationPrimary;
-    return loc.name;
-  }
-
-  getSecondaryLocation(data: CallForService) {
-    if (!data) {
-      return;
-    }
-    const loc = data.secondaryLocationLocation;
-    return loc.name;
-  }
-
   formSelected(e: any, callForm: any) {
     if (!callForm.selectedItem) {
       return;

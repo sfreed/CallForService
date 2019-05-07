@@ -81,8 +81,8 @@
       <dxi-column dataField="onHoldDateTime" dataType="string" [format]="'shortDateShortTime'" [caption]="'On Hold Time'" [visible]="false"></dxi-column>
       <dxi-column dataField="closedDateTime" dataType="string" [format]="'shortDateShortTime'" [caption]="'Closed Time'" [visible]="false"></dxi-column>
       <dxi-column dataType="number" dataField="callForServiceCodePriorityOrder" [caption]="'Code Priority Order'" [visible]="false"></dxi-column>
-      <dxi-column dataField="locationPrimary" [calculateCellValue]="getPrimaryLocation()" dataType="string" [caption]="'Primary Location'" [visible]="false"></dxi-column>
-      <dxi-column dataField="secondaryLocationLocation" [calculateCellValue]="getSecondaryLocation()" dataType="string" [caption]="'Secondary Location'" [visible]="false"></dxi-column>
+      <dxi-column dataField="locationPrimary" dataType="string" [caption]="'Primary Location'" [visible]="false"></dxi-column>
+      <dxi-column dataField="secondaryLocationLocation" dataType="string" [caption]="'Secondary Location'" [visible]="false"></dxi-column>
       <dxi-column dataType="boolean" dataField="isAlertTimeActive" [caption]="'Alert Active?'" [visible]="false"></dxi-column>
       <dxi-column dataType="number" dataField="alertTimeInterval" [caption]="'Alert Time Interval'" [visible]="false"></dxi-column>
       <dxi-column dataType="string" dataField="alertTimeStart" [caption]="'Alert Time Start'" [visible]="false"></dxi-column>
