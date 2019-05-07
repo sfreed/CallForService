@@ -1,4 +1,6 @@
-export class SecondaryLocationLocation {
+import { BaseModel } from '../BaseModel';
+
+export class SecondaryLocationLocation extends BaseModel {
   id: string;
   name: string;
   addressTypeId: number;
@@ -7,4 +9,8 @@ export class SecondaryLocationLocation {
   streetId: string;
   countyId: number;
   cityId: number;
+  zoneId: number;
+  patrolAreaId: number;
+  latitude: number;
+  longitude: number;
 }

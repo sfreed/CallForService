@@ -4,6 +4,7 @@ export interface CallForServiceLookup {
   callForServiceStatus: CallForServiceStatus[];
   callForServiceType: CallForServiceType[];
   callForServiceUnitType: CallForServiceUnitType[];
+  callForServiceDispositionStatus: CallForServiceDispositionStatus[];
 }
 export interface CallForServiceHospital {
   id: number;
@@ -20,6 +21,12 @@ export interface CallForServiceOriginated {
 export interface CallForServiceStatus {
   id: number;
   callForServiceStatusDescription: string;
+  isActive: boolean;
+  isUserEditable: boolean;
+}
+export interface CallForServiceDispositionStatus {
+  id: number;
+  callForServiceStatusDispositionDescription: string;
   isActive: boolean;
   isUserEditable: boolean;
 }

@@ -9,20 +9,23 @@
     <dx-list
       id="activeUnits"
       #activeUnitsList
+      searchExpr="status"
+      searchMode="equals"
+      searchValue="2"
       [dataSource]="activeUnits"
-      [height]="window.innerHeight"
+      [height]="window.innerHeight-160"
       [scrollingEnabled]="true"
       selectionMode = "single"
       (onItemClick)="selectUnit($event)"
       class="example-container"
       cdkDropList
       (cdkDropListDropped)="drop($event)"
-      [cdkDropListConnectedTo]="['callHistoryGrid', 'complainantForm', 'hospitalGrid', 'involvedPersonsGrid', 'unitContainer', 'vehicleGrid', 'callDetailForm', 'wreckerGrid']">
+      [cdkDropListConnectedTo]="['inActiveUnits', 'callHistoryGrid', 'complainantForm', 'hospitalGrid', 'involvedPersonsGrid', 'unitContainer', 'vehicleGrid', 'callDetailForm', 'wreckerGrid']">
       <div *dxTemplate="let data of 'item'">
         <div
           id="switchdiv{{data.id}}"
           class="OFFICER unitName badge{{data.id}} active{{data.active}} example-box" cdkDrag [cdkDragData]="data">
-            #{{data.badge_number}} : {{data.last_name}}, {{data.first_name}} <span style="float:right;">({{getUnitQueueCount(data)}})</span>
+            #{{data.unitDescription}}<span style="float:right;">({{getUnitQueueCount(data)}})</span>
         </div>
 
         <dx-context-menu
@@ -39,8 +42,11 @@
     <dx-list
       id="inActiveUnits"
       #inActiveUnitsList
-      [dataSource]="inActiveUnits"
-      [height]="window.innerHeight"
+      searchExpr="status"
+      searchMode="equals"
+      searchValue="1"
+      [dataSource]="inactiveUnits"
+      [height]="window.innerHeight/2.5"
       [scrollingEnabled]="true"
       selectionMode = "single"
       (onItemClick)="selectUnit($event)"
@@ -52,7 +58,7 @@
         <div
           id="switchdiv{{data.id}}"
           class="OFFICER unitName badge{{data.id}} active{{data.active}} example-box" cdkDrag [cdkDragData]="data">
-            #{{data.badge_number}} : {{data.last_name}}, {{data.first_name}} <span style="float:right;">({{getUnitQueueCount(data)}})</span>
+            #{{data.unitDescription}}
         </div>
 
         <dx-context-menu

@@ -1,45 +1,40 @@
 import { Injectable } from '@angular/core';
 import { DxDrawerComponent } from 'devextreme-angular';
 import { DispatcherHistory } from 'src/app/common/models/history';
-import { UserDataService } from './UserData';
+import CustomStore from 'devextreme/data/custom_store';
+import * as AspNetData from 'devextreme-aspnet-data-nojquery';
+import { MasterUserDAO } from '../dao/MasterUserDAO.service';
 import DataSource from 'devextreme/data/data_source';
-import ArrayStore from 'devextreme/data/array_store';
 @Injectable({
   providedIn: 'root'
 })
 export class DispatcherService {
   private historyDrawer: DxDrawerComponent;
 
-  private historyList: DataSource;
+  private historyList: CustomStore;
 
-  private dispatcherList: DataSource;
 
-  constructor(private dataService: UserDataService) {
-    this.historyList = new DataSource({
-      store : new ArrayStore({
-        key : 'id',
-        data : dataService.getHistoryList()
-      }) ,
-      sort : ['date',  'time'],
-      paginate : true,
-      pageSize : 18
-    });
+  url = 'http://courtwareapp.azurewebsites.net/api';
 
-    this.dispatcherList = new DataSource({
-      store : new ArrayStore({
-        key : 'id',
-        data : this.dataService.getDispatcherList()
-      }) ,
-      sort : ['fullName']
+  constructor(private masterUserDAO: MasterUserDAO) {
+    this.historyList = AspNetData.createStore({
+      key: 'id',
+      loadUrl: this.url + '/MasterUser',
+      insertUrl: this.url + '/MasterUser',
+      updateUrl: this.url + '/MasterUser',
+      deleteUrl: this.url + '/MasterUser',
+      onBeforeSend: function(method, ajaxOptions) {
+          ajaxOptions.xhrFields = { withCredentials: false };
+      }
     });
   }
 
-  getDispatcherHistoryList(): DataSource {
+  getDispatcherHistoryList(): CustomStore {
     return this.historyList;
   }
 
   getDispatcherList(): DataSource {
-    return this.dispatcherList;
+    return this.masterUserDAO.getMasterUsersDS();
   }
 
   getHistoryDrawer(): DxDrawerComponent {
@@ -51,11 +46,11 @@ export class DispatcherService {
   }
 
   public addHistoryItem(historyItem: DispatcherHistory) {
-    this.historyList.store().push([{ type: 'insert', data: historyItem }]);
+    this.historyList.push([{ type: 'insert', data: historyItem }]);
   }
 
   public removeHistoryItem(historyItem: DispatcherHistory) {
-    this.historyList.store().remove(historyItem.id);
+    this.historyList.remove(historyItem.id);
   }
 
   toggleDispatcherHistory() {

@@ -1,0 +1,44 @@
+import { BaseModel } from '../BaseModel';
+
+export class InvolvedPerson extends BaseModel {
+  id: string;
+  namePrefixCodeId: number;
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  lastNameSuffixCodeId: number;
+  sortName: string;
+  fullName: string;
+  streetNumber: string;
+  streetNumberSuffix: string;
+  streetNamePreDirection: string;
+  streetName: string;
+  streetNameSuffix: string;
+  cityName: string;
+  stateName: string;
+  zipCode: string;
+  socialSecurityNumber: string;
+  driversLicenseNumber: string;
+  driversLicenseState: string;
+  driversLicenseClass: string;
+  driversLicenseExpirationDate: string;
+  driversLicenseIssueDate: string;
+  homePhoneNumber: string;
+  workPhoneNumber: string;
+  mobilePhoneNumber: string;
+  dateOfBirth: string;
+  isDeceased: boolean;
+  dateOfDeath: string;
+  age: number;
+  ageEnd: number;
+  genderId: number;
+  raceId: number;
+  ethnicityId: number;
+  height: string;
+  weight: string;
+  hairColorId: number;
+  hairTypeId: number;
+  eyeColorId: number;
+  eyewearId: number;
+  facialHairId: number;
+}

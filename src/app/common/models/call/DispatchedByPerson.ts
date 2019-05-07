@@ -1,4 +1,6 @@
-export class DispatchedByPerson {
+import { BaseModel } from '../BaseModel';
+
+export class DispatchedByPerson extends BaseModel {
   id: string;
   userName: string;
   namePrefixCodeId: number;
@@ -8,4 +10,10 @@ export class DispatchedByPerson {
   lastNameSuffixCodeId: number;
   sortName: string;
   fullName: string;
+
+  personId: string;
+  password: string;
+  namePrefixId: number;
+  NameSuffixId: number;
+  userGroupId: number;
 }

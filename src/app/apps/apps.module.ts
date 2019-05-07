@@ -11,7 +11,6 @@ import { DispatcherHistory } from '../common/models/history';
 import { CallMasterComponent } from './calls/call_master/call_master.component';
 import { CallDetailsComponent } from './calls/call_details/call_details.component';
 import { CallNotesComponent } from './calls/call_notes/call_notes.component';
-import { UserDataService } from '../common/services/UserData';
 import { VehiclesComponent } from './calls/call_details/vehicles/vehicles.component';
 import { ComplainantsComponent } from './calls/call_details/complainants/complainants.component';
 import { InvolvedPersonsComponent } from './calls/call_details/involved_persons/involved_persons.component';
@@ -29,7 +28,7 @@ import { UnitQueueComponent } from './units/unit_queue/unit_queue.component';
   declarations: [ActiveListComponent, DispatcherHistoryComponent, CallMasterComponent, UnitQueueComponent,
     CallDetailsComponent, CallNotesComponent, CallHistoryComponent, DetailsComponent,
     InvolvedUnitsComponent, VehiclesComponent, ComplainantsComponent, InvolvedPersonsComponent ],
-  providers: [ UnitService, DispatcherHistory, UserDataService ],
+  providers: [ UnitService, DispatcherHistory ],
   bootstrap: [  ],
   exports: [ActiveListComponent, DispatcherHistoryComponent, CallMasterComponent, InvolvedUnitsComponent,
     CallDetailsComponent, CallNotesComponent, CallHistoryComponent, DetailsComponent ]

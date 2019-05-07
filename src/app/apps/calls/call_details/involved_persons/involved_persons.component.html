@@ -1,6 +1,6 @@
-<div *ngIf="callService.getActiveCall()">
+<div *ngIf="callService.getActiveCallDetails()">
   <dx-data-grid id="involvedPersonsGrid"
-    [dataSource]="callService.getActiveCallDetails().involvedPersons"
+    [dataSource]="involvedPersons"
     [rowAlternationEnabled]="true"
     [showBorders]="true"
     [showColumnHeaders]="true"
@@ -16,11 +16,175 @@
       [allowDeleting]="true"
       [allowAdding]="true"
       [useIcons]="true">
+      <dxo-popup title="Involved Person" [showTitle]="true" [width]="800" [height]="900"></dxo-popup>
+      <dxo-form [width]="'200%'">
+        <dxi-item itemType="tabbed" [tabPanelOptions]="{ deferRendering: false }" caption="Involved Person" [widthRatio]="1">
+          <dxi-tab title="Person" width="100%" [colCount]="2">
+              <dxi-item itemType="group" caption="Name">
+                  <dxi-item dataField="contactTypeId"></dxi-item>
+                  <dxi-item dataField="involvedPerson.namePrefixCodeId"></dxi-item>
+                  <dxi-item dataField="involvedPerson.firstName"></dxi-item>
+                  <dxi-item dataField="involvedPerson.middleName"></dxi-item>
+                  <dxi-item dataField="involvedPerson.lastName"></dxi-item>
+                  <dxi-item dataField="involvedPerson.lastNameSuffixCodeId"></dxi-item>
+              </dxi-item>
+              <dxi-item itemType="group" caption="Information">
+                  <dxi-item dataField="involvedPerson.dateOfBirth"></dxi-item>
+                  <dxi-item dataField="involvedPerson.age"></dxi-item>
+                  <dxi-item dataField="involvedPerson.ageEnd"></dxi-item>
+                  <dxi-item dataField="involvedPerson.socialSecurityNumber"></dxi-item>
+              </dxi-item>
+              <dxi-item itemType="group" caption="Driver Licence" [colSpan]="2">
+                  <dxi-item dataField="involvedPerson.driversLicenseNumber"></dxi-item>
+                  <dxi-item dataField="involvedPerson.driversLicenseClass"></dxi-item>
+                  <dxi-item dataField="involvedPerson.driversLicenseExpirationDate"></dxi-item>
+                  <dxi-item dataField="involvedPerson.driversLicenseIssueDate"></dxi-item>
+                  <dxi-item dataField="involvedPerson.driversLicenseIssueState"></dxi-item>
+              </dxi-item>
+          </dxi-tab>
+          <dxi-tab title="Address" width="100%" [colCount]="2">
+            <dxi-item itemType="group" caption="Address">
+              <dxi-item dataField="personAddress.addressTypeId"></dxi-item>
+              <dxi-item dataField="personAddress.name"></dxi-item>
+              <dxi-item dataField="personAddress.streetNumber"></dxi-item>
+              <dxi-item dataField="personAddress.streetNumberSuffix"></dxi-item>
+              <dxi-item dataField="personAddress.streetId"></dxi-item>
+              <dxi-item dataField="involvedPerson.streetNamePreDirection"></dxi-item>
+              <dxi-item dataField="involvedPerson.streetNameSuffix"></dxi-item>
+              <dxi-item dataField="involvedPerson.cityName"></dxi-item>
+              <dxi-item dataField="involvedPerson.stateName"></dxi-item>
+              <dxi-item dataField="involvedPerson.zipCode"></dxi-item>
+            </dxi-item>
+            <dxi-item itemType="group" caption="Location">
+              <dxi-item dataField="personAddress.countyId"></dxi-item>
+              <dxi-item dataField="personAddress.cityId"></dxi-item>
+              <dxi-item dataField="personAddress.zoneId"></dxi-item>
+              <dxi-item dataField="personAddress.patrolAreaId"></dxi-item>
+              <dxi-item dataField="personAddress.latitude"></dxi-item>
+              <dxi-item dataField="personAddress.longitude"></dxi-item>
+            </dxi-item>
+          </dxi-tab>
+          <dxi-tab title="Contact">
+            <dxi-item dataField="involvedPerson.homePhoneNumber"></dxi-item>
+            <dxi-item dataField="involvedPerson.workPhoneNumber"></dxi-item>
+            <dxi-item dataField="involvedPerson.mobilePhoneNumber"></dxi-item>
+          </dxi-tab>
+          <dxi-tab title="Description">
+            <dxi-item dataField="involvedPerson.genderId"></dxi-item>
+            <dxi-item dataField="involvedPerson.raceId"></dxi-item>
+            <dxi-item dataField="involvedPerson.ethnicityId"></dxi-item>
+            <dxi-item dataField="involvedPerson.height"></dxi-item>
+            <dxi-item dataField="involvedPerson.weight"></dxi-item>
+            <dxi-item dataField="involvedPerson.hairColorId"></dxi-item>
+            <dxi-item dataField="involvedPerson.hairTypeId"></dxi-item>
+            <dxi-item dataField="involvedPerson.eyeColorId"></dxi-item>
+            <dxi-item dataField="involvedPerson.eyewearId"></dxi-item>
+            <dxi-item dataField="involvedPerson.facialHairId"></dxi-item>
+          </dxi-tab>
+          <dxi-tab title="Injury">
+            <dxi-item dataField="involvedPerson.isAmbulanceRequired"></dxi-item>
+            <dxi-item dataField="involvedPerson.callForServiceHospitalId"></dxi-item>
+            <dxi-item dataField="involvedPerson.isDeceased"></dxi-item>
+            <dxi-item dataField="involvedPerson.dateOfDeath"></dxi-item>
+          </dxi-tab>
+          <dxi-tab title="Remarks">
+            <dxi-item dataField="remarks"></dxi-item>
+          </dxi-tab>
+        </dxi-item>
+      </dxo-form>
     </dxo-editing>
+
+
     <dxi-column dataField="id" dataType="string" [visible]="false"></dxi-column>
-    <dxi-column dataField="first_name" dataType="string"></dxi-column>
-    <dxi-column dataField="last_name" dataType="string"></dxi-column>
-    <dxi-column dataField="address" dataType="string"></dxi-column>
+    <dxi-column dataField="contactTypeId" dataType="number" [caption]="'Contact Type'">
+      <dxo-lookup [dataSource]="contactCodes" valueExpr="id" displayExpr="contactTypeCodeDescription"> </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="involvedPerson.firstName" dataType="string" [caption]="'First Name'"></dxi-column>
+    <dxi-column dataField="involvedPerson.middleName" dataType="string" [caption]="'Middle Name'"></dxi-column>
+    <dxi-column dataField="involvedPerson.lastName" dataType="string" [caption]="'Last Name'"></dxi-column>
+    <dxi-column dataField="involvedPerson.dateOfBirth" dataType="date" [caption]="'Date of Birth'"></dxi-column>
+    <dxi-column dataField="involvedPerson.namePrefixCodeId" [visible]="false" [caption]="'Name Prefix'">
+        <dxo-lookup [dataSource]="namePrefixCodes" valueExpr="id" displayExpr="namePrefixDescription"> </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="involvedPerson.lastNameSuffixCodeId" [visible]="false" [caption]="'Last Name Suffix'">
+        <dxo-lookup [dataSource]="lastNameSuffixCodes" valueExpr="id" displayExpr="nameSuffixDescription"> </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="involvedPerson.age" [visible]="false" [caption]="'Age'"></dxi-column>
+    <dxi-column dataField="involvedPerson.ageEnd" [visible]="false" [caption]="'Age End'"></dxi-column>
+    <dxi-column dataField="involvedPerson.socialSecurityNumber" [visible]="false" [caption]="'SSN'"></dxi-column>
+    <dxi-column dataField="involvedPerson.driversLicenseNumber" [visible]="false" [caption]="'DL Number'"></dxi-column>
+    <dxi-column dataField="involvedPerson.driversLicenseClass" [visible]="false" [caption]="'DL Class'"></dxi-column>
+    <dxi-column dataField="involvedPerson.driversLicenseExpirationDate" [visible]="false" [caption]="'DL Expiration Date'"></dxi-column>
+    <dxi-column dataField="involvedPerson.driversLicenseIssueDate" [visible]="false" [caption]="'DL Issue Date'"></dxi-column>
+    <dxi-column dataField="involvedPerson.driversLicenseState" [visible]="false" [caption]="'DL State'"></dxi-column>
+    <dxi-column dataField="personAddress.addressTypeId" [visible]="false" [caption]="'Address Type'">
+        <dxo-lookup [dataSource]="addressCodes" valueExpr="id" displayExpr="description"> </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="personAddress.name" [visible]="false" [caption]="'Street Address'"></dxi-column>
+    <dxi-column dataField="personAddress.streetNumber" [visible]="false" [caption]="'Street Number'"></dxi-column>
+    <dxi-column dataField="personAddress.streetNumberSuffix" [visible]="false" [caption]="'Street Number Suffix'"></dxi-column>
+    <dxi-column dataField="personAddress.streetId" [visible]="false" [caption]="'Street'">
+      <dxo-lookup [dataSource]="streetCodes" valueExpr="id" displayExpr="streetName"> </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="involvedPerson.streetNamePreDirection" [visible]="false" [caption]="'Street Name Pre Direction'">
+      <dxo-lookup [dataSource]="streetNamePreDirectionCodes" valueExpr="id" displayExpr="streetNameDirectionCodeDescription"> </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="involvedPerson.streetNameSuffix" [visible]="false" [caption]="'Street Name Suffix'">
+      <dxo-lookup [dataSource]="streetNameSuffixCodes" valueExpr="id" displayExpr="streetNameSuffix"> </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="involvedPerson.cityName" [visible]="false" [caption]="'City'"></dxi-column>
+    <dxi-column dataField="involvedPerson.stateName" [visible]="false" [caption]="'State'"></dxi-column>
+    <dxi-column dataField="involvedPerson.zipCode" [visible]="false" [caption]="'Zip Code'"></dxi-column>
+    <dxi-column dataField="personAddress.countyId" [visible]="false" [caption]="'County'">
+        <dxo-lookup [dataSource]="countyCodes" valueExpr="id" displayExpr="countyName"> </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="personAddress.cityId" [visible]="false" [caption]="'City'">
+        <dxo-lookup [dataSource]="cityCodes" valueExpr="id" displayExpr="cityName"> </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="personAddress.zoneId" [visible]="false" [caption]="'Zone'">
+        <dxo-lookup [dataSource]="zoneCodes" valueExpr="id" displayExpr="description"> </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="personAddress.patrolAreaId" [visible]="false" [caption]="'Patrol Area'">
+        <dxo-lookup [dataSource]="patrolAreaCodes" valueExpr="id" displayExpr="patrolAreaCodeDescription"> </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="personAddress.latitude" [visible]="false" [caption]="'Latitude'"></dxi-column>
+    <dxi-column dataField="personAddress.longitude" [visible]="false" [caption]="'Longitude'"></dxi-column>
+    <dxi-column dataField="involvedPerson.homePhoneNumber" [visible]="false" [caption]="'Home Phone'"></dxi-column>
+    <dxi-column dataField="involvedPerson.workPhoneNumber" [visible]="false" [caption]="'Work Phone'"></dxi-column>
+    <dxi-column dataField="involvedPerson.mobilePhoneNumber" [visible]="false" [caption]="'Mobile Number'"></dxi-column>
+    <dxi-column dataField="involvedPerson.genderId" [visible]="false" [caption]="'Gender'">
+        <dxo-lookup [dataSource]="genderCodes" valueExpr="id" displayExpr="genderDescription"> </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="involvedPerson.raceId" [visible]="false" [caption]="'Race'">
+        <dxo-lookup [dataSource]="raceCodes" valueExpr="id" displayExpr="raceDescription"> </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="involvedPerson.ethnicityId" [visible]="false" [caption]="'Ethnicity'">
+        <dxo-lookup [dataSource]="ethnicityCodes" valueExpr="id" displayExpr="ethnicityDescription"> </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="involvedPerson.height" [visible]="false" [caption]="'Height'"></dxi-column>
+    <dxi-column dataField="involvedPerson.weight" [visible]="false" [caption]="'Weight'"></dxi-column>
+    <dxi-column dataField="involvedPerson.hairColorId" [visible]="false" [caption]="'Hair Color'">
+        <dxo-lookup [dataSource]="hairColorCodes" valueExpr="id" displayExpr="hairColorCodeDescription"> </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="involvedPerson.hairTypeId" [visible]="false" [caption]="'Hair Type'">
+        <dxo-lookup [dataSource]="hairCodes" valueExpr="id" displayExpr="hairTypeCodeDescription"> </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="involvedPerson.eyeColorId" [visible]="false" [caption]="'Eye Color'">
+        <dxo-lookup [dataSource]="eyeColorCodes" valueExpr="id" displayExpr="eyeColorCodeDescription"> </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="involvedPerson.eyewearId" [visible]="false" [caption]="'Eyewear'">
+        <dxo-lookup [dataSource]="eyeWearCodes" valueExpr="id" displayExpr="eyewearCodeDescription"> </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="involvedPerson.facialHairId" [visible]="false" [caption]="'Facial Hair'">
+        <dxo-lookup [dataSource]="facialHairCodes" valueExpr="id" displayExpr="facialHairCodeDescription"> </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="involvedPerson.isAmbulanceRequired" [visible]="false" [caption]="'Is Abulance Required'"></dxi-column>
+    <dxi-column dataField="involvedPerson.callForServiceHospitalId" [visible]="false" [caption]="'Hospital'">
+        <dxo-lookup [dataSource]="hospitalCodes" valueExpr="id" displayExpr="hospitalName"> </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="involvedPerson.isDeceased" dataType="boolean" [visible]="false" [caption]="'Deceased?'"></dxi-column>
+    <dxi-column dataField="involvedPerson.dateOfDeath" dataType="date" [visible]="false" [caption]="'Date of Death'"></dxi-column>
+
     <dxi-column type="buttons" [width]="150">
       <dxi-button name="edit"></dxi-button>
       <dxi-button name="delete"></dxi-button>

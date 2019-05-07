@@ -3,7 +3,7 @@ import { DxListComponent } from 'devextreme-angular';
 import notify from 'devextreme/ui/notify';
 import { _ } from 'underscore';
 import { DispatcherService } from 'src/app/common/services/dispatcher.service';
-import DataSource from 'devextreme/data/data_source';
+import CustomStore from 'devextreme/data/custom_store';
 
 @Component({
   selector: 'app-dispatcher-history',
@@ -17,7 +17,7 @@ export class DispatcherHistoryComponent implements OnInit {
 
   menuItems: any;
 
-  historyList: DataSource;
+  historyList: CustomStore;
 
   constructor(public dispatcherHistory: DispatcherService) {
     this.menuItems = [{

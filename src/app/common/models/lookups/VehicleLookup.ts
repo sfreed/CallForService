@@ -38,8 +38,8 @@ export interface VehicleMake {
 }
 export interface VehicleModel {
     id: number;
-    vehicleModelCode: string;
-    vehicleModelCodeDescription: string;
+    vehicleModelName: string;
+    vehicleModelDescription: string;
     isActive: boolean;
     isUserEditable: boolean;
 }

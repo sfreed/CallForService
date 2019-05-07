@@ -1,4 +1,6 @@
-export class PersonAddress {
+import { BaseModel } from '../BaseModel';
+
+export class PersonAddress extends BaseModel {
   id: string;
   name: string;
   addressTypeId: number;
@@ -11,9 +13,6 @@ export class PersonAddress {
   patrolAreaId: number;
   latitude: number;
   longitude: number;
-  geoCode: string;
-  addressFull: string;
-  addressLine1: string;
-  addressLine2: string;
-  addressLine3: string;
+  effectiveDateTime: string;
+  createdUserId: string;
 }

@@ -8,9 +8,9 @@ import uuid from 'UUID';
 
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { AdminService } from 'src/app/common/services/admin.service';
-import { DatasourcesService } from 'src/app/common/datasources/Datasources.service';
 import { UnitService } from 'src/app/common/services/unit.service';
-import { CallForServiceUnit } from 'src/app/common/models/call/CallForServiceUnit';
+import { AuthenticationService } from 'src/app/common/auth/auth.service';
+import { CallForServiceUnit } from 'src/app/common/models/CallForServiceUnit';
 
 @Component({
   selector: 'app-active-list',
@@ -26,16 +26,15 @@ export class ActiveListComponent implements OnInit {
 
   public window: Window = window;
 
-  inActiveUnits: DataSource;
-
   activeUnits: DataSource;
+
+  inactiveUnits: DataSource;
 
   activeMenuItems: any;
 
   inactiveMenuItems: any;
 
-  constructor(public unitService: UnitService, public dispatcherHistory: DispatcherService, public callService: CallsService, public adminService: AdminService,
-    private dsService: DatasourcesService) {
+  constructor(public unitService: UnitService, public dispatcherHistory: DispatcherService, public callService: CallsService, public adminService: AdminService, private authService: AuthenticationService) {
     this.adminFormEmitter = adminService.adminFormEmitter;
 
     this.activeMenuItems = [{
@@ -60,8 +59,8 @@ export class ActiveListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.activeUnits = this.dsService.getActiveUnitsList();
-    this.inActiveUnits = this.dsService.getInactiveUnitsList();
+    this.activeUnits = this.unitService.getActiveUnitsList();
+    this.inactiveUnits = this.unitService.getInactiveUnitsList();
   }
 
   contextItemClick(e, unit) {
@@ -115,20 +114,28 @@ export class ActiveListComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<CallForServiceUnit>) {
+    console.log(event);
+
     if (event.previousContainer === event.container) {
       return;
     }
-    const e = {
-      itemData: {
-        id: 1
-      }
-    };
-    const unit = event.item.data;
 
     if (event.container.id === 'activeUnits') {
-      e.itemData.id = 0;
+      event.item.data.dateTimeIn = new Date();
+      event.item.data.effectiveDateTime = new Date();
+      event.item.data.createdUserId = this.authService.getUser().id;
+      event.item.data.status = 2;
+      event.item.data.startMiles = 0;
     }
 
-    this.contextItemClick(e, unit);
+    if (event.container.id === 'inActiveUnits') {
+      event.item.data.dateTimeOut = new Date();
+      event.item.data.effectiveDateTime = new Date();
+      event.item.data.createdUserId = this.authService.getUser().id;
+      event.item.data.status = 1;
+      event.item.data.endMiles = 0;
+    }
+
+    this.unitService.changeUnitStatus(event.item.data);
   }
 }

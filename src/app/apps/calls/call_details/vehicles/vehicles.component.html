@@ -1,6 +1,6 @@
-<div *ngIf="callService.getActiveCall()">
+<div *ngIf="callService.getActiveCallDetails()">
   <dx-data-grid id="vehicleGrid"
-    [dataSource]="callService.getActiveCallDetails().involvedVehicles"
+    [dataSource]="involvedVehicles"
     [rowAlternationEnabled]="true"
     [showBorders]="true"
     [showColumnHeaders]="true"
@@ -16,11 +16,212 @@
       [allowDeleting]="true"
       [allowAdding]="true"
       [useIcons]="true">
+      <dxo-popup title="Involved Person" [showTitle]="true" [width]="800" [height]="900"></dxo-popup>
+      <dxo-form [width]="'200%'">
+        <dxi-item itemType="tabbed" [tabPanelOptions]="{ deferRendering: false }" caption="Involved Person" [widthRatio]="1">
+            <dxi-tab title="Tag" width="100%">
+                <dxi-item dataField="vehicle.tagInformation.tagNumber"></dxi-item>
+                <dxi-item dataField="vehicle.tagInformation.tagState"></dxi-item>
+                <dxi-item dataField="vehicle.tagInformation.tagExpiresYear"></dxi-item>
+            </dxi-tab>
+          <dxi-tab title="Vehicle" width="100%" [colCount]="2">
+              <dxi-item itemType="group" caption="Vehicle Information">
+                <dxi-item dataField="vehicle.year"></dxi-item>
+                <dxi-item dataField="vehicle.model"></dxi-item>
+                <dxi-item dataField="vehicle.VIN"></dxi-item>
+                <dxi-item dataField="vehicle.color"></dxi-item>
+                <dxi-item dataField="vehicle.type"></dxi-item>
+                <dxi-item dataField="vehicle.style"></dxi-item>
+              </dxi-item>
+              <dxi-item itemType="group" caption="Vehicle Information">
+                <dxi-item dataField="vehicle.numberOfWheels"></dxi-item>
+                <dxi-item dataField="vehicle.numberOfAxles"></dxi-item>
+                <dxi-item dataField="vehicle.numberOfCylinders"></dxi-item>
+                <dxi-item dataField="vehicle.engineType"></dxi-item>
+                <dxi-item dataField="vehicle.tranmissionType"></dxi-item>
+                <dxi-item dataField="vehicle.odometerMileage"></dxi-item>
+                <dxi-item dataField="vehicle.fuelType"></dxi-item>
+                <dxi-item dataField="vehicleGCICResults"></dxi-item>
+              </dxi-item>
+              <dxi-item itemType="group" caption="Vehicle Remarks" [colSpan]="2">
+                  <dxi-item dataField="vehicleRemarks"></dxi-item>
+              </dxi-item>
+          </dxi-tab>
+          <dxi-tab title="Driver" width="100%">
+              <dxi-item dataField="vehicle"></dxi-item>
+          </dxi-tab>
+          <dxi-tab title="Owner" width="100%">
+              <dxi-item dataField="isSameAsDriver"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.namePrefixCodeId"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.firstName"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.middleName"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.lastName"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.lastNameSuffixCodeId"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.dateOfBirth"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.age"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.ageEnd"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.socialSecurityNumber"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.driversLicenseNumber"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.driversLicenseClass"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.driversLicenseExpirationDate"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.driversLicenseIssueDate"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.driversLicenseIssueState"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.homePhoneNumber"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.workPhoneNumber"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.mobilePhoneNumber"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.streetName"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.streetNumber"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.streetNumberSuffix"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.streetId"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.streetNamePreDirection"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.streetNameSuffix"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.cityName"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.stateName"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.zipCode"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.genderId"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.raceId"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.ethnicityId"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.height"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.weight"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.hairColorId"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.hairTypeId"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.eyeColorId"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.eyewearId"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.facialHairId"></dxi-item>
+          </dxi-tab>
+          <dxi-tab title="Wrecker Service" width="100%">
+              <dxi-item dataField="isWrecker"></dxi-item>
+              <dxi-item dataField="wrecker"></dxi-item>
+              <dxi-item dataField="wreckerTowedTo"></dxi-item>
+              <dxi-item dataField="wreckerTowedDateTime"></dxi-item>
+              <dxi-item dataField="wreckerRemarks"></dxi-item>
+              <dxi-item dataField="wreckerSelectTyped"></dxi-item>
+              <dxi-item dataField="wreckerTimeCalled"></dxi-item>
+              <dxi-item dataField="wreckerTimeArrived"></dxi-item>
+              <dxi-item dataField="vehicleRemarks"></dxi-item>
+          </dxi-tab>
+        </dxi-item>
+      </dxo-form>
     </dxo-editing>
-    <dxi-column dataField="id" dataType="string" [visible]="false"></dxi-column>
-    <dxi-column dataField="license_plate_number" dataType="string"></dxi-column>
-    <dxi-column dataField="driver_name" dataType="string"></dxi-column>
-    <dxi-column dataField="dispatch_time" dataType="Date"></dxi-column>
+
+    <dxi-column dataField="id" dataType="string" [visible]="false" dataType="string"></dxi-column>
+    <dxi-column dataField="vehicle.year" [caption]="'Year'" dataType="number"></dxi-column>
+    <dxi-column dataField="vehicle.model" [caption]="'Model'" dataType="string">
+      <dxo-lookup [dataSource]="models" valueExpr="id" displayExpr="vehicleModelDescription"></dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="vehicle.VIN" [caption]="'VIN'" [visible]="false" dataType="string"></dxi-column>
+    <dxi-column dataField="vehicle.color" [caption]="'Color'" [visible]="false">
+        <dxo-lookup [dataSource]="colors" valueExpr="id" displayExpr="vehicleColorCodeDescription"></dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="vehicle.type" [caption]="'Type'" [visible]="false">
+        <dxo-lookup [dataSource]="types" valueExpr="id" displayExpr="vehicleTypeCodeDescription"></dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="vehicle.style" [caption]="'Style'" [visible]="false">
+        <dxo-lookup [dataSource]="styles" valueExpr="id" displayExpr="vehicleStyleCodeDescription"></dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="vehicle.numberOfWheels" [caption]="'Number of Wheels'" [visible]="false" dataType="number"></dxi-column>
+    <dxi-column dataField="vehicle.numberOfAxles" [caption]="'Number of Axels'" [visible]="false" dataType="number"></dxi-column>
+    <dxi-column dataField="vehicle.numberOfCylinders" [caption]="'Number Of Cylinders'" [visible]="false" dataType="number"></dxi-column>
+    <dxi-column dataField="vehicle.engineType" [caption]="'Engine Type'" [visible]="false" dataType="number">
+        <dxo-lookup [dataSource]="engineTypes" valueExpr="id" displayExpr="vehicleEngineTypeDescription"></dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="vehicle.tranmissionType" [caption]="'Transmission Type'" [visible]="false" dataType="number">
+        <dxo-lookup [dataSource]="transmissionTypes" valueExpr="id" displayExpr="vehicleTransmissionTypeCodeDescription"></dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="vehicle.odometerMileage" [caption]="'Odometer Mileage'" [visible]="false" dataType="string"></dxi-column>
+    <dxi-column dataField="vehicle.fuelType" [caption]="'Fuel Type'" [visible]="false" dataType="number">
+        <dxo-lookup [dataSource]="fuelTypes" valueExpr="id" displayExpr="vehicleFuelTypeCodeDescription"></dxo-lookup>
+    </dxi-column>
+
+    <dxi-column dataField="vehicle.tagInformation.tagNumber" dataType="string" [caption]="'Tag Number'"></dxi-column>
+    <dxi-column dataField="vehicle.tagInformation.tagState" dataType="number" [caption]="'Tag State'">
+      <dxo-lookup [dataSource]="states" valueExpr="id" displayExpr="stateName"> </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="vehicle.tagInformation.tagExpiresYear" dataType="string" [caption]="'Tag Expires'"></dxi-column>
+    <dxi-column dataField="vehicleGCICResults" [caption]="'CGIC Results'" [visible]="false"></dxi-column>
+    <dxi-column dataField="vehicleRemarks" [caption]="'Remarks'" [visible]="false"></dxi-column>
+
+    <dxi-column dataField="vehicle.ownerPerson.firstName" dataType="string" [caption]="'First Name'"></dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.middleName" dataType="string" [caption]="'Middle Name'"></dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.lastName" dataType="string" [caption]="'Last Name'"></dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.dateOfBirth" dataType="date" [caption]="'Date of Birth'"></dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.namePrefixCodeId" [visible]="false" [caption]="'Name Prefix'">
+        <dxo-lookup [dataSource]="namePrefixCodes" valueExpr="id" displayExpr="namePrefixDescription"> </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.lastNameSuffixCodeId" [visible]="false" [caption]="'Last Name Suffix'">
+        <dxo-lookup [dataSource]="lastNameSuffixCodes" valueExpr="id" displayExpr="nameSuffixDescription"> </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.age" [visible]="false" [caption]="'Age'"></dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.ageEnd" [visible]="false" [caption]="'Age End'"></dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.socialSecurityNumber" [visible]="false" [caption]="'SSN'"></dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.driversLicenseNumber" [visible]="false" [caption]="'DL Number'"></dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.driversLicenseClass" [visible]="false" [caption]="'DL Class'"></dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.driversLicenseExpirationDate" [visible]="false" [caption]="'DL Expiration Date'"></dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.driversLicenseIssueDate" [visible]="false" [caption]="'DL Issue Date'"></dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.driversLicenseIssueState" [visible]="false" [caption]="'DL State'"></dxi-column>
+
+    <dxi-column dataField="vehicle.ownerPerson.streetName" [visible]="false" [caption]="'Street Address'"></dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.streetNumber" [visible]="false" [caption]="'Street Number'"></dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.streetNumberSuffix" [visible]="false" [caption]="'Street Number Suffix'"></dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.streetId" [visible]="false" [caption]="'Street'">
+      <dxo-lookup [dataSource]="streetCodes" valueExpr="id" displayExpr="streetName"> </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.streetNamePreDirection" [visible]="false" [caption]="'Street Name Pre Direction'">
+      <dxo-lookup [dataSource]="streetNamePreDirectionCodes" valueExpr="id" displayExpr="streetNameDirectionCodeDescription"> </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.streetNameSuffix" [visible]="false" [caption]="'Street Name Suffix'">
+      <dxo-lookup [dataSource]="streetNameSuffixCodes" valueExpr="id" displayExpr="streetNameSuffix"> </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.cityName" [visible]="false" [caption]="'City'"></dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.stateName" [visible]="false" [caption]="'State'"></dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.zipCode" [visible]="false" [caption]="'Zip Code'"></dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.homePhoneNumber" [visible]="false" [caption]="'Home Phone'"></dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.workPhoneNumber" [visible]="false" [caption]="'Work Phone'"></dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.mobilePhoneNumber" [visible]="false" [caption]="'Mobile Number'"></dxi-column>
+
+    <dxi-column dataField="vehicle.ownerPerson.genderId" [visible]="false" [caption]="'Gender'">
+        <dxo-lookup [dataSource]="genderCodes" valueExpr="id" displayExpr="genderDescription"> </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.raceId" [visible]="false" [caption]="'Race'">
+        <dxo-lookup [dataSource]="raceCodes" valueExpr="id" displayExpr="raceDescription"> </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.ethnicityId" [visible]="false" [caption]="'Ethnicity'">
+        <dxo-lookup [dataSource]="ethnicityCodes" valueExpr="id" displayExpr="ethnicityDescription"> </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.height" [visible]="false" [caption]="'Height'"></dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.weight" [visible]="false" [caption]="'Weight'"></dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.hairColorId" [visible]="false" [caption]="'Hair Color'">
+        <dxo-lookup [dataSource]="hairColorCodes" valueExpr="id" displayExpr="hairColorCodeDescription"> </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.hairTypeId" [visible]="false" [caption]="'Hair Type'">
+        <dxo-lookup [dataSource]="hairCodes" valueExpr="id" displayExpr="hairTypeCodeDescription"> </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.eyeColorId" [visible]="false" [caption]="'Eye Color'">
+        <dxo-lookup [dataSource]="eyeColorCodes" valueExpr="id" displayExpr="eyeColorCodeDescription"> </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.eyewearId" [visible]="false" [caption]="'Eyewear'">
+        <dxo-lookup [dataSource]="eyeWearCodes" valueExpr="id" displayExpr="eyewearCodeDescription"> </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.facialHairId" [visible]="false" [caption]="'Facial Hair'">
+        <dxo-lookup [dataSource]="facialHairCodes" valueExpr="id" displayExpr="facialHairCodeDescription"> </dxo-lookup>
+    </dxi-column>
+
+    <dxi-column dataField="vehicle.ownerPerson.isDeceased" dataType="boolean" [visible]="false" [caption]="'Deceased?'"></dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.dateOfDeath" dataType="date" [visible]="false" [caption]="'Date of Death'"></dxi-column>
+
+    <dxi-column dataField="vehicleDriverPerson" [caption]="'Make'" [visible]="false"></dxi-column>
+
+    <dxi-column dataField="isWrecker" [caption]="'Is Wrecker?'" [visible]="false" dataType="boolean"></dxi-column>
+    <dxi-column dataField="wrecker" [caption]="'Wrecker'" [visible]="false"></dxi-column>
+    <dxi-column dataField="wreckerTowedTo" [caption]="'Towed To'" [visible]="false"></dxi-column>
+    <dxi-column dataField="wreckerTowedDateTime" [caption]="'Towed Date Time'" [visible]="false" dataType="datetime"></dxi-column>
+    <dxi-column dataField="wreckerRemarks" [caption]="'Wrecker Remarks'" [visible]="false"></dxi-column>
+    <dxi-column dataField="wreckerSelectTyped" [caption]="'Wrecker Selected'" [visible]="false"></dxi-column>
+    <dxi-column dataField="wreckerTimeCalled" [caption]="'Wrecker Time Called'" [visible]="false" dataType="datetime"></dxi-column>
+    <dxi-column dataField="wreckerTimeArrived" [caption]="'Wrecker Time Arrived'" [visible]="false" dataType="datetime"></dxi-column>
+    <dxi-column dataField="vehicleRemarks" [caption]="'Vehicle Remarks'" [visible]="false" dataType="text"></dxi-column>
+    <dxi-column dataField="isSameAsDriver" [caption]="'Same as Driver?'" [visible]="false" dataType="boolean"></dxi-column>
+
     <dxi-column type="buttons" [width]="150">
         <dxi-button name="edit"></dxi-button>
         <dxi-button name="delete"></dxi-button>

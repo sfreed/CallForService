@@ -1,4 +1,4 @@
-<div *ngIf="callService.getActiveCall()">
+<div *ngIf="callService.getActiveCallDetails()">
   <dx-data-grid id="callHistoryGrid"
     [dataSource]="callService.getActiveCallDetails().callRemarks"
     [rowAlternationEnabled]="true"

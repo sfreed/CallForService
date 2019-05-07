@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CallsService } from 'src/app/common/services/calls.service';
-import { Call } from 'src/app/common/models/call/Call';
+import { CallForService } from 'src/app/common/models/call/CallForService';
 import { DispatcherService } from 'src/app/common/services/dispatcher.service';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { DatasourcesService } from 'src/app/common/datasources/Datasources.service';
 import { CallForServiceType, CallForServiceStatus } from 'src/app/common/models/lookups/CallForServiceLookup';
 import { CallForServiceLookupService } from 'src/app/common/services/lookup/CallForServiceLookup.service';
+import { MasterUserService } from 'src/app/common/services/lookup/MasterUser.service';
+import { MasterUser } from 'src/app/common/models/master/MasterUser';
 
 @Component({
   selector: 'app-details',
@@ -13,30 +14,35 @@ import { CallForServiceLookupService } from 'src/app/common/services/lookup/Call
   styleUrls: ['./details.component.css']
 })
 export class DetailsComponent implements OnInit {
-  callTypesList: CallForServiceType[];
+  callTypes: CallForServiceType[];
 
   callStatusList: CallForServiceStatus[];
+
+  dispatchers: MasterUser[];
 
   buttonOptions: any = {
     text: 'Save',
     type: 'success'
   };
 
-  activeCall: Call;
+  activeCall: CallForService;
 
-  constructor(public callService: CallsService,  public dispatcherService: DispatcherService, private cfsLookupService: CallForServiceLookupService) {
+  constructor(public callService: CallsService,  public dispatcherService: DispatcherService, private cfsLookupService: CallForServiceLookupService,
+    private masterUserService: MasterUserService) {
     this.callService.callEmitter.subscribe(
-      (data: Call) => {
+      (data: CallForService) => {
         this.activeCall = data;
       });
   }
 
   ngOnInit() {
-    this.callTypesList = this.cfsLookupService.callForServiceTypeList;
+    this.callTypes = this.cfsLookupService.callForServiceTypeList;
 
     this.callStatusList = this.cfsLookupService.callForServiceStatusList;
 
     this.activeCall = this.callService.getActiveCall();
+
+    this.dispatchers = this.masterUserService.users;
   }
 
   getComplainantName() {

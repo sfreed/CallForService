@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import PriorityQueue from 'priorityqueue';
 import { AdminService } from 'src/app/common/services/admin.service';
 import { CallsService } from 'src/app/common/services/calls.service';
-import { CallForServiceUnit } from 'src/app/common/models/call/CallForServiceUnit';
+import { CallForServiceUnit } from 'src/app/common/models/CallForServiceUnit';
 
 @Component({
   selector: 'app-unit-queue',

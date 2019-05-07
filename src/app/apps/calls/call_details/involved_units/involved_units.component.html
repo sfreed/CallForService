@@ -1,4 +1,4 @@
-<div *ngIf="callService.getActiveCall()">
+<div *ngIf="callService.getActiveCallDetails()">
   <dx-data-grid id="unitContainer"
     [dataSource]="callService.getActiveCallDetails().involvedUnits"
     [rowAlternationEnabled]="true"
@@ -15,16 +15,21 @@
       [allowDeleting]="true"
       [allowAdding]="true">
     </dxo-editing>
-    <dxi-column dataField="callForServiceUnit.dispatchDateTime" dataType="string" [format]="'shortDateShortTime'"></dxi-column>
-    <dxi-column dataField="callForServiceUnit.unitType" dataType="string" caption="Unit Type">
+    <dxi-column dataField="callForServiceUnit.dispatchDateTime" dataType="string" [format]="'shortDateShortTime'" caption="Dispatch Time" width="10%"></dxi-column>
+    <dxi-column dataField="callForServiceUnit.unitType" dataType="string" caption="Unit Type" width="20%">
       <dxo-lookup
         [dataSource]="unitType"
         valueExpr="id"
         displayExpr="unitDescription">
     </dxo-lookup>
     </dxi-column>
-    <dxi-column dataField="callForServiceUnit.officerPerson.firstName" dataType="string" caption="First Name"></dxi-column>
-    <dxi-column dataField="callForServiceUnit.officerPerson.lastName" dataType="string" caption="Last Name"></dxi-column>
-    <dxi-column dataField="callForServiceUnit.officerPerson.badgeNumber" dataType="string" caption="Badge Number"></dxi-column>
+    <dxi-column dataField="callForServiceUnit.unitDescription" dataType="string" caption="Description"></dxi-column>
+    <dxi-column dataField="callForServiceUnit.unitAgencyId" dataType="string" caption="Unit Type" width="20%">
+      <dxo-lookup
+        [dataSource]="unitAgencies"
+        valueExpr="id"
+        displayExpr="agencyName">
+    </dxo-lookup>
+    </dxi-column>
   </dx-data-grid>
 </div>

@@ -1,4 +1,6 @@
-export class ComplainantPerson {
+import { BaseModel } from '../BaseModel';
+
+export class ComplainantPerson extends BaseModel {
   id: string;
   namePrefixCodeId: number;
   firstName: string;
@@ -9,4 +11,6 @@ export class ComplainantPerson {
   homePhoneNumber: string;
   workPhoneNumber: string;
   mobilePhoneNumber: string;
+  nameSuffixCodeId: number;
+  sortName: string;
 }

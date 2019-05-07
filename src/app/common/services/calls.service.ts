@@ -1,71 +1,69 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import DataSource from 'devextreme/data/data_source';
-import ArrayStore from 'devextreme/data/array_store';
-import { CallDetail } from 'src/app/common/models/call/CallDetail';
 
-import { UserDataService } from './UserData';
-import PriorityQueue from 'priorityqueue';
-import { Call } from 'src/app/common/models/call/Call';
-import { CallForServiceUnit } from '../models/call/CallForServiceUnit';
-import { InvolvedUnit } from '../models/call/InvolvedUnit';
+
 import uuid from 'UUID';
+import PriorityQueue from 'priorityqueue';
+
+import { CallForServiceDetails } from 'src/app/common/models/callDetails/CallForServiceDetail';
+import { CallForService } from 'src/app/common/models/call/CallForService';
+import { CallForServiceType } from '../models/lookups/CallForServiceLookup';
+import { DispatchedByPerson } from '../models/call/DispatchedByPerson';
+import { ComplainantPerson } from '../models/call/ComplainantPerson';
+import { CallForServiceUnit } from '../models/CallForServiceUnit';
+import { InvolvedUnitsItem } from '../models/callDetails/InvolvedUnitItem';
+import { CallForServiceDAO } from '../dao/CallForServiceDAO.service';
+import { CallForServiceDetailsDAO } from '../dao/CallForServiceDetailsDAO.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CallsService {
-  callEmitter = new EventEmitter<Call>();
+  callEmitter = new EventEmitter<CallForService>();
 
-  private callList: DataSource;
+  callDetailsEmitter = new EventEmitter<CallForServiceDetails>();
 
-  private callDetailList: DataSource;
+  private activeCall: CallForService;
 
-  private activeCall: Call;
-
-  private activeCallDetails: CallDetail;
+  private activeCallDetails: CallForServiceDetails;
 
   unitCallQueue = new Map();
 
-  constructor(private userDataService: UserDataService) {
-    this.callList = new DataSource({
-        store : new ArrayStore({
-          key : 'id',
-          data : this.userDataService.getCallList()
-        }) ,
-        sort : ['date',  'time'],
-        paginate : true,
-        pageSize : 18
-      });
+  url = 'http://courtwareapp.azurewebsites.net/api';
 
-      this.callDetailList = new DataSource({
-        store : new ArrayStore({
-          key : 'callInfoId',
-          data : this.userDataService.getCallDetailsList()
-        })
-      });
+  constructor(private cfsDAO: CallForServiceDAO, private cfsdDAO: CallForServiceDetailsDAO) {}
+
+  getCallList(type: number): DataSource {
+    return this.cfsDAO.getCallListDS(type);
   }
 
-  getCallList(): DataSource {
-    return this.callList;
+  startNewCall(callType: CallForServiceType) {
+    this.activeCall = new CallForService();
+    this.activeCall.callForServiceTypeId = callType.id;
+    this.activeCall.dispatchedByPerson = new DispatchedByPerson();
+    this.activeCall.complainantPerson = new ComplainantPerson();
+    this.activeCallDetails = new CallForServiceDetails();
   }
 
-  getCallDetailsList(): DataSource {
-    return this.callDetailList;
-  }
-
-  setActiveCall(call: Call) {
+  setActiveCall(call: CallForService) {
     this.activeCall = call;
-
-    this.callDetailList.store().byKey(call.id)
-      .then(result => this.activeCallDetails = result)
-      .then(result => this.callEmitter.emit(this.activeCall));
+    console.log('active call results', this.activeCall);
+    this.cfsdDAO.getCallDetailsDS().store().byKey(this.activeCall.id)
+      .then(result => {
+        console.log('detail results', result);
+        this.activeCallDetails = result;
+      }).then(results => {
+        console.log('emitting call complete');
+        this.callEmitter.emit(this.activeCall);
+        this.callDetailsEmitter.emit(results);
+      });
   }
 
-  getActiveCall(): Call {
+  getActiveCall(): CallForService {
      return this.activeCall;
   }
 
-  getActiveCallDetails(): CallDetail {
+  getActiveCallDetails(): CallForServiceDetails {
     return this.activeCallDetails;
  }
 
@@ -80,7 +78,7 @@ export class CallsService {
       }
     });
 
-    const involvedUnit = new InvolvedUnit();
+    const involvedUnit = new InvolvedUnitsItem();
     involvedUnit.id = uuid();
     involvedUnit.callForServiceUnit = unit;
     involvedUnit.callForServiceId = this.getActiveCall().id;
@@ -97,7 +95,7 @@ export class CallsService {
     return isUnitAssigned;
   }
 
-  addCallToUnitQueue(unit: CallForServiceUnit, call: CallDetail) {
+  addCallToUnitQueue(unit: CallForServiceUnit, call: CallForServiceDetails) {
     let queue: PriorityQueue = this.unitCallQueue.get(unit.id);
 
     if (queue == null) {
