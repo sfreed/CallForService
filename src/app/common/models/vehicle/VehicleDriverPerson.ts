@@ -1,6 +1,6 @@
-import { BaseModel } from './BaseModel';
+import { BaseModel } from '../common/BaseModel';
 
-export class OwnerPerson extends BaseModel {
+export class VehicleDriverPerson extends BaseModel {
   id: string;
   namePrefixCodeId: number;
   firstName: string;

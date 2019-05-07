@@ -1,6 +1,0 @@
-import { CallForServiceUnit } from './call/CallForServiceUnit';
-
-export class AssignedUnit {
-  unit: CallForServiceUnit;
-  time: string;
-}

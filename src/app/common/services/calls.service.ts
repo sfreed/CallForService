@@ -10,7 +10,7 @@ import { CallForService } from 'src/app/common/models/call/CallForService';
 import { CallForServiceType } from '../models/lookups/CallForServiceLookup';
 import { DispatchedByPerson } from '../models/call/DispatchedByPerson';
 import { ComplainantPerson } from '../models/call/ComplainantPerson';
-import { CallForServiceUnit } from '../models/CallForServiceUnit';
+import { CallForServiceUnit } from '../models/unit/CallForServiceUnit';
 import { InvolvedUnitsItem } from '../models/callDetails/InvolvedUnitItem';
 import { CallForServiceDAO } from '../dao/CallForServiceDAO.service';
 import { CallForServiceDetailsDAO } from '../dao/CallForServiceDetailsDAO.service';
@@ -28,8 +28,6 @@ export class CallsService {
   private activeCallDetails: CallForServiceDetails;
 
   unitCallQueue = new Map();
-
-  url = 'https://courtwareapp.azurewebsites.net/api';
 
   constructor(private cfsDAO: CallForServiceDAO, private cfsdDAO: CallForServiceDetailsDAO) {}
 
@@ -53,7 +51,6 @@ export class CallsService {
         console.log('detail results', result);
         this.activeCallDetails = result;
       }).then(results => {
-        console.log('emitting call complete');
         this.callEmitter.emit(this.activeCall);
         this.callDetailsEmitter.emit(results);
       });

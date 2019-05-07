@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import DataSource from 'devextreme/data/data_source';
 import * as AspNetData from 'devextreme-aspnet-data-nojquery';
-import { CallForServiceUnit } from '../models/CallForServiceUnit';
+import { CallForServiceUnit } from '../models/unit/CallForServiceUnit';
+import { URL } from '../models/enums/URL.enum';
 
 
 @Injectable({
@@ -13,15 +14,14 @@ export class UnitService {
 
   private inactiveUnitsDS: DataSource;
 
-  url = 'https://courtwareapp.azurewebsites.net/api';
 
   constructor() {
     const customStore = AspNetData.createStore({
       key: 'id',
-      loadUrl: this.url + '/CallForServiceUnitActivity',
-      insertUrl: this.url + '/CallForServiceUnitActivity',
-      updateUrl: this.url + '/CallForServiceUnitActivity',
-      deleteUrl: this.url + '/CallForServiceCallDetails',
+      loadUrl: URL.CFS_UNIT_ADDRESS,
+      insertUrl: URL.CFS_UNIT_ADDRESS,
+      updateUrl: URL.CFS_UNIT_ADDRESS,
+      deleteUrl: URL.CFS_UNIT_ADDRESS,
       onBeforeSend: function(method, ajaxOptions) {
           ajaxOptions.xhrFields = { withCredentials: true };
           ajaxOptions.headers = {

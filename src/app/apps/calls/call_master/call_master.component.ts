@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CallsService } from 'src/app/common/services/calls.service';
-import CustomStore from 'devextreme/data/custom_store';
 import { DispatcherService } from 'src/app/common/services/dispatcher.service';
 import { CallForService } from 'src/app/common/models/call/CallForService';
 import { PersonLookupService } from 'src/app/common/services/lookup/PersonLookup.service';
@@ -10,7 +9,7 @@ import { LocationLookupService } from 'src/app/common/services/lookup/LocationLo
 import { CallForServiceType, CallForServiceStatus, CallForServiceDispositionStatus } from 'src/app/common/models/lookups/CallForServiceLookup';
 import { DxDataGridComponent } from 'devextreme-angular';
 import DataSource from 'devextreme/data/data_source';
-import { MasterUserService } from 'src/app/common/services/lookup/MasterUser.service';
+import { MasterUserLookupService } from 'src/app/common/services/lookup/MasterUserLookup.service';
 import { MasterUser } from 'src/app/common/models/master/MasterUser';
 
 
@@ -45,7 +44,7 @@ export class CallMasterComponent implements OnInit {
 
   constructor(public callService: CallsService, public dispatcherService: DispatcherService, private personLookupService: PersonLookupService,
     private cfsLookupService: CallForServiceLookupService, private vehicleLookupService: VehicleLookupService,
-    private locationLookupService: LocationLookupService, private masterUserService: MasterUserService) {}
+    private locationLookupService: LocationLookupService, private masterUserService: MasterUserLookupService) {}
 
   ngOnInit() {
     this.cfsLookupService.initialize().then(results => {

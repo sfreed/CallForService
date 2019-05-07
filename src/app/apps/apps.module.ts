@@ -7,7 +7,7 @@ import { DxBoxModule, DxListModule, DxDataGridModule, DxSwitchModule, DxToolbarM
 import { ActiveListComponent} from './units/active_list/active_list.component';
 import { UnitService } from '../common/services/unit.service';
 import { DispatcherHistoryComponent } from './dispatcher/dispatcherHistory/dispatcherHistory.component';
-import { DispatcherHistory } from '../common/models/history';
+import { DispatcherHistory } from '../common/models/common/history';
 import { CallMasterComponent } from './calls/call_master/call_master.component';
 import { CallDetailsComponent } from './calls/call_details/call_details.component';
 import { CallNotesComponent } from './calls/call_notes/call_notes.component';

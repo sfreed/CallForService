@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import DataSource from 'devextreme/data/data_source';
 import CustomStore from 'devextreme/data/custom_store';
 import { CallForService } from '../models/call/CallForService';
+import { URL } from '../models/enums/URL.enum';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CallForServiceDAO {
-  endpoint = 'http://courtwareapp.azurewebsites.net/api/';
-
   store: CustomStore;
   datasource: DataSource;
 
@@ -42,24 +40,24 @@ export class CallForServiceDAO {
   }
 
   getCalls(type): Promise<any> {
-    return this.http.get(this.endpoint + 'CallForService?callStatus=' + type).toPromise();
+    return this.http.get(URL.CALL_FOR_SERVICE_ADDRESS + '?callStatus=' + type).toPromise();
   }
 
   getCall(id): Promise<any> {
-    return this.http.get(this.endpoint + 'CallForService/' + id).toPromise();
+    return this.http.get(URL.CALL_FOR_SERVICE_ADDRESS + '/' + id).toPromise();
   }
 
   addCall (call: CallForService): Promise<any> {
     console.log(call);
-    return this.http.post<any>(this.endpoint + 'CallForService', JSON.stringify(call), this.getHttpOptions()).toPromise();
+    return this.http.post<any>(URL.CALL_FOR_SERVICE_ADDRESS, JSON.stringify(call), this.getHttpOptions()).toPromise();
   }
 
   updateCall (id, call: CallForService): Promise<any> {
-    return this.http.put(this.endpoint + 'CallForService/' + id, JSON.stringify(call), this.getHttpOptions()).toPromise();
+    return this.http.put(URL.CALL_FOR_SERVICE_ADDRESS + '/' + id, JSON.stringify(call), this.getHttpOptions()).toPromise();
   }
 
   deleteCall (id): Promise<any> {
-    return this.http.delete<any>(this.endpoint + 'CallForService/' + id, this.getHttpOptions()).toPromise();
+    return this.http.delete<any>(URL.CALL_FOR_SERVICE_ADDRESS + '/' + id, this.getHttpOptions()).toPromise();
   }
 
   getCallListDS(type?): DataSource {

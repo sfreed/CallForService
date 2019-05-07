@@ -1,4 +1,4 @@
-import { BaseModel } from '../BaseModel';
+import { BaseModel } from '../common/BaseModel';
 
 export class WreckerService extends BaseModel {
   id: number;

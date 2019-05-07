@@ -9,6 +9,7 @@ import { CallForServiceLookupService } from '../services/lookup/CallForServiceLo
 import { VehicleLookupService } from '../services/lookup/VehicleLookup.service';
 import { LocationLookupService } from '../services/lookup/LocationLookup.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { URL } from '../models/enums/URL.enum';
 
 // import { Config } from '../config';
 
@@ -21,9 +22,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
     CLIENT_ID = 'CFSClient';
     GRANT_TYPE = 'password';
-    USER_LOGIN_ENDPOINT = 'https://courtwareapp.azurewebsites.net/api/UserLogIn';
-    USER_LOGOUT_ENDPOINT = 'https://courtwareapp.azurewebsites.net/api/UserLogOut';
-    TOKEN_ENDPOINT = 'https://courtwareapp.azurewebsites.net/token';
     TOKEN_USER_NAME = 'applications@courtware.net';
     TOKEN_PASSWORD = 'Courtware@Tz1pbX0JLYLki';
 
@@ -50,7 +48,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
       const headers = new HttpHeaders();
       headers.append('Content-Type', 'application/x-www-form-urlencoded');
 
-      return this.httpClient.post(this.TOKEN_ENDPOINT, body, { headers: headers })
+      return this.httpClient.post(URL.TOKEN_ENDPOINT, body, { headers: headers })
         .toPromise()
         .then(settings => {
             const responseBody: any = settings;
@@ -87,7 +85,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         headers.append('Authorization', 'Bearer ' + localStorage.getItem('id_token'));
 
-        return this.httpClient.post(this.USER_LOGIN_ENDPOINT, params, {headers: headers})
+        return this.httpClient.post(URL.USER_LOGIN_ENDPOINT, params, {headers: headers})
           .toPromise()
           .then( settings => {
             console.log('login res: ', settings);
@@ -122,7 +120,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
         console.log('removing tkn ', localStorage.getItem('id_token'));
 
-        return this.httpClient.post(this.USER_LOGOUT_ENDPOINT, params, {headers: headers})
+        return this.httpClient.post(URL.USER_LOGOUT_ENDPOINT, params, {headers: headers})
           .toPromise()
           .then( settings => {
 

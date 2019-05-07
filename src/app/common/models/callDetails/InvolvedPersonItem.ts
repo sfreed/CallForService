@@ -1,5 +1,5 @@
 import { InvolvedPerson } from './InvolvedPerson';
-import { BaseModel } from '../BaseModel';
+import { BaseModel } from '../common/BaseModel';
 import { PersonAddress } from '../person/PersonAddress';
 
 export class InvolvedPersonsItem extends BaseModel {

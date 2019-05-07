@@ -5,7 +5,7 @@ import { URL } from '../../models/enums/URL.enum';
 @Injectable({
   providedIn: 'root'
 })
-export class MasterUserService {
+export class MasterUserLookupService {
 
   users: MasterUser[];
 

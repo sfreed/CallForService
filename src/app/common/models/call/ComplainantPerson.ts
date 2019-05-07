@@ -1,4 +1,4 @@
-import { BaseModel } from '../BaseModel';
+import { BaseModel } from '../common/BaseModel';
 
 export class ComplainantPerson extends BaseModel {
   id: string;

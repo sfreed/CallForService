@@ -1,5 +1,3 @@
-import { OfficerPerson } from './OfficerPerson';
-
 export class CallForServiceUnit {
   id: number;
   unitDescription: string;

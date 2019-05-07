@@ -1,4 +1,4 @@
-import { CallForServiceDetails } from './callDetails/CallForServiceDetail';
+import { CallForServiceDetails } from '../callDetails/CallForServiceDetail';
 
 export class QueuedCall {
   order: number;

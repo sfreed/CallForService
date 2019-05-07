@@ -1,7 +1,6 @@
-import { OwnerPerson } from './OwnerPerson';
 import { TagInformation } from './TagInformation';
-import { BaseModel } from './BaseModel';
-import { Person } from './person/Person';
+import { BaseModel } from '../common/BaseModel';
+import { OwnerPerson } from './OwnerPerson';
 
 export class Vehicle extends BaseModel {
   id: string;

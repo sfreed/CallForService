@@ -1,5 +1,5 @@
-import { CallForServiceUnit } from '../CallForServiceUnit';
-import { BaseModel } from '../BaseModel';
+import { CallForServiceUnit } from '../unit/CallForServiceUnit';
+import { BaseModel } from '../common/BaseModel';
 
 export class InvolvedUnitsItem extends BaseModel {
   id: number;

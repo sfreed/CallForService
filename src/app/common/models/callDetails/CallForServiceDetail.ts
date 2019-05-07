@@ -1,4 +1,4 @@
-import { BaseModel } from '../BaseModel';
+import { BaseModel } from '../common/BaseModel';
 import { DispatchedByPerson } from '../call/DispatchedByPerson';
 import { LocationPrimary } from '../call/LocationPrimary';
 import { SecondaryLocationLocation } from '../call/SecondaryLocationLocation';

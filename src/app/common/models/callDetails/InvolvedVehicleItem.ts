@@ -1,7 +1,7 @@
-import { VehicleDriverPerson } from '../VehicleDriverPerson';
+import { VehicleDriverPerson } from '../vehicle/VehicleDriverPerson';
 import { WreckerService } from '../sources/WreckerService';
-import { Vehicle } from '../Vehicle';
-import { BaseModel } from '../BaseModel';
+import { Vehicle } from '../vehicle/Vehicle';
+import { BaseModel } from '../common/BaseModel';
 
 export class InvolvedVehiclesItem extends BaseModel {
   id: number;

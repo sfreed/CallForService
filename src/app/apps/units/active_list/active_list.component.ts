@@ -10,7 +10,7 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { AdminService } from 'src/app/common/services/admin.service';
 import { UnitService } from 'src/app/common/services/unit.service';
 import { AuthenticationService } from 'src/app/common/auth/auth.service';
-import { CallForServiceUnit } from 'src/app/common/models/CallForServiceUnit';
+import { CallForServiceUnit } from 'src/app/common/models/unit/CallForServiceUnit';
 
 @Component({
   selector: 'app-active-list',

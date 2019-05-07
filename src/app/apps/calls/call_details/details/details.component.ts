@@ -5,7 +5,7 @@ import { DispatcherService } from 'src/app/common/services/dispatcher.service';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { CallForServiceType, CallForServiceStatus } from 'src/app/common/models/lookups/CallForServiceLookup';
 import { CallForServiceLookupService } from 'src/app/common/services/lookup/CallForServiceLookup.service';
-import { MasterUserService } from 'src/app/common/services/lookup/MasterUser.service';
+import { MasterUserLookupService } from 'src/app/common/services/lookup/MasterUserLookup.service';
 import { MasterUser } from 'src/app/common/models/master/MasterUser';
 
 @Component({
@@ -28,7 +28,7 @@ export class DetailsComponent implements OnInit {
   activeCall: CallForService;
 
   constructor(public callService: CallsService,  public dispatcherService: DispatcherService, private cfsLookupService: CallForServiceLookupService,
-    private masterUserService: MasterUserService) {
+    private masterUserService: MasterUserLookupService) {
     this.callService.callEmitter.subscribe(
       (data: CallForService) => {
         this.activeCall = data;
