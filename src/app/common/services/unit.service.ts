@@ -13,7 +13,7 @@ export class UnitService {
 
   private inactiveUnitsDS: DataSource;
 
-  url = 'http://courtwareapp.azurewebsites.net/api';
+  url = 'https://courtwareapp.azurewebsites.net/api';
 
   constructor() {
     const customStore = AspNetData.createStore({

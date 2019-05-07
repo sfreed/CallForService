@@ -14,7 +14,7 @@ export class DispatcherService {
   private historyList: CustomStore;
 
 
-  url = 'http://courtwareapp.azurewebsites.net/api';
+  url = 'https://courtwareapp.azurewebsites.net/api';
 
   constructor(private masterUserDAO: MasterUserDAO) {
     this.historyList = AspNetData.createStore({

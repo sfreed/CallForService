@@ -29,7 +29,7 @@ export class CallsService {
 
   unitCallQueue = new Map();
 
-  url = 'http://courtwareapp.azurewebsites.net/api';
+  url = 'https://courtwareapp.azurewebsites.net/api';
 
   constructor(private cfsDAO: CallForServiceDAO, private cfsdDAO: CallForServiceDetailsDAO) {}
 
