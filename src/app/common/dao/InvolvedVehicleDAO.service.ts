@@ -21,10 +21,10 @@ export class InvolvedVehicleDAO extends BaseDAO {
         return this.getInvolvedVehicles(this.callService.getActiveCall().id);
       },
       insert: (vehicle) => {
-          return this.addInvolvedVehicle(vehicle);
+        return this.addInvolvedVehicle(vehicle);
       },
       update: (key, vehicle: InvolvedVehiclesItem) => {
-        return this.updateInvolvedVehicle(key, vehicle);
+         return this.updateInvolvedVehicle(key, vehicle);
       },
       remove: (key) => {
           return this.deleteInvolvedVehicle(key);
@@ -33,7 +33,7 @@ export class InvolvedVehicleDAO extends BaseDAO {
   }
 
   public getInvolvedVehiclesDS(): DataSource {
-    const ds =   new DataSource({
+    const ds = new DataSource({
       store: this.store
     });
 
@@ -47,7 +47,7 @@ export class InvolvedVehicleDAO extends BaseDAO {
   private addInvolvedVehicle (vehicle: InvolvedVehiclesItem): Promise<any> {
     this.updateModel(vehicle);
 
-    console.log(JSON.stringify(vehicle));
+    console.log('inserting vehicle', JSON.stringify(vehicle));
 
     return this.http.post<any>(this.endpoint + 'CallForServiceInvolvedVehicle', JSON.stringify(vehicle), this.getHttpOptions()).toPromise();
   }
@@ -55,7 +55,7 @@ export class InvolvedVehicleDAO extends BaseDAO {
   private updateInvolvedVehicle (id, vehicle: InvolvedVehiclesItem): Promise<any> {
     this.updateModel(vehicle);
 
-    console.log(JSON.stringify(vehicle));
+    console.log('updating vehicle', JSON.stringify(vehicle));
 
     return this.http.put(this.endpoint + 'CallForServiceInvolvedVehicle/' + id, JSON.stringify(vehicle), this.getHttpOptions()).toPromise();
   }
@@ -65,7 +65,7 @@ export class InvolvedVehicleDAO extends BaseDAO {
   }
 
   protected updateModel(model: InvolvedVehiclesItem) {
-    console.log('before', model);
+    model.callForServiceId = this.callService.getActiveCall().id;
     model.createdUserId = this.authService.getUser().id;
     model.effectiveDateTime = new Date().toISOString();
     model.vehicle.createdUserId = this.authService.getUser().id;

@@ -32,7 +32,7 @@ export class MasterUserDAO extends BaseDAO {
   }
 
   public getMasterUsersDS(): DataSource {
-    const ds =   new DataSource({
+    const ds = new DataSource({
       store: this.store,
     });
 
@@ -45,11 +45,13 @@ export class MasterUserDAO extends BaseDAO {
 
   private addMasterUser (user: MasterUser): Promise<any> {
     this.updateModel(user);
+
     return this.http.post<any>(this.endpoint + 'MasterUser', JSON.stringify(user), this.getHttpOptions()).toPromise();
   }
 
   private updateMasterUser (id, user: MasterUser): Promise<any> {
     this.updateModel(user);
+
     return this.http.put(this.endpoint + 'MasterUser/' + id, JSON.stringify(user), this.getHttpOptions()).toPromise();
   }
 

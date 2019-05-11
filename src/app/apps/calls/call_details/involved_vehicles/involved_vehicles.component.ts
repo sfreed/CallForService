@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CallsService } from 'src/app/common/services/calls.service';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { CallForServiceDetails } from 'src/app/common/models/callDetails/CallForServiceDetail';
-import { State, Street, StreetNameDirection, StreetNameSuffix } from 'src/app/common/models/lookups/LocationLookup';
+import { State, Street, StreetNameDirection, StreetNameSuffix, City } from 'src/app/common/models/lookups/LocationLookup';
 import { LocationLookupService } from 'src/app/common/services/lookup/LocationLookup.service';
 import { VehicleModel, VehicleColor, VehicleType, VehicleStyle, VehicleEngineType, VehicleTransmissionType, VehicleFuelType } from 'src/app/common/models/lookups/VehicleLookup';
 import { VehicleLookupService } from 'src/app/common/services/lookup/VehicleLookup.service';
@@ -23,9 +23,12 @@ import { InvolvedVehicleService } from 'src/app/common/services/involved_vehicle
 export class VehiclesComponent implements OnInit {
   involvedVehiclesList: DataSource;
 
+  citySelectionListDisabled = true;
+
   rules: Object;
 
   states: State[];
+  cityCodes: City[];
   models: VehicleModel[];
   colors: VehicleColor[];
   types: VehicleType[];
@@ -64,6 +67,7 @@ export class VehiclesComponent implements OnInit {
 
   ngOnInit() {
     this.states = this.locationLookupService.stateList;
+    this.cityCodes = this.locationLookupService.cityList;
     this.models = this.vehicleLookipService.vehicleModelList;
     this.colors = this.vehicleLookipService.vehicleColorList;
     this.types = this.vehicleLookipService.vehicleTypeList;

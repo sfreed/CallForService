@@ -21,6 +21,11 @@ export class InvolvedPersonsComponent implements OnInit {
 
   involvedPersonsList: DataSource;
 
+  citySelectionListDisabled = true;
+
+  stateEditorBindOptions: Object;
+
+
   contactCodes: ContactType[];
   namePrefixCodes: NamePrefix[];
   lastNameSuffixCodes: NameSuffix[];
@@ -77,6 +82,8 @@ export class InvolvedPersonsComponent implements OnInit {
     this.eyeWearCodes = this.personLookupService.eyeWearList;
     this.facialHairCodes = this.personLookupService.facialHairList;
     this.hospitalCodes = this.callForServiceLookup.callForServiceHospitalList;
+
+    this.stateEditorBindOptions = { items: this.states,  valueExpr: 'id', displayExpr: 'stateName', 'onSelectionChanged': this.selectState };
   }
 
   assignToHospital() {
@@ -98,5 +105,10 @@ export class InvolvedPersonsComponent implements OnInit {
 
   onSelect(e) {
     console.log('clicked', e);
+  }
+
+  selectState(e) {
+    console.log('selectState');
+    this.citySelectionListDisabled = false;
   }
 }

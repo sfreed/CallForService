@@ -39,7 +39,7 @@ export class ActiveListComponent implements OnInit {
 
     this.activeMenuItems = [{
       id: 1,
-      text: 'Clock Out',
+      text: 'Log Off',
       disabled: false
     }, {
       id: 2,
@@ -53,7 +53,7 @@ export class ActiveListComponent implements OnInit {
 
     this.inactiveMenuItems = [{
       id: 0,
-      text: 'Clock in',
+      text: 'Log In',
       disabled: false
     }];
   }

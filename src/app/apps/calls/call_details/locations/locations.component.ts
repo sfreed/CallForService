@@ -65,8 +65,6 @@ export class LocationsComponent implements OnInit {
   }
 
   saveCall(e) {
-    console.log('saving', this.activeCall);
-
     this.callService.saveCall(this.activeCall);
   }
 }

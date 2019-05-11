@@ -23,7 +23,7 @@ export class CallForServiceDetailsDAO extends BaseDAO {
   }
 
   public getCallDetailsDS(type?): DataSource {
-    const ds =   new DataSource({
+    const ds = new DataSource({
       sort: 'receivedDateTime',
       store: this.store,
       select: type

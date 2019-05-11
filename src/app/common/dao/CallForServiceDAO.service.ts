@@ -5,7 +5,6 @@ import CustomStore from 'devextreme/data/custom_store';
 import { CallForService } from '../models/call/CallForService';
 import { URL } from '../models/enums/URL.enum';
 import { BaseDAO } from './BaseDAO';
-import { BaseModel } from '../models/common/BaseModel';
 import { AuthenticationService } from '../auth/auth.service';
 
 @Injectable({
@@ -20,13 +19,11 @@ export class CallForServiceDAO extends BaseDAO {
       load: (loadOptions) => {
           return this.getCallsByStatus(loadOptions.select);
       },
-      insert: (values) => {
-        console.log('insert', JSON.stringify(values));
-          return this.addCall(values);
+      insert: (call) => {
+        return this.addCall(call);
       },
-      update: (key, values) => {
-        console.log('update', JSON.stringify(values));
-        return this.updateCall(key, values);
+      update: (key, call) => {
+        return this.updateCall(key, call);
       },
       remove: (key) => {
           return this.deleteCall(key);
@@ -52,11 +49,17 @@ export class CallForServiceDAO extends BaseDAO {
 
   private addCall (call: CallForService): Promise<any> {
     this.updateModel(call);
+
+    console.log('inserting call', JSON.stringify(call));
+
     return this.http.post<any>(URL.CALL_FOR_SERVICE_ADDRESS, JSON.stringify(call), this.getHttpOptions()).toPromise();
   }
 
   private updateCall (id, call: CallForService): Promise<any> {
     this.updateModel(call);
+
+    console.log('updating call', JSON.stringify(call));
+
     return this.http.put(URL.CALL_FOR_SERVICE_ADDRESS + '/' + id, JSON.stringify(call), this.getHttpOptions()).toPromise();
   }
 
