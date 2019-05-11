@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CallForServiceLookup, CallForServiceHospital, CallForServiceOriginated,
-         CallForServiceStatus, CallForServiceType, CallForServiceUnitType, CallForServiceDispositionStatus } from '../../models/lookups/CallForServiceLookup';
+         CallForServiceType, CallForServiceUnitType, CallForServiceDispositionStatus } from '../../models/lookups/CallForServiceLookup';
 import { URL } from '../../models/enums/URL.enum';
+import { WreckerService } from '../../models/callDetails/WreckerService';
+import { WreckerRotation } from '../../models/callDetails/WreckerRotation';
 
 @Injectable({
   providedIn: 'root'
@@ -10,14 +12,16 @@ import { URL } from '../../models/enums/URL.enum';
 export class CallForServiceLookupService {
   callForServiceHospitalList: CallForServiceHospital[];
   callForServiceOriginatedList: CallForServiceOriginated[];
-  callForServiceStatusList: CallForServiceStatus[];
+  callForServiceOriginated: CallForServiceOriginated[];
   callForServiceTypeList: CallForServiceType[];
   callForServiceUnitTypeList: CallForServiceUnitType[];
   callForServiceDispositionStatusList: CallForServiceDispositionStatus[];
+  wreckerService: WreckerService[];
+  wreckerRotation: WreckerRotation[];
 
   constructor(private httpClient: HttpClient) {}
 
-  initialize(): Promise<any> {
+  initialize(): Promise<CallForServiceLookup> {
     const promise = this.httpClient.get<CallForServiceLookup>(URL.CFS_LOOKUP_SERVICE_ADDRESS)
       .toPromise()
       .then(settings => {
@@ -25,9 +29,11 @@ export class CallForServiceLookupService {
         this.callForServiceHospitalList = settings.callForServiceHospital;
         this.callForServiceOriginatedList = settings.callForServiceOriginated;
         this.callForServiceDispositionStatusList = settings.callForServiceDispositionStatus;
-        this.callForServiceStatusList = settings.callForServiceStatus;
+        this.callForServiceOriginated = settings.callForServiceOriginated;
         this.callForServiceTypeList = settings.callForServiceType;
         this.callForServiceUnitTypeList = settings.callForServiceUnitType;
+        this.wreckerService = settings.wreckerService;
+        this.wreckerRotation = settings.wreckerRotation;
 
         return settings;
       });

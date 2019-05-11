@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { CallsService } from 'src/app/common/services/calls.service';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { CallForServiceDetails } from 'src/app/common/models/callDetails/CallForServiceDetail';
-import { InvolvedPersonsItem } from 'src/app/common/models/callDetails/InvolvedPersonItem';
 import { ContactType, NamePrefix, NameSuffix, Gender, Race, Ethnicity, HairColor, HairType, EyeColor, Eyewear, FacialHair } from 'src/app/common/models/lookups/PersonLookup';
 import { CallForServiceHospital } from 'src/app/common/models/lookups/CallForServiceLookup';
-import { PatrolArea, Zone, City, County, AddressType, Street, StreetNameDirection, StreetNameSuffix } from 'src/app/common/models/lookups/LocationLookup';
+import { PatrolArea, Zone, City, County, AddressType, Street, StreetNameDirection, StreetNameSuffix, State } from 'src/app/common/models/lookups/LocationLookup';
 import { PersonLookupService } from 'src/app/common/services/lookup/PersonLookup.service';
 import { CallForServiceLookupService } from 'src/app/common/services/lookup/CallForServiceLookup.service';
 import { LocationLookupService } from 'src/app/common/services/lookup/LocationLookup.service';
-
+import { InvolvedPersonService } from 'src/app/common/services/involved_person.service';
+import DataSource from 'devextreme/data/data_source';
 
 @Component({
   selector: 'app-involved-persons',
@@ -17,18 +17,20 @@ import { LocationLookupService } from 'src/app/common/services/lookup/LocationLo
   styleUrls: ['./involved_persons.component.css']
 })
 export class InvolvedPersonsComponent implements OnInit {
+  rules: Object;
 
-  involvedPersons: InvolvedPersonsItem[];
+  involvedPersonsList: DataSource;
 
   contactCodes: ContactType[];
   namePrefixCodes: NamePrefix[];
   lastNameSuffixCodes: NameSuffix[];
   addressCodes: AddressType[];
-  streetCodes: Street[];
+  streetNames: Street[];
   streetNamePreDirectionCodes: StreetNameDirection[];
   streetNameSuffixCodes: StreetNameSuffix[];
   countyCodes: County[];
   cityCodes: City[];
+  states: State[];
   zoneCodes: Zone[];
   patrolAreaCodes: PatrolArea[];
   genderCodes: Gender[];
@@ -43,12 +45,14 @@ export class InvolvedPersonsComponent implements OnInit {
 
 
   constructor(public callService: CallsService, private personLookupService: PersonLookupService, private callForServiceLookup: CallForServiceLookupService,
-    private locationLookupService: LocationLookupService) {
+    private locationLookupService: LocationLookupService, private involvedPersonsService: InvolvedPersonService, private callsService: CallsService) {
     this.callService.callDetailsEmitter.subscribe(
       (data: CallForServiceDetails) => {
-        this.involvedPersons = data.involvedPersons;
-        console.log('involvedPersons', this.involvedPersons);
+
+        this.involvedPersonsList = this.involvedPersonsService.getInvolvedPersonList();
       });
+
+      this.rules = { 'X': /[02-9]/ };
   }
 
   ngOnInit() {
@@ -56,12 +60,13 @@ export class InvolvedPersonsComponent implements OnInit {
     this.namePrefixCodes = this.personLookupService.namePrefixList;
     this.lastNameSuffixCodes = this.personLookupService.nameSuffixList;
     this.addressCodes = this.locationLookupService.addressTypeList;
-    this.streetCodes = this.locationLookupService.streetList;
+    this.streetNames = this.locationLookupService.streetList;
     this.streetNamePreDirectionCodes = this.locationLookupService.streetNameDirectionList;
-    this.streetNameSuffixCodes = this.locationLookupService.StreetNameSuffixList;
+    this.streetNameSuffixCodes = this.locationLookupService.streetNameSuffixList;
     this.countyCodes = this.locationLookupService.countyList;
     this.cityCodes = this.locationLookupService.cityList;
-    this.zoneCodes = this.locationLookupService.ZoneList;
+    this.states = this.locationLookupService.stateList;
+    this.zoneCodes = this.locationLookupService.zoneList;
     this.patrolAreaCodes = this.locationLookupService.patrolAreaList;
     this.genderCodes = this.personLookupService.genderList;
     this.raceCodes = this.personLookupService.raceList;

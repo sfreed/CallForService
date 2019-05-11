@@ -4,20 +4,12 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
 import { Router } from '@angular/router';
-import { PersonLookupService } from '../services/lookup/PersonLookup.service';
-import { CallForServiceLookupService } from '../services/lookup/CallForServiceLookup.service';
-import { VehicleLookupService } from '../services/lookup/VehicleLookup.service';
-import { LocationLookupService } from '../services/lookup/LocationLookup.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { URL } from '../models/enums/URL.enum';
+import { MasterUserLookupService } from '../services/master_user.service';
 
-// import { Config } from '../config';
-
-@Injectable() export class AuthenticationService {
-
-    /**
-     * Stores the URL so we can redirect after signing in.
-     */
+@Injectable()
+export class AuthenticationService {
     public redirectUrl: string;
 
     CLIENT_ID = 'CFSClient';
@@ -25,13 +17,9 @@ import { URL } from '../models/enums/URL.enum';
     TOKEN_USER_NAME = 'applications@courtware.net';
     TOKEN_PASSWORD = 'Courtware@Tz1pbX0JLYLki';
 
-    /**
-     * User's data.
-     */
     private currentUser: any;
 
-    constructor(private router: Router, private httpClient: HttpClient, private personLookupService: PersonLookupService, private cfsLookupService: CallForServiceLookupService,
-        private vehicleLookupService: VehicleLookupService, private locationLookupService: LocationLookupService) {
+    constructor(private router: Router, private httpClient: HttpClient, private masterUserLookupService: MasterUserLookupService) {
       // this.getToken();
     }
 
@@ -93,8 +81,9 @@ import { URL } from '../models/enums/URL.enum';
             const responseBody: any = settings;
 
             if (typeof responseBody !== 'undefined') {
-              console.log('Logged in ', responseBody);
-              this.currentUser = responseBody;
+              return this.masterUserLookupService.getMasterUser(responseBody.personId).then(response => {
+                this.currentUser = response;
+              });
             }
           });
     }

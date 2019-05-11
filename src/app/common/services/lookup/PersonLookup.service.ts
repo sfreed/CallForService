@@ -26,7 +26,7 @@ export class PersonLookupService {
 
   constructor(private httpClient: HttpClient) {}
 
-  initialize(): Promise<any> {
+  initialize(): Promise<PersonLookup> {
     const promise = this.httpClient.get<PersonLookup>(URL.PERSON_LOOKUP_SERVICE_ADDRESS)
       .toPromise()
       .then(settings => {

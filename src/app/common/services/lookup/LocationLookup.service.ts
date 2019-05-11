@@ -17,12 +17,12 @@ export class LocationLookupService {
   stateList: State[];
   streetList: Street[];
   streetNameDirectionList: StreetNameDirection[];
-  StreetNameSuffixList: StreetNameSuffix[];
-  ZoneList: Zone[];
+  streetNameSuffixList: StreetNameSuffix[];
+  zoneList: Zone[];
 
   constructor(private httpClient: HttpClient) {}
 
-  initialize(): Promise<any> {
+  initialize(): Promise<LocationLookup> {
     const promise = this.httpClient.get<LocationLookup>(URL.LOCATION_LOOKUP_SERVICE_ADDRESS)
       .toPromise()
       .then(settings => {
@@ -35,8 +35,8 @@ export class LocationLookupService {
         this.stateList = settings.state;
         this.streetList = settings.street;
         this.streetNameDirectionList = settings.streetNameDirection;
-        this.StreetNameSuffixList = settings.StreetNameSuffix;
-        this.ZoneList = settings.Zone;
+        this.streetNameSuffixList = settings.streetNameSuffix;
+        this.zoneList = settings.zone;
 
         return settings;
       });

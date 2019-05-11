@@ -6,10 +6,10 @@ import { PersonLookupService } from 'src/app/common/services/lookup/PersonLookup
 import { CallForServiceLookupService } from 'src/app/common/services/lookup/CallForServiceLookup.service';
 import { VehicleLookupService } from 'src/app/common/services/lookup/VehicleLookup.service';
 import { LocationLookupService } from 'src/app/common/services/lookup/LocationLookup.service';
-import { CallForServiceType, CallForServiceStatus, CallForServiceDispositionStatus } from 'src/app/common/models/lookups/CallForServiceLookup';
+import { CallForServiceType, CallForServiceDispositionStatus, CallForServiceOriginated } from 'src/app/common/models/lookups/CallForServiceLookup';
 import { DxDataGridComponent } from 'devextreme-angular';
 import DataSource from 'devextreme/data/data_source';
-import { MasterUserLookupService } from 'src/app/common/services/lookup/MasterUserLookup.service';
+import { MasterUserLookupService } from 'src/app/common/services/master_user.service';
 import { MasterUser } from 'src/app/common/models/master/MasterUser';
 
 
@@ -29,7 +29,7 @@ export class CallMasterComponent implements OnInit {
 
   callTypes: CallForServiceType[];
 
-  callStatus: CallForServiceStatus[];
+  callOriginated: CallForServiceOriginated[];
 
   callDispositionStatus: CallForServiceDispositionStatus[];
 
@@ -50,19 +50,17 @@ export class CallMasterComponent implements OnInit {
     this.cfsLookupService.initialize().then(results => {
       this.personLookupService.initialize().then(people => {
         this.vehicleLookupService.initialize().then(vehicles => {
-          this.locationLookupService.initialize().then(locations => {
-              this.masterUserService.initialize().then (users => {
-                this.callTypes = this.cfsLookupService.callForServiceTypeList;
+            this.masterUserService.initialize().then (users => {
+              this.callTypes = this.cfsLookupService.callForServiceTypeList;
 
-                this.callStatus = this.cfsLookupService.callForServiceStatusList;
+              this.callOriginated = this.cfsLookupService.callForServiceOriginatedList;
 
-                this.callDispositionStatus = this.cfsLookupService.callForServiceDispositionStatusList;
+              this.callDispositionStatus = this.cfsLookupService.callForServiceDispositionStatusList;
 
-                this.dispatchers = this.masterUserService.users;
+              this.dispatchers = this.masterUserService.users;
 
-                this.calls = this.callService.getCallList(1);
-              });
-          });
+              this.filterCalls(1);
+            });
         });
       });
     });

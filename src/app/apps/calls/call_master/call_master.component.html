@@ -108,11 +108,11 @@
       <dxi-item itemType="group" caption="Call Information" [widthRatio]="1">
           <dxi-item dataField="callForServiceTypeId" dataType="string">
             <dxo-label text="Call Type"></dxo-label>
-            <dx-select-box [dataSource]="callTypes" displayExpr="description" valueExpr="id" [value]="searchCall.callForServiceTypeId"></dx-select-box>
+            <dx-select-box [dataSource]="callTypes" displayExpr="description" valueExpr="id" [value]="searchCall.typeId"></dx-select-box>
           </dxi-item>
-          <dxi-item dataField="callForServiceDispositionStatusId" dataType="string">
-            <dxo-label text="Call Disposition Status"></dxo-label>
-            <dx-select-box [dataSource]="callDispositionStatus" displayExpr="callForServiceDispositionStatusDescription" valueExpr="id" [value]="searchCall.callForServiceDispositionStatusId"></dx-select-box>
+          <dxi-item dataField="dispatchOriginatedId" dataType="string">
+            <dxo-label text="Call Originated"></dxo-label>
+            <dx-select-box [dataSource]="callOriginated" displayExpr="originatedFrom" valueExpr="id" [value]="searchCall.originatedId"></dx-select-box>
           </dxi-item>
           <dxi-item dataField="dispatchByPerson" dataType="string">
             <dxo-label text="Dispatched By"></dxo-label>

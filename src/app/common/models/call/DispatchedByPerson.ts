@@ -10,7 +10,6 @@ export class DispatchedByPerson extends BaseModel {
   lastNameSuffixCodeId: number;
   sortName: string;
   fullName: string;
-
   personId: string;
   password: string;
   namePrefixId: number;

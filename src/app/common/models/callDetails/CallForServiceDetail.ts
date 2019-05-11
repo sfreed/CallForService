@@ -3,11 +3,11 @@ import { DispatchedByPerson } from '../call/DispatchedByPerson';
 import { LocationPrimary } from '../call/LocationPrimary';
 import { SecondaryLocationLocation } from '../call/SecondaryLocationLocation';
 import { ComplainantPerson } from '../call/ComplainantPerson';
-import { InvolvedPersonsItem } from './InvolvedPersonItem';
 import { InvolvedUnitsItem } from './InvolvedUnitItem';
 import { InvolvedVehiclesItem } from './InvolvedVehicleItem';
 import { CallRemarksItem } from './CallRemark';
 import { ApprovalPerson } from './ApprovalPerson';
+import { InvolvedPersonItem } from './InvolvedPersonItem';
 
 export class CallForServiceDetails extends BaseModel {
   id: number;
@@ -30,7 +30,7 @@ export class CallForServiceDetails extends BaseModel {
   approvalStatus: number;
   approvalDateTime: string;
   approvalPerson: ApprovalPerson;
-  involvedPersons: InvolvedPersonsItem[];
+  involvedPersons: InvolvedPersonItem[];
   involvedUnits: InvolvedUnitsItem[];
   involvedVehicles: InvolvedVehiclesItem[];
   callRemarks: CallRemarksItem[];

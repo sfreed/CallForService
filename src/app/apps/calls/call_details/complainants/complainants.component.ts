@@ -12,30 +12,36 @@ import { CallForService } from 'src/app/common/models/call/CallForService';
   styleUrls: ['./complainants.component.css']
 })
 export class ComplainantsComponent implements OnInit {
-  complainant: ComplainantPerson;
+  activeCall: CallForService;
 
   namePrefix: NamePrefix[];
   nameSuffix: NameSuffix[];
 
   buttonOptions: any = {
     text: 'Save',
-    type: 'success'
+    type: 'success',
+    onClick: this.saveCall.bind(this)
   };
 
   constructor(public callService: CallsService, private personLookupService: PersonLookupService) {
     this.callService.callEmitter.subscribe(
       (data: CallForService) => {
+        this.activeCall = data;
+
         if (!data.complainantPerson) {
-          this.complainant = new ComplainantPerson();
-        } else {
-          this.complainant = data.complainantPerson;
+          this.activeCall.complainantPerson = new ComplainantPerson();
         }
-        console.log('complainant', this.complainant);
+
+        console.log('complainant', this.activeCall.complainantPerson);
       });
    }
 
   ngOnInit() {
-    this.complainant = this.callService.getActiveCall().complainantPerson;
+    this.activeCall = this.callService.getActiveCall();
+
+    if (!this.activeCall.complainantPerson) {
+      this.activeCall.complainantPerson = new ComplainantPerson();
+    }
 
     this.namePrefix = this.personLookupService.namePrefixList;
 
@@ -52,5 +58,11 @@ export class ComplainantsComponent implements OnInit {
 
       this.callService.assignUnitToActiveCall(officer);
     }
+  }
+
+  saveCall(e) {
+    console.log('saving', this.activeCall);
+
+    this.callService.saveCall(this.activeCall);
   }
 }

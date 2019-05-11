@@ -3,18 +3,17 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import DataSource from 'devextreme/data/data_source';
 import CustomStore from 'devextreme/data/custom_store';
 import { MasterUser } from '../models/master/MasterUser';
+import { BaseDAO } from './BaseDAO';
+import { BaseModel } from '../models/common/BaseModel';
+import { AuthenticationService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MasterUserDAO {
+export class MasterUserDAO extends BaseDAO {
 
-  endpoint = 'http://courtwareapp.azurewebsites.net/api/';
-
-  store: CustomStore;
-  datasource: DataSource;
-
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private authService: AuthenticationService) {
+    super();
     this.store = new CustomStore({
       key: 'id',
       byKey: (key) => {
@@ -32,34 +31,34 @@ export class MasterUserDAO {
     });
   }
 
-  getHttpOptions(): any {
-    return  {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'Authorization': 'bearer ' + localStorage.getItem('id_token')
-      })
-    };
+  public getMasterUsersDS(): DataSource {
+    const ds =   new DataSource({
+      store: this.store,
+    });
+
+    return ds;
   }
 
-
-  getMasterUser(id): Promise<any> {
+  private getMasterUser(id): Promise<any> {
     return this.http.get(this.endpoint + 'MasterUser/' + id).toPromise();
   }
 
-  addMasterUser (call: MasterUser): Promise<any> {
-    console.log(call);
-    return this.http.post<any>(this.endpoint + 'MasterUser', JSON.stringify(call), this.getHttpOptions()).toPromise();
+  private addMasterUser (user: MasterUser): Promise<any> {
+    this.updateModel(user);
+    return this.http.post<any>(this.endpoint + 'MasterUser', JSON.stringify(user), this.getHttpOptions()).toPromise();
   }
 
-  updateMasterUser (id, call: MasterUser): Promise<any> {
-    return this.http.put(this.endpoint + 'MasterUser/' + id, JSON.stringify(call), this.getHttpOptions()).toPromise();
+  private updateMasterUser (id, user: MasterUser): Promise<any> {
+    this.updateModel(user);
+    return this.http.put(this.endpoint + 'MasterUser/' + id, JSON.stringify(user), this.getHttpOptions()).toPromise();
   }
 
-  deleteMasterUser (id): Promise<any> {
+  private deleteMasterUser (id): Promise<any> {
     return this.http.delete<any>(this.endpoint + 'MasterUser/' + id, this.getHttpOptions()).toPromise();
   }
 
-  getMasterUsersDS(): DataSource {
-    return this.datasource;
+  protected updateModel(model: BaseModel) {
+    model.createdUserId = this.authService.getUser().id;
+    model.effectiveDateTime = new Date().toISOString();
   }
 }

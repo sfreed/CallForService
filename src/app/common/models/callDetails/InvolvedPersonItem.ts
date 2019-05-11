@@ -2,7 +2,7 @@ import { InvolvedPerson } from './InvolvedPerson';
 import { BaseModel } from '../common/BaseModel';
 import { PersonAddress } from '../person/PersonAddress';
 
-export class InvolvedPersonsItem extends BaseModel {
+export class InvolvedPersonItem extends BaseModel {
   id: number;
   callForServiceId: number;
   personId: string;

@@ -1,23 +1,17 @@
-<div *ngIf="callService.getActiveCall()">
+<div *ngIf="activeCall">
   <dx-form id="complainantForm" class="complainantForm" height="350" [colCount]="2"
-      [formData]="complainant"
+      [formData]="activeCall.complainantPerson"
       cdkDropList
       (cdkDropListDropped)="drop($event)"
       [cdkDropListConnectedTo]="['activeUnits']">
     <dxi-item itemType="group" caption="Complainant Information" [widthRatio]="1">
       <dxi-item dataField="id" dataType="number" [visible]="false"></dxi-item>
-
-      <dxi-item dataField="namePrefixCodeId" dataType="string">
-          <dxo-label text="Name Prefix"></dxo-label>
-        <dx-select-box [dataSource]="namePrefix" displayExpr="namePrefixDescription" valueExpr="id" [value]="complainant.namePrefixCodeId"></dx-select-box>
+      <dxi-item dataField="namePrefixCodeId" [label]="{text: 'Name Prefix'}" editorType="dxSelectBox" [editorOptions]="{ label: 'Name Prefix',items: namePrefix,  valueExpr:'id', displayExpr:'namePrefixDescription'}">
       </dxi-item>
       <dxi-item dataField="firstName" dataType="string"></dxi-item>
       <dxi-item dataField="middleName" dataType="string"></dxi-item>
       <dxi-item dataField="lastName" dataType="string"></dxi-item>
-      <dxi-item dataField="lastNameSuffixCodeId" dataType="string">
-          <dxo-label text="Name Suffix"></dxo-label>
-        <dx-select-box [dataSource]="nameSuffix" displayExpr="nameSuffixDescription" valueExpr="id" [value]="complainant.lastNameSuffixCodeId"></dx-select-box>
-      </dxi-item>
+      <dxi-item dataField="nameSuffixCodeId" [label]="{text: 'Name Suffix'}" editorType="dxSelectBox" [editorOptions]="{ items: nameSuffix,  valueExpr:'id', displayExpr:'nameSuffixDescription'}"></dxi-item>
     </dxi-item>
       <dxi-item itemType="group" caption="Contact Information" [widthRatio]="1">
       <dxi-item dataField="homePhoneNumber" dataType="string"></dxi-item>
@@ -27,6 +21,7 @@
     <dxi-item [colSpan]="2"
       itemType="button"
       horizontalAlignment="right"
+      verticalAlignment="bottom"
       [buttonOptions]="buttonOptions">
   </dxi-item>
   </dx-form>

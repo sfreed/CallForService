@@ -1,3 +1,6 @@
+import { WreckerService } from '../sources/WreckerService';
+import { WreckerRotation } from '../callDetails/WreckerRotation';
+
 export interface CallForServiceLookup {
   callForServiceHospital: CallForServiceHospital[];
   callForServiceOriginated: CallForServiceOriginated[];
@@ -5,6 +8,8 @@ export interface CallForServiceLookup {
   callForServiceType: CallForServiceType[];
   callForServiceUnitType: CallForServiceUnitType[];
   callForServiceDispositionStatus: CallForServiceDispositionStatus[];
+  wreckerService: WreckerService[];
+  wreckerRotation: WreckerRotation[];
 }
 export interface CallForServiceHospital {
   id: number;

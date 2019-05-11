@@ -14,6 +14,7 @@ import { CallForServiceUnit } from '../models/unit/CallForServiceUnit';
 import { InvolvedUnitsItem } from '../models/callDetails/InvolvedUnitItem';
 import { CallForServiceDAO } from '../dao/CallForServiceDAO.service';
 import { CallForServiceDetailsDAO } from '../dao/CallForServiceDetailsDAO.service';
+import { AuthenticationService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,7 @@ export class CallsService {
 
   unitCallQueue = new Map();
 
-  constructor(private cfsDAO: CallForServiceDAO, private cfsdDAO: CallForServiceDetailsDAO) {}
+  constructor(private cfsDAO: CallForServiceDAO, private cfsdDAO: CallForServiceDetailsDAO, private authService: AuthenticationService) {}
 
   getCallList(type: number): DataSource {
     return this.cfsDAO.getCallListDS(type);
@@ -37,10 +38,24 @@ export class CallsService {
 
   startNewCall(callType: CallForServiceType) {
     this.activeCall = new CallForService();
-    this.activeCall.callForServiceTypeId = callType.id;
-    this.activeCall.dispatchedByPerson = new DispatchedByPerson();
-    this.activeCall.complainantPerson = new ComplainantPerson();
+    this.activeCall.id = 0;
+    this.activeCall.isVoid = false;
+    this.activeCall.createdUserId = this.authService.getUser().id;
+    this.activeCall.effectiveDateTime = new Date().toISOString();
+    this.activeCall.typeId = callType.id;
+    this.activeCall.receivedDateTime = new Date().toISOString();
+    this.activeCall.dispatchedByPerson = this.authService.getUser();
+
     this.activeCallDetails = new CallForServiceDetails();
+
+    console.log('this.call' + JSON.stringify(this.activeCall));
+
+    this.cfsDAO.getCallListDS().store().insert(this.activeCall).then(call => {
+      this.activeCall = call;
+      this.activeCallDetails = this.cfsdDAO.getCallDetailsDS().store().byKey(call.id).then(details => {
+        this.activeCallDetails = details;
+      });
+    });
   }
 
   setActiveCall(call: CallForService) {
@@ -54,6 +69,10 @@ export class CallsService {
         this.callEmitter.emit(this.activeCall);
         this.callDetailsEmitter.emit(results);
       });
+  }
+
+  saveCall(call: CallForService) {
+    this.cfsDAO.getCallListDS().store().update(call.id, call);
   }
 
   getActiveCall(): CallForService {

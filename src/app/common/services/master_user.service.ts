@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { MasterUser } from '../../models/master/MasterUser';
+import { MasterUser } from '../models/master/MasterUser';
 import { HttpClient } from '@angular/common/http';
-import { URL } from '../../models/enums/URL.enum';
+import { URL } from '../models/enums/URL.enum';
 @Injectable({
   providedIn: 'root'
 })
@@ -25,4 +25,7 @@ export class MasterUserLookupService {
     return promise;
   }
 
+  getMasterUser(id): Promise<MasterUser> {
+    return this.httpClient.get<MasterUser>(URL.MASTER_USER_ADDRESS + '/' + id).toPromise();
+  }
 }

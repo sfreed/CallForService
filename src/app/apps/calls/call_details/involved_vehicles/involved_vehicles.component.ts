@@ -1,23 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { CallsService } from 'src/app/common/services/calls.service';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { InvolvedVehiclesItem } from 'src/app/common/models/callDetails/InvolvedVehicleItem';
 import { CallForServiceDetails } from 'src/app/common/models/callDetails/CallForServiceDetail';
 import { State, Street, StreetNameDirection, StreetNameSuffix } from 'src/app/common/models/lookups/LocationLookup';
 import { LocationLookupService } from 'src/app/common/services/lookup/LocationLookup.service';
 import { VehicleModel, VehicleColor, VehicleType, VehicleStyle, VehicleEngineType, VehicleTransmissionType, VehicleFuelType } from 'src/app/common/models/lookups/VehicleLookup';
 import { VehicleLookupService } from 'src/app/common/services/lookup/VehicleLookup.service';
-import { ContactType, NamePrefix, NameSuffix, Gender, Race, Ethnicity, HairColor, HairType, EyeColor, Eyewear, FacialHair } from 'src/app/common/models/lookups/PersonLookup';
+import { NamePrefix, NameSuffix, Gender, Race, Ethnicity, HairColor, HairType, EyeColor, Eyewear, FacialHair } from 'src/app/common/models/lookups/PersonLookup';
 import { PersonLookupService } from 'src/app/common/services/lookup/PersonLookup.service';
+import { WreckerService } from 'src/app/common/models/callDetails/WreckerService';
+import { CallForServiceLookupService } from 'src/app/common/services/lookup/CallForServiceLookup.service';
+import { WreckerRotation } from 'src/app/common/models/callDetails/WreckerRotation';
+import { WreckerRotationService } from 'src/app/common/services/wrecker_rotation.service';
+import DataSource from 'devextreme/data/data_source';
+import { InvolvedVehicleService } from 'src/app/common/services/involved_vehicle.service';
 
 @Component({
   selector: 'app-vehicles',
-  templateUrl: './vehicles.component.html',
-  styleUrls: ['./vehicles.component.css']
+  templateUrl: './involved_vehicles.component.html',
+  styleUrls: ['./involved_vehicles.component.css']
 })
 export class VehiclesComponent implements OnInit {
+  involvedVehiclesList: DataSource;
 
-  involvedVehicles: InvolvedVehiclesItem[];
+  rules: Object;
 
   states: State[];
   models: VehicleModel[];
@@ -29,10 +35,12 @@ export class VehiclesComponent implements OnInit {
   fuelTypes: VehicleFuelType[];
 
   namePrefixCodes: NamePrefix[];
-  lastNameSuffixCodes: NameSuffix[];
+  nameSuffixCodes: NameSuffix[];
   streetCodes: Street[];
   streetNamePreDirectionCodes: StreetNameDirection[];
   streetNameSuffixCodes: StreetNameSuffix[];
+  wreckerServiceList: WreckerService[];
+  wreckerRotationList: WreckerRotation[];
 
   genderCodes: Gender[];
   raceCodes: Race[];
@@ -42,12 +50,16 @@ export class VehiclesComponent implements OnInit {
   eyeColorCodes: EyeColor[];
   eyeWearCodes: Eyewear[];
   facialHairCodes: FacialHair[];
+
   constructor(public callService: CallsService, private locationLookupService: LocationLookupService, private vehicleLookipService: VehicleLookupService,
-    private personLookupService: PersonLookupService) {
-    this.callService.callDetailsEmitter.subscribe(
+    private personLookupService: PersonLookupService, private callForServiceLookupService: CallForServiceLookupService,
+    private wreckerRotationService: WreckerRotationService, private involvedVehicleService: InvolvedVehicleService) {
+      this.callService.callDetailsEmitter.subscribe(
       (data: CallForServiceDetails) => {
-        this.involvedVehicles = data.involvedVehicles;
+        this.involvedVehiclesList = this.involvedVehicleService.getInvolvedPersonList();
       });
+
+      this.rules = { 'X': /[02-9]/ };
   }
 
   ngOnInit() {
@@ -61,10 +73,10 @@ export class VehiclesComponent implements OnInit {
     this.fuelTypes = this.vehicleLookipService.vehicleFuelTypeList;
 
     this.namePrefixCodes = this.personLookupService.namePrefixList;
-    this.lastNameSuffixCodes = this.personLookupService.nameSuffixList;
+    this.nameSuffixCodes = this.personLookupService.nameSuffixList;
     this.streetCodes = this.locationLookupService.streetList;
     this.streetNamePreDirectionCodes = this.locationLookupService.streetNameDirectionList;
-    this.streetNameSuffixCodes = this.locationLookupService.StreetNameSuffixList;
+    this.streetNameSuffixCodes = this.locationLookupService.streetNameSuffixList;
 
     this.genderCodes = this.personLookupService.genderList;
     this.raceCodes = this.personLookupService.raceList;
@@ -74,10 +86,15 @@ export class VehiclesComponent implements OnInit {
     this.eyeColorCodes = this.personLookupService.eyeColorList;
     this.eyeWearCodes = this.personLookupService.eyeWearList;
     this.facialHairCodes = this.personLookupService.facialHairList;
+
+    this.wreckerServiceList = this.callForServiceLookupService.wreckerService;
+    this.wreckerRotationList = this.callForServiceLookupService.wreckerRotation;
   }
 
-  assignToWreckerService() {
-    console.log('clicked');
+  assignToWreckerService(e) {
+    console.log('clicked', this.wreckerServiceList);
+
+    this.wreckerRotationService.getNextRotationId(e.value);
   }
 
   drop(event: CdkDragDrop<any>) {

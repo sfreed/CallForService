@@ -19,7 +19,7 @@ export class VehicleLookupService {
 
   constructor(private httpClient: HttpClient) {}
 
-  initialize(): Promise<any> {
+  initialize(): Promise<VehicleLookup> {
     const promise = this.httpClient.get<VehicleLookup>(URL.VEHICLE_LOOKUP_SERVICE_ADDRESS)
       .toPromise()
       .then(settings => {

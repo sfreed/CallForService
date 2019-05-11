@@ -3,9 +3,9 @@ import { CallsService } from 'src/app/common/services/calls.service';
 import { CallForService } from 'src/app/common/models/call/CallForService';
 import { DispatcherService } from 'src/app/common/services/dispatcher.service';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { CallForServiceType, CallForServiceStatus } from 'src/app/common/models/lookups/CallForServiceLookup';
+import { CallForServiceType, CallForServiceStatus, CallForServiceOriginated } from 'src/app/common/models/lookups/CallForServiceLookup';
 import { CallForServiceLookupService } from 'src/app/common/services/lookup/CallForServiceLookup.service';
-import { MasterUserLookupService } from 'src/app/common/services/lookup/MasterUserLookup.service';
+import { MasterUserLookupService } from 'src/app/common/services/master_user.service';
 import { MasterUser } from 'src/app/common/models/master/MasterUser';
 
 @Component({
@@ -16,13 +16,14 @@ import { MasterUser } from 'src/app/common/models/master/MasterUser';
 export class DetailsComponent implements OnInit {
   callTypes: CallForServiceType[];
 
-  callStatusList: CallForServiceStatus[];
+  callOriginated: CallForServiceOriginated[];
 
   dispatchers: MasterUser[];
 
   buttonOptions: any = {
     text: 'Save',
-    type: 'success'
+    type: 'success',
+    onClick: this.saveCall.bind(this)
   };
 
   activeCall: CallForService;
@@ -38,11 +39,11 @@ export class DetailsComponent implements OnInit {
   ngOnInit() {
     this.callTypes = this.cfsLookupService.callForServiceTypeList;
 
-    this.callStatusList = this.cfsLookupService.callForServiceStatusList;
-
     this.activeCall = this.callService.getActiveCall();
 
     this.dispatchers = this.masterUserService.users;
+
+    this.callOriginated = this.cfsLookupService.callForServiceOriginatedList;
   }
 
   getComplainantName() {
@@ -60,5 +61,11 @@ export class DetailsComponent implements OnInit {
       this.callService.assignUnitToActiveCall(officer);
     }
 
+  }
+
+  saveCall(e) {
+    console.log('saving', this.activeCall);
+
+    this.callService.saveCall(this.activeCall);
   }
 }

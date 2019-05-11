@@ -7,8 +7,8 @@ export interface LocationLookup {
     state: State[];
     street: Street[];
     streetNameDirection: StreetNameDirection[];
-    StreetNameSuffix: StreetNameSuffix[];
-    Zone: Zone[];
+    streetNameSuffix: StreetNameSuffix[];
+    zone: Zone[];
 }
 export interface AddressType {
     id: number;

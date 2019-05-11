@@ -1,0 +1,41 @@
+{
+  "vehicle": {
+    "tagInformation": {
+      "tagNumber": "wdqdsa",
+      "tagState": 13,
+      "tagExpiresYear": "2019",
+      "effectiveDateTime": "2019-05-10T23:34:43.504Z",
+      "createdUserId": "e513c17a-9150-4bab-944b-6322bb51158f"
+    },
+    "year": 1971,
+    "model": "3d2c2d05-824d-43db-8ed8-00e026a5fc81",
+    "VIN": "dawe32qeq3rdr",
+    "color": 17,
+    "ownerPerson": {
+      "firstName": "Shane",
+      "lastName": "Freed",
+      "driversLicenseIssueState": "Georgia",
+      "homePhoneNumber": "6784580658",
+      "streetName": "26 Rollingbrook Vists",
+      "cityName": "NEWNAN",
+      "effectiveDateTime": "2019-05-10T23:34:43.504Z",
+      "createdUserId": "e513c17a-9150-4bab-944b-6322bb51158f"
+    },
+    "createdUserId": "e513c17a-9150-4bab-944b-6322bb51158f",
+    "effectiveDateTime": "2019-05-10T23:34:43.504Z"
+  },
+  "vehicleDriverPerson": {
+    "firstName": "Shane",
+    "lastName": "Freed",
+    "driversLicenseIssueState": "Georgia",
+    "homePhoneNumber": "6784580658",
+    "streetName": "26 Rollingbrook Vists",
+    "cityName": "NEWNAN",
+    "createdUserId": "e513c17a-9150-4bab-944b-6322bb51158f",
+    "effectiveDateTime": "2019-05-10T23:34:43.504Z"
+  },
+  "wrecker": 1,
+  "wreckerTowedDateTime": "2019-05-10T23:34:00.000Z",
+  "createdUserId": "e513c17a-9150-4bab-944b-6322bb51158f",
+  "effectiveDateTime": "2019-05-10T23:34:43.504Z"
+}

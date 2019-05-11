@@ -5,6 +5,7 @@ import { ComplainantPerson } from './ComplainantPerson';
 import { BaseModel } from '../common/BaseModel';
 
 export class CallForService extends BaseModel {
+
   id: number;
   isVoid: boolean;
   receivedDateTime: string;
@@ -12,18 +13,13 @@ export class CallForService extends BaseModel {
   onHoldDateTime: string;
   closedDateTime: string;
   dispatchedByPerson: DispatchedByPerson;
-  dispatchOriginatedId: number;
+  originatedId: number;
   locationPrimary: LocationPrimary;
   secondaryLocationLocation: SecondaryLocationLocation;
   complainantPerson: ComplainantPerson;
-  callForServiceTypeId: number;
-  callForServiceCodePriorityOrder: number;
-  callForServiceStatusId: number;
-  callForServiceDispositionStatusId: number;
+  typeId: number;
+  typePriorityOrder: number;
   isAlertTimeActive: boolean;
   alertTimeInterval: number;
   alertTimeStart: string;
-  originatedId: number;
-  typeId: number;
-  typePriorityOrder: number;
 }
