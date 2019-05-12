@@ -10,5 +10,7 @@ export enum URL {
   USER_LOGIN_ENDPOINT = 'https://courtwareapp.azurewebsites.net/api/UserLogIn',
   USER_LOGOUT_ENDPOINT = 'https://courtwareapp.azurewebsites.net/api/UserLogOut',
   TOKEN_ENDPOINT = 'https://courtwareapp.azurewebsites.net/token',
-  DISPATCHER_ADDRESS = 'https://courtwareapp.azurewebsites.net/api/MasterUser'
+  DISPATCHER_ADDRESS = 'https://courtwareapp.azurewebsites.net/api/MasterUser',
+  CALL_FOR_SERVICE_REMARKS_ADDRESS= 'https://courtwareapp.azurewebsites.net/api/CallForServiceRemarks',
+  CALL_FOR_SERVICE_CALL_TYPE_ADDRESS= 'https://courtwareapp.azurewebsites.net/api/CallForServiceType',
 }

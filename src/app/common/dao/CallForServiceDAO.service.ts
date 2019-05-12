@@ -31,11 +31,11 @@ export class CallForServiceDAO extends BaseDAO {
     });
   }
 
-  public getCallListDS(type?): DataSource {
+  public getCallListDS(key?, value?): DataSource {
     const ds = new DataSource({
       sort: 'receivedDateTime',
       store: this.store,
-      select: type,
+      select: [ key, value ],
       pageSize: 20,
       paginate: true
     });
@@ -44,7 +44,7 @@ export class CallForServiceDAO extends BaseDAO {
   }
 
   private getCallsByStatus(status): Promise<any> {
-    return this.http.get(URL.CALL_FOR_SERVICE_ADDRESS + '?callStatus=' + status, this.getHttpOptions()).toPromise();
+    return this.http.get(URL.CALL_FOR_SERVICE_ADDRESS + '?' + status[0] + '=' + status[1], this.getHttpOptions()).toPromise();
   }
 
   private addCall (call: CallForService): Promise<any> {
@@ -73,6 +73,11 @@ export class CallForServiceDAO extends BaseDAO {
     if (model.locationPrimary) {
       model.locationPrimary.createdUserId = this.authService.getUser().id;
       model.locationPrimary.effectiveDateTime = new Date().toISOString();
+    }
+
+    if (model.secondaryLocationLocation) {
+      model.secondaryLocationLocation.createdUserId = this.authService.getUser().id;
+      model.secondaryLocationLocation.effectiveDateTime = new Date().toISOString();
     }
   }
 }

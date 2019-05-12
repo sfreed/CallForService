@@ -32,8 +32,8 @@ export class CallsService {
 
   constructor(private cfsDAO: CallForServiceDAO, private cfsdDAO: CallForServiceDetailsDAO, private authService: AuthenticationService) {}
 
-  getCallList(type: number): DataSource {
-    return this.cfsDAO.getCallListDS(type);
+  getCallList(key, value): DataSource {
+    return this.cfsDAO.getCallListDS(key, value);
   }
 
   startNewCall(callType: CallForServiceType) {

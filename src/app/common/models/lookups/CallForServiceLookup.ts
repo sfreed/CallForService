@@ -1,5 +1,6 @@
 import { WreckerService } from '../sources/WreckerService';
 import { WreckerRotation } from '../callDetails/WreckerRotation';
+import { BaseModel } from '../common/BaseModel';
 
 export interface CallForServiceLookup {
   callForServiceHospital: CallForServiceHospital[];
@@ -35,7 +36,7 @@ export interface CallForServiceDispositionStatus {
   isActive: boolean;
   isUserEditable: boolean;
 }
-export interface CallForServiceType {
+export interface CallForServiceType extends BaseModel {
   id: number;
   code: string;
   description: string;

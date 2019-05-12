@@ -3,10 +3,13 @@ import { CallsService } from 'src/app/common/services/calls.service';
 import { CallForService } from 'src/app/common/models/call/CallForService';
 import { DispatcherService } from 'src/app/common/services/dispatcher.service';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { CallForServiceType, CallForServiceStatus, CallForServiceOriginated } from 'src/app/common/models/lookups/CallForServiceLookup';
+import { CallForServiceOriginated } from 'src/app/common/models/lookups/CallForServiceLookup';
 import { CallForServiceLookupService } from 'src/app/common/services/lookup/CallForServiceLookup.service';
 import { MasterUserLookupService } from 'src/app/common/services/master_user.service';
 import { MasterUser } from 'src/app/common/models/master/MasterUser';
+import { CFTCallTypeDAO } from 'src/app/common/dao/types/CFTCallTypeDAO.service';
+import DataSource from 'devextreme/data/data_source';
+import { MasterUserDAO } from 'src/app/common/dao/MasterUserDAO.service';
 
 @Component({
   selector: 'app-details',
@@ -14,11 +17,11 @@ import { MasterUser } from 'src/app/common/models/master/MasterUser';
   styleUrls: ['./details.component.css']
 })
 export class DetailsComponent implements OnInit {
-  callTypes: CallForServiceType[];
+  callTypes: DataSource;
 
   callOriginated: CallForServiceOriginated[];
 
-  dispatchers: MasterUser[];
+  dispatchers: DataSource;
 
   buttonOptions: any = {
     text: 'Save',
@@ -29,7 +32,7 @@ export class DetailsComponent implements OnInit {
   activeCall: CallForService;
 
   constructor(public callService: CallsService,  public dispatcherService: DispatcherService, private cfsLookupService: CallForServiceLookupService,
-    private masterUserService: MasterUserLookupService) {
+    private masterUserDao: MasterUserDAO, private cfsCallTypeDS: CFTCallTypeDAO) {
     this.callService.callEmitter.subscribe(
       (data: CallForService) => {
         this.activeCall = data;
@@ -37,11 +40,11 @@ export class DetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.callTypes = this.cfsLookupService.callForServiceTypeList;
+    this.callTypes = this.cfsCallTypeDS.getCallTypeListDS();
 
     this.activeCall = this.callService.getActiveCall();
 
-    this.dispatchers = this.masterUserService.users;
+    this.dispatchers = this.masterUserDao.getMasterUsersDS();
 
     this.callOriginated = this.cfsLookupService.callForServiceOriginatedList;
   }
@@ -65,5 +68,9 @@ export class DetailsComponent implements OnInit {
 
   saveCall(e) {
     this.callService.saveCall(this.activeCall);
+  }
+
+  getCFSTypeDisplayValue (item) {
+    return item.code + ' - ' + item.description;
   }
 }

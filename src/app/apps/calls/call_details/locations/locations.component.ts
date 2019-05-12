@@ -11,6 +11,9 @@ import { LocationLookupService } from 'src/app/common/services/lookup/LocationLo
   styleUrls: ['./locations.component.css']
 })
 export class LocationsComponent implements OnInit {
+
+  citySelectionListDisabled = true;
+
   addressCodes: AddressType[];
   streetNames: Street[];
   streetNamePreDirectionCodes: StreetNameDirection[];

@@ -3,16 +3,20 @@
   class="notesContainer" >
 </dx-toolbar>
 <div *ngIf="callService.getActiveCallDetails()" class="detailsContainer">
-  <dx-data-grid id="gridContainer"
-      [dataSource]="callService.getActiveCallDetails().callRemarks"
+  <dx-data-grid #callRemarksGrid id="callRemarksGrid"
+      [dataSource]="callRemarksListDS"
       [rowAlternationEnabled]="true"
       [showBorders]="true"
       [showColumnHeaders]="true"
       height="240">
       <dxo-scrolling mode="virtual"></dxo-scrolling>
       <dxo-selection mode="single"></dxo-selection>
-      <dxi-column dataField="time" dataType="string" [sortIndex]="0" width="20%"></dxi-column>
-      <dxi-column dataField="text" dataType="string"></dxi-column>
+      <dxo-editing
+        [allowDeleting]="true"
+        [useIcons]="true">
+      </dxo-editing>
+      <dxi-column dataField="effectiveDateTime" dataType="date" [sortIndex]="0" width="20%"></dxi-column>
+      <dxi-column dataField="remarks" dataType="string"></dxi-column>
   </dx-data-grid>
 
   <hr>
@@ -25,6 +29,6 @@
   <dx-button class="saveButton"
     width='100%'
     text="Save Note"
-    (onClick)="saveNote($event)">
+    (onClick)="saveNote()">
   </dx-button>
 </div>

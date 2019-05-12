@@ -11,6 +11,8 @@ import { DxDataGridComponent } from 'devextreme-angular';
 import DataSource from 'devextreme/data/data_source';
 import { MasterUserLookupService } from 'src/app/common/services/master_user.service';
 import { MasterUser } from 'src/app/common/models/master/MasterUser';
+import { AuthenticationService } from 'src/app/common/auth/auth.service';
+import { CFTCallTypeDAO } from 'src/app/common/dao/types/CFTCallTypeDAO.service';
 
 
 @Component({
@@ -27,7 +29,7 @@ export class CallMasterComponent implements OnInit {
 
   dispatchers: MasterUser[];
 
-  callTypes: CallForServiceType[];
+  callTypes: DataSource;
 
   callOriginated: CallForServiceOriginated[];
 
@@ -44,14 +46,16 @@ export class CallMasterComponent implements OnInit {
 
   constructor(public callService: CallsService, public dispatcherService: DispatcherService, private personLookupService: PersonLookupService,
     private cfsLookupService: CallForServiceLookupService, private vehicleLookupService: VehicleLookupService,
-    private locationLookupService: LocationLookupService, private masterUserService: MasterUserLookupService) {}
+    private masterUserService: MasterUserLookupService, public authService: AuthenticationService, public cfsCallTypeDao: CFTCallTypeDAO) {
+    }
 
   ngOnInit() {
+    this.callTypes = this.cfsCallTypeDao.getCallTypeListDS();
+
     this.cfsLookupService.initialize().then(results => {
       this.personLookupService.initialize().then(people => {
         this.vehicleLookupService.initialize().then(vehicles => {
             this.masterUserService.initialize().then (users => {
-              this.callTypes = this.cfsLookupService.callForServiceTypeList;
 
               this.callOriginated = this.cfsLookupService.callForServiceOriginatedList;
 
@@ -59,7 +63,7 @@ export class CallMasterComponent implements OnInit {
 
               this.dispatchers = this.masterUserService.users;
 
-              this.filterCalls(1);
+              this.filterCalls('callStatus', 1);
             });
         });
       });
@@ -81,8 +85,12 @@ export class CallMasterComponent implements OnInit {
    this.dataGrid.instance.showColumnChooser();
   }
 
-  filterCalls(calltatus: number) {
-    this.calls = this.callService.getCallList(calltatus);
+  filterCalls(key, value) {
+    this.calls = this.callService.getCallList(key, value);
+  }
+
+  getCFSTypeDisplayValue (item) {
+    return item.code + ' - ' + item.description;
   }
 
 }

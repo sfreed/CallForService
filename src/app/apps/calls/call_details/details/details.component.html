@@ -15,9 +15,9 @@
       </dxi-item>
     </dxi-item>
     <dxi-item itemType="group" caption="Call Information" [widthRatio]="1">
-        <dxi-item dataField="typeId" [label]="{text: 'Call Type'}" editorType="dxSelectBox" [editorOptions]="{ items: callTypes,  valueExpr:'id', displayExpr:'description'}"></dxi-item>
+        <dxi-item dataField="typeId" [label]="{text: 'Call Type'}" editorType="dxSelectBox" [editorOptions]="{ dataSource: callTypes,  valueExpr:'id', displayExpr: getCFSTypeDisplayValue}"></dxi-item>
         <dxi-item dataField="originatedId" [label]="{text: 'Originated From'}" editorType="dxSelectBox" [editorOptions]="{ items: callOriginated,  valueExpr:'id', displayExpr:'originatedFrom'}"></dxi-item>
-        <dxi-item dataField="dispatchedByPerson.id" [label]="{text: 'Dispatched By'}" editorType="dxSelectBox" [editorOptions]="{ items: dispatchers,  valueExpr:'id', displayExpr:'fullName'}"></dxi-item>
+        <dxi-item dataField="dispatchedByPerson.id" [label]="{text: 'Dispatched By'}" editorType="dxSelectBox" [editorOptions]="{ datasource: dispatchers,  valueExpr:'id', displayExpr:'fullName'}"></dxi-item>
     </dxi-item>
     <dxi-item [colSpan]="2"
       itemType="button"

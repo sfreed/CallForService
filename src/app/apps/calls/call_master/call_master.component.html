@@ -17,20 +17,20 @@
             <div style="display:table-cell; vertical-align: middle;  float: left; padding-left: 100px;">
               <dx-button
                 text="Open Calls"
-                (onClick)="filterCalls(1)">
+                (onClick)="filterCalls('callStatus', 1)">
               </dx-button>
             </div>
             <div style="display:table-cell; vertical-align: middle;  float: left; padding-left: 10px;">
               <dx-button
-                text="Closed Calls"
-                (onClick)="filterCalls(2)">
+                text="My Calls"
+                (onClick)="filterCalls('dispatcherId', this.authService.getUser().personId)">
               </dx-button>
             </div>
             <div style="display:table-cell; vertical-align: middle;  float: right">
               <dx-select-box
                 #callForm
                 [dataSource]="callTypes"
-                displayExpr="description"
+                [displayExpr]="getCFSTypeDisplayValue"
                 valueExpr="id">
               </dx-select-box>
             </div>
