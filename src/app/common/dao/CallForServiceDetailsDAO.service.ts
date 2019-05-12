@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import DataSource from 'devextreme/data/data_source';
 import CustomStore from 'devextreme/data/custom_store';
 import { URL } from '../models/enums/URL.enum';
@@ -33,7 +33,7 @@ export class CallForServiceDetailsDAO extends BaseDAO {
   }
 
   private getCallDetailsById(id): Promise<any> {
-    return this.http.get(URL.CALL_FOR_SERVICE_DETAILS_ADDRESS + '/' + id).toPromise();
+    return this.http.get(URL.CALL_FOR_SERVICE_DETAILS_ADDRESS + '/' + id, this.getHttpOptions()).toPromise();
   }
 
   protected updateModel(model: BaseModel) {

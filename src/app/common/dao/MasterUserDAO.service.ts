@@ -40,7 +40,7 @@ export class MasterUserDAO extends BaseDAO {
   }
 
   private getMasterUser(id): Promise<any> {
-    return this.http.get(this.endpoint + 'MasterUser/' + id).toPromise();
+    return this.http.get(this.endpoint + 'MasterUser/' + id, this.getHttpOptions()).toPromise();
   }
 
   private addMasterUser (user: MasterUser): Promise<any> {

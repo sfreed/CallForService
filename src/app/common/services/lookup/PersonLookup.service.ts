@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { PersonLookup, Agency, AgencyType, ContactType, Ethnicity, EyeColor, FacialHair, Gender,
          HairColor, HairType, NamePrefix, NameSuffix, OfficerRank, Race, Eyewear } from '../../models/lookups/PersonLookup';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { URL } from '../../models/enums/URL.enum';
 
 @Injectable({
@@ -27,7 +27,12 @@ export class PersonLookupService {
   constructor(private httpClient: HttpClient) {}
 
   initialize(): Promise<PersonLookup> {
-    const promise = this.httpClient.get<PersonLookup>(URL.PERSON_LOOKUP_SERVICE_ADDRESS)
+    const promise = this.httpClient.get<PersonLookup>(URL.PERSON_LOOKUP_SERVICE_ADDRESS, {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': 'bearer ' + localStorage.getItem('id_token')
+      })
+    })
       .toPromise()
       .then(settings => {
         console.log('Person Settings from API: ', settings);

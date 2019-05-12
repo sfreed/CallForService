@@ -40,8 +40,8 @@ export class InvolvedPersonDAO extends BaseDAO {
       return ds;
     }
 
-    private getInvolvedPerson(callId): Promise<InvolvedPersonItem> {
-      return this.http.get<InvolvedPersonItem>(this.endpoint + 'CallForServiceInvolvedPerson?callId=' + callId).toPromise();
+    private getInvolvedPerson(callId): Promise<any> {
+      return this.http.get<any>(this.endpoint + 'CallForServiceInvolvedPerson?callId=' + callId, this.getHttpOptions()).toPromise();
     }
 
     private addInvolvedPerson (involvedPerson: InvolvedPersonItem): Promise<any> {

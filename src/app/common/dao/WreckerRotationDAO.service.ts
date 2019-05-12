@@ -29,6 +29,6 @@ export class WreckerRotationDAO extends BaseDAO {
   }
 
   private getNextRotation(id): Promise<any> {
-    return this.http.get(this.endpoint + 'WreckerRotationService/' + id).toPromise();
+    return this.http.get(this.endpoint + 'WreckerRotationService/' + id, this.getHttpOptions()).toPromise();
   }
 }

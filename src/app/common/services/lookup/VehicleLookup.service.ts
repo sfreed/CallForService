@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { VehicleLookup, VehicleColor, VehicleEngineType, VehicleFuelType, VehicleMake,
          VehicleModel, VehicleStyle, VehicleTransmissionType, VehicleType } from '../../models/lookups/VehicleLookup';
 import { URL } from '../../models/enums/URL.enum';
@@ -20,7 +20,12 @@ export class VehicleLookupService {
   constructor(private httpClient: HttpClient) {}
 
   initialize(): Promise<VehicleLookup> {
-    const promise = this.httpClient.get<VehicleLookup>(URL.VEHICLE_LOOKUP_SERVICE_ADDRESS)
+    const promise = this.httpClient.get<VehicleLookup>(URL.VEHICLE_LOOKUP_SERVICE_ADDRESS, {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': 'bearer ' + localStorage.getItem('id_token')
+      })
+    })
       .toPromise()
       .then(settings => {
         console.log('Vehicle Settings from API: ', settings);

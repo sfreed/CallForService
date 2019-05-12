@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CallForServiceLookup, CallForServiceHospital, CallForServiceOriginated,
          CallForServiceType, CallForServiceUnitType, CallForServiceDispositionStatus } from '../../models/lookups/CallForServiceLookup';
 import { URL } from '../../models/enums/URL.enum';
@@ -22,7 +22,12 @@ export class CallForServiceLookupService {
   constructor(private httpClient: HttpClient) {}
 
   initialize(): Promise<CallForServiceLookup> {
-    const promise = this.httpClient.get<CallForServiceLookup>(URL.CFS_LOOKUP_SERVICE_ADDRESS)
+    const promise = this.httpClient.get<CallForServiceLookup>(URL.CFS_LOOKUP_SERVICE_ADDRESS, {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': 'bearer ' + localStorage.getItem('id_token')
+      })
+    })
       .toPromise()
       .then(settings => {
         console.log('CallForService Settings from API: ', settings);

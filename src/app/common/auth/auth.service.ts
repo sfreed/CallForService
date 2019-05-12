@@ -23,7 +23,7 @@ export class AuthenticationService {
       // this.getToken();
     }
 
-    private getToken(): Promise<any> {
+    public getToken(): Promise<any> {
       const params: any = {
         client_id: this.CLIENT_ID,
         grant_type: this.GRANT_TYPE,
