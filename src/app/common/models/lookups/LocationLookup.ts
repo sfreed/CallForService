@@ -1,3 +1,5 @@
+import { BaseModel } from '../common/BaseModel';
+
 export interface LocationLookup {
     addressType: AddressType[];
     city: City[];
@@ -10,14 +12,14 @@ export interface LocationLookup {
     streetNameSuffix: StreetNameSuffix[];
     zone: Zone[];
 }
-export interface AddressType {
+export interface AddressType extends BaseModel {
     id: number;
     addressTypeCode: string;
     addressTypeName: string;
     isActive: boolean;
     isUserEditable: boolean;
 }
-export interface City {
+export interface City extends BaseModel {
     id: number;
     cityName: string;
     stateCodeId: number;
@@ -25,14 +27,14 @@ export interface City {
     isActive: boolean;
     stateCode: StateCode;
 }
-export interface StateCode {
+export interface StateCode extends BaseModel {
     id: number;
     stateCode: string;
     stateName: string;
     isActive: boolean;
     isUserEditable: boolean;
 }
-export interface Country {
+export interface Country extends BaseModel {
     id: number;
     countryISO2Code: string;
     countryISO3Code: string;
@@ -43,7 +45,7 @@ export interface Country {
     isActive: boolean;
     isUserEditable: boolean;
 }
-export interface County {
+export interface County extends BaseModel {
     id: number;
     countyCode: string;
     countyName: string;
@@ -51,35 +53,35 @@ export interface County {
     isActive: boolean;
     isUserEditable: boolean;
 }
-export interface PatrolArea {
+export interface PatrolArea extends BaseModel {
     id: number;
     patrolAreaCode: string;
     patrolAreaCodeDescription: string;
     isActive: boolean;
     isUserEditable: boolean;
 }
-export interface State {
+export interface State extends BaseModel {
     id: number;
     stateCode: string;
     stateName: string;
     isActive: boolean;
     isUserEditable: boolean;
 }
-export interface Street {
+export interface Street extends BaseModel {
     id: number;
     StreetNameSuffixCode: string;
     StreetNameSuffixDescription: string;
     isActive: boolean;
     isUserEditable: boolean;
 }
-export interface StreetNameDirection {
+export interface StreetNameDirection extends BaseModel {
     id: number;
     streetNameDirectionalCode: string;
     streetNameDirectionalCodeDescription: string;
     isActive: boolean;
     isUserEditable: boolean;
 }
-export interface StreetNameSuffix {
+export interface StreetNameSuffix extends BaseModel {
     id: number;
     streetNamePreModifier: string;
     streetNamePreDirectionalCodeId: string;
@@ -89,7 +91,7 @@ export interface StreetNameSuffix {
     streetNamePostModifier: string;
     isUserEditable: boolean;
 }
-export interface Zone {
+export interface Zone extends BaseModel {
     id: number;
     name: string;
     description: string;

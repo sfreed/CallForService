@@ -17,8 +17,11 @@ export class InvolvedPersonDAO extends BaseDAO {
       super();
       this.store = new CustomStore({
         key: 'id',
+        byKey: (key) => {
+          return this.getInvolvedPerson(key);
+        },
         load: () => {
-          return this.getInvolvedPerson(this.callService.getActiveCall().id);
+          return this.getInvolvedPersons();
         },
         insert: (person) => {
           return this.addInvolvedPerson(person);
@@ -40,8 +43,11 @@ export class InvolvedPersonDAO extends BaseDAO {
       return ds;
     }
 
-    private getInvolvedPerson(callId): Promise<any> {
-      return this.http.get<any>(this.endpoint + 'CallForServiceInvolvedPerson?callId=' + callId, this.getHttpOptions()).toPromise();
+    private getInvolvedPersons(): Promise<any> {
+      return this.http.get<any>(this.endpoint + 'CallForServiceInvolvedPerson?callId=' + this.callService.getActiveCall().id, this.getHttpOptions()).toPromise();
+    }
+    private getInvolvedPerson(id): Promise<any> {
+      return this.http.get<any>(this.endpoint + 'CallForServiceInvolvedPerson/' + id + '?callId=' + this.callService.getActiveCall().id, this.getHttpOptions()).toPromise();
     }
 
     private addInvolvedPerson (involvedPerson: InvolvedPersonItem): Promise<any> {

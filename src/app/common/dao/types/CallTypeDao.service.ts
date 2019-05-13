@@ -10,12 +10,13 @@ import { CallForServiceType } from '../../models/lookups/CallForServiceLookup';
 @Injectable({
   providedIn: 'root'
 })
-export class CFTCallTypeDAO extends BaseDAO {
+export class CallTypeDao extends BaseDAO {
 
   constructor(private http: HttpClient, private authService: AuthenticationService) {
     super();
     this.store = new CustomStore({
       key: 'id',
+      loadMode: 'raw',
       byKey: (key) => {
         return this.getCallsType(key);
       },
@@ -34,11 +35,10 @@ export class CFTCallTypeDAO extends BaseDAO {
     });
   }
 
-  public getCallTypeListDS(key?, value?): DataSource {
+  public getCallTypeListDS(): DataSource {
     const ds = new DataSource({
-      sort: 'description',
-      store: this.store,
-      select: [ key, value ]
+      sort: 'code',
+      store: this.store
     });
 
     return ds;

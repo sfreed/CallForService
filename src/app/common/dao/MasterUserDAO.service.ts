@@ -12,12 +12,18 @@ import { AuthenticationService } from '../auth/auth.service';
 })
 export class MasterUserDAO extends BaseDAO {
 
+  masterUserDS: DataSource;
+
   constructor(private http: HttpClient, private authService: AuthenticationService) {
     super();
     this.store = new CustomStore({
       key: 'id',
+      loadMode: 'raw',
       byKey: (key) => {
         return this.getMasterUser(key);
+      },
+      load: () => {
+        return this.getMasterUsers();
       },
       insert: (values) => {
           return this.addMasterUser(values);
@@ -29,14 +35,19 @@ export class MasterUserDAO extends BaseDAO {
           return this.deleteMasterUser(key);
       }
     });
+
+    this.masterUserDS = new DataSource({
+      store: this.store,
+      sort: 'fullName'
+    });
   }
 
   public getMasterUsersDS(): DataSource {
-    const ds = new DataSource({
-      store: this.store,
-    });
+    return this.masterUserDS;
+  }
 
-    return ds;
+  private getMasterUsers(): Promise<any> {
+    return this.http.get(this.endpoint + 'MasterUser', this.getHttpOptions()).toPromise();
   }
 
   private getMasterUser(id): Promise<any> {

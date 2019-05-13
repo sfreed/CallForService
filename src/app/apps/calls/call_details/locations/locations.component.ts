@@ -2,8 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { CallsService } from 'src/app/common/services/calls.service';
 import { CallForService } from 'src/app/common/models/call/CallForService';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { PatrolArea, Zone, City, County, AddressType, Street, StreetNameDirection, StreetNameSuffix, State } from 'src/app/common/models/lookups/LocationLookup';
+import { PatrolArea, County, StreetNameDirection, StreetNameSuffix } from 'src/app/common/models/lookups/LocationLookup';
 import { LocationLookupService } from 'src/app/common/services/lookup/LocationLookup.service';
+import { StreetDao } from 'src/app/common/dao/types/StreetDao.service';
+import DataSource from 'devextreme/data/data_source';
+import { CityDao } from 'src/app/common/dao/types/CityDao.service';
+import { AddressTypeDao } from 'src/app/common/dao/types/AddressTypeDao.service';
+import { ZoneDao } from 'src/app/common/dao/types/ZoneDao.service';
 
 @Component({
   selector: 'app-locations',
@@ -14,14 +19,14 @@ export class LocationsComponent implements OnInit {
 
   citySelectionListDisabled = true;
 
-  addressCodes: AddressType[];
-  streetNames: Street[];
+  addressTypeCodes: DataSource;
+  streetNames: DataSource;
+  cityCodes: DataSource;
+  zoneCodes: DataSource;
+
+  countyCodes: County[];
   streetNamePreDirectionCodes: StreetNameDirection[];
   streetNameSuffixCodes: StreetNameSuffix[];
-  countyCodes: County[];
-  cityCodes: City[];
-  states: State[];
-  zoneCodes: Zone[];
   patrolAreaCodes: PatrolArea[];
 
   buttonOptions: any = {
@@ -32,7 +37,8 @@ export class LocationsComponent implements OnInit {
 
   activeCall: CallForService;
 
-  constructor(public callService: CallsService, private locationLookupService: LocationLookupService) {
+  constructor(public callService: CallsService, private locationLookupService: LocationLookupService, private streetDao: StreetDao, private cityDao: CityDao,
+    private addressTypeDao: AddressTypeDao, private zoneDao: ZoneDao) {
     this.callService.callEmitter.subscribe(
       (data: CallForService) => {
         this.activeCall = data;
@@ -42,14 +48,14 @@ export class LocationsComponent implements OnInit {
   ngOnInit() {
     this.activeCall = this.callService.getActiveCall();
 
-    this.addressCodes = this.locationLookupService.addressTypeList;
-    this.streetNames = this.locationLookupService.streetList;
+    this.streetNames = this.streetDao.getStreetListDS();
+    this.cityCodes = this.cityDao.getCityListDS();
+    this.addressTypeCodes = this.addressTypeDao.getAddressTypeListDS();
+    this.zoneCodes = this.zoneDao.getZoneListDS();
+
     this.streetNamePreDirectionCodes = this.locationLookupService.streetNameDirectionList;
     this.streetNameSuffixCodes = this.locationLookupService.streetNameSuffixList;
     this.countyCodes = this.locationLookupService.countyList;
-    this.cityCodes = this.locationLookupService.cityList;
-    this.states = this.locationLookupService.stateList;
-    this.zoneCodes = this.locationLookupService.zoneList;
     this.patrolAreaCodes = this.locationLookupService.patrolAreaList;
   }
 

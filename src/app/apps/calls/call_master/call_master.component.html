@@ -26,18 +26,10 @@
                 (onClick)="filterCalls('dispatcherId', this.authService.getUser().personId)">
               </dx-button>
             </div>
-            <div style="display:table-cell; vertical-align: middle;  float: right">
-              <dx-select-box
-                #callForm
-                [dataSource]="callTypes"
-                [displayExpr]="getCFSTypeDisplayValue"
-                valueExpr="id">
-              </dx-select-box>
-            </div>
-            <div style="display:table-cell; vertical-align: middle; float: right">
+            <div style="display:table-cell; vertical-align: middle;  float: right; padding-left: 10px;">
               <dx-button
-                icon="tel"
-                (onClick)="formSelected($event, callForm)">
+                text="Start Call"
+                (onClick)="startCall()">
               </dx-button>
             </div>
           </div>
@@ -54,7 +46,8 @@
         [height]="window.innerHeight / 2 - 180"
         [focusedRowEnabled]="true"
         [focusedRowKey]="0"
-        (onFocusedRowChanged)="selectionChanged($event)">
+        (onFocusedRowChanged)="selectionChanged($event)"
+        [columnAutoWidth] = "true">
       <dxo-paging [pageSize]="20"></dxo-paging>
       <dxo-pager
           [showPageSizeSelector]="true"
@@ -66,20 +59,21 @@
       <dxo-selection mode="single"></dxo-selection>
       <dxo-sorting mode="multiple"> </dxo-sorting>
       <dxo-state-storing [enabled]="true" type="localStorage" storageKey="storage"></dxo-state-storing>
+      <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling>
 
       <dxi-column dataField="typeId" dataType="string" [caption]="'Call Type'">
-        <dxo-lookup [dataSource]="callTypes" valueExpr="id" displayExpr="description"> </dxo-lookup>
+        <dxo-lookup [dataSource]="callTypes.store()" valueExpr="id" displayExpr="description"> </dxo-lookup>
       </dxi-column>
-      <dxi-column dataField="complainantPerson.fullName" dataType="string" [caption]="'Complainant'"></dxi-column>
+      <dxi-column dataField="complainantPerson.fullName" dataType="string" [caption]="'Complainant'" [calculateDisplayValue]="getComplainantDisplayValue"></dxi-column>
       <dxi-column dataField="dispatchedByPerson.fullName" dataType="string" [caption]="'Dispatcher'"></dxi-column>
       <dxi-column dataField="callDispositionStatusId" dataType="string" [caption]="'Disposition Status'" [sortIndex]="0" sortOrder="asc" [visible]="false">
         <dxo-lookup [dataSource]="callDispositionStatus" valueExpr="id" displayExpr="callForServiceDispositionStatusDescription"></dxo-lookup>
       </dxi-column>
-      <dxi-column dataField="receivedDateTime" dataType="string" [sortIndex]="1" sortOrder="desc" [format]="'shortDateShortTime'" [caption]="'Received Time'"></dxi-column>
-      <dxi-column dataField="dispatchedDateTime" dataType="string" [format]="'shortDateShortTime'" [caption]="'Dispatched Time'"></dxi-column>
+      <dxi-column dataField="receivedDateTime" dataType="datetime" [sortIndex]="1" sortOrder="desc" [format]="'shortDateShortTime'" [caption]="'Received Time'"></dxi-column>
+      <dxi-column dataField="dispatchedDateTime" dataType="datetime" [format]="'shortDateShortTime'" [caption]="'Dispatched Time'"></dxi-column>
 
-      <dxi-column dataField="onHoldDateTime" dataType="string" [format]="'shortDateShortTime'" [caption]="'On Hold Time'" [visible]="false"></dxi-column>
-      <dxi-column dataField="closedDateTime" dataType="string" [format]="'shortDateShortTime'" [caption]="'Closed Time'" [visible]="false"></dxi-column>
+      <dxi-column dataField="onHoldDateTime" dataType="datetime" [format]="'shortDateShortTime'" [caption]="'On Hold Time'" [visible]="false"></dxi-column>
+      <dxi-column dataField="closedDateTime" dataType="datetime" [format]="'shortDateShortTime'" [caption]="'Closed Time'" [visible]="false"></dxi-column>
       <dxi-column dataType="number" dataField="callForServiceCodePriorityOrder" [caption]="'Code Priority Order'" [visible]="false"></dxi-column>
       <dxi-column dataField="locationPrimary" dataType="string" [caption]="'Primary Location'" [visible]="false"></dxi-column>
       <dxi-column dataField="secondaryLocationLocation" dataType="string" [caption]="'Secondary Location'" [visible]="false"></dxi-column>
@@ -126,4 +120,42 @@
     </dx-form>
   </dxi-item>
 </dx-accordion>
+
+<dx-popup
+  class="popup"
+  [width]="800"
+  [height]="800"
+  [showTitle]="true"
+  title="Start A Call"
+  [dragEnabled]="false"
+  [closeOnOutsideClick]="false"
+  [(visible)]="popupVisible">
+      <dx-form id="callForm" class="callForm" [formData]="newCall">
+          <dxi-item itemType="group" caption="Call Information" [widthRatio]="1">
+              <dxi-item dataField="typeId" [label]="{text: 'Call Type'}" editorType="dxSelectBox" [editorOptions]="{ dataSource: callTypes,  valueExpr:'id', displayExpr: getCFSTypeDisplayValue}"></dxi-item>
+              <dxi-item dataField="originatedId" [label]="{text: 'Originated From'}" editorType="dxSelectBox" [editorOptions]="{ items: callOriginated,  valueExpr:'id', displayExpr:'originatedFrom'}"></dxi-item>
+              <dxi-item dataField="dispatchedByPerson.personId" [label]="{text: 'Dispatched By'}" editorType="dxSelectBox" [editorOptions]="{ dataSource: dispatchers, valueExpr:'personId', displayExpr:'fullName'}"></dxi-item>
+              <dxi-item dataField="receivedDateTime" editorType="dxDateBox" [editorOptions]="{ type: 'datetime' }"></dxi-item>
+          </dxi-item>
+          <dxi-item itemType="group" caption="Caller Name" [widthRatio]="1" [colCount]="3">
+            <dxi-item dataField="complainantPerson.id" dataType="number" [visible]="false"></dxi-item>
+            <dxi-item dataField="complainantPerson.firstName" dataType="string" [label]="{text: 'First'}"></dxi-item>
+            <dxi-item dataField="complainantPerson.middleName" dataType="string" [label]="{text: 'Middle'}"></dxi-item>
+            <dxi-item dataField="complainantPerson.lastName" dataType="string" [label]="{text: 'Last'}"></dxi-item>
+          </dxi-item>
+          <dxi-item itemType="group" caption="Address" [colCount]="2">
+            <dxi-item dataField="locationPrimary.addressTypeId" [label]="{text: 'Address Type'}" editorType="dxSelectBox" [editorOptions]="{ dataSource: addressTypeCodes,  valueExpr:'id', displayExpr:'description', searchEnabled:true, searchExpr:'description', searchMode:'startsWith'}"></dxi-item>
+            <dxi-item dataField="locationPrimary.streetNumber" [label]="{text: 'Street Number'}"></dxi-item>
+            <dxi-item dataField="locationPrimary.streetId" [label]="{text: 'Street Name'}" editorType="dxSelectBox" [editorOptions]="{ dataSource: streetNames,  valueExpr:'id', displayExpr:'streetName', searchEnabled:true, searchExpr:'streetName', searchMode:'startsWith'}"></dxi-item>
+            <dxi-item dataField="locationPrimary.streetNumberSuffix" [label]="{text: 'Street Name Suffix'}"></dxi-item>
+            <dxi-item dataField="locationPrimary.cityId" [label]="{text: 'City'}" editorType="dxSelectBox" [editorOptions]="{ dataSource: cityCodes,  valueExpr:'id', displayExpr:'cityName', searchEnabled:true, searchExpr:'cityName', searchMode:'startsWith'}"></dxi-item>
+          </dxi-item>
+          <dxi-item [colSpan]="2"
+            itemType="button"
+            horizontalAlignment="right"
+            verticalAlignment="bottom"
+            [buttonOptions]="buttonOptions">
+          </dxi-item>
+        </dx-form>
+</dx-popup>
 

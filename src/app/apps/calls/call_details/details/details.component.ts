@@ -5,9 +5,7 @@ import { DispatcherService } from 'src/app/common/services/dispatcher.service';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { CallForServiceOriginated } from 'src/app/common/models/lookups/CallForServiceLookup';
 import { CallForServiceLookupService } from 'src/app/common/services/lookup/CallForServiceLookup.service';
-import { MasterUserLookupService } from 'src/app/common/services/master_user.service';
-import { MasterUser } from 'src/app/common/models/master/MasterUser';
-import { CFTCallTypeDAO } from 'src/app/common/dao/types/CFTCallTypeDAO.service';
+import { CallTypeDao } from 'src/app/common/dao/types/CallTypeDao.service';
 import DataSource from 'devextreme/data/data_source';
 import { MasterUserDAO } from 'src/app/common/dao/MasterUserDAO.service';
 
@@ -32,7 +30,7 @@ export class DetailsComponent implements OnInit {
   activeCall: CallForService;
 
   constructor(public callService: CallsService,  public dispatcherService: DispatcherService, private cfsLookupService: CallForServiceLookupService,
-    private masterUserDao: MasterUserDAO, private cfsCallTypeDS: CFTCallTypeDAO) {
+    private masterUserDao: MasterUserDAO, private cfsCallTypeDS: CallTypeDao) {
     this.callService.callEmitter.subscribe(
       (data: CallForService) => {
         this.activeCall = data;
@@ -67,6 +65,8 @@ export class DetailsComponent implements OnInit {
   }
 
   saveCall(e) {
+
+    console.log('saving', e, this.activeCall);
     this.callService.saveCall(this.activeCall);
   }
 

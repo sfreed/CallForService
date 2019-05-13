@@ -56,12 +56,12 @@ export class ActiveListComponent implements OnInit {
       text: 'Log In',
       disabled: false
     }];
-  }
 
-  ngOnInit() {
     this.activeUnits = this.unitService.getActiveUnitsList();
     this.inactiveUnits = this.unitService.getInactiveUnitsList();
   }
+
+  ngOnInit() {}
 
   contextItemClick(e, unit) {
     if (e.itemData.id === 0) {

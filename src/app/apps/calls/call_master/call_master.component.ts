@@ -5,14 +5,16 @@ import { CallForService } from 'src/app/common/models/call/CallForService';
 import { PersonLookupService } from 'src/app/common/services/lookup/PersonLookup.service';
 import { CallForServiceLookupService } from 'src/app/common/services/lookup/CallForServiceLookup.service';
 import { VehicleLookupService } from 'src/app/common/services/lookup/VehicleLookup.service';
-import { LocationLookupService } from 'src/app/common/services/lookup/LocationLookup.service';
-import { CallForServiceType, CallForServiceDispositionStatus, CallForServiceOriginated } from 'src/app/common/models/lookups/CallForServiceLookup';
+import { CallForServiceDispositionStatus, CallForServiceOriginated } from 'src/app/common/models/lookups/CallForServiceLookup';
 import { DxDataGridComponent } from 'devextreme-angular';
 import DataSource from 'devextreme/data/data_source';
-import { MasterUserLookupService } from 'src/app/common/services/master_user.service';
-import { MasterUser } from 'src/app/common/models/master/MasterUser';
 import { AuthenticationService } from 'src/app/common/auth/auth.service';
-import { CFTCallTypeDAO } from 'src/app/common/dao/types/CFTCallTypeDAO.service';
+import { CallTypeDao } from 'src/app/common/dao/types/CallTypeDao.service';
+import { MasterUserDAO } from 'src/app/common/dao/MasterUserDAO.service';
+import { StreetDao } from 'src/app/common/dao/types/StreetDao.service';
+import { AddressTypeDao } from 'src/app/common/dao/types/AddressTypeDao.service';
+import { CityDao } from 'src/app/common/dao/types/CityDao.service';
+import { ZoneDao } from 'src/app/common/dao/types/ZoneDao.service';
 
 
 @Component({
@@ -24,57 +26,73 @@ export class CallMasterComponent implements OnInit {
   @ViewChild(DxDataGridComponent) dataGrid: DxDataGridComponent;
 
   searchCall: CallForService = new CallForService();
+  newCall: CallForService;
+  callOriginated: CallForServiceOriginated[];
+  callDispositionStatus: CallForServiceDispositionStatus[];
 
   calls: DataSource;
-
-  dispatchers: MasterUser[];
-
+  dispatchers: DataSource;
   callTypes: DataSource;
+  addressTypeCodes: DataSource;
+  streetNames: DataSource;
+  cityCodes: DataSource;
+  zoneCodes: DataSource;
 
-  callOriginated: CallForServiceOriginated[];
-
-  callDispositionStatus: CallForServiceDispositionStatus[];
 
   isRowSelected = false;
 
   window: Window = window;
 
+  popupVisible = false;
+
   buttonOptions: any = {
-    text: 'Search',
-    type: 'success'
+    text: 'Save',
+    type: 'success',
+    onClick: this.launchCall.bind(this)
   };
 
   constructor(public callService: CallsService, public dispatcherService: DispatcherService, private personLookupService: PersonLookupService,
     private cfsLookupService: CallForServiceLookupService, private vehicleLookupService: VehicleLookupService,
-    private masterUserService: MasterUserLookupService, public authService: AuthenticationService, public cfsCallTypeDao: CFTCallTypeDAO) {
+    public authService: AuthenticationService, public cfsCallTypeDao: CallTypeDao, private masterUserDao: MasterUserDAO,
+    private streetDao: StreetDao, private cityDao: CityDao,
+    private addressTypeDao: AddressTypeDao, private zoneDao: ZoneDao) {
+      this.callTypes = this.cfsCallTypeDao.getCallTypeListDS();
+      this.dispatchers = this.masterUserDao.getMasterUsersDS();
+      this.streetNames = this.streetDao.getStreetListDS();
+      this.cityCodes = this.cityDao.getCityListDS();
+      this.addressTypeCodes = this.addressTypeDao.getAddressTypeListDS();
+      this.zoneCodes = this.zoneDao.getZoneListDS();
     }
 
   ngOnInit() {
-    this.callTypes = this.cfsCallTypeDao.getCallTypeListDS();
-
     this.cfsLookupService.initialize().then(results => {
       this.personLookupService.initialize().then(people => {
         this.vehicleLookupService.initialize().then(vehicles => {
-            this.masterUserService.initialize().then (users => {
+            this.callOriginated = this.cfsLookupService.callForServiceOriginatedList;
 
-              this.callOriginated = this.cfsLookupService.callForServiceOriginatedList;
+            this.callDispositionStatus = this.cfsLookupService.callForServiceDispositionStatusList;
 
-              this.callDispositionStatus = this.cfsLookupService.callForServiceDispositionStatusList;
-
-              this.dispatchers = this.masterUserService.users;
-
-              this.filterCalls('callStatus', 1);
-            });
+            this.filterCalls('dispatcherId', this.authService.getUser().personId);
         });
       });
     });
   }
 
-  formSelected(e: any, callForm: any) {
-    if (!callForm.selectedItem) {
-      return;
-    }
-    this.callService.startNewCall(callForm.selectedItem);
+  startCall() {
+    this.newCall = new CallForService();
+    this.newCall.dispatchedByPerson = this.authService.getUser();
+    this.newCall.receivedDateTime = new Date().toISOString();
+    this.popupVisible = true;
+  }
+
+  launchCall() {
+    this.callService.startNewCall(this.newCall).then(response => {
+      this.popupVisible = false;
+      this.dataGrid.instance.refresh().then(res => {
+        this.dataGrid.focusedRowIndex = 0;
+        this.dataGrid.instance.selectRowsByIndexes([0]);
+      });
+    });
   }
 
   selectionChanged(e) {
@@ -90,7 +108,18 @@ export class CallMasterComponent implements OnInit {
   }
 
   getCFSTypeDisplayValue (item) {
-    return item.code + ' - ' + item.description;
+    if (item) {
+      return item.code + ' - ' + item.description;
+    }
   }
 
+  getComplainantDisplayValue (item) {
+    if (item.complainantPerson) {
+      return item.complainantPerson.firstName + ' ' + item.complainantPerson.lastName;
+    }
+  }
+
+  now() {
+    return new Date().toISOString();
+  }
 }

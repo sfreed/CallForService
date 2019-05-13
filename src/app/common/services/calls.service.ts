@@ -36,21 +36,17 @@ export class CallsService {
     return this.cfsDAO.getCallListDS(key, value);
   }
 
-  startNewCall(callType: CallForServiceType) {
-    this.activeCall = new CallForService();
-    this.activeCall.id = 0;
-    this.activeCall.isVoid = false;
-    this.activeCall.createdUserId = this.authService.getUser().id;
-    this.activeCall.effectiveDateTime = new Date().toISOString();
-    this.activeCall.typeId = callType.id;
-    this.activeCall.receivedDateTime = new Date().toISOString();
-    this.activeCall.dispatchedByPerson = this.authService.getUser();
+  startNewCall(newCall: CallForService): Promise<any> {
+    newCall.id = 0;
+    newCall.isVoid = false;
+    newCall.createdUserId = this.authService.getUser().id;
+    newCall.effectiveDateTime = new Date().toISOString();
 
     this.activeCallDetails = new CallForServiceDetails();
 
-    console.log('this.call' + JSON.stringify(this.activeCall));
+    console.log('new Call Started' + JSON.stringify(newCall));
 
-    this.cfsDAO.getCallListDS().store().insert(this.activeCall).then(call => {
+    return this.cfsDAO.getCallListDS().store().insert(newCall).then(call => {
       this.activeCall = call;
       this.activeCallDetails = this.cfsdDAO.getCallDetailsDS().store().byKey(call.id).then(details => {
         this.activeCallDetails = details;

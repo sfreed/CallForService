@@ -13,4 +13,9 @@ export enum URL {
   DISPATCHER_ADDRESS = 'https://courtwareapp.azurewebsites.net/api/MasterUser',
   CALL_FOR_SERVICE_REMARKS_ADDRESS= 'https://courtwareapp.azurewebsites.net/api/CallForServiceRemarks',
   CALL_FOR_SERVICE_CALL_TYPE_ADDRESS= 'https://courtwareapp.azurewebsites.net/api/CallForServiceType',
+  CALL_FOR_SERVICE_STREET_ADDRESS= 'https://courtwareapp.azurewebsites.net/api/Street',
+  CALL_FOR_SERVICE_CITY_ADDRESS= 'https://courtwareapp.azurewebsites.net/api/City',
+  CALL_FOR_SERVICE_ADDRESS_TYPE_ADDRESS= 'https://courtwareapp.azurewebsites.net/api/AddressType',
+  CALL_FOR_SERVICE_ZONE_ADDRESS= 'https://courtwareapp.azurewebsites.net/api/Zone',
+  CALL_FOR_SERVICE_STATE_ADDRESS= 'https://courtwareapp.azurewebsites.net/api/State',
 }

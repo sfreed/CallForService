@@ -3,7 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { DxBoxModule, DxListModule, DxDataGridModule, DxSwitchModule, DxToolbarModule, DxSelectBoxModule,
   DxButtonModule, DxDrawerModule, DxContextMenuModule, DxTextAreaModule, DxPopupModule,
-  DxTabPanelModule, DxFormModule, DxAccordionModule, DxDateBoxModule, DxTextBoxModule, DxLookupModule, DxAutocompleteModule} from 'devextreme-angular';
+  DxTabPanelModule, DxFormModule, DxAccordionModule, DxDateBoxModule, DxTextBoxModule, DxAutocompleteModule} from 'devextreme-angular';
 import { ActiveListComponent} from './units/active_list/active_list.component';
 import { UnitService } from '../common/services/unit.service';
 import { DispatcherHistoryComponent } from './dispatcher/dispatcherHistory/dispatcherHistory.component';
@@ -25,7 +25,7 @@ import { CallRemarksComponent } from './calls/call_remarks/call_remarks.componen
   imports: [ BrowserModule, BrowserAnimationsModule, DragDropModule,
     DxBoxModule, DxListModule, DxDataGridModule, DxSwitchModule, DxToolbarModule, DxSelectBoxModule, DxButtonModule,
     DxDrawerModule, DxTabPanelModule, DxContextMenuModule, DxTextAreaModule, DxPopupModule, DxFormModule, DxAccordionModule,
-    DxDateBoxModule, DxTextBoxModule, DxLookupModule, DxAutocompleteModule ],
+    DxDateBoxModule, DxTextBoxModule, DxAutocompleteModule ],
   declarations: [ActiveListComponent, DispatcherHistoryComponent, CallMasterComponent, UnitQueueComponent,
     CallDetailsComponent, CallRemarksComponent, CallHistoryComponent, DetailsComponent, LocationsComponent,
     InvolvedUnitsComponent, VehiclesComponent, ComplainantsComponent, InvolvedPersonsComponent ],

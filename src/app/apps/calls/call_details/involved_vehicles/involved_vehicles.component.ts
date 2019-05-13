@@ -14,6 +14,11 @@ import { WreckerRotation } from 'src/app/common/models/callDetails/WreckerRotati
 import { WreckerRotationService } from 'src/app/common/services/wrecker_rotation.service';
 import DataSource from 'devextreme/data/data_source';
 import { InvolvedVehicleService } from 'src/app/common/services/involved_vehicle.service';
+import { StreetDao } from 'src/app/common/dao/types/StreetDao.service';
+import { CityDao } from 'src/app/common/dao/types/CityDao.service';
+import { AddressTypeDao } from 'src/app/common/dao/types/AddressTypeDao.service';
+import { ZoneDao } from 'src/app/common/dao/types/ZoneDao.service';
+import { StateDao } from 'src/app/common/dao/types/StateDao.service';
 
 @Component({
   selector: 'app-vehicles',
@@ -27,8 +32,10 @@ export class VehiclesComponent implements OnInit {
 
   rules: Object;
 
-  states: State[];
-  cityCodes: City[];
+  streetNames: DataSource;
+  cityCodes: DataSource;
+  stateCodes: DataSource;
+
   models: VehicleModel[];
   colors: VehicleColor[];
   types: VehicleType[];
@@ -39,7 +46,6 @@ export class VehiclesComponent implements OnInit {
 
   namePrefixCodes: NamePrefix[];
   nameSuffixCodes: NameSuffix[];
-  streetCodes: Street[];
   streetNamePreDirectionCodes: StreetNameDirection[];
   streetNameSuffixCodes: StreetNameSuffix[];
   wreckerServiceList: WreckerService[];
@@ -56,7 +62,8 @@ export class VehiclesComponent implements OnInit {
 
   constructor(public callService: CallsService, private locationLookupService: LocationLookupService, private vehicleLookipService: VehicleLookupService,
     private personLookupService: PersonLookupService, private callForServiceLookupService: CallForServiceLookupService,
-    private wreckerRotationService: WreckerRotationService, private involvedVehicleService: InvolvedVehicleService) {
+    private wreckerRotationService: WreckerRotationService, private involvedVehicleService: InvolvedVehicleService,
+    private streetDao: StreetDao, private cityDao: CityDao, private stateDao: StateDao) {
       this.callService.callDetailsEmitter.subscribe(
       (data: CallForServiceDetails) => {
         this.involvedVehiclesList = this.involvedVehicleService.getInvolvedPersonList();
@@ -66,8 +73,10 @@ export class VehiclesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.states = this.locationLookupService.stateList;
-    this.cityCodes = this.locationLookupService.cityList;
+    this.streetNames = this.streetDao.getStreetListDS();
+    this.cityCodes = this.cityDao.getCityListDS();
+    this.stateCodes = this.stateDao.getStateListDS();
+
     this.models = this.vehicleLookipService.vehicleModelList;
     this.colors = this.vehicleLookipService.vehicleColorList;
     this.types = this.vehicleLookipService.vehicleTypeList;
@@ -78,7 +87,6 @@ export class VehiclesComponent implements OnInit {
 
     this.namePrefixCodes = this.personLookupService.namePrefixList;
     this.nameSuffixCodes = this.personLookupService.nameSuffixList;
-    this.streetCodes = this.locationLookupService.streetList;
     this.streetNamePreDirectionCodes = this.locationLookupService.streetNameDirectionList;
     this.streetNameSuffixCodes = this.locationLookupService.streetNameSuffixList;
 

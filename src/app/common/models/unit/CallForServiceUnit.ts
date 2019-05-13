@@ -1,4 +1,6 @@
-export class CallForServiceUnit {
+import { BaseModel } from '../common/BaseModel';
+
+export class CallForServiceUnit extends BaseModel {
   id: number;
   unitDescription: string;
   unitType: number;
@@ -15,6 +17,4 @@ export class CallForServiceUnit {
   latitude: number;
   longitude: number;
   speed: number;
-  effectiveDateTime: string;
-  createdUserId: string;
 }

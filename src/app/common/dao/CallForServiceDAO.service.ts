@@ -79,5 +79,15 @@ export class CallForServiceDAO extends BaseDAO {
       model.secondaryLocationLocation.createdUserId = this.authService.getUser().id;
       model.secondaryLocationLocation.effectiveDateTime = new Date().toISOString();
     }
+
+    if (model.complainantPerson) {
+      model.complainantPerson.createdUserId = this.authService.getUser().id;
+      model.complainantPerson.effectiveDateTime = new Date().toISOString();
+    }
+
+    if (model.dispatchedByPerson) {
+      model.dispatchedByPerson.createdUserId = this.authService.getUser().id;
+      model.dispatchedByPerson.effectiveDateTime = new Date().toISOString();
+    }
   }
 }

@@ -17,8 +17,11 @@ export class InvolvedVehicleDAO extends BaseDAO {
     super();
     this.store = new CustomStore({
       key: 'id',
+      byKey: (key) => {
+        return this.getInvolvedVehicle(key);
+      },
       load: () => {
-        return this.getInvolvedVehicles(this.callService.getActiveCall().id);
+        return this.getInvolvedVehicles();
       },
       insert: (vehicle) => {
         return this.addInvolvedVehicle(vehicle);
@@ -40,8 +43,12 @@ export class InvolvedVehicleDAO extends BaseDAO {
     return ds;
   }
 
-  private getInvolvedVehicles(callId): Promise<any> {
-    return this.http.get<any>(this.endpoint + 'CallForServiceInvolvedVehicle?callId=' + callId, this.getHttpOptions()).toPromise();
+  private getInvolvedVehicles(): Promise<any> {
+    return this.http.get<any>(this.endpoint + 'CallForServiceInvolvedVehicle?callId=' + this.callService.getActiveCall().id, this.getHttpOptions()).toPromise();
+  }
+
+  private getInvolvedVehicle(id): Promise<any> {
+    return this.http.get<any>(this.endpoint + 'CallForServiceInvolvedVehicle/' + id + '?callId=' + this.callService.getActiveCall().id, this.getHttpOptions()).toPromise();
   }
 
   private addInvolvedVehicle (vehicle: InvolvedVehiclesItem): Promise<any> {
