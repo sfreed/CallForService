@@ -62,6 +62,7 @@ export class InvolvedPersonDAO extends BaseDAO {
       this.updateModel(involvedPerson);
 
       console.log('updating person', JSON.stringify(involvedPerson));
+      console.log('merge with.....', JSON.stringify(this.callService.getActiveCallDetails().involvedPersons.filter( value => value.id === involvedPerson.id )));
 
       return this.http.put(this.endpoint + 'CallForServiceInvolvedPerson/' + id, JSON.stringify(involvedPerson), this.getHttpOptions()).toPromise();
     }
@@ -74,9 +75,14 @@ export class InvolvedPersonDAO extends BaseDAO {
       model.callForServiceId = this.callService.getActiveCall().id;
       model.createdUserId = this.authService.getUser().id;
       model.effectiveDateTime = new Date().toISOString();
-      model.involvedPerson.createdUserId = this.authService.getUser().id;
-      model.involvedPerson.effectiveDateTime = new Date().toISOString();
-      model.personAddress.createdUserId = this.authService.getUser().id;
-      model.personAddress.effectiveDateTime = new Date().toISOString();
+      if (model.involvedPerson) {
+        model.involvedPerson.createdUserId = this.authService.getUser().id;
+        model.involvedPerson.effectiveDateTime = new Date().toISOString();
+      }
+
+      if (model.personAddress) {
+        model.personAddress.createdUserId = this.authService.getUser().id;
+        model.personAddress.effectiveDateTime = new Date().toISOString();
+      }
     }
 }

@@ -14,24 +14,24 @@
                 (onClick)="showColumnChooser()">
               </dx-button>
             </div>
-            <div style="display:table-cell; vertical-align: middle;  float: left; padding-left: 100px;">
-              <dx-button
-                text="Open Calls"
-                (onClick)="filterCalls('callStatus', 1)">
-              </dx-button>
+            <div style="display:table-cell; vertical-align: middle;  float: left; padding-left: 10px;">
+                <dx-button
+                  text="New Call"
+                  (onClick)="startCall()">
+                </dx-button>
             </div>
+            <div style="display:table-cell; vertical-align: middle;  float: left; padding-left: 10px;">
+                <dx-button
+                  text="Active Calls"
+                  (onClick)="filterCalls('callStatus', 1)">
+                </dx-button>
+              </div>
             <div style="display:table-cell; vertical-align: middle;  float: left; padding-left: 10px;">
               <dx-button
                 text="My Calls"
                 (onClick)="filterCalls('dispatcherId', this.authService.getUser().personId)">
               </dx-button>
-            </div>
-            <div style="display:table-cell; vertical-align: middle;  float: right; padding-left: 10px;">
-              <dx-button
-                text="Start Call"
-                (onClick)="startCall()">
-              </dx-button>
-            </div>
+              </div>
           </div>
         </div>
     </div>
@@ -75,7 +75,15 @@
       <dxi-column dataField="onHoldDateTime" dataType="datetime" [format]="'shortDateShortTime'" [caption]="'On Hold Time'" [visible]="false"></dxi-column>
       <dxi-column dataField="closedDateTime" dataType="datetime" [format]="'shortDateShortTime'" [caption]="'Closed Time'" [visible]="false"></dxi-column>
       <dxi-column dataType="number" dataField="callForServiceCodePriorityOrder" [caption]="'Code Priority Order'" [visible]="false"></dxi-column>
-      <dxi-column dataField="locationPrimary" dataType="string" [caption]="'Primary Location'" [visible]="false"></dxi-column>
+
+      <dxi-column dataField="locationPrimary.streetNumber" dataType="string" [caption]="'Street Number'" [visible]="true"></dxi-column>
+      <dxi-column dataField="locationPrimary.streetId" dataType="string" [caption]="'Street Name'" [visible]="true">
+          <dxo-lookup [dataSource]="streetNames.store()" valueExpr="id" displayExpr="streetName"></dxo-lookup>
+      </dxi-column>
+      <dxi-column dataField="locationPrimary.cityId" dataType="string" [caption]="'City'" [visible]="true">
+          <dxo-lookup [dataSource]="cityCodes.store()" valueExpr="id" displayExpr="cityName"></dxo-lookup>
+      </dxi-column>
+
       <dxi-column dataField="secondaryLocationLocation" dataType="string" [caption]="'Secondary Location'" [visible]="false"></dxi-column>
       <dxi-column dataType="boolean" dataField="isAlertTimeActive" [caption]="'Alert Active?'" [visible]="false"></dxi-column>
       <dxi-column dataType="number" dataField="alertTimeInterval" [caption]="'Alert Time Interval'" [visible]="false"></dxi-column>

@@ -41,6 +41,13 @@ export class CallsService {
     newCall.isVoid = false;
     newCall.createdUserId = this.authService.getUser().id;
     newCall.effectiveDateTime = new Date().toISOString();
+    if (newCall.complainantPerson) {
+      newCall.complainantPerson.id = '00000000-0000-0000-0000-000000000000';
+    }
+
+    if (newCall.locationPrimary) {
+      newCall.locationPrimary.id = '00000000-0000-0000-0000-000000000000';
+    }
 
     this.activeCallDetails = new CallForServiceDetails();
 
