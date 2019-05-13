@@ -64,7 +64,7 @@
       <dxi-column dataField="typeId" dataType="string" [caption]="'Call Type'">
         <dxo-lookup [dataSource]="callTypes.store()" valueExpr="id" displayExpr="description"> </dxo-lookup>
       </dxi-column>
-      <dxi-column dataField="complainantPerson.fullName" dataType="string" [caption]="'Complainant'" [calculateDisplayValue]="getComplainantDisplayValue"></dxi-column>
+      <dxi-column [caption]="'Complainant'" [calculateCellValue]="getComplainantDisplayValue"></dxi-column>
       <dxi-column dataField="dispatchedByPerson.fullName" dataType="string" [caption]="'Dispatcher'"></dxi-column>
       <dxi-column dataField="callDispositionStatusId" dataType="string" [caption]="'Disposition Status'" [sortIndex]="0" sortOrder="asc" [visible]="false">
         <dxo-lookup [dataSource]="callDispositionStatus" valueExpr="id" displayExpr="callForServiceDispositionStatusDescription"></dxo-lookup>

@@ -114,8 +114,8 @@ export class CallMasterComponent implements OnInit {
   }
 
   getComplainantDisplayValue (item) {
-    if (item.complainantPerson && item.complainantPerson.firstName && item.complainantPerson.lastName) {
-      return item.complainantPerson.firstName + ' ' + item.complainantPerson.lastName;
+    if (item.complainantPerson) {
+      return [item.complainantPerson.firstName, item.complainantPerson.middleName, item.complainantPerson.lastName].join(' ');
     }
   }
 
