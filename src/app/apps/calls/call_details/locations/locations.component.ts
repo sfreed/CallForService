@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CallsService } from 'src/app/common/services/calls.service';
 import { CallForService } from 'src/app/common/models/call/CallForService';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { PatrolArea, County, StreetNameDirection, StreetNameSuffix } from 'src/app/common/models/lookups/LocationLookup';
+import { PatrolArea, County, StreetNameDirection, StreetNameSuffix, StateCode} from 'src/app/common/models/lookups/LocationLookup';
 import { LocationLookupService } from 'src/app/common/services/lookup/LocationLookup.service';
 import { StreetDao } from 'src/app/common/dao/types/StreetDao.service';
 import DataSource from 'devextreme/data/data_source';
@@ -16,17 +16,15 @@ import { ZoneDao } from 'src/app/common/dao/types/ZoneDao.service';
   styleUrls: ['./locations.component.css']
 })
 export class LocationsComponent implements OnInit {
-
-  citySelectionListDisabled = true;
+  showWaitIndicator = false;
 
   addressTypeCodes: DataSource;
   streetNames: DataSource;
   cityCodes: DataSource;
   zoneCodes: DataSource;
 
+  states: StateCode[];
   countyCodes: County[];
-  streetNamePreDirectionCodes: StreetNameDirection[];
-  streetNameSuffixCodes: StreetNameSuffix[];
   patrolAreaCodes: PatrolArea[];
 
   buttonOptions: any = {
@@ -39,26 +37,21 @@ export class LocationsComponent implements OnInit {
 
   constructor(public callService: CallsService, private locationLookupService: LocationLookupService, private streetDao: StreetDao, private cityDao: CityDao,
     private addressTypeDao: AddressTypeDao, private zoneDao: ZoneDao) {
-    this.callService.callEmitter.subscribe(
-      (data: CallForService) => {
+      this.streetNames = this.streetDao.getStreetListDS();
+      this.cityCodes = this.cityDao.getCityListDS();
+      this.addressTypeCodes = this.addressTypeDao.getAddressTypeListDS();
+      this.zoneCodes = this.zoneDao.getZoneListDS();
+
+      this.callService.callEmitter.subscribe((data: CallForService) => {
         this.activeCall = data;
       });
   }
 
   ngOnInit() {
-    this.activeCall = this.callService.getActiveCall();
-
-    this.streetNames = this.streetDao.getStreetListDS();
-    this.cityCodes = this.cityDao.getCityListDS();
-    this.addressTypeCodes = this.addressTypeDao.getAddressTypeListDS();
-    this.zoneCodes = this.zoneDao.getZoneListDS();
-
-    this.streetNamePreDirectionCodes = this.locationLookupService.streetNameDirectionList;
-    this.streetNameSuffixCodes = this.locationLookupService.streetNameSuffixList;
     this.countyCodes = this.locationLookupService.countyList;
     this.patrolAreaCodes = this.locationLookupService.patrolAreaList;
+    this.states = this.locationLookupService.stateList;
   }
-
 
   drop(event: CdkDragDrop<any>) {
     if (event.previousContainer === event.container) {
@@ -74,6 +67,11 @@ export class LocationsComponent implements OnInit {
   }
 
   saveCall(e) {
-    this.callService.saveCall(this.activeCall);
+    this.showWaitIndicator = true;
+    this.callService.saveCall(this.activeCall).then(res => this.showWaitIndicator = false);
+  }
+
+  displayExpr (item) {
+    return item.cityName + ', ' + this.states.filter(code => code.id === item.id)[0];
   }
 }

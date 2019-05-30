@@ -12,6 +12,10 @@ import { CallForService } from 'src/app/common/models/call/CallForService';
   styleUrls: ['./complainants.component.css']
 })
 export class ComplainantsComponent implements OnInit {
+  rules = { 'X': /[02-9]/ };
+
+  showWaitIndicator = false;
+
   activeCall: CallForService;
 
   namePrefix: NamePrefix[];
@@ -24,25 +28,16 @@ export class ComplainantsComponent implements OnInit {
   };
 
   constructor(public callService: CallsService, private personLookupService: PersonLookupService) {
-    this.callService.callEmitter.subscribe(
-      (data: CallForService) => {
-        this.activeCall = data;
+    this.callService.callEmitter.subscribe((data: CallForService) => {
+      this.activeCall = data;
 
-        if (!data.complainantPerson) {
-          this.activeCall.complainantPerson = new ComplainantPerson();
-        }
-
-        console.log('complainant', this.activeCall.complainantPerson);
-      });
+      if (!data.complainantPerson) {
+        this.activeCall.complainantPerson = new ComplainantPerson();
+      }
+    });
    }
 
   ngOnInit() {
-    this.activeCall = this.callService.getActiveCall();
-
-    if (!this.activeCall.complainantPerson) {
-      this.activeCall.complainantPerson = new ComplainantPerson();
-    }
-
     this.namePrefix = this.personLookupService.namePrefixList;
 
     this.nameSuffix = this.personLookupService.nameSuffixList;
@@ -61,6 +56,7 @@ export class ComplainantsComponent implements OnInit {
   }
 
   saveCall(e) {
-    this.callService.saveCall(this.activeCall);
+    this.showWaitIndicator = true;
+    this.callService.saveCall(this.activeCall).then(res => this.showWaitIndicator = false);
   }
 }

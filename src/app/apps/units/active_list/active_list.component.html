@@ -1,19 +1,13 @@
 
-  <dx-accordion
-    #accordion
-    [collapsible]="false"
-    [multiple]="true"
-    [animationDuration]="300"
-    [height]="window.innerHeight-60">
-  <dxi-item title="Active" class="accordianHeader" [heightRatio]="1">
+    <h2>ActiveUnits</h2>
     <dx-list
       id="activeUnits"
       #activeUnitsList
-      searchExpr="status"
-      searchMode="equals"
-      searchValue="2"
-      [dataSource]="activeUnits.store()"
-      [height]="window.innerHeight-160"
+      [searchExpr]="'status'"
+      [searchMode]="'startswith'"
+      [searchValue]="'2'"
+      [dataSource]="activeUnits"
+      [height]="window.innerHeight/2.5"
       [scrollingEnabled]="true"
       selectionMode = "single"
       (onItemClick)="selectUnit($event)"
@@ -37,15 +31,14 @@
         </dx-context-menu>
       </div>
     </dx-list>
-  </dxi-item>
-  <dxi-item title="Inactive" class="accordianHeader" [selected]="true" [heightRatio]="1">
+    <h2>InctiveUnits</h2>
     <dx-list
       id="inActiveUnits"
       #inActiveUnitsList
-      searchExpr="status"
-      searchMode="equals"
-      searchValue="1"
-      [dataSource]="inactiveUnits.store()"
+      [searchExpr]="'status'"
+      [searchMode]="'startswith'"
+      [searchValue]="'1'"
+      [dataSource]="inactiveUnits"
       [height]="window.innerHeight/2.5"
       [scrollingEnabled]="true"
       selectionMode = "single"
@@ -70,7 +63,6 @@
         </dx-context-menu>
       </div>
     </dx-list>
-  </dxi-item>
-</dx-accordion>
+
 
 <app-unit-queue></app-unit-queue>

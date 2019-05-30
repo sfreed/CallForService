@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CallsService } from 'src/app/common/services/calls.service';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { CallForServiceDetails } from 'src/app/common/models/callDetails/CallForServiceDetail';
-import { State, Street, StreetNameDirection, StreetNameSuffix, City } from 'src/app/common/models/lookups/LocationLookup';
+import { StreetNameDirection, StreetNameSuffix } from 'src/app/common/models/lookups/LocationLookup';
 import { LocationLookupService } from 'src/app/common/services/lookup/LocationLookup.service';
 import { VehicleModel, VehicleColor, VehicleType, VehicleStyle, VehicleEngineType, VehicleTransmissionType, VehicleFuelType } from 'src/app/common/models/lookups/VehicleLookup';
 import { VehicleLookupService } from 'src/app/common/services/lookup/VehicleLookup.service';
@@ -16,8 +16,6 @@ import DataSource from 'devextreme/data/data_source';
 import { InvolvedVehicleService } from 'src/app/common/services/involved_vehicle.service';
 import { StreetDao } from 'src/app/common/dao/types/StreetDao.service';
 import { CityDao } from 'src/app/common/dao/types/CityDao.service';
-import { AddressTypeDao } from 'src/app/common/dao/types/AddressTypeDao.service';
-import { ZoneDao } from 'src/app/common/dao/types/ZoneDao.service';
 import { StateDao } from 'src/app/common/dao/types/StateDao.service';
 
 @Component({
@@ -26,12 +24,9 @@ import { StateDao } from 'src/app/common/dao/types/StateDao.service';
   styleUrls: ['./involved_vehicles.component.css']
 })
 export class VehiclesComponent implements OnInit {
+  rules = { 'X': /[02-9]/ };
+
   involvedVehiclesList: DataSource;
-
-  citySelectionListDisabled = true;
-
-  rules: Object;
-
   streetNames: DataSource;
   cityCodes: DataSource;
   stateCodes: DataSource;
@@ -68,8 +63,6 @@ export class VehiclesComponent implements OnInit {
       (data: CallForServiceDetails) => {
         this.involvedVehiclesList = this.involvedVehicleService.getInvolvedPersonList();
       });
-
-      this.rules = { 'X': /[02-9]/ };
   }
 
   ngOnInit() {

@@ -15,10 +15,11 @@ import { MasterUserDAO } from 'src/app/common/dao/MasterUserDAO.service';
   styleUrls: ['./details.component.css']
 })
 export class DetailsComponent implements OnInit {
-  callTypes: DataSource;
+  showWaitIndicator = false;
 
   callOriginated: CallForServiceOriginated[];
 
+  callTypes: DataSource;
   dispatchers: DataSource;
 
   buttonOptions: any = {
@@ -31,19 +32,16 @@ export class DetailsComponent implements OnInit {
 
   constructor(public callService: CallsService,  public dispatcherService: DispatcherService, private cfsLookupService: CallForServiceLookupService,
     private masterUserDao: MasterUserDAO, private cfsCallTypeDS: CallTypeDao) {
-    this.callService.callEmitter.subscribe(
-      (data: CallForService) => {
+      this.callTypes = this.cfsCallTypeDS.getCallTypeListDS();
+
+      this.dispatchers = this.masterUserDao.getMasterUsersDS();
+
+      this.callService.callEmitter.subscribe((data: CallForService) => {
         this.activeCall = data;
       });
   }
 
   ngOnInit() {
-    this.callTypes = this.cfsCallTypeDS.getCallTypeListDS();
-
-    this.activeCall = this.callService.getActiveCall();
-
-    this.dispatchers = this.masterUserDao.getMasterUsersDS();
-
     this.callOriginated = this.cfsLookupService.callForServiceOriginatedList;
   }
 
@@ -61,13 +59,11 @@ export class DetailsComponent implements OnInit {
 
       this.callService.assignUnitToActiveCall(officer);
     }
-
   }
 
   saveCall(e) {
-
-    console.log('saving', e, this.activeCall);
-    this.callService.saveCall(this.activeCall);
+    this.showWaitIndicator = true;
+    this.callService.saveCall(this.activeCall).then(res => this.showWaitIndicator = false);
   }
 
   getCFSTypeDisplayValue (item) {

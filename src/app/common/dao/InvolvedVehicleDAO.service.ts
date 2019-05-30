@@ -16,7 +16,7 @@ export class InvolvedVehicleDAO extends BaseDAO {
   constructor(private http: HttpClient, private callService: CallsService, private authService: AuthenticationService) {
     super();
     this.store = new CustomStore({
-      key: 'id',
+      key: 'vehicleId',
       byKey: (key) => {
         return this.getInvolvedVehicle(key);
       },
@@ -48,7 +48,7 @@ export class InvolvedVehicleDAO extends BaseDAO {
   }
 
   private getInvolvedVehicle(id): Promise<any> {
-    return this.http.get<any>(this.endpoint + 'CallForServiceInvolvedVehicle/' + id + '?callId=' + this.callService.getActiveCall().id, this.getHttpOptions()).toPromise();
+    return this.http.get<any>(this.endpoint + 'CallForServiceInvolvedVehicle?callId=' + this.callService.getActiveCall().id + '&vehicleId==' + id, this.getHttpOptions()).toPromise();
   }
 
   private addInvolvedVehicle (vehicle: InvolvedVehiclesItem): Promise<any> {
@@ -64,11 +64,11 @@ export class InvolvedVehicleDAO extends BaseDAO {
 
     console.log('updating vehicle', JSON.stringify(vehicle));
 
-    return this.http.put(this.endpoint + 'CallForServiceInvolvedVehicle/' + id, JSON.stringify(vehicle), this.getHttpOptions()).toPromise();
+    return this.http.put(this.endpoint + 'CallForServiceInvolvedVehicle?callId=' + this.callService.getActiveCall().id + '&vehicleId==' + id, JSON.stringify(vehicle), this.getHttpOptions()).toPromise();
   }
 
   private deleteInvolvedVehicle (id): Promise<any> {
-    return this.http.delete<any>(this.endpoint + 'CallForServiceInvolvedVehicle/' + id, this.getHttpOptions()).toPromise();
+    return this.http.delete<any>(this.endpoint + 'CallForServiceInvolvedVehicle?callId=' + this.callService.getActiveCall().id + '&vehicleId==' + id, this.getHttpOptions()).toPromise();
   }
 
   protected updateModel(model: InvolvedVehiclesItem) {

@@ -6,17 +6,17 @@
       [cdkDropListConnectedTo]="['activeUnits']">
     <dxi-item itemType="group" caption="Complainant Information" [widthRatio]="1">
       <dxi-item dataField="id" dataType="number" [visible]="false"></dxi-item>
-      <dxi-item dataField="namePrefixCodeId" [label]="{text: 'Name Prefix'}" editorType="dxSelectBox" [editorOptions]="{ label: 'Name Prefix',items: namePrefix,  valueExpr:'id', displayExpr:'namePrefixDescription'}">
+      <dxi-item dataField="namePrefixCodeId" [label]="{text: 'Name Prefix'}" editorType="dxSelectBox" [editorOptions]="{ label: 'Name Prefix',items: namePrefix,  valueExpr:'id', displayExpr:'namePrefixDescription', searchEnabled:true, searchExpr:'namePrefixDescription', searchMode:'startsWith'}">
       </dxi-item>
       <dxi-item dataField="firstName" dataType="string"></dxi-item>
       <dxi-item dataField="middleName" dataType="string"></dxi-item>
       <dxi-item dataField="lastName" dataType="string"></dxi-item>
-      <dxi-item dataField="nameSuffixCodeId" [label]="{text: 'Name Suffix'}" editorType="dxSelectBox" [editorOptions]="{ items: nameSuffix,  valueExpr:'id', displayExpr:'nameSuffixDescription'}"></dxi-item>
+      <dxi-item dataField="nameSuffixCodeId" [label]="{text: 'Name Suffix'}" editorType="dxSelectBox" [editorOptions]="{ items: nameSuffix,  valueExpr:'id', displayExpr:'nameSuffixDescription', searchEnabled:true, searchExpr:'nameSuffixDescription', searchMode:'startsWith'}"></dxi-item>
     </dxi-item>
       <dxi-item itemType="group" caption="Contact Information" [widthRatio]="1">
-      <dxi-item dataField="homePhoneNumber" dataType="string"></dxi-item>
-      <dxi-item dataField="workPhoneNumber" dataType="string"></dxi-item>
-      <dxi-item dataField="mobilePhoneNumber" dataType="string"></dxi-item>
+      <dxi-item dataField="homePhoneNumber" dataType="string" [editorOptions]="{ mask: '(X00) 000-0000', maskRules: rules }"></dxi-item>
+      <dxi-item dataField="workPhoneNumber" dataType="string" [editorOptions]="{ mask: '(X00) 000-0000', maskRules: rules }"></dxi-item>
+      <dxi-item dataField="mobilePhoneNumber" dataType="string" [editorOptions]="{ mask: '(X00) 000-0000', maskRules: rules }"></dxi-item>
     </dxi-item>
     <dxi-item [colSpan]="2"
       itemType="button"
@@ -26,3 +26,15 @@
   </dxi-item>
   </dx-form>
 </div>
+
+<dx-load-panel
+    #loadPanel
+    shadingColor="rgba(0,0,0,0.4)"
+    [position]="{ of: '#complainantForm' }"
+    [(visible)]="showWaitIndicator"
+    [showIndicator]="true"
+    [showPane]="true"
+    [closeOnOutsideClick]="false">
+</dx-load-panel>
+
+

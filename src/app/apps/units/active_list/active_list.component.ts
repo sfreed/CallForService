@@ -121,19 +121,21 @@ export class ActiveListComponent implements OnInit {
     }
 
     if (event.container.id === 'activeUnits') {
-      event.item.data.dateTimeIn = new Date();
+      event.item.data.dateTimeIn = new Date().toISOString();
       event.item.data.effectiveDateTime = new Date();
       event.item.data.createdUserId = this.authService.getUser().id;
       event.item.data.status = 2;
       event.item.data.startMiles = 0;
+      console.log('activating', event.item.data);
     }
 
     if (event.container.id === 'inActiveUnits') {
-      event.item.data.dateTimeOut = new Date();
+      event.item.data.dateTimeOut = new Date().toISOString();
       event.item.data.effectiveDateTime = new Date();
       event.item.data.createdUserId = this.authService.getUser().id;
       event.item.data.status = 1;
       event.item.data.endMiles = 0;
+      console.log('deactivating', event.item.data);
     }
 
     this.unitService.changeUnitStatus(event.item.data);

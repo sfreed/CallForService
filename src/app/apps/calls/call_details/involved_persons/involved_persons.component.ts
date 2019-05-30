@@ -22,12 +22,9 @@ import { StateDao } from 'src/app/common/dao/types/StateDao.service';
   styleUrls: ['./involved_persons.component.css']
 })
 export class InvolvedPersonsComponent implements OnInit {
-  rules: Object;
+  rules = { 'X': /[02-9]/ };
 
   involvedPersonsList: DataSource;
-
-  citySelectionListDisabled = true;
-
   addressTypeCodes: DataSource;
   streetNames: DataSource;
   cityCodes: DataSource;
@@ -51,24 +48,21 @@ export class InvolvedPersonsComponent implements OnInit {
   facialHairCodes: FacialHair[];
   hospitalCodes: CallForServiceHospital[];
 
-
   constructor(public callService: CallsService, private personLookupService: PersonLookupService, private callForServiceLookup: CallForServiceLookupService,
-    private locationLookupService: LocationLookupService, private involvedPersonsService: InvolvedPersonService, private callsService: CallsService,
+    private locationLookupService: LocationLookupService, private involvedPersonsService: InvolvedPersonService,
     private streetDao: StreetDao, private cityDao: CityDao, private addressTypeDao: AddressTypeDao, private zoneDao: ZoneDao, private stateDao: StateDao) {
-    this.callService.callDetailsEmitter.subscribe(
-      (data: CallForServiceDetails) => {
-
-        this.involvedPersonsList = this.involvedPersonsService.getInvolvedPersonList();
-      });
-    }
-
-    ngOnInit() {
       this.streetNames = this.streetDao.getStreetListDS();
       this.cityCodes = this.cityDao.getCityListDS();
       this.addressTypeCodes = this.addressTypeDao.getAddressTypeListDS();
       this.zoneCodes = this.zoneDao.getZoneListDS();
       this.stateCodes = this.stateDao.getStateListDS();
 
+      this.callService.callDetailsEmitter.subscribe((data: CallForServiceDetails) => {
+        this.involvedPersonsList = this.involvedPersonsService.getInvolvedPersonList();
+      });
+    }
+
+    ngOnInit() {
       this.contactCodes = this.personLookupService.contactTypeList;
       this.namePrefixCodes = this.personLookupService.namePrefixList;
       this.lastNameSuffixCodes = this.personLookupService.nameSuffixList;
@@ -101,15 +95,5 @@ export class InvolvedPersonsComponent implements OnInit {
 
       this.callService.assignUnitToActiveCall(officer);
     }
-
-  }
-
-  onSelect(e) {
-    console.log('clicked', e);
-  }
-
-  selectState(e) {
-    console.log('selectState');
-    this.citySelectionListDisabled = false;
   }
 }

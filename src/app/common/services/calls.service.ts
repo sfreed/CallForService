@@ -74,8 +74,8 @@ export class CallsService {
       });
   }
 
-  saveCall(call: CallForService) {
-    this.cfsDAO.getCallListDS().store().update(call.id, call);
+  saveCall(call: CallForService): Promise<any> {
+    return this.cfsDAO.getCallListDS().store().update(call.id, call);
   }
 
   getActiveCall(): CallForService {
@@ -87,8 +87,6 @@ export class CallsService {
  }
 
   assignUnitToActiveCall(unit: CallForServiceUnit): boolean {
-    const d: Date = new Date();
-
     let isUnitAssigned = true;
 
     this.activeCallDetails.involvedUnits.forEach(activeunit => {
@@ -104,7 +102,6 @@ export class CallsService {
     involvedUnit.isPrimaryUnit = true;
     involvedUnit.callForServiceDateTime = this.getActiveCall().receivedDateTime;
     involvedUnit.dispatchDateTime = new Date().toDateString();
-
 
     if (isUnitAssigned) {
       this.activeCallDetails.involvedUnits.push(involvedUnit);

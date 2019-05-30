@@ -38,13 +38,10 @@ export class UnitsDao extends BaseDAO {
     });
   }
 
-  public getUnitsDS(unitType): DataSource {
-    const ds =   new DataSource({
+  public getUnitsDS(): DataSource {
+    const ds =  new DataSource({
       store: this.store,
-      sort: 'unitDescription',
-      select: unitType,
-      pageSize: 20,
-      paginate: true
+      sort: 'unitDescription'
     });
 
     return ds;
@@ -66,6 +63,8 @@ export class UnitsDao extends BaseDAO {
 
   private updateUnit (id, user: CallForServiceUnit): Promise<any> {
     this.updateModel(user);
+
+    console.log('changing unit status', user);
 
     return this.http.put(URL.CFS_UNIT_ADDRESS + '/' + id, JSON.stringify(user), this.getHttpOptions()).toPromise();
   }

@@ -4,7 +4,6 @@ import DataSource from 'devextreme/data/data_source';
 import CustomStore from 'devextreme/data/custom_store';
 import { CallsService } from '../services/calls.service';
 import { BaseDAO } from './BaseDAO';
-import { BaseModel } from '../models/common/BaseModel';
 import { InvolvedPersonItem } from '../models/callDetails/InvolvedPersonItem';
 import { AuthenticationService } from '../auth/auth.service';
 
@@ -16,7 +15,7 @@ export class InvolvedPersonDAO extends BaseDAO {
     constructor(private http: HttpClient, private callService: CallsService, private authService: AuthenticationService) {
       super();
       this.store = new CustomStore({
-        key: 'id',
+        key: 'personId',
         byKey: (key) => {
           return this.getInvolvedPerson(key);
         },
@@ -44,10 +43,14 @@ export class InvolvedPersonDAO extends BaseDAO {
     }
 
     private getInvolvedPersons(): Promise<any> {
-      return this.http.get<any>(this.endpoint + 'CallForServiceInvolvedPerson?callId=' + this.callService.getActiveCall().id, this.getHttpOptions()).toPromise();
+      return this.http.get<any>(this.endpoint + 'CallForServiceInvolvedPerson?callId=' + this.callService.getActiveCall().id, this.getHttpOptions()).toPromise()
+        .then(results => {
+          console.log('involved Persons List', results);
+          return results;
+        });
     }
     private getInvolvedPerson(id): Promise<any> {
-      return this.http.get<any>(this.endpoint + 'CallForServiceInvolvedPerson/' + id + '?callId=' + this.callService.getActiveCall().id, this.getHttpOptions()).toPromise();
+      return this.http.get<any>(this.endpoint + 'CallForServiceInvolvedPerson/?callId=' + this.callService.getActiveCall().id + '&personId=' + id, this.getHttpOptions()).toPromise();
     }
 
     private addInvolvedPerson (involvedPerson: InvolvedPersonItem): Promise<any> {
@@ -59,16 +62,29 @@ export class InvolvedPersonDAO extends BaseDAO {
     }
 
     private updateInvolvedPerson (id, involvedPerson: InvolvedPersonItem): Promise<any> {
-      this.updateModel(involvedPerson);
+      console.log('merging id: ' + id);
+      console.log('merging person', JSON.stringify(involvedPerson));
 
-      console.log('updating person', JSON.stringify(involvedPerson));
-      console.log('merge with.....', JSON.stringify(this.callService.getActiveCallDetails().involvedPersons.filter( value => value.id === involvedPerson.id )));
+      const destinationPerson = this.callService.getActiveCallDetails().involvedPersons.filter( value => value.personId === id )[0];
 
-      return this.http.put(this.endpoint + 'CallForServiceInvolvedPerson/' + id, JSON.stringify(involvedPerson), this.getHttpOptions()).toPromise();
+      console.log('with person', JSON.stringify(destinationPerson));
+      const finalPerson = Object.assign(destinationPerson.involvedPerson, involvedPerson.involvedPerson);
+
+      destinationPerson.involvedPerson = finalPerson;
+
+      this.updateModel(destinationPerson);
+
+      console.log('updating person', JSON.stringify(destinationPerson));
+
+      return this.http.put(this.endpoint + 'CallForServiceInvolvedPerson?callId=' + this.callService.getActiveCall().id + '&personId=' + id, JSON.stringify(destinationPerson), this.getHttpOptions()).toPromise()
+      .then(res => {
+        console.log(JSON.stringify(res));
+        return res;
+      });
     }
 
     private deleteInvolvedPerson (id): Promise<any> {
-      return this.http.delete<any>(this.endpoint + 'CallForServiceInvolvedPerson/' + id, this.getHttpOptions()).toPromise();
+      return this.http.delete<any>(this.endpoint + 'CallForServiceInvolvedPerson?callId=' + this.callService.getActiveCall().id + '&personId=' + id, this.getHttpOptions()).toPromise();
     }
 
     protected updateModel(model: InvolvedPersonItem) {

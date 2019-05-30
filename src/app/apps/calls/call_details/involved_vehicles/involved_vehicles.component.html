@@ -74,9 +74,9 @@
               <dxi-item itemType="group" caption="Address" [colSpan]="2" [colCount]="2">
                 <dxi-item dataField="vehicleDriverPerson.streetNumber" [label]="{text: 'Street Number'}"></dxi-item>
                 <dxi-item dataField="vehicleDriverPerson.streetId" [label]="{text: 'Street Name '}" editorType="dxSelectBox" [editorOptions]="{ dataSource: streetNames,  valueExpr:'id', displayExpr:'streetName', searchEnabled:true, searchExpr:'streetName', searchMode:'startsWith'}"></dxi-item>
-                <dxi-item dataField="vehicleDriverPerson.streetNamePreDirection" [label]="{text: 'Street Name Pre Direction'}" editorType="dxSelectBox" [editorOptions]="{ items: streetNamePreDirectionCodes,  valueExpr:'id', displayExpr:'streetNameDirectionCodeDescription'}"></dxi-item>
+                <dxi-item dataField="vehicleDriverPerson.streetNamePreDirection" [label]="{text: 'Street Name Direction'}" editorType="dxSelectBox" [editorOptions]="{ items: streetNamePreDirectionCodes,  valueExpr:'id', displayExpr:'streetNameDirectionCodeDescription'}"></dxi-item>
                 <dxi-item dataField="vehicleDriverPerson.streetNameSuffix" [label]="{text: 'Street Name Suffix'}" editorType="dxSelectBox" [editorOptions]="{ items: streetNameSuffixCodes,  valueExpr:'id', displayExpr:'streetNameSuffix'}"></dxi-item>
-                <dxi-item dataField="vehicleDriverPerson.cityId" [label]="{text: 'City'}" [(disabled)]="citySelectionListDisabled" editorType="dxSelectBox" [editorOptions]="{ dataSource: cityCodes,  valueExpr:'id', displayExpr:'cityName', searchEnabled:true, searchExpr:'cityName', searchMode:'startsWith'}"></dxi-item>
+                <dxi-item dataField="vehicleDriverPerson.cityId" [label]="{text: 'City'}" editorType="dxSelectBox" [editorOptions]="{ dataSource: cityCodes,  valueExpr:'id', displayExpr:'cityName', searchEnabled:true, searchExpr:'cityName', searchMode:'startsWith'}"></dxi-item>
                 <dxi-item dataField="vehicleDriverPerson.stateName" [label]="{text: 'State'}" editorType="dxSelectBox" [editorOptions]="{ dataSource: stateCodes,  valueExpr:'id', displayExpr:'stateName', searchEnabled:true, searchExpr:'stateName', searchMode:'startsWith'}"></dxi-item>
                 <dxi-item dataField="vehicleDriverPerson.zipCode" [label]="{text: 'Zip Code'}"></dxi-item>
               </dxi-item>
@@ -123,9 +123,9 @@
               <dxi-item itemType="group" caption="Address" [colSpan]="2" [colCount]="2">
                 <dxi-item dataField="vehicle.ownerPerson.streetNumber" [label]="{text: 'Street Number'}"></dxi-item>
                 <dxi-item dataField="vehicle.ownerPerson.streetId" [label]="{text: 'Street Name'}" editorType="dxSelectBox" [editorOptions]="{ dataSource: streetNames,  valueExpr:'id', displayExpr:'streetName', searchEnabled:true, searchExpr:'streetName', searchMode:'startsWith'}"></dxi-item>
-                <dxi-item dataField="vehicle.ownerPerson.streetNamePreDirection" [label]="{text: 'Street Name Pre Direction'}" editorType="dxSelectBox" [editorOptions]="{ items: streetNamePreDirectionCodes,  valueExpr:'id', displayExpr:'streetNameDirectionCodeDescription'}"></dxi-item>
+                <dxi-item dataField="vehicle.ownerPerson.streetNamePreDirection" [label]="{text: 'Street Name Direction'}" editorType="dxSelectBox" [editorOptions]="{ items: streetNamePreDirectionCodes,  valueExpr:'id', displayExpr:'streetNameDirectionCodeDescription'}"></dxi-item>
                 <dxi-item dataField="vehicle.ownerPerson.streetNameSuffix" [label]="{text: 'Street Name Suffix'}" editorType="dxSelectBox" [editorOptions]="{ items: streetNameSuffixCodes,  valueExpr:'id', displayExpr:'streetNameSuffix'}"></dxi-item>
-                <dxi-item dataField="vehicle.ownerPerson.cityId" [label]="{text: 'City'}" [(disabled)]="citySelectionListDisabled" editorType="dxSelectBox" [editorOptions]="{ dataSource: cityCodes,  valueExpr:'id', displayExpr:'cityName', searchEnabled:true, searchExpr:'cityName', searchMode:'startsWith'}"></dxi-item>
+                <dxi-item dataField="vehicle.ownerPerson.cityId" [label]="{text: 'City'}" editorType="dxSelectBox" [editorOptions]="{ dataSource: cityCodes,  valueExpr:'id', displayExpr:'cityName', searchEnabled:true, searchExpr:'cityName', searchMode:'startsWith'}"></dxi-item>
                 <dxi-item dataField="vehicle.ownerPerson.stateName" [label]="{text: 'State'}" editorType="dxSelectBox" [editorOptions]="{ dataSource: stateCodes,  valueExpr:'id', displayExpr:'stateName', searchEnabled:true, searchExpr:'stateName', searchMode:'startsWith'}"></dxi-item>
                 <dxi-item dataField="vehicle.ownerPerson.zipCode"></dxi-item>
               </dxi-item>
@@ -272,7 +272,6 @@
     <dxi-column dataField="wreckerTimeCalled" [caption]="'Wrecker Time Called'" [visible]="false" dataType="datetime"></dxi-column>
     <dxi-column dataField="wreckerTimeArrived" [caption]="'Wrecker Time Arrived'" [visible]="false" dataType="datetime"></dxi-column>
     <dxi-column dataField="isSameAsDriver" [caption]="'Same as Driver?'" [visible]="false" dataType="boolean"></dxi-column>
-
   </dx-data-grid>
 </div>
 

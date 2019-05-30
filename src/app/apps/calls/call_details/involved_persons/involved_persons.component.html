@@ -78,8 +78,9 @@
             <dxi-item dataField="involvedPerson.facialHairId" [label]="{text: 'Facial Hair'}" editorType="dxSelectBox" [editorOptions]="{ items: facialHairCodes,  valueExpr:'id', displayExpr:'facialHairCodeDescription'}"></dxi-item>
           </dxi-tab>
           <dxi-tab title="Injury">
-            <dxi-item dataField="involvedPerson.isAmbulanceRequired"></dxi-item>
-            <dxi-item dataField="involvedPerson.callForServiceHospitalId" [label]="{text: 'Hospital'}" editorType="dxSelectBox" [editorOptions]="{ items: hospitalCodes,  valueExpr:'id', displayExpr:'hospitalName'}"></dxi-item>
+            <dxi-item dataField="isAmbulanceRequired"></dxi-item>
+            <dxi-item dataField="callForServiceHospitalId" [label]="{text: 'Hospital'}" editorType="dxSelectBox" [editorOptions]="{ items: hospitalCodes,  valueExpr:'id', displayExpr:'hospitalName'}"></dxi-item>
+            <dxi-item dataField="ambulanceRemarks" editorType="dxTextArea" [editorOptions]="{ height: 200 }"></dxi-item>
             <dxi-item dataField="involvedPerson.isDeceased"></dxi-item>
             <dxi-item dataField="involvedPerson.dateOfDeath"></dxi-item>
           </dxi-tab>
@@ -90,8 +91,6 @@
       </dxo-form>
     </dxo-editing>
 
-
-    <dxi-column dataField="id" dataType="string" [visible]="false"></dxi-column>
     <dxi-column dataField="contactTypeId" dataType="number" [caption]="'Contact Type'"><dxo-lookup [dataSource]="contactCodes" valueExpr="id" displayExpr="contactTypeCodeDescription"> </dxo-lookup></dxi-column>
     <dxi-column dataField="involvedPerson.namePrefixCodeId" [visible]="false" [caption]="'Name Prefix'"><dxo-lookup [dataSource]="namePrefixCodes" valueExpr="id" displayExpr="namePrefixDescription"> </dxo-lookup></dxi-column>
     <dxi-column dataField="involvedPerson.firstName" dataType="string" [caption]="'First Name'"></dxi-column>
@@ -107,7 +106,6 @@
     <dxi-column dataField="involvedPerson.driversLicenseClass" [visible]="false" [caption]="'DL Class'"></dxi-column>
     <dxi-column dataField="involvedPerson.driversLicenseExpirationDate" dataType="date" [visible]="false" [caption]="'DL Expiration Date'"></dxi-column>
     <dxi-column dataField="involvedPerson.driversLicenseIssueDate" dataType="date" [visible]="false" [caption]="'DL Issue Date'"></dxi-column>
-
 
     <dxi-column dataField="personAddress.addressTypeId" [visible]="false" [caption]="'Address Type'"><dxo-lookup [dataSource]="addressTypeCodes.store()" valueExpr="id" displayExpr="description"></dxo-lookup></dxi-column>
     <dxi-column dataField="personAddress.streetNumber" [visible]="false" [caption]="'Street Number'"></dxi-column>
@@ -138,7 +136,9 @@
     <dxi-column dataField="involvedPerson.eyewearId" [visible]="false" [caption]="'Eyewear'"> <dxo-lookup [dataSource]="eyeWearCodes" valueExpr="id" displayExpr="eyewearCodeDescription"></dxo-lookup></dxi-column>
     <dxi-column dataField="involvedPerson.facialHairId" [visible]="false" [caption]="'Facial Hair'"> <dxo-lookup [dataSource]="facialHairCodes" valueExpr="id" displayExpr="facialHairCodeDescription"></dxo-lookup></dxi-column>
 
-    <dxi-column dataField="involvedPerson.isAmbulanceRequired" [visible]="false" [caption]="'Is Abulance Required'" dataType="boolean"></dxi-column>
+    <dxi-column dataField="isAmbulanceRequired" [visible]="false" [caption]="'Is Abulance Required'" dataType="boolean"></dxi-column>
+    <dxi-column dataField="callForServiceHospitalId" [visible]="false" [caption]="'Hospital Id'"> <dxo-lookup [dataSource]="hospitalCodes" valueExpr="id" displayExpr="hospitalName"></dxo-lookup></dxi-column>
+    <dxi-column dataField="ambulanceRemarks" [visible]="false" dataType="textArea" [caption]="'Remarks'"></dxi-column>
     <dxi-column dataField="involvedPerson.isDeceased" dataType="boolean" [visible]="false" [caption]="'Deceased?'"></dxi-column>
     <dxi-column dataField="involvedPerson.dateOfDeath" dataType="date" [visible]="false" [caption]="'Date of Death'"></dxi-column>
 

@@ -11,12 +11,12 @@ export class UnitService {
 
   constructor(private unitDao: UnitsDao) {}
 
-  getActiveUnitsList():  DataSource {
-    return this.unitDao.getUnitsDS(2);
+  getActiveUnitsList(): DataSource {
+    return this.unitDao.getUnitsDS();
   }
 
-  getInactiveUnitsList():  DataSource {
-    return this.unitDao.getUnitsDS(1);
+  getInactiveUnitsList(): DataSource {
+    return this.unitDao.getUnitsDS();
   }
 
 
