@@ -28,6 +28,8 @@ export class DetailsComponent implements OnInit {
     onClick: this.saveCall.bind(this)
   };
 
+  todayButton: any;
+
   activeCall: CallForService;
 
   constructor(public callService: CallsService,  public dispatcherService: DispatcherService, private cfsLookupService: CallForServiceLookupService,
@@ -39,6 +41,13 @@ export class DetailsComponent implements OnInit {
       this.callService.callEmitter.subscribe((data: CallForService) => {
         this.activeCall = data;
       });
+
+      this.todayButton = {
+        text: 'Now',
+        onClick: () => {
+            this.activeCall.receivedDateTime = new Date().toISOString();
+        }
+    };
   }
 
   ngOnInit() {

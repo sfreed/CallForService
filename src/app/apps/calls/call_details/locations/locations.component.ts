@@ -70,8 +70,4 @@ export class LocationsComponent implements OnInit {
     this.showWaitIndicator = true;
     this.callService.saveCall(this.activeCall).then(res => this.showWaitIndicator = false);
   }
-
-  displayExpr (item) {
-    return item.cityName + ', ' + this.states.filter(code => code.id === item.id)[0];
-  }
 }
