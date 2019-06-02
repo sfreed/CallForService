@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CallsService } from 'src/app/common/services/call/Calls.service';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { LocationLookupService } from 'src/app/common/services/lookups/LocationLookup.service';
-import { VehicleLookupService } from 'src/app/common/services/lookups/VehicleLookup.service';
-import { PersonLookupService } from 'src/app/common/services/lookups/PersonLookup.service';
+import { LocationLookupService } from 'src/app/common/services/lookups/location/LocationLookup.service';
+import { VehicleLookupService } from 'src/app/common/services/lookups/vehicle/VehicleLookup.service';
+import { PersonLookupService } from 'src/app/common/services/lookups/person/PersonLookup.service';
 import { WreckerService } from 'src/app/common/models/callDetails/vehicle/WreckerService';
-import { CallForServiceLookupService } from 'src/app/common/services/lookups/CallForServiceLookup.service';
+import { CallForServiceLookupService } from 'src/app/common/services/lookups/callForService/CallForServiceLookup.service';
 import { WreckerRotation } from 'src/app/common/models/callDetails/vehicle/WreckerRotation';
 import { WreckerRotationService } from 'src/app/common/services/callDetails/WreckerRotation.service';
 import DataSource from 'devextreme/data/data_source';

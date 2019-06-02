@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { URL } from '../../models/common/URL.enum';
-import { WreckerService } from '../../models/callDetails/vehicle/WreckerService';
-import { WreckerRotation } from '../../models/callDetails/vehicle/WreckerRotation';
-import { CallForServiceHospital } from '../../models/lookups/callForService/CallForServiceHospital';
-import { CallForServiceOriginated } from '../../models/lookups/callForService/CallForServiceOriginated';
-import { CallForServiceType } from '../../models/lookups/callForService/CallForServiceType';
-import { CallForServiceUnitType } from '../../models/lookups/callForService/CallForServiceUnitType';
-import { CallForServiceLookup } from '../../models/lookups/CallForServiceLookup';
-import { CallForServiceDispositionStatus } from '../../models/lookups/callForService/CallForServiceDispositionStatus';
+import { URL } from '../../../models/common/URL.enum';
+import { WreckerService } from '../../../models/callDetails/vehicle/WreckerService';
+import { WreckerRotation } from '../../../models/callDetails/vehicle/WreckerRotation';
+import { CallForServiceHospital } from '../../../models/lookups/callForService/CallForServiceHospital';
+import { CallForServiceOriginated } from '../../../models/lookups/callForService/CallForServiceOriginated';
+import { CallForServiceType } from '../../../models/lookups/callForService/CallForServiceType';
+import { CallForServiceUnitType } from '../../../models/lookups/callForService/CallForServiceUnitType';
+import { CallForServiceLookup } from '../../../models/lookups/callForService/CallForServiceLookup';
+import { CallForServiceDispositionStatus } from '../../../models/lookups/callForService/CallForServiceDispositionStatus';
 
 @Injectable({
   providedIn: 'root'

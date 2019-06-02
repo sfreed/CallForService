@@ -1,6 +1,6 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { DxDrawerComponent } from 'devextreme-angular';
-import { DispatcherService } from 'src/app/common/services/dispatcher.service';
+import { DispatcherService } from 'src/app/common/services/master/Dispatcher.service';
 
 @Component({
     selector: 'app-root',

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { LocationLookup } from '../../models/lookups/LocationLookup';
-import { URL } from '../../models/common/URL.enum';
-import { StreetNameDirection } from '../../models/lookups/location/StreetNameDirection';
-import { County } from '../../models/lookups/location/County';
-import { Country } from '../../models/lookups/location/Country';
-import { PatrolArea } from '../../models/lookups/location/PatrolArea';
-import { Zone } from '../../models/lookups/location/Zone';
+import { LocationLookup } from '../../../models/lookups/location/LocationLookup';
+import { URL } from '../../../models/common/URL.enum';
+import { StreetNameDirection } from '../../../models/lookups/location/StreetNameDirection';
+import { County } from '../../../models/lookups/location/County';
+import { Country } from '../../../models/lookups/location/Country';
+import { PatrolArea } from '../../../models/lookups/location/PatrolArea';
+import { Zone } from '../../../models/lookups/location/Zone';
 
 
 @Injectable({

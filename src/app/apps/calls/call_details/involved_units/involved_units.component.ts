@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CallsService } from 'src/app/common/services/call/Calls.service';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { CallForServiceLookupService } from 'src/app/common/services/lookups/CallForServiceLookup.service';
+import { CallForServiceLookupService } from 'src/app/common/services/lookups/callForService/CallForServiceLookup.service';
 import DataSource from 'devextreme/data/data_source';
-import { PersonLookupService } from 'src/app/common/services/lookups/PersonLookup.service';
+import { PersonLookupService } from 'src/app/common/services/lookups/person/PersonLookup.service';
 import { InvolvedUnitsItem } from 'src/app/common/models/callDetails/InvolvedUnitItem';
 import { Agency } from 'src/app/common/models/lookups/person/Agency';
 import { CallForServiceUnitType } from 'src/app/common/models/lookups/callForService/CallForServiceUnitType';

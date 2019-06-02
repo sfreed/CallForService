@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { URL } from '../../models/common/URL.enum';
-import { Agency } from '../../models/lookups/person/Agency';
-import { AgencyType } from '../../models/lookups/person/AgencyType';
-import { ContactType } from '../../models/lookups/person/ContaxtType';
-import { Ethnicity } from '../../models/lookups/person/Ethnicity';
-import { EyeColor } from '../../models/lookups/person/EyeColor';
-import { Eyewear } from '../../models/lookups/person/EyeWear';
-import { FacialHair } from '../../models/lookups/person/FacialHair';
-import { Gender } from '../../models/lookups/person/Gender';
-import { HairColor } from '../../models/lookups/person/HairColor';
-import { HairType } from '../../models/lookups/person/HairType';
-import { NamePrefix } from '../../models/lookups/person/NamePrefix';
-import { NameSuffix } from '../../models/lookups/person/NameSuffix';
-import { OfficerRank } from '../../models/lookups/person/OfficerRank';
-import { Race } from '../../models/lookups/person/Race';
-import { PersonLookup } from '../../models/lookups/PersonLookup';
+import { URL } from '../../../models/common/URL.enum';
+import { Agency } from '../../../models/lookups/person/Agency';
+import { AgencyType } from '../../../models/lookups/person/AgencyType';
+import { ContactType } from '../../../models/lookups/person/ContactType';
+import { Ethnicity } from '../../../models/lookups/person/Ethnicity';
+import { EyeColor } from '../../../models/lookups/person/EyeColor';
+import { Eyewear } from '../../../models/lookups/person/EyeWear';
+import { FacialHair } from '../../../models/lookups/person/FacialHair';
+import { Gender } from '../../../models/lookups/person/Gender';
+import { HairColor } from '../../../models/lookups/person/HairColor';
+import { HairType } from '../../../models/lookups/person/HairType';
+import { NamePrefix } from '../../../models/lookups/person/NamePrefix';
+import { NameSuffix } from '../../../models/lookups/person/NameSuffix';
+import { OfficerRank } from '../../../models/lookups/person/OfficerRank';
+import { Race } from '../../../models/lookups/person/Race';
+import { PersonLookup } from '../../../models/lookups/person/PersonLookup';
 
 @Injectable({
   providedIn: 'root'

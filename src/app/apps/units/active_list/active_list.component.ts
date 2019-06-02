@@ -1,6 +1,6 @@
 import { Component, ViewChild, OnInit, EventEmitter } from '@angular/core';
 import { DxListComponent } from 'devextreme-angular';
-import { DispatcherService } from 'src/app/common/services/dispatcher.service';
+import { DispatcherService } from 'src/app/common/services/master/Dispatcher.service';
 import { CallsService } from 'src/app/common/services/call/Calls.service';
 import DataSource from 'devextreme/data/data_source';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';

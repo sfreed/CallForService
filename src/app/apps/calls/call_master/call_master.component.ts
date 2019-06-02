@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CallsService } from 'src/app/common/services/call/Calls.service';
-import { DispatcherService } from 'src/app/common/services/dispatcher.service';
+import { DispatcherService } from 'src/app/common/services/master/Dispatcher.service';
 import { CallForService } from 'src/app/common/models/call/CallForService';
-import { PersonLookupService } from 'src/app/common/services/lookups/PersonLookup.service';
-import { CallForServiceLookupService } from 'src/app/common/services/lookups/CallForServiceLookup.service';
-import { VehicleLookupService } from 'src/app/common/services/lookups/VehicleLookup.service';
+import { PersonLookupService } from 'src/app/common/services/lookups/person/PersonLookup.service';
+import { CallForServiceLookupService } from 'src/app/common/services/lookups/callForService/CallForServiceLookup.service';
+import { VehicleLookupService } from 'src/app/common/services/lookups/vehicle/VehicleLookup.service';
 import { DxDataGridComponent } from 'devextreme-angular';
 import DataSource from 'devextreme/data/data_source';
 import { AuthenticationService } from 'src/app/common/auth/auth.service';

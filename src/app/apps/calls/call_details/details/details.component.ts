@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CallsService } from 'src/app/common/services/call/Calls.service';
-import { DispatcherService } from 'src/app/common/services/dispatcher.service';
+import { DispatcherService } from 'src/app/common/services/master/Dispatcher.service';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { CallForServiceLookupService } from 'src/app/common/services/lookups/CallForServiceLookup.service';
+import { CallForServiceLookupService } from 'src/app/common/services/lookups/callForService/CallForServiceLookup.service';
 import { CallTypeDAO } from 'src/app/common/dao/lookups/callForService/CallTypeDAO.service';
 import DataSource from 'devextreme/data/data_source';
 import { CallForServiceOriginated } from 'src/app/common/models/lookups/callForService/CallForServiceOriginated';

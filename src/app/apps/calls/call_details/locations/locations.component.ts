@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CallsService } from 'src/app/common/services/call/Calls.service';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { LocationLookupService } from 'src/app/common/services/lookups/LocationLookup.service';
+import { LocationLookupService } from 'src/app/common/services/lookups/location/LocationLookup.service';
 import DataSource from 'devextreme/data/data_source';
 import { StreetNameDirection } from 'src/app/common/models/lookups/location/StreetNameDirection';
 import { County } from 'src/app/common/models/lookups/location/County';

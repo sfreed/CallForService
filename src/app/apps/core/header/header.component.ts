@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DispatcherService } from 'src/app/common/services/dispatcher.service';
+import { DispatcherService } from 'src/app/common/services/master/Dispatcher.service';
 import notify from 'devextreme/ui/notify';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/common/auth/auth.service';

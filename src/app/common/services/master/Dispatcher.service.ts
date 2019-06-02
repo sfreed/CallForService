@@ -3,9 +3,9 @@ import { DxDrawerComponent } from 'devextreme-angular';
 import { DispatcherHistory } from 'src/app/common/models/common/history';
 import CustomStore from 'devextreme/data/custom_store';
 import * as AspNetData from 'devextreme-aspnet-data-nojquery';
-import { MasterUserDAO } from '../dao/master/MasterUserDAO.service';
+import { MasterUserDAO } from '../../dao/master/MasterUserDAO.service';
 import DataSource from 'devextreme/data/data_source';
-import { URL } from '../models/common/URL.enum';
+import { URL } from '../../models/common/URL.enum';
 @Injectable({
   providedIn: 'root'
 })

@@ -44,7 +44,7 @@ export class CallForServiceDAO extends BaseDAO {
   }
 
   private getCallsByStatus(status): Promise<any> {
-    return this.http.get(URL.CALL_FOR_SERVICE_ADDRESS + '?' + status[0] + '=' + status[1], this.getHttpOptions()).toPromise();
+    return this.http.get(URL.CALL_FOR_SERVICE_ADDRESS + '?callStatus=1&' + status[0] + '=' + status[1], this.getHttpOptions()).toPromise();
   }
 
   private addCall (call: CallForService): Promise<any> {

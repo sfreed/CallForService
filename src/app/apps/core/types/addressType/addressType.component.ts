@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LocationLookupService } from 'src/app/common/services/lookups/LocationLookup.service';
+import { LocationLookupService } from 'src/app/common/services/lookups/location/LocationLookup.service';
 
 @Component({
   selector: 'app-address-type',
