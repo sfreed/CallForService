@@ -18,10 +18,10 @@ export class CallTypeDAO extends BaseDAO {
       key: 'id',
       loadMode: 'raw',
       byKey: (key) => {
-        return this.getCallsType(key);
+        return this.getCallType(key);
       },
       load: () => {
-          return this.getCallsTypes();
+          return this.getCallTypes();
       },
       insert: (callType) => {
         return this.addCallType(callType);
@@ -44,11 +44,11 @@ export class CallTypeDAO extends BaseDAO {
     return ds;
   }
 
-  private getCallsTypes(): Promise<any> {
+  private getCallTypes(): Promise<any> {
     return this.http.get(URL.CALL_FOR_SERVICE_CALL_TYPE_ADDRESS, this.getHttpOptions()).toPromise();
   }
 
-  private getCallsType(id): Promise<any> {
+  private getCallType(id): Promise<any> {
     return this.http.get(URL.CALL_FOR_SERVICE_CALL_TYPE_ADDRESS + '/' + id, this.getHttpOptions()).toPromise();
   }
 

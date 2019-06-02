@@ -21,7 +21,7 @@ import { HairType } from 'src/app/common/models/lookups/person/HairType';
 import { EyeColor } from 'src/app/common/models/lookups/person/EyeColor';
 import { Eyewear } from 'src/app/common/models/lookups/person/EyeWear';
 import { FacialHair } from 'src/app/common/models/lookups/person/FacialHair';
-import { CallForServiceHospital } from 'src/app/common/models/lookups/callForService/CallForServiceHospital';
+import { CallForServiceHospital } from 'src/app/common/models/common/CallForServiceHospital';
 import { InvolvedUnitsService } from 'src/app/common/services/callDetails/InvolvedUnit.service';
 import { CallForService } from 'src/app/common/models/call/CallForService';
 import { LocationService } from 'src/app/common/services/lookups/location/Location.service';

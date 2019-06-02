@@ -5,7 +5,7 @@ import { CallForServiceLookupService } from 'src/app/common/services/lookups/cal
 import DataSource from 'devextreme/data/data_source';
 import { PersonLookupService } from 'src/app/common/services/lookups/person/PersonLookup.service';
 import { InvolvedUnitsItem } from 'src/app/common/models/callDetails/InvolvedUnitItem';
-import { Agency } from 'src/app/common/models/lookups/person/Agency';
+import { Agency } from 'src/app/common/models/common/Agency';
 import { CallForServiceUnitType } from 'src/app/common/models/lookups/callForService/CallForServiceUnitType';
 import { InvolvedUnitsService } from 'src/app/common/services/callDetails/InvolvedUnit.service';
 import { CallForService } from 'src/app/common/models/call/CallForService';

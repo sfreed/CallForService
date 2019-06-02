@@ -1,6 +1,6 @@
-import { Agency } from './Agency';
+import { Agency } from '../../common/Agency';
 import { ContactType } from './ContactType';
-import { AgencyType } from './AgencyType';
+import { AgencyType } from '../../common/AgencyType';
 import { Ethnicity } from './Ethnicity';
 import { EyeColor } from './EyeColor';
 import { Eyewear } from './EyeWear';

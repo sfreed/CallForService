@@ -25,5 +25,8 @@ export enum URL {
   CALL_FOR_SERVICE_VEHICLE_STYLE_ADDRESS= 'https://courtwareapp.azurewebsites.net/api/VehicleStyle',
   CALL_FOR_SERVICE_VEHICLE_TYPE_ADDRESS= 'https://courtwareapp.azurewebsites.net/api/VehicleType',
   CALL_FOR_SERVICE_VEHICLE_MODEL_ADDRESS= 'https://courtwareapp.azurewebsites.net/api/VehicleModel',
-  CALL_FOR_SERVICE_UNIT_DISPOSITION_ADDRESS= 'https://courtwareapp.azurewebsites.net/api/CallForServiceUnitDispositionsType'
+  CALL_FOR_SERVICE_UNIT_DISPOSITION_ADDRESS= 'https://courtwareapp.azurewebsites.net/api/CallForServiceUnitDispositionsType',
+  CALL_FOR_SERVICE_HOSPITAL_ADDRESS= 'https://courtwareapp.azurewebsites.net/api/CallForServiceHospital',
+  CALL_FOR_AGENCY_ADDRESS= 'https://courtwareapp.azurewebsites.net/api/Agency',
+  ALL_FOR_AGENCY_TYPE_ADDRESS= 'https://courtwareapp.azurewebsites.net/api/AgencyType',
 }

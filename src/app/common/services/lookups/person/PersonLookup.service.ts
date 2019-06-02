@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { URL } from '../../../models/common/URL.enum';
-import { Agency } from '../../../models/lookups/person/Agency';
-import { AgencyType } from '../../../models/lookups/person/AgencyType';
+import { Agency } from '../../../models/common/Agency';
+import { AgencyType } from '../../../models/common/AgencyType';
 import { ContactType } from '../../../models/lookups/person/ContactType';
 import { Ethnicity } from '../../../models/lookups/person/Ethnicity';
 import { EyeColor } from '../../../models/lookups/person/EyeColor';

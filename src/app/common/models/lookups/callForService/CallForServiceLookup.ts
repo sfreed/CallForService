@@ -1,6 +1,6 @@
 
 import { WreckerRotation } from '../../callDetails/vehicle/WreckerRotation';
-import { CallForServiceHospital } from './CallForServiceHospital';
+import { CallForServiceHospital } from '../../common/CallForServiceHospital';
 import { CallForServiceOriginated } from './CallForServiceOriginated';
 import { CallForServiceType } from './CallForServiceType';
 import { CallForServiceUnitType } from './CallForServiceUnitType';

@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { URL } from '../../../models/common/URL.enum';
 import { WreckerService } from '../../../models/callDetails/vehicle/WreckerService';
 import { WreckerRotation } from '../../../models/callDetails/vehicle/WreckerRotation';
-import { CallForServiceHospital } from '../../../models/lookups/callForService/CallForServiceHospital';
+import { CallForServiceHospital } from '../../../models/common/CallForServiceHospital';
 import { CallForServiceOriginated } from '../../../models/lookups/callForService/CallForServiceOriginated';
 import { CallForServiceType } from '../../../models/lookups/callForService/CallForServiceType';
 import { CallForServiceUnitType } from '../../../models/lookups/callForService/CallForServiceUnitType';
