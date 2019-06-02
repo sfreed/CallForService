@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { CallsService } from 'src/app/common/services/calls.service';
+import { CallsService } from 'src/app/common/services/call/Calls.service';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { CallForServiceUnitType } from 'src/app/common/models/lookups/CallForServiceLookup';
-import { CallForServiceLookupService } from 'src/app/common/services/lookup/CallForServiceLookup.service';
-
-import { PersonLookupService } from 'src/app/common/services/lookup/PersonLookup.service';
-import { Agency } from 'src/app/common/models/lookups/PersonLookup';
+import { CallForServiceLookupService } from 'src/app/common/services/lookups/CallForServiceLookup.service';
+import DataSource from 'devextreme/data/data_source';
+import { PersonLookupService } from 'src/app/common/services/lookups/PersonLookup.service';
 import { InvolvedUnitsItem } from 'src/app/common/models/callDetails/InvolvedUnitItem';
+import { Agency } from 'src/app/common/models/lookups/person/Agency';
+import { CallForServiceUnitType } from 'src/app/common/models/lookups/callForService/CallForServiceUnitType';
+import { InvolvedUnitsService } from 'src/app/common/services/callDetails/InvolvedUnit.service';
+import { CallForService } from 'src/app/common/models/call/CallForService';
+import * as deepmerge from 'deepmerge';
 
 @Component({
   selector: 'app-involved-units',
@@ -17,11 +20,19 @@ export class InvolvedUnitsComponent implements OnInit {
   unitType: CallForServiceUnitType[];
   unitAgencies: Agency[];
 
-  constructor(public callService: CallsService, private cfsLookupService: CallForServiceLookupService, private personLookup: PersonLookupService) {}
+  involvedUnitsList: DataSource;
+
+  constructor(public callService: CallsService, private cfsLookupService: CallForServiceLookupService, private personLookup: PersonLookupService,
+    private involvedUnitService: InvolvedUnitsService) {
+      this.callService.callEmitter.subscribe((data: CallForService) => {
+        this.involvedUnitsList = involvedUnitService.getInvolvedUnitList();
+      });
+    }
 
   ngOnInit() {
     this.unitType = this.cfsLookupService.callForServiceUnitTypeList;
     this.unitAgencies = this.personLookup.agencyList;
+    this.involvedUnitsList = this.involvedUnitService.getInvolvedUnitList();
   }
 
   drop(event: CdkDragDrop<any>) {
@@ -32,7 +43,7 @@ export class InvolvedUnitsComponent implements OnInit {
     if (event.item.element.nativeElement.classList.contains('OFFICER')) {
       const officer = event.item.data;
 
-      this.callService.assignUnitToActiveCall(officer);
+      this.involvedUnitService.assignUnitToActiveCall(officer);
     }
   }
 
@@ -42,5 +53,9 @@ export class InvolvedUnitsComponent implements OnInit {
     }
 
     return unit.callForServiceUnit.unitDescription + '(' + unit.callForServiceUnit.unitAgencyId + ')';
+  }
+
+  updateRow(options) {
+    options.newData = deepmerge(options.oldData, options.newData);
   }
 }

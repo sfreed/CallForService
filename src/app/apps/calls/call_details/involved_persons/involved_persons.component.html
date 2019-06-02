@@ -1,4 +1,4 @@
-<div *ngIf="callService.getActiveCallDetails()">
+<div *ngIf="callService.getActiveCall()">
   <dx-data-grid id="involvedPersonsGrid"
     [dataSource]="involvedPersonsList"
     [rowAlternationEnabled]="true"
@@ -7,7 +7,8 @@
     height="350"
     cdkDropList
     (cdkDropListDropped)="drop($event)"
-    [cdkDropListConnectedTo]="['activeUnits']">
+    [cdkDropListConnectedTo]="['activeUnits']"
+    (onRowUpdating)="updateRow($event)">>
     <dxo-scrolling mode="virtual"></dxo-scrolling>
     <dxo-selection mode="single"></dxo-selection>
     <dxo-editing
@@ -17,75 +18,88 @@
       [allowDeleting]="true"
       [allowAdding]="true"
       [useIcons]="true">
-      <dxo-popup title="Involved Person" [showTitle]="true" [width]="1000" [height]="900"></dxo-popup>
-      <dxo-form [width]="'200%'">
+      <dxo-popup title="Involved Person" [showTitle]="true" [width]="1000" [height]="700"></dxo-popup>
+      <dxo-form [width]="'200%'" [labelLocation]="'top'">
         <dxi-item itemType="tabbed" [tabPanelOptions]="{ deferRendering: false }" caption="Involved Person" [widthRatio]="1">
-          <dxi-tab title="Person" width="100%" [colCount]="2">
-            <dxi-item itemType="group" caption="Name">
-              <dxi-item dataField="contactTypeId" [label]="{text: 'Contact Type'}" editorType="dxSelectBox" [editorOptions]="{ items: contactCodes,  valueExpr:'id', displayExpr:'contactTypeCodeDescription'}"></dxi-item>
-              <dxi-item dataField="involvedPerson.namePrefixCodeId" [label]="{text: 'Name Prefix'}" editorType="dxSelectBox" [editorOptions]="{ items: namePrefixCodes,  valueExpr:'id', displayExpr:'namePrefixDescription'}"></dxi-item>
-              <dxi-item dataField="involvedPerson.firstName"></dxi-item>
-              <dxi-item dataField="involvedPerson.middleName"></dxi-item>
-              <dxi-item dataField="involvedPerson.lastName"></dxi-item>
-              <dxi-item dataField="involvedPerson.lastNameSuffixCodeId" [label]="{text: 'Name Suffix'}" editorType="dxSelectBox" [editorOptions]="{ items: lastNameSuffixCodes,  valueExpr:'id', displayExpr:'nameSuffixDescription'}"></dxi-item>
+          <dxi-tab title="Person" width="100%" [colCount]="3">
+            <dxi-item itemType="group" caption="Name" [colCount]="5" [colSpan]="2">
+              <dxi-item dataField="contactTypeId" [colSpan]="5" [label]="{text: 'Contact Type'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled',items: contactCodes,  valueExpr:'id', displayExpr:'contactTypeCodeDescription'}"></dxi-item>
+              <dxi-item dataField="involvedPerson.namePrefixCodeId" [colSpan]="1" [label]="{text: 'Prefix'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: namePrefixCodes,  valueExpr:'id', displayExpr:'namePrefixDescription'}"></dxi-item>
+              <dxi-item dataField="involvedPerson.firstName" [colSpan]="2" [editorOptions]="{ stylingMode: 'filled'}"></dxi-item>
+              <dxi-item dataField="involvedPerson.middleName" [colSpan]="2" [editorOptions]="{ stylingMode: 'filled'}"></dxi-item>
+              <dxi-item dataField="involvedPerson.lastName" [colSpan]="3" [editorOptions]="{ stylingMode: 'filled'}"></dxi-item>
+              <dxi-item dataField="involvedPerson.lastNameSuffixCodeId" [colSpan]="2" [label]="{text: 'Suffix'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: lastNameSuffixCodes,  valueExpr:'id', displayExpr:'nameSuffixDescription'}"></dxi-item>
             </dxi-item>
-            <dxi-item itemType="group" caption="Information">
-              <dxi-item dataField="involvedPerson.dateOfBirth"></dxi-item>
-              <dxi-item dataField="involvedPerson.socialSecurityNumber"></dxi-item>
+            <dxi-item itemType="group" caption="Information" [colSpan]="1">
+              <dxi-item dataField="involvedPerson.dateOfBirth" [editorOptions]="{ stylingMode: 'filled'}"></dxi-item>
+              <dxi-item dataField="involvedPerson.socialSecurityNumber" [editorOptions]="{ stylingMode: 'filled'}"></dxi-item>
             </dxi-item>
-            <dxi-item itemType="group" caption="Driver Licence" [colSpan]="2" [colCount]="2">
-              <dxi-item dataField="involvedPerson.driversLicenseState" [label]="{text: 'DL State'}" editorType="dxSelectBox" [editorOptions]="{ dataSource: stateCodes,  valueExpr:'id', displayExpr:'stateName'}"></dxi-item>
-              <dxi-item dataField="involvedPerson.driversLicenseNumber"></dxi-item>
-              <dxi-item dataField="involvedPerson.driversLicenseExpirationDate"></dxi-item>
-              <dxi-item dataField="involvedPerson.driversLicenseIssueDate"></dxi-item>
-              <dxi-item dataField="involvedPerson.driversLicenseClass"></dxi-item>
+            <dxi-item itemType="group" caption="Driver Licence" [colSpan]="3" [colCount]="5">
+              <dxi-item dataField="involvedPerson.driversLicenseState" [label]="{text: 'DL State'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: states,  valueExpr:'id', displayExpr:'stateName'}"></dxi-item>
+              <dxi-item dataField="involvedPerson.driversLicenseNumber" [editorOptions]="{ stylingMode: 'filled'}"></dxi-item>
+              <dxi-item dataField="involvedPerson.driversLicenseExpirationDate" [editorOptions]="{ stylingMode: 'filled'}"></dxi-item>
+              <dxi-item dataField="involvedPerson.driversLicenseIssueDate" [editorOptions]="{ stylingMode: 'filled'}"></dxi-item>
+              <dxi-item dataField="involvedPerson.driversLicenseClass" [editorOptions]="{ stylingMode: 'filled'}"></dxi-item>
             </dxi-item>
           </dxi-tab>
           <dxi-tab title="Address" width="100%" [colCount]="2">
-            <dxi-item itemType="group" caption="Address">
-              <dxi-item dataField="personAddress.addressTypeId" [label]="{text: 'Address Type'}" editorType="dxSelectBox" [editorOptions]="{ dataSource: addressCodes,  valueExpr:'id', displayExpr:'description', searchEnabled:true, searchExpr:'description', searchMode:'startsWith'}"></dxi-item>
-              <dxi-item dataField="personAddress.streetNumber"></dxi-item>
-              <dxi-item dataField="personAddress.streetId" [label]="{text: 'Street Name'}" editorType="dxSelectBox" [editorOptions]="{ dataSource: streetNames,  valueExpr:'id', displayExpr:'streetName', searchEnabled:true, searchExpr:'streetName', searchMode:'startsWith'}"></dxi-item>
-              <dxi-item dataField="personAddress.streetNameSuffix" [label]="{text: 'Street Name Suffix'}" editorType="dxSelectBox" [editorOptions]="{ items: streetNameSuffixCodes,  valueExpr:'id', displayExpr:'streetNameSuffix'}"></dxi-item>
-              <dxi-item dataField="personAddress.streetNamePreDirection" [label]="{text: 'Street Name Direction'}" editorType="dxSelectBox" [editorOptions]="{ items: streetNamePreDirectionCodes,  valueExpr:'id', displayExpr:'streetNameDirectionCodeDescription'}"></dxi-item>
-              <dxi-item dataField="personAddress.cityId" [label]="{text: 'City'}" editorType="dxSelectBox" [editorOptions]="{ dataSource: cityCodes,  valueExpr:'id', displayExpr:'cityName', searchEnabled:true, searchExpr:'cityName', searchMode:'startsWith'}"></dxi-item>
-              <dxi-item dataField="involvedPerson.stateName" [label]="{text: 'State'}" editorType="dxSelectBox" [editorOptions]="{ dataSource: stateCodes,  valueExpr:'id', displayExpr:'stateName'}"></dxi-item>
-              <dxi-item dataField="involvedPerson.zipCode"></dxi-item>
+            <dxi-item itemType="group" caption="Address" [colCount]="4">
+              <dxi-item dataField="personAddress.addressTypeId" [colSpan]="4" [label]="{text: 'Address Type'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: addressTypes,  valueExpr:'id', displayExpr:'description', searchEnabled:true, searchExpr:'description', searchMode:'startsWith'}"></dxi-item>
+              <dxi-item dataField="personAddress.streetNumber" [colSpan]="1" [label]="{text: 'Number'}" [editorOptions]="{ stylingMode: 'filled'}"></dxi-item>
+              <dxi-item dataField="personAddress.streetId" [colSpan]="2" [label]="{text: 'Street Name'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: streetNames,  valueExpr:'id', displayExpr: getStreetName, searchEnabled:true, searchExpr:'streetName', searchMode:'startsWith'}"></dxi-item>
+
+              <dxi-item [colSpan]="1" [label]="{text: 'Manage', visible:false }">
+                <dx-button
+                  icon="add"
+                  (onClick)="addStreet()"
+                  style="margin-right:10px; margin-top: 18px;">
+                </dx-button>
+                <dx-button
+                  icon="edit"
+                  (onClick)="editStreet()"
+                  style="margin-top: 18px;">
+                </dx-button>
+              </dxi-item>
+
+              <dxi-item dataField="personAddress.cityId" [colSpan]="2" [label]="{text: 'City'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: cities,  valueExpr:'id', displayExpr: getCityName , searchEnabled:true, searchExpr:'cityName', searchMode:'startsWith'}"></dxi-item>
+              <dxi-item dataField="personAddress.countyId" [colSpan]="2" [label]="{text: 'County'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: countyCodes,  valueExpr:'id', displayExpr:'countyName'}"></dxi-item>
+              <dxi-item dataField="involvedPerson.zipCode" [colSpan]="2" [editorOptions]="{ stylingMode: 'filled'}"></dxi-item>
             </dxi-item>
-            <dxi-item itemType="group" caption="Location">
-              <dxi-item dataField="personAddress.countyId" [label]="{text: 'County'}" editorType="dxSelectBox" [editorOptions]="{ items: countyCodes,  valueExpr:'id', displayExpr:'countyName'}"></dxi-item>
-              <dxi-item dataField="personAddress.zoneId" [label]="{text: 'Zone'}" editorType="dxSelectBox" [editorOptions]="{ dataSource: zoneCodes,  valueExpr:'id', displayExpr:'description', searchEnabled:true, searchExpr:'description', searchMode:'startsWith'}"></dxi-item>
-              <dxi-item dataField="personAddress.patrolAreaId" [label]="{text: 'Patrol Area'}" editorType="dxSelectBox" [editorOptions]="{ items: patrolAreaCodes,  valueExpr:'id', displayExpr:'patrolAreaCodeDescription'}"></dxi-item>
-              <dxi-item dataField="personAddress.latitude"></dxi-item>
-              <dxi-item dataField="personAddress.longitude"></dxi-item>
+            <dxi-item itemType="group" caption="Location" [colCount]="4">
+              <dxi-item dataField="personAddress.zoneId" [colSpan]="2" [label]="{text: 'Zone'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: zones,  valueExpr:'id', displayExpr:'description', searchEnabled:true, searchExpr:'description', searchMode:'startsWith'}"></dxi-item>
+              <dxi-item dataField="personAddress.patrolAreaId" [colSpan]="2" [label]="{text: 'Patrol Area'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: patrolAreaCodes,  valueExpr:'id', displayExpr:'patrolAreaCodeDescription'}"></dxi-item>
+              <dxi-item dataField="personAddress.latitude" [colSpan]="2" [editorOptions]="{ stylingMode: 'filled'}"></dxi-item>
+              <dxi-item dataField="personAddress.longitude" [colSpan]="2" [editorOptions]="{ stylingMode: 'filled'}"></dxi-item>
             </dxi-item>
           </dxi-tab>
           <dxi-tab title="Contact">
-            <dxi-item dataField="involvedPerson.homePhoneNumber" [editorOptions]="{ mask: '(000) 000-0000' }"></dxi-item>
-            <dxi-item dataField="involvedPerson.workPhoneNumber" [editorOptions]="{ mask: '(000) 000-0000' }"></dxi-item>
-            <dxi-item dataField="involvedPerson.mobilePhoneNumber" [editorOptions]="{ mask: '(000) 000-0000' }"></dxi-item>
+            <dxi-item dataField="involvedPerson.homePhoneNumber" [editorOptions]="{ stylingMode: 'filled', mask: '(000) 000-0000' }"></dxi-item>
+            <dxi-item dataField="involvedPerson.workPhoneNumber" [editorOptions]="{ stylingMode: 'filled', mask: '(000) 000-0000' }"></dxi-item>
+            <dxi-item dataField="involvedPerson.mobilePhoneNumber" [editorOptions]="{ stylingMode: 'filled', mask: '(000) 000-0000' }"></dxi-item>
           </dxi-tab>
-          <dxi-tab title="Description">
-            <dxi-item dataField="involvedPerson.genderId" [label]="{text: 'Gender'}" editorType="dxSelectBox" [editorOptions]="{ items: genderCodes,  valueExpr:'id', displayExpr:'genderDescription'}"></dxi-item>
-            <dxi-item dataField="involvedPerson.raceId" [label]="{text: 'Race'}" editorType="dxSelectBox" [editorOptions]="{ items: raceCodes,  valueExpr:'id', displayExpr:'raceDescription'}"></dxi-item>
-            <dxi-item dataField="involvedPerson.ethnicityId" [label]="{text: 'Ethnicity'}" editorType="dxSelectBox" [editorOptions]="{ items: ethnicityCodes,  valueExpr:'id', displayExpr:'ethnicityCodeDescription'}"></dxi-item>
-            <dxi-item dataField="involvedPerson.height"></dxi-item>
-            <dxi-item dataField="involvedPerson.weight"></dxi-item>
-            <dxi-item dataField="involvedPerson.hairColorId" [label]="{text: 'Hair Color'}" editorType="dxSelectBox" [editorOptions]="{ items: hairColorCodes,  valueExpr:'id', displayExpr:'hairColorCodeDescription'}"></dxi-item>
-            <dxi-item dataField="involvedPerson.hairTypeId" [label]="{text: 'Hair Type'}" editorType="dxSelectBox" [editorOptions]="{ items: hairCodes,  valueExpr:'id', displayExpr:'hairTypeCodeDescription'}"></dxi-item>
-            <dxi-item dataField="involvedPerson.eyeColorId" [label]="{text: 'Eye Color'}" editorType="dxSelectBox" [editorOptions]="{ items: eyeColorCodes,  valueExpr:'id', displayExpr:'eyeColorCodeDescription'}"></dxi-item>
-            <dxi-item dataField="involvedPerson.eyewearId" [label]="{text: 'Eyewear'}" editorType="dxSelectBox" [editorOptions]="{ items: eyeWearCodes,  valueExpr:'id', displayExpr:'eyewearCodeDescription'}"></dxi-item>
-            <dxi-item dataField="involvedPerson.facialHairId" [label]="{text: 'Facial Hair'}" editorType="dxSelectBox" [editorOptions]="{ items: facialHairCodes,  valueExpr:'id', displayExpr:'facialHairCodeDescription'}"></dxi-item>
+          <dxi-tab title="Description" [colCount]="2">
+            <dxi-item dataField="involvedPerson.genderId" [label]="{text: 'Gender'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: genderCodes,  valueExpr:'id', displayExpr:'genderDescription'}"></dxi-item>
+            <dxi-item dataField="involvedPerson.raceId" [label]="{text: 'Race'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: raceCodes,  valueExpr:'id', displayExpr:'raceDescription'}"></dxi-item>
+            <dxi-item dataField="involvedPerson.ethnicityId" [label]="{text: 'Ethnicity'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: ethnicityCodes,  valueExpr:'id', displayExpr:'ethnicityCodeDescription'}"></dxi-item>
+            <dxi-item dataField="involvedPerson.eyeColorId" [label]="{text: 'Eye Color'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: eyeColorCodes,  valueExpr:'id', displayExpr:'eyeColorCodeDescription'}"></dxi-item>
+
+            <dxi-item dataField="involvedPerson.height" [editorOptions]="{ stylingMode: 'filled'}"></dxi-item>
+            <dxi-item dataField="involvedPerson.weight" [editorOptions]="{ stylingMode: 'filled'}"></dxi-item>
+
+            <dxi-item dataField="involvedPerson.hairColorId" [label]="{text: 'Hair Color'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: hairColorCodes,  valueExpr:'id', displayExpr:'hairColorCodeDescription'}"></dxi-item>
+            <dxi-item dataField="involvedPerson.hairTypeId" [label]="{text: 'Hair Type'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: hairCodes,  valueExpr:'id', displayExpr:'hairTypeCodeDescription'}"></dxi-item>
+            <dxi-item dataField="involvedPerson.eyewearId" [label]="{text: 'Eyewear'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: eyeWearCodes,  valueExpr:'id', displayExpr:'eyewearCodeDescription'}"></dxi-item>
+            <dxi-item dataField="involvedPerson.facialHairId" [label]="{text: 'Facial Hair'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: facialHairCodes,  valueExpr:'id', displayExpr:'facialHairCodeDescription'}"></dxi-item>
           </dxi-tab>
-          <dxi-tab title="Injury">
-            <dxi-item dataField="isAmbulanceRequired"></dxi-item>
-            <dxi-item dataField="callForServiceHospitalId" [label]="{text: 'Hospital'}" editorType="dxSelectBox" [editorOptions]="{ items: hospitalCodes,  valueExpr:'id', displayExpr:'hospitalName'}"></dxi-item>
-            <dxi-item dataField="ambulanceRemarks" editorType="dxTextArea" [editorOptions]="{ height: 200 }"></dxi-item>
-            <dxi-item dataField="involvedPerson.isDeceased"></dxi-item>
-            <dxi-item dataField="involvedPerson.dateOfDeath"></dxi-item>
+          <dxi-tab title="Injury" [colCount]="8">
+            <dxi-item dataField="isAmbulanceRequired" [colSpan]="1" [editorOptions]="{ stylingMode: 'filled'}"></dxi-item>
+            <dxi-item dataField="callForServiceHospitalId" [colSpan]="3" [label]="{text: 'Hospital'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: hospitalCodes,  valueExpr:'id', displayExpr:'hospitalName'}"></dxi-item>
+            <dxi-item dataField="involvedPerson.isDeceased" [colSpan]="1" [editorOptions]="{ stylingMode: 'filled'}"></dxi-item>
+            <dxi-item dataField="involvedPerson.dateOfDeath" [colSpan]="3" [editorOptions]="{ stylingMode: 'filled'}"></dxi-item>
+            <dxi-item dataField="ambulanceRemarks" [colSpan]="8" editorType="dxTextArea" [editorOptions]="{ stylingMode: 'filled', height: 150 }"></dxi-item>
           </dxi-tab>
           <dxi-tab title="Remarks">
-            <dxi-item dataField="remarks" editorType="dxTextArea" [editorOptions]="{ height: 200 }"></dxi-item>
+            <dxi-item dataField="remarks" editorType="dxTextArea" [editorOptions]="{ stylingMode: 'filled', height: 200 }"></dxi-item>
           </dxi-tab>
         </dxi-item>
       </dxo-form>
@@ -101,22 +115,21 @@
     <dxi-column dataField="involvedPerson.dateOfBirth" dataType="date" [caption]="'Date of Birth'"></dxi-column>
     <dxi-column dataField="involvedPerson.socialSecurityNumber" [visible]="false" [caption]="'SSN'"></dxi-column>
 
-    <dxi-column dataField="involvedPerson.driversLicenseState" [visible]="false" [caption]="'DL State'"><dxo-lookup [dataSource]="stateCodes.store()" valueExpr="id" displayExpr="stateName"></dxo-lookup></dxi-column>
+    <dxi-column dataField="involvedPerson.driversLicenseState" [visible]="false" [caption]="'DL State'"><dxo-lookup [dataSource]="states.store()" valueExpr="id" displayExpr="stateName"></dxo-lookup></dxi-column>
     <dxi-column dataField="involvedPerson.driversLicenseNumber" [visible]="false" [caption]="'DL Number'"></dxi-column>
     <dxi-column dataField="involvedPerson.driversLicenseClass" [visible]="false" [caption]="'DL Class'"></dxi-column>
     <dxi-column dataField="involvedPerson.driversLicenseExpirationDate" dataType="date" [visible]="false" [caption]="'DL Expiration Date'"></dxi-column>
     <dxi-column dataField="involvedPerson.driversLicenseIssueDate" dataType="date" [visible]="false" [caption]="'DL Issue Date'"></dxi-column>
 
-    <dxi-column dataField="personAddress.addressTypeId" [visible]="false" [caption]="'Address Type'"><dxo-lookup [dataSource]="addressTypeCodes.store()" valueExpr="id" displayExpr="description"></dxo-lookup></dxi-column>
+    <dxi-column dataField="personAddress.addressTypeId" [visible]="false" [caption]="'Address Type'"><dxo-lookup [dataSource]="addressTypes.store()" valueExpr="id" displayExpr="description"></dxo-lookup></dxi-column>
     <dxi-column dataField="personAddress.streetNumber" [visible]="false" [caption]="'Street Number'"></dxi-column>
     <dxi-column dataField="personAddress.streetId" [visible]="false" [caption]="'Street Name'"><dxo-lookup [dataSource]="streetNames.store()" valueExpr="id" displayExpr="streetName"></dxo-lookup></dxi-column>
-    <dxi-column dataField="personAddress.streetNameSuffix" [visible]="false" [caption]="'Street Name Suffix'"><dxo-lookup [dataSource]="streetNameSuffixCodes" valueExpr="id" displayExpr="streetNameSuffix"></dxo-lookup></dxi-column>
+    <dxi-column dataField="personAddress.streetNameSuffix" [visible]="false" [caption]="'Street Name Suffix'"><dxo-lookup [dataSource]="streetNameSuffixs.store()" valueExpr="id" displayExpr="streetNameSuffix"></dxo-lookup></dxi-column>
     <dxi-column dataField="personAddress.streetNamePreDirection" [visible]="false" [caption]="'Street Name Direction'"><dxo-lookup [dataSource]="streetNamePreDirectionCodes" valueExpr="id" displayExpr="streetNameDirectionCodeDescription"></dxo-lookup></dxi-column>
-    <dxi-column dataField="involvedPerson.cityName" [visible]="false" [caption]="'City'"><dxo-lookup [dataSource]="cityCodes.store()" valueExpr="id" displayExpr="cityName"></dxo-lookup></dxi-column>
-    <dxi-column dataField="involvedPerson.stateName" [visible]="false" [caption]="'State'"> <dxo-lookup [dataSource]="stateCodes.store()" valueExpr="id" displayExpr="stateName"></dxo-lookup></dxi-column>
+    <dxi-column dataField="involvedPerson.cityName" [visible]="false" [caption]="'City'"><dxo-lookup [dataSource]="cities.store()" valueExpr="id" displayExpr="cityName"></dxo-lookup></dxi-column>
     <dxi-column dataField="involvedPerson.zipCode" [visible]="false" [caption]="'Zip Code'"></dxi-column>
     <dxi-column dataField="personAddress.countyId" [visible]="false" [caption]="'County'"> <dxo-lookup [dataSource]="countyCodes" valueExpr="id" displayExpr="countyName"></dxo-lookup></dxi-column>
-    <dxi-column dataField="personAddress.zoneId" [visible]="false" [caption]="'Zone'"> <dxo-lookup [dataSource]="zoneCodes.store()" valueExpr="id" displayExpr="description"></dxo-lookup></dxi-column>
+    <dxi-column dataField="personAddress.zoneId" [visible]="false" [caption]="'Zone'"> <dxo-lookup [dataSource]="zones.store()" valueExpr="id" displayExpr="description"></dxo-lookup></dxi-column>
     <dxi-column dataField="personAddress.patrolAreaId" [visible]="false" [caption]="'Patrol Area'"> <dxo-lookup [dataSource]="patrolAreaCodes" valueExpr="id" displayExpr="patrolAreaCodeDescription"></dxo-lookup></dxi-column>
     <dxi-column dataField="personAddress.latitude" [visible]="false" [caption]="'Latitude'"></dxi-column>
     <dxi-column dataField="personAddress.longitude" [visible]="false" [caption]="'Longitude'"></dxi-column>
@@ -136,7 +149,7 @@
     <dxi-column dataField="involvedPerson.eyewearId" [visible]="false" [caption]="'Eyewear'"> <dxo-lookup [dataSource]="eyeWearCodes" valueExpr="id" displayExpr="eyewearCodeDescription"></dxo-lookup></dxi-column>
     <dxi-column dataField="involvedPerson.facialHairId" [visible]="false" [caption]="'Facial Hair'"> <dxo-lookup [dataSource]="facialHairCodes" valueExpr="id" displayExpr="facialHairCodeDescription"></dxo-lookup></dxi-column>
 
-    <dxi-column dataField="isAmbulanceRequired" [visible]="false" [caption]="'Is Abulance Required'" dataType="boolean"></dxi-column>
+    <dxi-column dataField="isAmbulanceRequired" [visible]="false" [caption]="'Ambulance?'" dataType="boolean"></dxi-column>
     <dxi-column dataField="callForServiceHospitalId" [visible]="false" [caption]="'Hospital Id'"> <dxo-lookup [dataSource]="hospitalCodes" valueExpr="id" displayExpr="hospitalName"></dxo-lookup></dxi-column>
     <dxi-column dataField="ambulanceRemarks" [visible]="false" dataType="textArea" [caption]="'Remarks'"></dxi-column>
     <dxi-column dataField="involvedPerson.isDeceased" dataType="boolean" [visible]="false" [caption]="'Deceased?'"></dxi-column>
@@ -144,4 +157,30 @@
 
     <dxi-column dataField="remarks" [visible]="false" [caption]="'Remarks'"></dxi-column>
   </dx-data-grid>
+
+  <dx-popup
+  class="popup"
+  [width]="800"
+  [height]="600"
+  [showTitle]="true"
+  title="Add / Edit Street"
+  [dragEnabled]="false"
+  [closeOnOutsideClick]="false"
+  [(visible)]="popupVisible">
+      <dx-form id="callForm" class="callForm" [formData]="selectedStreet" [labelLocation]="'top'">
+        <dxi-item dataField="streetNamePreModifier" [label]="{text: 'Pre Modifier'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+        <dxi-item dataField="streetNamePreDirectionId" [label]="{text: 'Pre Direction'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: streetNameDirections,  valueExpr:'id', displayExpr:'streetNameDirectionCodeDescription', searchEnabled:true, searchExpr:'streetNameDirectionCodeDescription', searchMode:'startsWith' }"></dxi-item>
+        <dxi-item dataField="streetName" [label]="{text: 'Street Name'}" [editorOptions]="{ stylingMode: 'filled' }" ></dxi-item>
+        <dxi-item dataField="streetNameSuffixId" [colSpan]="1" [label]="{text: 'Suffix'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: streetNameSuffixs,  valueExpr:'id', displayExpr:'streetNameSuffixDescription', searchEnabled:true, searchExpr:'streetNameSuffixDescription', searchMode:'startsWith' }"></dxi-item>
+        <dxi-item dataField="streetNamePostDirectionId" [label]="{text: 'Post Direction'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: streetNameDirections,  valueExpr:'id', displayExpr:'streetNameDirectionCodeDescription', searchEnabled:true, searchExpr:'streetNameDirectionCodeDescription', searchMode:'startsWith' }"></dxi-item>
+        <dxi-item dataField="streetNamePostModifier" [label]="{text: 'Post Modifier'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+
+        <dxi-item [colSpan]="2"
+          itemType="button"
+          horizontalAlignment="right"
+          verticalAlignment="bottom"
+          [buttonOptions]="buttonOptions">
+        </dxi-item>
+      </dx-form>
+</dx-popup>
 </div>

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import PriorityQueue from 'priorityqueue';
-import { AdminService } from 'src/app/common/services/admin.service';
-import { CallsService } from 'src/app/common/services/calls.service';
-import { CallForServiceUnit } from 'src/app/common/models/unit/CallForServiceUnit';
+import { AdminService } from 'src/app/common/services/common/Admin.service';
+import { CallsService } from 'src/app/common/services/call/Calls.service';
+import { AvailableUnit } from 'src/app/common/models/units/AvailableUnit';
 
 @Component({
   selector: 'app-unit-queue',
@@ -16,7 +16,7 @@ export class UnitQueueComponent implements OnInit {
 
   constructor(public callService: CallsService, public adminService: AdminService) {
     this.adminService.adminFormEmitter.subscribe(
-      (data: [string, boolean, CallForServiceUnit]) => {
+      (data: [string, boolean, AvailableUnit]) => {
         if (data[0] === 'unitQueue') {
           this.isVisible = data[1];
           this.unitQueue = this.callService.getUnitCalllQueue(data[2]);

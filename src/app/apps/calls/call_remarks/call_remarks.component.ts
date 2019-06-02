@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { RemarksService } from 'src/app/common/services/remarks.service';
-import { CallsService } from 'src/app/common/services/calls.service';
+import { RemarksService } from 'src/app/common/services/callDetails/Remarks.service';
+import { CallsService } from 'src/app/common/services/call/Calls.service';
 import DataSource from 'devextreme/data/data_source';
-import { CallForServiceDetails } from 'src/app/common/models/callDetails/CallForServiceDetail';
 import { DxDataGridComponent } from 'devextreme-angular';
+import { CallForService } from 'src/app/common/models/call/CallForService';
 
 @Component({
   selector: 'app-call-notes',
@@ -20,11 +20,9 @@ export class CallRemarksComponent implements OnInit {
   currentNote: string;
 
   constructor(public remarksService: RemarksService, public callService: CallsService) {
-    this.callService.callDetailsEmitter.subscribe(
-      (data: CallForServiceDetails) => {
-
-        this.callRemarksListDS = this.remarksService.getCallRemarksDS();
-      });
+    this.callService.callEmitter.subscribe((data: CallForService) => {
+      this.callRemarksListDS = this.remarksService.getCallRemarksDS();
+    });
 
     this.callNotesToolbarItems = [{
       location: 'center',

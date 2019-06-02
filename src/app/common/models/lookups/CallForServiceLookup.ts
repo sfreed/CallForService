@@ -1,6 +1,12 @@
-import { WreckerService } from '../sources/WreckerService';
-import { WreckerRotation } from '../callDetails/WreckerRotation';
-import { BaseModel } from '../common/BaseModel';
+
+import { WreckerRotation } from '../callDetails/vehicle/WreckerRotation';
+import { CallForServiceHospital } from './callForService/CallForServiceHospital';
+import { CallForServiceOriginated } from './callForService/CallForServiceOriginated';
+import { CallForServiceType } from './callForService/CallForServiceType';
+import { CallForServiceUnitType } from './callForService/CallForServiceUnitType';
+import { CallForServiceStatus } from './callForService/CallForServiceStatus';
+import { CallForServiceDispositionStatus } from './callForService/CallForServiceDispositionStatus';
+import { WreckerService } from '../callDetails/vehicle/WreckerService';
 
 export interface CallForServiceLookup {
   callForServiceHospital: CallForServiceHospital[];
@@ -12,59 +18,4 @@ export interface CallForServiceLookup {
   wreckerService: WreckerService[];
   wreckerRotation: WreckerRotation[];
 }
-export interface CallForServiceHospital {
-  id: number;
-  hospitalName: boolean;
-  isActive: boolean;
-  isUserEditable: boolean;
-}
-export interface CallForServiceOriginated {
-  id: number;
-  originatedFrom: string;
-  isActive: boolean;
-  isUserEditable: boolean;
-}
-export interface CallForServiceStatus {
-  id: number;
-  callForServiceStatusDescription: string;
-  isActive: boolean;
-  isUserEditable: boolean;
-}
-export interface CallForServiceDispositionStatus {
-  id: number;
-  callForServiceStatusDispositionDescription: string;
-  isActive: boolean;
-  isUserEditable: boolean;
-}
-export interface CallForServiceType extends BaseModel {
-  id: number;
-  code: string;
-  description: string;
-  priorityOrder: number;
-  alertTimerActive: boolean;
-  alertTimerInterval: number;
-  isActive: boolean;
-  isUserEditable: boolean;
-}
-export interface CallForServiceUnitType {
-  id: number;
-  unitCode: string;
-  unitDescription: string;
-  unitImage: string;
-  unitColorBackground: string;
-  unitColorForground: string;
-  isDispatchTime: boolean;
-  isEnrouteTime: boolean;
-  isArrivedTime: boolean;
-  isLeaveSceneTime: boolean;
-  isArrivedStationTime: boolean;
-  isInServiceTime: boolean;
-  isAtPatientTime: boolean;
-  isUnderControlTime: boolean;
-  isExtricationTime: boolean;
-  isFirstShockTime: boolean;
-  isEnrouteHospitalMileage: boolean;
-  isArrivedHospitalMileage: boolean;
-  isActive: boolean;
-  isUserEditable: boolean;
-}
+

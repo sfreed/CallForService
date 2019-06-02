@@ -1,20 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { CallsService } from 'src/app/common/services/calls.service';
+import { CallsService } from 'src/app/common/services/call/Calls.service';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { CallForServiceDetails } from 'src/app/common/models/callDetails/CallForServiceDetail';
-import { ContactType, NamePrefix, NameSuffix, Gender, Race, Ethnicity, HairColor, HairType, EyeColor, Eyewear, FacialHair } from 'src/app/common/models/lookups/PersonLookup';
-import { CallForServiceHospital } from 'src/app/common/models/lookups/CallForServiceLookup';
-import { PatrolArea, County, StreetNameDirection, StreetNameSuffix } from 'src/app/common/models/lookups/LocationLookup';
-import { PersonLookupService } from 'src/app/common/services/lookup/PersonLookup.service';
-import { CallForServiceLookupService } from 'src/app/common/services/lookup/CallForServiceLookup.service';
-import { LocationLookupService } from 'src/app/common/services/lookup/LocationLookup.service';
-import { InvolvedPersonService } from 'src/app/common/services/involved_person.service';
+import { PersonLookupService } from 'src/app/common/services/lookups/PersonLookup.service';
+import { CallForServiceLookupService } from 'src/app/common/services/lookups/CallForServiceLookup.service';
+import { LocationLookupService } from 'src/app/common/services/lookups/LocationLookup.service';
+import { InvolvedPersonService } from 'src/app/common/services/callDetails/InvolvedPerson.service';
 import DataSource from 'devextreme/data/data_source';
-import { StreetDao } from 'src/app/common/dao/types/StreetDao.service';
-import { CityDao } from 'src/app/common/dao/types/CityDao.service';
-import { AddressTypeDao } from 'src/app/common/dao/types/AddressTypeDao.service';
-import { ZoneDao } from 'src/app/common/dao/types/ZoneDao.service';
-import { StateDao } from 'src/app/common/dao/types/StateDao.service';
+import { StreetNameDirection } from 'src/app/common/models/lookups/location/StreetNameDirection';
+import { Street } from 'src/app/common/models/lookups/location/Street';
+import { County } from 'src/app/common/models/lookups/location/County';
+import { PatrolArea } from 'src/app/common/models/lookups/location/PatrolArea';
+import { ContactType } from 'src/app/common/models/lookups/person/ContaxtType';
+import { NamePrefix } from 'src/app/common/models/lookups/person/NamePrefix';
+import { NameSuffix } from 'src/app/common/models/lookups/person/NameSuffix';
+import { Gender } from 'src/app/common/models/lookups/person/Gender';
+import { Race } from 'src/app/common/models/lookups/person/Race';
+import { Ethnicity } from 'src/app/common/models/lookups/person/Ethnicity';
+import { HairColor } from 'src/app/common/models/lookups/person/HairColor';
+import { HairType } from 'src/app/common/models/lookups/person/HairType';
+import { EyeColor } from 'src/app/common/models/lookups/person/EyeColor';
+import { Eyewear } from 'src/app/common/models/lookups/person/EyeWear';
+import { FacialHair } from 'src/app/common/models/lookups/person/FacialHair';
+import { CallForServiceHospital } from 'src/app/common/models/lookups/callForService/CallForServiceHospital';
+import { InvolvedUnitsService } from 'src/app/common/services/callDetails/InvolvedUnit.service';
+import { CallForService } from 'src/app/common/models/call/CallForService';
+import { LocationService } from 'src/app/common/services/lookups/location/Location.service';
+import * as deepmerge from 'deepmerge';
+
 
 @Component({
   selector: 'app-involved-persons',
@@ -25,17 +37,17 @@ export class InvolvedPersonsComponent implements OnInit {
   rules = { 'X': /[02-9]/ };
 
   involvedPersonsList: DataSource;
-  addressTypeCodes: DataSource;
+  addressTypes: DataSource;
   streetNames: DataSource;
-  cityCodes: DataSource;
-  zoneCodes: DataSource;
-  stateCodes: DataSource;
+  cities: DataSource;
+  zones: DataSource;
+  states: DataSource;
+  streetNameSuffixs: DataSource;
 
   contactCodes: ContactType[];
   namePrefixCodes: NamePrefix[];
   lastNameSuffixCodes: NameSuffix[];
   streetNamePreDirectionCodes: StreetNameDirection[];
-  streetNameSuffixCodes: StreetNameSuffix[];
   countyCodes: County[];
   patrolAreaCodes: PatrolArea[];
   genderCodes: Gender[];
@@ -48,16 +60,27 @@ export class InvolvedPersonsComponent implements OnInit {
   facialHairCodes: FacialHair[];
   hospitalCodes: CallForServiceHospital[];
 
-  constructor(public callService: CallsService, private personLookupService: PersonLookupService, private callForServiceLookup: CallForServiceLookupService,
-    private locationLookupService: LocationLookupService, private involvedPersonsService: InvolvedPersonService,
-    private streetDao: StreetDao, private cityDao: CityDao, private addressTypeDao: AddressTypeDao, private zoneDao: ZoneDao, private stateDao: StateDao) {
-      this.streetNames = this.streetDao.getStreetListDS();
-      this.cityCodes = this.cityDao.getCityListDS();
-      this.addressTypeCodes = this.addressTypeDao.getAddressTypeListDS();
-      this.zoneCodes = this.zoneDao.getZoneListDS();
-      this.stateCodes = this.stateDao.getStateListDS();
+  popupVisible = false;
 
-      this.callService.callDetailsEmitter.subscribe((data: CallForServiceDetails) => {
+  selectedStreet: Street = new Street();
+
+  buttonOptions: any = {
+    text: 'Save',
+    type: 'success',
+    onClick: this.saveStreet.bind(this)
+  };
+
+  constructor(public callService: CallsService, private personLookupService: PersonLookupService, private callForServiceLookup: CallForServiceLookupService,
+    private locationService: LocationService, private locationLookupService: LocationLookupService, private involvedPersonsService: InvolvedPersonService,
+    private involvedUnitService: InvolvedUnitsService) {
+      this.streetNames = this.locationService.getStreetList();
+      this.cities = this.locationService.getCityList();
+      this.addressTypes = this.locationService.getAddressTypeList();
+      this.zones = this.locationService.getZoneList();
+      this.states = this.locationService.getStateList();
+      this.streetNameSuffixs = this.locationService.getStreetSuffixList();
+
+      this.callService.callEmitter.subscribe((data: CallForService) => {
         this.involvedPersonsList = this.involvedPersonsService.getInvolvedPersonList();
       });
     }
@@ -67,7 +90,6 @@ export class InvolvedPersonsComponent implements OnInit {
       this.namePrefixCodes = this.personLookupService.namePrefixList;
       this.lastNameSuffixCodes = this.personLookupService.nameSuffixList;
       this.streetNamePreDirectionCodes = this.locationLookupService.streetNameDirectionList;
-      this.streetNameSuffixCodes = this.locationLookupService.streetNameSuffixList;
       this.countyCodes = this.locationLookupService.countyList;
       this.patrolAreaCodes = this.locationLookupService.patrolAreaList;
       this.genderCodes = this.personLookupService.genderList;
@@ -79,6 +101,7 @@ export class InvolvedPersonsComponent implements OnInit {
       this.eyeWearCodes = this.personLookupService.eyeWearList;
       this.facialHairCodes = this.personLookupService.facialHairList;
       this.hospitalCodes = this.callForServiceLookup.callForServiceHospitalList;
+      this.involvedPersonsList = this.involvedPersonsService.getInvolvedPersonList();
     }
 
   assignToHospital() {
@@ -93,7 +116,78 @@ export class InvolvedPersonsComponent implements OnInit {
     if (event.item.element.nativeElement.classList.contains('OFFICER')) {
       const officer = event.item.data;
 
-      this.callService.assignUnitToActiveCall(officer);
+      this.involvedUnitService.assignUnitToActiveCall(officer);
     }
+  }
+
+  addStreet() {
+    this.selectedStreet = new Street();
+    this.popupVisible = true;
+  }
+
+  editStreet () {
+    this.locationService.getStreetList().store().byKey(this.callService.getActiveCall().locationPrimary.streetId).then(results => {
+      this.selectedStreet = results;
+      this.popupVisible = true;
+    });
+  }
+
+  saveStreet () {
+    if (this.selectedStreet.id) {
+      this.locationService.getStreetList().store().update(this.selectedStreet.id, this.selectedStreet).then(results => {
+        console.log('updating', results);
+        this.locationService.getStreetList().reload();
+        this.popupVisible = false;
+      });
+    } else {
+      this.locationService.getStreetList().store().insert(this.selectedStreet).then(results => {
+        console.log('adding', results);
+        this.locationService.getStreetList().reload();
+        this.popupVisible = false;
+      });
+    }
+  }
+
+  getCityName(e) {
+    if (e) {
+      return e.cityName + ', ' + e.stateCode;
+    }
+  }
+
+  getStreetName(e: Street) {
+    if (e) {
+      let retVal = '';
+
+      if (e.streetNamePreDirectionDescription) {
+        retVal += e.streetNamePreDirectionCode + ' ';
+      }
+
+      if (e.streetNamePreModifier) {
+        retVal += e.streetNamePreModifier + ' ';
+      }
+
+      if (e.streetName) {
+        retVal += e.streetName + ' ';
+      }
+
+      if (e.streetNameSuffixDescription) {
+        retVal += e.streetNameSuffixDescription + ' ';
+      }
+
+
+      if (e.streetNamePostModifier) {
+        retVal += e.streetNamePostModifier + ' ';
+      }
+
+      if (e.streetNamePostDirectionDescription) {
+        retVal += e.streetNamePostDirectionCode + ' ';
+      }
+
+      return  retVal.trim();
+    }
+  }
+
+  updateRow(options) {
+    options.newData = deepmerge(options.oldData, options.newData);
   }
 }

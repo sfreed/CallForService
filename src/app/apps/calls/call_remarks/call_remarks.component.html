@@ -2,7 +2,7 @@
   [items]="callNotesToolbarItems"
   class="notesContainer" >
 </dx-toolbar>
-<div *ngIf="callService.getActiveCallDetails()" class="detailsContainer">
+<div *ngIf="callService.getActiveCall()" class="detailsContainer">
   <dx-data-grid #callRemarksGrid id="callRemarksGrid"
       [dataSource]="callRemarksListDS"
       [rowAlternationEnabled]="true"

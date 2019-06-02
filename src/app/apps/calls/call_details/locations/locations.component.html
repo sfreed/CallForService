@@ -1,17 +1,30 @@
 <div *ngIf="callService.getActiveCall()">
-  <dx-form id="locationForm" class="callForm" [formData]="activeCall" height="350"  width="100%" [labelLocation]="'top'">
+  <dx-form id="locationForm" class="callForm" [formData]="callService.getActiveCall()" height="350"  width="100%" [labelLocation]="'top'">
     <dxi-item itemType="tabbed" [tabPanelOptions]="{ deferRendering: false }" [widthRatio]="1">
       <dxi-tab title="Primary Location" width="100%" [colCount]="2">
         <dxi-item itemType="group" caption="Address" [colCount]="5">
-          <dxi-item dataField="locationPrimary.addressTypeId" [colSpan]="5" [label]="{text: 'Address Type'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: addressTypeCodes,  valueExpr:'id', displayExpr:'description', searchEnabled:true, searchExpr:'description', searchMode:'startsWith'}"></dxi-item>
+          <dxi-item dataField="locationPrimary.addressTypeId" [colSpan]="5" [label]="{text: 'Address Type'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: addressTypes,  valueExpr:'id', displayExpr:'description', searchEnabled:true, searchExpr:'description', searchMode:'startsWith'}"></dxi-item>
           <dxi-item dataField="locationPrimary.streetNumber" [colSpan]="1" [label]="{text: 'Number' }" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-          <dxi-item dataField="locationPrimary.streetId" [colSpan]="3" [label]="{text: 'Street Name'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: streetNames,  valueExpr:'id', displayExpr:'streetName', searchEnabled:true, searchExpr:'streetName', searchMode:'startsWith'}"></dxi-item>
-          <dxi-item dataField="locationPrimary.streetNumberSuffix" [colSpan]="1" [label]="{text: 'Suffix'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-          <dxi-item dataField="locationPrimary.cityId" [colSpan]="3" [label]="{text: 'City'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: cityCodes,  valueExpr:'id', displayExpr: 'cityName' , searchEnabled:true, searchExpr:'cityName', searchMode:'startsWith'}"></dxi-item>
+          <dxi-item dataField="locationPrimary.streetId" [colSpan]="3" [label]="{text: 'Street Name'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: streetNames,  valueExpr:'id', displayExpr: getStreetName, searchEnabled:true, searchExpr:'streetName', searchMode:'startsWith'}"></dxi-item>
+
+          <dxi-item>
+            <dx-button
+              icon="add"
+              (onClick)="addStreet()"
+              style="margin-right:10px; margin-top: 18px;">
+            </dx-button>
+            <dx-button
+              icon="edit"
+              (onClick)="editStreet()"
+              style="margin-top: 18px;">
+            </dx-button>
+          </dxi-item>
+
+          <dxi-item dataField="locationPrimary.cityId" [colSpan]="3" [label]="{text: 'City'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: cities,  valueExpr:'id', displayExpr: getCityName , searchEnabled:true, searchExpr:'cityName', searchMode:'startsWith'}"></dxi-item>
           <dxi-item dataField="locationPrimary.countyId" [colSpan]="2" [label]="{text: 'County'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: countyCodes,  valueExpr:'id', displayExpr:'countyName', searchEnabled:true, searchExpr:'countyName', searchMode:'startsWith'}"></dxi-item>
         </dxi-item>
         <dxi-item itemType="group" caption="Location" [colCount]="2">
-          <dxi-item dataField="locationPrimary.zoneId" [label]="{text: 'Zone'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: zoneCodes,  valueExpr:'id', displayExpr:'description', searchEnabled:true, searchExpr:'description', searchMode:'startsWith'}"></dxi-item>
+          <dxi-item dataField="locationPrimary.zoneId" [label]="{text: 'Zone'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: zones,  valueExpr:'id', displayExpr:'description', searchEnabled:true, searchExpr:'description', searchMode:'startsWith'}"></dxi-item>
           <dxi-item dataField="locationPrimary.patrolAreaId" [label]="{text: 'Patrol Area'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: patrolAreaCodes,  valueExpr:'id', displayExpr:'patrolAreaCodeDescription', searchEnabled:true, searchExpr:'patrolAreaCodeDescription', searchMode:'startsWith'}"></dxi-item>
           <dxi-item dataField="locationPrimary.latitude" [label]="{text: 'Latitude'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
           <dxi-item dataField="locationPrimary.longitude" [label]="{text: 'Longitude'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
@@ -25,15 +38,26 @@
       </dxi-tab>
       <dxi-tab title="Secondary Location" width="100%" [colCount]="2">
         <dxi-item itemType="group" caption="Address" [colCount]="5">
-          <dxi-item dataField="secondaryLocationLocation.addressTypeId" [colSpan]="5" [label]="{text: 'Address Type'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: addressTypeCodes,  valueExpr:'id', displayExpr:'description', searchEnabled:true, searchExpr:'description', searchMode:'startsWith'}"></dxi-item>
+          <dxi-item dataField="secondaryLocationLocation.addressTypeId" [colSpan]="5" [label]="{text: 'Address Type'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: addressTypes,  valueExpr:'id', displayExpr:'description', searchEnabled:true, searchExpr:'description', searchMode:'startsWith'}"></dxi-item>
           <dxi-item dataField="secondaryLocationLocation.streetNumber" [colSpan]="1" [label]="{text: 'Number' }" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-          <dxi-item dataField="secondaryLocationLocation.streetId" [colSpan]="3" [label]="{text: 'Street Name'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: streetNames,  valueExpr:'id', displayExpr:'streetName', searchEnabled:true, searchExpr:'streetName', searchMode:'startsWith'}"></dxi-item>
-          <dxi-item dataField="secondaryLocationLocation.streetNumberSuffix" [colSpan]="1" [label]="{text: 'Suffix'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-          <dxi-item dataField="secondaryLocationLocation.cityId" [colSpan]="3" [label]="{text: 'City'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: cityCodes,  valueExpr:'id', displayExpr: 'cityName' , searchEnabled:true, searchExpr:'cityName', searchMode:'startsWith'}"></dxi-item>
-          <dxi-item dataField="secondaryLocationLocation.countyId" [colSpan]="2" [label]="{text: 'County'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: countyCodes,  valueExpr:'id', displayExpr:'countyName', searchEnabled:true, searchExpr:'countyName', searchMode:'startsWith'}"></dxi-item>
+          <dxi-item dataField="secondaryLocationLocation.streetId" [colSpan]="3" [label]="{text: 'Street Name'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: streetNames,  valueExpr:'id', displayExpr: getStreetName, searchEnabled:true, searchExpr:'streetName', searchMode:'startsWith'}"></dxi-item>
+          <dxi-item>
+            <dx-button
+              icon="add"
+              (onClick)="addStreet()"
+              style="margin-right:10px; margin-top: 18px;">
+            </dx-button>
+            <dx-button
+              icon="edit"
+              (onClick)="editStreet()"
+              style="margin-top: 18px;">
+            </dx-button>
+          </dxi-item>
+          <dxi-item dataField="secondaryLocationLocation.cityId" [colSpan]="3" [label]="{text: 'City'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: cities,  valueExpr:'id', displayExpr: getCityName , searchEnabled:true, searchExpr:'cityName', searchMode:'startsWith'}"></dxi-item>
+          <dxi-item dataField="secondaryLocationLocation.countyId" [colSpan]="2" [label]="{text: 'County'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: countyCodes,  valueExpr:'id', displayExpr: getStreetName, searchEnabled:true, searchExpr:'countyName', searchMode:'startsWith'}"></dxi-item>
         </dxi-item>
         <dxi-item itemType="group" caption="Location" [colCount]="2">
-          <dxi-item dataField="secondaryLocationLocation.zoneId" [label]="{text: 'Zone'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: zoneCodes,  valueExpr:'id', displayExpr:'description', searchEnabled:true, searchExpr:'description', searchMode:'startsWith'}"></dxi-item>
+          <dxi-item dataField="secondaryLocationLocation.zoneId" [label]="{text: 'Zone'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: zones,  valueExpr:'id', displayExpr:'description', searchEnabled:true, searchExpr:'description', searchMode:'startsWith'}"></dxi-item>
           <dxi-item dataField="secondaryLocationLocation.patrolAreaId" [label]="{text: 'Patrol Area'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: patrolAreaCodes,  valueExpr:'id', displayExpr:'patrolAreaCodeDescription', searchEnabled:true, searchExpr:'patrolAreaCodeDescription', searchMode:'startsWith'}"></dxi-item>
           <dxi-item dataField="secondaryLocationLocation.latitude" [label]="{text: 'Latitude'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
           <dxi-item dataField="secondaryLocationLocation.longitude" [label]="{text: 'Longitude'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
@@ -58,3 +82,29 @@
   [showPane]="true"
   [closeOnOutsideClick]="false">
 </dx-load-panel>
+
+<dx-popup
+  class="popup"
+  [width]="800"
+  [height]="600"
+  [showTitle]="true"
+  title="Add / Edit Street"
+  [dragEnabled]="false"
+  [closeOnOutsideClick]="false"
+  [(visible)]="popupVisible">
+      <dx-form id="callForm" class="callForm" [formData]="selectedStreet" [labelLocation]="'top'">
+        <dxi-item dataField="streetNamePreModifier" [label]="{text: 'Pre Modifier'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+        <dxi-item dataField="streetNamePreDirectionId" [label]="{text: 'Pre Direction'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: streetNameDirections,  valueExpr:'id', displayExpr:'streetNameDirectionCodeDescription', searchEnabled:true, searchExpr:'streetNameDirectionCodeDescription', searchMode:'startsWith' }"></dxi-item>
+        <dxi-item dataField="streetName" [label]="{text: 'Street Name'}" [editorOptions]="{ stylingMode: 'filled' }" ></dxi-item>
+        <dxi-item dataField="streetNameSuffixId" [colSpan]="1" [label]="{text: 'Suffix'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: streetNameSuffixs,  valueExpr:'id', displayExpr:'streetNameSuffixDescription', searchEnabled:true, searchExpr:'streetNameSuffixDescription', searchMode:'startsWith' }"></dxi-item>
+        <dxi-item dataField="streetNamePostDirectionId" [label]="{text: 'Post Direction'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: streetNameDirections,  valueExpr:'id', displayExpr:'streetNameDirectionCodeDescription', searchEnabled:true, searchExpr:'streetNameDirectionCodeDescription', searchMode:'startsWith' }"></dxi-item>
+        <dxi-item dataField="streetNamePostModifier" [label]="{text: 'Post Modifier'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+
+        <dxi-item [colSpan]="2"
+          itemType="button"
+          horizontalAlignment="right"
+          verticalAlignment="bottom"
+          [buttonOptions]="buttonOptions">
+        </dxi-item>
+      </dx-form>
+</dx-popup>

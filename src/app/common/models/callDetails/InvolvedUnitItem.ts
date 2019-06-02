@@ -1,11 +1,11 @@
-import { CallForServiceUnit } from '../unit/CallForServiceUnit';
-import { BaseModel } from '../common/BaseModel';
+import { AvailableUnit } from '../units/AvailableUnit';
+import { BaseModel } from '../BaseModel';
 
 export class InvolvedUnitsItem extends BaseModel {
   id: number;
   callForServiceId: number;
   callForServiceUnitId: number;
-  callForServiceUnit: CallForServiceUnit;
+  callForServiceUnit: AvailableUnit;
   isPrimaryUnit: boolean;
   callForServiceDateTime: string;
   dispatchDateTime: string;

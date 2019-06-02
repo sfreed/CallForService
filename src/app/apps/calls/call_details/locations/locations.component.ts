@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { CallsService } from 'src/app/common/services/calls.service';
-import { CallForService } from 'src/app/common/models/call/CallForService';
+import { CallsService } from 'src/app/common/services/call/Calls.service';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { PatrolArea, County, StreetNameDirection, StreetNameSuffix, StateCode} from 'src/app/common/models/lookups/LocationLookup';
-import { LocationLookupService } from 'src/app/common/services/lookup/LocationLookup.service';
-import { StreetDao } from 'src/app/common/dao/types/StreetDao.service';
+import { LocationLookupService } from 'src/app/common/services/lookups/LocationLookup.service';
 import DataSource from 'devextreme/data/data_source';
-import { CityDao } from 'src/app/common/dao/types/CityDao.service';
-import { AddressTypeDao } from 'src/app/common/dao/types/AddressTypeDao.service';
-import { ZoneDao } from 'src/app/common/dao/types/ZoneDao.service';
+import { StreetNameDirection } from 'src/app/common/models/lookups/location/StreetNameDirection';
+import { County } from 'src/app/common/models/lookups/location/County';
+import { PatrolArea } from 'src/app/common/models/lookups/location/PatrolArea';
+import { Street } from 'src/app/common/models/lookups/location/Street';
+import { InvolvedUnitsService } from 'src/app/common/services/callDetails/InvolvedUnit.service';
+import { LocationService } from 'src/app/common/services/lookups/location/Location.service';
 
 @Component({
   selector: 'app-locations',
@@ -18,39 +18,39 @@ import { ZoneDao } from 'src/app/common/dao/types/ZoneDao.service';
 export class LocationsComponent implements OnInit {
   showWaitIndicator = false;
 
-  addressTypeCodes: DataSource;
+  addressTypes: DataSource;
   streetNames: DataSource;
-  cityCodes: DataSource;
-  zoneCodes: DataSource;
+  cities: DataSource;
+  zones: DataSource;
+  streetNameSuffixs: DataSource;
 
-  states: StateCode[];
+  streetNameDirections: StreetNameDirection[];
   countyCodes: County[];
   patrolAreaCodes: PatrolArea[];
 
   buttonOptions: any = {
     text: 'Save',
     type: 'success',
-    onClick: this.saveCall.bind(this)
+    onClick: this.saveStreet.bind(this)
   };
 
-  activeCall: CallForService;
+  popupVisible = false;
 
-  constructor(public callService: CallsService, private locationLookupService: LocationLookupService, private streetDao: StreetDao, private cityDao: CityDao,
-    private addressTypeDao: AddressTypeDao, private zoneDao: ZoneDao) {
-      this.streetNames = this.streetDao.getStreetListDS();
-      this.cityCodes = this.cityDao.getCityListDS();
-      this.addressTypeCodes = this.addressTypeDao.getAddressTypeListDS();
-      this.zoneCodes = this.zoneDao.getZoneListDS();
+  selectedStreet: Street = new Street();
 
-      this.callService.callEmitter.subscribe((data: CallForService) => {
-        this.activeCall = data;
-      });
+  constructor(public callService: CallsService, private locationLookupService: LocationLookupService, private locationService: LocationService,
+     private involvedUnitService: InvolvedUnitsService) {
+      this.streetNames = this.locationService.getStreetList();
+      this.cities = this.locationService.getCityList();
+      this.addressTypes = this.locationService.getAddressTypeList();
+      this.zones = this.locationService.getZoneList();
+      this.streetNameSuffixs = this.locationService.getStreetSuffixList();
   }
 
   ngOnInit() {
     this.countyCodes = this.locationLookupService.countyList;
     this.patrolAreaCodes = this.locationLookupService.patrolAreaList;
-    this.states = this.locationLookupService.stateList;
+    this.streetNameDirections = this.locationLookupService.streetNameDirectionList;
   }
 
   drop(event: CdkDragDrop<any>) {
@@ -61,13 +61,78 @@ export class LocationsComponent implements OnInit {
     if (event.item.element.nativeElement.classList.contains('OFFICER')) {
       const officer = event.item.data;
 
-      this.callService.assignUnitToActiveCall(officer);
+      this.involvedUnitService.assignUnitToActiveCall(officer);
     }
-
   }
 
   saveCall(e) {
     this.showWaitIndicator = true;
-    this.callService.saveCall(this.activeCall).then(res => this.showWaitIndicator = false);
+    this.callService.saveCall(this.callService.getActiveCall()).then(res => this.showWaitIndicator = false);
+  }
+
+  addStreet() {
+    this.selectedStreet = new Street();
+    this.popupVisible = true;
+  }
+
+  editStreet () {
+    this.locationService.getStreetList().store().byKey(this.callService.getActiveCall().locationPrimary.streetId).then(results => {
+      this.selectedStreet = results;
+      this.popupVisible = true;
+    });
+  }
+
+  saveStreet () {
+    if (this.selectedStreet.id) {
+      this.locationService.getStreetList().store().update(this.selectedStreet.id, this.selectedStreet).then(results => {
+        console.log('updating', results);
+        this.locationService.getStreetList().reload();
+        this.popupVisible = false;
+      });
+    } else {
+      this.locationService.getStreetList().store().insert(this.selectedStreet).then(results => {
+        console.log('adding', results);
+        this.locationService.getStreetList().reload();
+        this.popupVisible = false;
+      });
+    }
+  }
+
+  getCityName(e) {
+    if (e) {
+      return e.cityName + ', ' + e.stateCode;
+    }
+  }
+
+  getStreetName(e: Street) {
+    if (e) {
+      let retVal = '';
+
+      if (e.streetNamePreDirectionCode) {
+        retVal += e.streetNamePreDirectionCode + ' ';
+      }
+
+      if (e.streetNamePreModifier) {
+        retVal += e.streetNamePreModifier + ' ';
+      }
+
+      if (e.streetName) {
+        retVal += e.streetName + ' ';
+      }
+
+      if (e.streetNameSuffixDescription) {
+        retVal += e.streetNameSuffixDescription + ' ';
+      }
+
+      if (e.streetNamePostModifier) {
+        retVal += e.streetNamePostModifier + ' ';
+      }
+
+      if (e.streetNamePostDirectionCode) {
+        retVal += e.streetNamePostDirectionCode + ' ';
+      }
+
+      return  retVal.trim();
+    }
   }
 }

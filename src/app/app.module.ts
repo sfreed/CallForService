@@ -24,7 +24,7 @@ import { AlertComponent } from './apps/core/alert/alert.component';
 import { AuthenticationService } from './common/auth/auth.service';
 import { HttpModule } from '@angular/http';
 import { AuthGuard } from './common/auth/auth.guard';
-import { LocationLookupService } from './common/services/lookup/LocationLookup.service';
+import { LocationLookupService } from './common/services/lookups/LocationLookup.service';
 
 @NgModule({
   imports: [ BrowserModule, HttpClientModule, AppsModule, ReactiveFormsModule, HttpModule, DxCheckBoxModule,

@@ -1,3 +1,18 @@
+import { Agency } from './person/Agency';
+import { ContactType } from './person/ContaxtType';
+import { AgencyType } from './person/AgencyType';
+import { Ethnicity } from './person/Ethnicity';
+import { EyeColor } from './person/EyeColor';
+import { Eyewear } from './person/EyeWear';
+import { FacialHair } from './person/FacialHair';
+import { Gender } from './person/Gender';
+import { HairColor } from './person/HairColor';
+import { HairType } from './person/HairType';
+import { NamePrefix } from './person/NamePrefix';
+import { NameSuffix } from './person/NameSuffix';
+import { OfficerRank } from './person/OfficerRank';
+import { Race } from './person/Race';
+
 export interface PersonLookup {
     agency: Agency[];
     agencyType: AgencyType[];
@@ -14,105 +29,3 @@ export interface PersonLookup {
     officerRank: OfficerRank[];
     race: Race[];
 }
-export interface Agency {
-  id: number;
-  agencyCode: string;
-  agencyName: string;
-  agencyTypeCodeId: number;
-  ncicCode: string;
-  conversionNumber: string;
-  isActive: boolean;
-  isUserEditable: boolean;
-}
-export interface AgencyType {
-  id: number;
-  agencyTypeCode: string;
-  agencyTypeDescription: string;
-  isActive: boolean;
-  isUserEditable: boolean;
-}
-export interface ContactType {
-  id: number;
-  contactTypeCode: string;
-  contactTypeCodeDescription: string;
-  isActive: boolean;
-  isUserEditable: boolean;
-}
-export interface Ethnicity {
-  id: number;
-  ethnicityCode: string;
-  ethnicityCodeDescription: string;
-  isActive: boolean;
-  isUserEditable: boolean;
-}
-export interface EyeColor {
-  id: number;
-  eyeColorCode: string;
-  eyeColorCodeDescription: string;
-  isActive: boolean;
-  isUserEditable: boolean;
-}
-export interface Eyewear {
-  id: number;
-  eyewearCode: string;
-  eyewearCodeDescription: string;
-  isActive: boolean;
-  isUserEditable: boolean;
-}
-export interface FacialHair {
-  id: number;
-  facialHairCode: string;
-  facialHairCodeDescription: string;
-  isActive: boolean;
-  isUserEditable: boolean;
-}
-export interface Gender {
-  id: number;
-  gender: string;
-  genderDescription: string;
-  isActive: boolean;
-  isUserEditable: boolean;
-}
-export interface HairColor {
-  id: number;
-  hairColorCode: string;
-  hairColorCodeDescription: string;
-  isActive: boolean;
-  isUserEditable: boolean;
-}
-export interface HairType {
-  id: number;
-  hairTypeCode: string;
-  hairTypeCodeDescription: string;
-  isActive: boolean;
-  isUserEditable: boolean;
-}
-export interface NamePrefix {
-  id: number;
-  namePrefix: string;
-  namePrefixDescription: string;
-  isActive: boolean;
-  isUserEditable: boolean;
-}
-export interface NameSuffix {
-  id: number;
-  nameSuffix: string;
-  nameSuffixDescription: string;
-  isActive: boolean;
-  isUserEditable: boolean;
-}
-export interface OfficerRank {
-  id: number;
-  officerRank: string;
-  officerRankDescription: string;
-  isActive: boolean;
-  isUserEditable: boolean;
-}
-export interface Race {
-  id: number;
-  race: string;
-  raceDescription: string;
-  isActive: boolean;
-  isUserEditable: boolean;
-}
-

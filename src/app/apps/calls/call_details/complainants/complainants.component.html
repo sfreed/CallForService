@@ -1,16 +1,16 @@
-<div *ngIf="activeCall">
+<div *ngIf="callService.getActiveCall()">
   <dx-form id="complainantForm" class="complainantForm" height="350" [colCount]="2" [labelLocation]="'top'"
-      [formData]="activeCall.complainantPerson"
+      [formData]="callService.getActiveCall().complainantPerson"
       cdkDropList
       (cdkDropListDropped)="drop($event)"
       [cdkDropListConnectedTo]="['activeUnits']">
     <dxi-item itemType="group" caption="Complainant Information" [widthRatio]="1" [colCount]="5">
       <dxi-item dataField="id" dataType="number" [visible]="false" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-      <dxi-item dataField="namePrefixCodeId" [label]="{text: 'Name Prefix'}" [colSpan]="1" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', label: 'Name Prefix',items: namePrefix,  valueExpr:'id', displayExpr:'namePrefixDescription', searchEnabled:true, searchExpr:'namePrefixDescription', searchMode:'startsWith'}"></dxi-item>
+      <dxi-item dataField="namePrefixCodeId" [label]="{text: 'Prefix'}" [colSpan]="1" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', label: 'Name Prefix',items: namePrefix,  valueExpr:'id', displayExpr:'namePrefixDescription', searchEnabled:true, searchExpr:'namePrefixDescription', searchMode:'startsWith'}"></dxi-item>
       <dxi-item dataField="firstName" dataType="string" [colSpan]="2" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
       <dxi-item dataField="middleName" dataType="string" [colSpan]="2" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
       <dxi-item dataField="lastName" dataType="string" [colSpan]="3" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-      <dxi-item dataField="nameSuffixCodeId" [colSpan]="2" [label]="{text: 'Name Suffix'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: nameSuffix,  valueExpr:'id', displayExpr:'nameSuffixDescription', searchEnabled:true, searchExpr:'nameSuffixDescription', searchMode:'startsWith'}"></dxi-item>
+      <dxi-item dataField="nameSuffixCodeId" [colSpan]="2" [label]="{text: 'Suffix'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: nameSuffix,  valueExpr:'id', displayExpr:'nameSuffixDescription', searchEnabled:true, searchExpr:'nameSuffixDescription', searchMode:'startsWith'}"></dxi-item>
     </dxi-item>
     <dxi-item itemType="group" caption="Contact Information" [widthRatio]="1">
       <dxi-item dataField="homePhoneNumber" dataType="string" [editorOptions]="{ stylingMode: 'filled', mask: '(X00) 000-0000', maskRules: rules }"></dxi-item>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CallsService } from 'src/app/common/services/calls.service';
+import { CallsService } from 'src/app/common/services/call/Calls.service';
 
 @Component({
   selector: 'app-call-details',

@@ -46,6 +46,7 @@
         [height]="window.innerHeight / 2 - 180"
         [focusedRowEnabled]="true"
         [focusedRowKey]="0"
+        (onFocusedRow)="focusRowSelected($event)"
         (onFocusedRowChanged)="selectionChanged($event)"
         [columnAutoWidth] = "true">
       <dxo-paging [pageSize]="20"></dxo-paging>

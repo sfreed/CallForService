@@ -2,7 +2,7 @@ import { DispatchedByPerson } from './DispatchedByPerson';
 import { LocationPrimary } from './LocationPrimary';
 import { SecondaryLocationLocation } from './SecondaryLocationLocation';
 import { ComplainantPerson } from './ComplainantPerson';
-import { BaseModel } from '../common/BaseModel';
+import { BaseModel } from '../BaseModel';
 
 export class CallForService extends BaseModel {
 

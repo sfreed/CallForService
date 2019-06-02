@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { CallsService } from 'src/app/common/services/calls.service';
-import { CallForService } from 'src/app/common/models/call/CallForService';
+import { CallsService } from 'src/app/common/services/call/Calls.service';
 import { DispatcherService } from 'src/app/common/services/dispatcher.service';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { CallForServiceOriginated } from 'src/app/common/models/lookups/CallForServiceLookup';
-import { CallForServiceLookupService } from 'src/app/common/services/lookup/CallForServiceLookup.service';
-import { CallTypeDao } from 'src/app/common/dao/types/CallTypeDao.service';
+import { CallForServiceLookupService } from 'src/app/common/services/lookups/CallForServiceLookup.service';
+import { CallTypeDAO } from 'src/app/common/dao/lookups/callForService/CallTypeDAO.service';
 import DataSource from 'devextreme/data/data_source';
-import { MasterUserDAO } from 'src/app/common/dao/MasterUserDAO.service';
+import { CallForServiceOriginated } from 'src/app/common/models/lookups/callForService/CallForServiceOriginated';
+import { InvolvedUnitsService } from 'src/app/common/services/callDetails/InvolvedUnit.service';
+import { MasterUserService } from 'src/app/common/services/master/MasterUser.service';
 
 @Component({
   selector: 'app-details',
@@ -28,26 +28,18 @@ export class DetailsComponent implements OnInit {
     onClick: this.saveCall.bind(this)
   };
 
-  todayButton: any;
-
-  activeCall: CallForService;
+  todayButton: any = {
+    text: 'Now',
+    onClick: () => {
+        this.callService.getActiveCall().receivedDateTime = new Date().toISOString();
+    }
+};
 
   constructor(public callService: CallsService,  public dispatcherService: DispatcherService, private cfsLookupService: CallForServiceLookupService,
-    private masterUserDao: MasterUserDAO, private cfsCallTypeDS: CallTypeDao) {
+    private masterUserService: MasterUserService, private cfsCallTypeDS: CallTypeDAO, private involvedUnitService: InvolvedUnitsService) {
       this.callTypes = this.cfsCallTypeDS.getCallTypeListDS();
 
-      this.dispatchers = this.masterUserDao.getMasterUsersDS();
-
-      this.callService.callEmitter.subscribe((data: CallForService) => {
-        this.activeCall = data;
-      });
-
-      this.todayButton = {
-        text: 'Now',
-        onClick: () => {
-            this.activeCall.receivedDateTime = new Date().toISOString();
-        }
-    };
+      this.dispatchers = this.masterUserService.getMasterUserList();
   }
 
   ngOnInit() {
@@ -55,7 +47,7 @@ export class DetailsComponent implements OnInit {
   }
 
   getComplainantName() {
-    return this.activeCall.complainantPerson.fullName;
+    return this.callService.getActiveCall().complainantPerson.fullName;
   }
 
   drop(event: CdkDragDrop<any>) {
@@ -66,13 +58,13 @@ export class DetailsComponent implements OnInit {
     if (event.item.element.nativeElement.classList.contains('OFFICER')) {
       const officer = event.item.data;
 
-      this.callService.assignUnitToActiveCall(officer);
+      this.involvedUnitService.assignUnitToActiveCall(officer);
     }
   }
 
   saveCall(e) {
     this.showWaitIndicator = true;
-    this.callService.saveCall(this.activeCall).then(res => this.showWaitIndicator = false);
+    this.callService.saveCall(this.callService.getActiveCall()).then(res => this.showWaitIndicator = false);
   }
 
   getCFSTypeDisplayValue (item) {

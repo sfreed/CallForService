@@ -1,28 +1,16 @@
-<div *ngIf="activeCall">
-  <dx-form id="detailsForm" class="callForm" [formData]="activeCall" height="350" [colCount]="2" [labelLocation]="'top'">
-    <dxi-item itemType="group" caption="Call Time Information" [widthRatio]="1">
-      <dxi-item dataField="receivedDateTime">
-          <dx-date-box id="received-date" width="100%" [(value)]="activeCall.receivedDateTime" type="datetime" [stylingMode]="'filled'"></dx-date-box>
-      </dxi-item>
-      <dxi-item dataField="dispatchedDateTime">
-        <dx-date-box id="dispatched-date" width="100%" [(value)]="activeCall.dispatchedDateTime" type="datetime" [stylingMode]="'filled'"></dx-date-box>
-      </dxi-item>
-      <dxi-item dataField="onHoldDateTime">
-        <dx-date-box id="onhold-date" width="100%" [(value)]="activeCall.onHoldDateTime" type="datetime" [stylingMode]="'filled'"></dx-date-box>
-      </dxi-item>
-      <dxi-item dataField="closedDateTime">
-        <dx-date-box id="closed-date" width="100%" [(value)]="activeCall.closedDateTime" type="datetime" [stylingMode]="'filled'"></dx-date-box>
-      </dxi-item>
+<div *ngIf="callService.getActiveCall()">
+  <dx-form id="detailsForm" class="callForm" [formData]="callService.getActiveCall()" height="350" [colCount]="2" [labelLocation]="'top'">
+    <dxi-item itemType="group" caption="Call Time Information" [widthRatio]="1" [colCount]="2">
+      <dxi-item dataField="receivedDateTime" [label]="{text: 'Received Time'}" editorType="dxDateBox" [editorOptions]="{ stylingMode: 'filled', type: 'datetime' }"></dxi-item>
+      <dxi-item dataField="dispatchedDateTime" [label]="{text: 'Received Time'}" editorType="dxDateBox" [editorOptions]="{ stylingMode: 'filled', type: 'datetime' }"></dxi-item>
+      <dxi-item dataField="onHoldDateTime" [label]="{text: 'On Hold Time'}" editorType="dxDateBox" [editorOptions]="{ stylingMode: 'filled', type: 'datetime' }"></dxi-item>
+      <dxi-item dataField="closedDateTime" [label]="{text: 'Closed Time'}" editorType="dxDateBox" [editorOptions]="{ stylingMode: 'filled', type: 'datetime' }"></dxi-item>
     </dxi-item>
-    <dxi-item itemType="group" caption="Call Information" [widthRatio]="1">
-      <dxi-item dataField="typeId" [label]="{text: 'Call Type'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: callTypes,  valueExpr:'id', displayExpr: getCFSTypeDisplayValue, searchEnabled:true, searchExpr:'code', searchMode:'startsWith'}"></dxi-item>
-      <dxi-item dataField="originatedId" [label]="{text: 'Originated From'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: callOriginated,  valueExpr:'id', displayExpr:'originatedFrom', searchEnabled:true, searchExpr:'originatedFrom', searchMode:'startsWith'}"></dxi-item>
+    <dxi-item itemType="group" caption="Call Information" [widthRatio]="1" [colCount]="2">
+      <dxi-item dataField="typeId" [colSpan]="2" [label]="{text: 'Call Type'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: callTypes,  valueExpr:'id', displayExpr: getCFSTypeDisplayValue, searchEnabled:true, searchExpr:'code', searchMode:'startsWith'}"></dxi-item>
+      <dxi-item dataField="originatedId" [label]="{text: 'Origin ted From'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: callOriginated,  valueExpr:'id', displayExpr:'originatedFrom', searchEnabled:true, searchExpr:'originatedFrom', searchMode:'startsWith'}"></dxi-item>
       <dxi-item dataField="dispatchedByPerson.personId" [label]="{text: 'Dispatched By'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: dispatchers, valueExpr:'personId', displayExpr:'fullName', searchEnabled:true, searchExpr:'fullName', searchMode:'startsWith'}"></dxi-item>
-      <dxi-item [colSpan]="2"
-        itemType="button"
-        horizontalAlignment="right"
-        verticalAlignment="bottom"
-        [buttonOptions]="buttonOptions">
+      <dxi-item [colSpan]="2" itemType="button" horizontalAlignment="right" verticalAlignment="bottom" [buttonOptions]="buttonOptions">
       </dxi-item>
     </dxi-item>
   </dx-form>

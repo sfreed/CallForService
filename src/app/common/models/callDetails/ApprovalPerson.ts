@@ -1,4 +1,4 @@
-import { BaseModel } from '../common/BaseModel';
+import { BaseModel } from '../BaseModel';
 
 export class ApprovalPerson extends BaseModel {
   officerId: string;

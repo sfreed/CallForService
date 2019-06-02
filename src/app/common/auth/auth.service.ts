@@ -5,8 +5,8 @@ import 'rxjs/add/observable/throw';
 
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { URL } from '../models/enums/URL.enum';
-import { MasterUserLookupService } from '../services/master_user.service';
+import { URL } from '../models/common/URL.enum';
+import { MasterUserService } from '../services/master/MasterUser.service';
 
 @Injectable()
 export class AuthenticationService {
@@ -19,7 +19,7 @@ export class AuthenticationService {
 
     private currentUser: any;
 
-    constructor(private router: Router, private httpClient: HttpClient, private masterUserLookupService: MasterUserLookupService) {
+    constructor(private router: Router, private httpClient: HttpClient) {
       // this.getToken();
     }
 
@@ -81,9 +81,7 @@ export class AuthenticationService {
             const responseBody: any = settings;
 
             if (typeof responseBody !== 'undefined') {
-              return this.masterUserLookupService.getMasterUser(responseBody.personId).then(response => {
-                this.currentUser = response;
-              });
+              this.currentUser = responseBody;
             }
           });
     }

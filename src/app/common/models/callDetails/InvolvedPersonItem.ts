@@ -1,6 +1,6 @@
-import { InvolvedPerson } from './InvolvedPerson';
-import { BaseModel } from '../common/BaseModel';
-import { PersonAddress } from '../person/PersonAddress';
+import { InvolvedPerson } from './person/InvolvedPerson';
+import { BaseModel } from '../BaseModel';
+import { PersonAddress } from './person/PersonAddress';
 
 export class InvolvedPersonItem extends BaseModel {
   id: number;

@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { CallsService } from 'src/app/common/services/calls.service';
+import { CallsService } from 'src/app/common/services/call/Calls.service';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { ComplainantPerson } from 'src/app/common/models/call/ComplainantPerson';
-import { PersonLookupService } from 'src/app/common/services/lookup/PersonLookup.service';
-import { NamePrefix, NameSuffix } from 'src/app/common/models/lookups/PersonLookup';
+import { PersonLookupService } from 'src/app/common/services/lookups/PersonLookup.service';
 import { CallForService } from 'src/app/common/models/call/CallForService';
+import { NamePrefix } from 'src/app/common/models/lookups/person/NamePrefix';
+import { NameSuffix } from 'src/app/common/models/lookups/person/NameSuffix';
+import { InvolvedUnitsService } from 'src/app/common/services/callDetails/InvolvedUnit.service';
 
 @Component({
   selector: 'app-complainants',
@@ -16,8 +18,6 @@ export class ComplainantsComponent implements OnInit {
 
   showWaitIndicator = false;
 
-  activeCall: CallForService;
-
   namePrefix: NamePrefix[];
   nameSuffix: NameSuffix[];
 
@@ -27,15 +27,7 @@ export class ComplainantsComponent implements OnInit {
     onClick: this.saveCall.bind(this)
   };
 
-  constructor(public callService: CallsService, private personLookupService: PersonLookupService) {
-    this.callService.callEmitter.subscribe((data: CallForService) => {
-      this.activeCall = data;
-
-      if (!data.complainantPerson) {
-        this.activeCall.complainantPerson = new ComplainantPerson();
-      }
-    });
-   }
+  constructor(public callService: CallsService, private personLookupService: PersonLookupService, private involvedUnitService: InvolvedUnitsService) {}
 
   ngOnInit() {
     this.namePrefix = this.personLookupService.namePrefixList;
@@ -51,12 +43,12 @@ export class ComplainantsComponent implements OnInit {
     if (event.item.element.nativeElement.classList.contains('OFFICER')) {
       const officer = event.item.data;
 
-      this.callService.assignUnitToActiveCall(officer);
+      this.involvedUnitService.assignUnitToActiveCall(officer);
     }
   }
 
   saveCall(e) {
     this.showWaitIndicator = true;
-    this.callService.saveCall(this.activeCall).then(res => this.showWaitIndicator = false);
+    this.callService.saveCall(this.callService.getActiveCall()).then(res => this.showWaitIndicator = false);
   }
 }

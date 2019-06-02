@@ -5,7 +5,7 @@ import { DxBoxModule, DxListModule, DxDataGridModule, DxSwitchModule, DxToolbarM
   DxButtonModule, DxDrawerModule, DxContextMenuModule, DxTextAreaModule, DxPopupModule,
   DxTabPanelModule, DxFormModule, DxAccordionModule, DxDateBoxModule, DxTextBoxModule, DxAutocompleteModule, DxLoadPanelModule} from 'devextreme-angular';
 import { ActiveListComponent} from './units/active_list/active_list.component';
-import { UnitService } from '../common/services/unit.service';
+import { UnitService } from '../common/services/units/Unit.service';
 import { DispatcherHistoryComponent } from './dispatcher/dispatcherHistory/dispatcherHistory.component';
 import { DispatcherHistory } from '../common/models/common/history';
 import { CallMasterComponent } from './calls/call_master/call_master.component';

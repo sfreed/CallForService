@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminService } from 'src/app/common/services/admin.service';
+import { AdminService } from 'src/app/common/services/common/Admin.service';
 
 @Component({
   selector: 'app-types-display',

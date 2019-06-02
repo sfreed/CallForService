@@ -1,3 +1,19 @@
+import { VehicleColor } from './vehicle/VehicleColor';
+
+import { VehicleEngineType } from './vehicle/VehicleEngineType';
+
+import { VehicleFuelType } from './vehicle/VehicleFuelType';
+
+import { VehicleMake } from './vehicle/VehicleMake';
+
+import { VehicleModel } from './vehicle/VehicleModel';
+
+import { VehicleStyle } from './vehicle/VehicleStyle';
+
+import { VehicleTransmissionType } from './vehicle/VehicleTransmissionType';
+
+import { VehicleType } from './vehicle/VehicleType';
+
 export interface VehicleLookup {
     vehicleColor: VehicleColor[];
     vehicleEngineType: VehicleEngineType[];
@@ -8,59 +24,4 @@ export interface VehicleLookup {
     vehicleTransmissionType: VehicleTransmissionType[];
     vehicleType: VehicleType[];
 }
-export interface VehicleColor {
-    id: number;
-    vehicleColorCode: string;
-    vehicleColorCodeDescription: string;
-    isActive: boolean;
-    isUserEditable: boolean;
-}
-export interface VehicleEngineType {
-    id: number;
-    VehicleEngineTypeCode: string;
-    VehicleEngineTypeCodeDescription: string;
-    isActive: boolean;
-    isUserEditable: boolean;
-}
-export interface VehicleFuelType {
-    id: number;
-    vehicleFuelTypeCode: string;
-    vehicleFuelTypeCodeDescription: string;
-    isActive: boolean;
-    isUserEditable: boolean;
-}
-export interface VehicleMake {
-    id: number;
-    vehicleMakeCode: string;
-    vehicleMakeCodeDescription: string;
-    isActive: boolean;
-    isUserEditable: boolean;
-}
-export interface VehicleModel {
-    id: number;
-    vehicleModelName: string;
-    vehicleModelDescription: string;
-    isActive: boolean;
-    isUserEditable: boolean;
-}
-export interface VehicleStyle {
-    id: number;
-    vehicleStyleCode: string;
-    vehicleStyleCodeDescription: string;
-    isActive: boolean;
-    isUserEditable: boolean;
-}
-export interface VehicleTransmissionType {
-    id: number;
-    VehicleTransmissionTypeCode: string;
-    VehicleTransmissionTypeCodeDescription: string;
-    isActive: boolean;
-    isUserEditable: boolean;
-}
-export interface VehicleType {
-    id: number;
-    vehicleTypeCode: string;
-    vehicleTypeCodeDescription: string;
-    isActive: boolean;
-    isUserEditable: boolean;
-}
+

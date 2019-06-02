@@ -1,16 +1,14 @@
 import { Component, ViewChild, OnInit, EventEmitter } from '@angular/core';
 import { DxListComponent } from 'devextreme-angular';
 import { DispatcherService } from 'src/app/common/services/dispatcher.service';
-import { CallsService } from 'src/app/common/services/calls.service';
+import { CallsService } from 'src/app/common/services/call/Calls.service';
 import DataSource from 'devextreme/data/data_source';
-import notify from 'devextreme/ui/notify';
-import uuid from 'UUID';
-
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { AdminService } from 'src/app/common/services/admin.service';
-import { UnitService } from 'src/app/common/services/unit.service';
+import { AdminService } from 'src/app/common/services/common/Admin.service';
+import { UnitService } from 'src/app/common/services/units/Unit.service';
 import { AuthenticationService } from 'src/app/common/auth/auth.service';
-import { CallForServiceUnit } from 'src/app/common/models/unit/CallForServiceUnit';
+import { AvailableUnit } from 'src/app/common/models/units/AvailableUnit';
+import { InvolvedUnitsService } from 'src/app/common/services/callDetails/InvolvedUnit.service';
 
 @Component({
   selector: 'app-active-list',
@@ -34,7 +32,8 @@ export class ActiveListComponent implements OnInit {
 
   inactiveMenuItems: any;
 
-  constructor(public unitService: UnitService, public dispatcherHistory: DispatcherService, public callService: CallsService, public adminService: AdminService, private authService: AuthenticationService) {
+  constructor(public unitService: UnitService, public dispatcherHistory: DispatcherService, public callService: CallsService, public adminService: AdminService,
+    private authService: AuthenticationService, private involvedUnitService: InvolvedUnitsService) {
     this.adminFormEmitter = adminService.adminFormEmitter;
 
     this.activeMenuItems = [{
@@ -88,7 +87,7 @@ export class ActiveListComponent implements OnInit {
         this.unitService.changeUnitStatus(unit);
       }
 
-      if (this.callService.assignUnitToActiveCall(unit)) {
+      if (this.involvedUnitService.assignUnitToActiveCall(unit)) {
         // notify('Assigning Officer ' + officer.first_name + ' ' + officer.last_name  + ' to Active Call.', 'success');
       } else {
         // notify('Officer ' + officer.first_name + ' ' + officer.last_name  + ' is already assigned to this Call.', 'warning');
@@ -104,7 +103,7 @@ export class ActiveListComponent implements OnInit {
     }
   }
 
-  getUnitQueueCount(unit: CallForServiceUnit): number {
+  getUnitQueueCount(unit: AvailableUnit): number {
     const q = this.callService.getUnitCalllQueue(unit);
     if (q) {
       return q.size();
@@ -113,7 +112,7 @@ export class ActiveListComponent implements OnInit {
     }
   }
 
-  drop(event: CdkDragDrop<CallForServiceUnit>) {
+  drop(event: CdkDragDrop<AvailableUnit>) {
     console.log(event);
 
     if (event.previousContainer === event.container) {
@@ -138,6 +137,10 @@ export class ActiveListComponent implements OnInit {
       console.log('deactivating', event.item.data);
     }
 
-    this.unitService.changeUnitStatus(event.item.data);
+    this.unitService.changeUnitStatus(event.item.data).then(results => {
+      this.activeUnitsList.instance.reload();
+      this.inActiveUnitsList.instance.reload();
+    });
+
   }
 }

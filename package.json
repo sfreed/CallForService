@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "^7.2.15",
     "@angular/router": "^7.2.15",
     "core-js": "^2.6.2",
+    "deepmerge": "^3.2.0",
     "devextreme": "^19.1.0",
     "devextreme-angular": "^19.1.0",
     "devextreme-aspnet-data-nojquery": "^2.2.0",

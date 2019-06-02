@@ -1,21 +1,22 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CallsService } from 'src/app/common/services/calls.service';
+import { CallsService } from 'src/app/common/services/call/Calls.service';
 import { DispatcherService } from 'src/app/common/services/dispatcher.service';
 import { CallForService } from 'src/app/common/models/call/CallForService';
-import { PersonLookupService } from 'src/app/common/services/lookup/PersonLookup.service';
-import { CallForServiceLookupService } from 'src/app/common/services/lookup/CallForServiceLookup.service';
-import { VehicleLookupService } from 'src/app/common/services/lookup/VehicleLookup.service';
-import { CallForServiceDispositionStatus, CallForServiceOriginated } from 'src/app/common/models/lookups/CallForServiceLookup';
+import { PersonLookupService } from 'src/app/common/services/lookups/PersonLookup.service';
+import { CallForServiceLookupService } from 'src/app/common/services/lookups/CallForServiceLookup.service';
+import { VehicleLookupService } from 'src/app/common/services/lookups/VehicleLookup.service';
 import { DxDataGridComponent } from 'devextreme-angular';
 import DataSource from 'devextreme/data/data_source';
 import { AuthenticationService } from 'src/app/common/auth/auth.service';
-import { CallTypeDao } from 'src/app/common/dao/types/CallTypeDao.service';
-import { MasterUserDAO } from 'src/app/common/dao/MasterUserDAO.service';
-import { StreetDao } from 'src/app/common/dao/types/StreetDao.service';
-import { AddressTypeDao } from 'src/app/common/dao/types/AddressTypeDao.service';
-import { CityDao } from 'src/app/common/dao/types/CityDao.service';
-import { ZoneDao } from 'src/app/common/dao/types/ZoneDao.service';
-
+import { CallTypeDAO } from 'src/app/common/dao/lookups/callForService/CallTypeDAO.service';
+import { MasterUserDAO } from 'src/app/common/dao/master/MasterUserDAO.service';
+import { StreetDAO } from 'src/app/common/dao/lookups/location/StreetDAO.service';
+import { AddressTypeDAO } from 'src/app/common/dao/lookups/location/AddressTypeDAO.service';
+import { CityDAO } from 'src/app/common/dao/lookups/location/CityDAO.service';
+import { ZoneDAO } from 'src/app/common/dao/lookups/location/ZoneDAO.service';
+import { CallForServiceOriginated } from 'src/app/common/models/lookups/callForService/CallForServiceOriginated';
+import { CallForServiceDispositionStatus } from 'src/app/common/models/lookups/callForService/CallForServiceDispositionStatus';
+import { MasterUserService } from 'src/app/common/services/master/MasterUser.service';
 
 @Component({
   selector: 'app-call-master',
@@ -38,7 +39,6 @@ export class CallMasterComponent implements OnInit {
   cityCodes: DataSource;
   zoneCodes: DataSource;
 
-
   isRowSelected = false;
 
   window: Window = window;
@@ -53,11 +53,10 @@ export class CallMasterComponent implements OnInit {
 
   constructor(public callService: CallsService, public dispatcherService: DispatcherService, private personLookupService: PersonLookupService,
     private cfsLookupService: CallForServiceLookupService, private vehicleLookupService: VehicleLookupService,
-    public authService: AuthenticationService, public cfsCallTypeDao: CallTypeDao, private masterUserDao: MasterUserDAO,
-    private streetDao: StreetDao, private cityDao: CityDao,
-    private addressTypeDao: AddressTypeDao, private zoneDao: ZoneDao) {
+    public authService: AuthenticationService, public cfsCallTypeDao: CallTypeDAO, private masterUserService: MasterUserService,
+    private streetDao: StreetDAO, private cityDao: CityDAO, private addressTypeDao: AddressTypeDAO, private zoneDao: ZoneDAO) {
       this.callTypes = this.cfsCallTypeDao.getCallTypeListDS();
-      this.dispatchers = this.masterUserDao.getMasterUsersDS();
+      this.dispatchers = this.masterUserService.getMasterUserList();
       this.streetNames = this.streetDao.getStreetListDS();
       this.cityCodes = this.cityDao.getCityListDS();
       this.addressTypeCodes = this.addressTypeDao.getAddressTypeListDS();
@@ -97,6 +96,10 @@ export class CallMasterComponent implements OnInit {
 
   selectionChanged(e) {
     this.callService.setActiveCall(e.row.data);
+  }
+
+  focusRowSelected(e) {
+    console.log('selected', e);
   }
 
   showColumnChooser () {
