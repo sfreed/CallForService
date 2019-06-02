@@ -45,27 +45,27 @@ export class AgencyTypeDAO extends BaseDAO {
   }
 
   private getAgencyTypes(): Promise<any> {
-    return this.http.get(URL.ALL_FOR_AGENCY_TYPE_ADDRESS, this.getHttpOptions()).toPromise();
+    return this.http.get(URL.CALL_FOR_SERVICE_AGENCY_TYPE_ADDRESS, this.getHttpOptions()).toPromise();
   }
 
   private getAgencyType(id): Promise<any> {
-    return this.http.get(URL.ALL_FOR_AGENCY_TYPE_ADDRESS + '/' + id, this.getHttpOptions()).toPromise();
+    return this.http.get(URL.CALL_FOR_SERVICE_AGENCY_TYPE_ADDRESS + '/' + id, this.getHttpOptions()).toPromise();
   }
 
   private addAgencyType(agencyType: AgencyType): Promise<any> {
     this.updateModel(agencyType);
 
-    return this.http.post<any>(URL.ALL_FOR_AGENCY_TYPE_ADDRESS, JSON.stringify(agencyType), this.getHttpOptions()).toPromise();
+    return this.http.post<any>(URL.CALL_FOR_SERVICE_AGENCY_TYPE_ADDRESS, JSON.stringify(agencyType), this.getHttpOptions()).toPromise();
   }
 
   private updateAgencyType(id, agencyType: AgencyType): Promise<any> {
     this.updateModel(agencyType);
 
-    return this.http.put(URL.ALL_FOR_AGENCY_TYPE_ADDRESS + '/' + id, JSON.stringify(agencyType), this.getHttpOptions()).toPromise();
+    return this.http.put(URL.CALL_FOR_SERVICE_AGENCY_TYPE_ADDRESS + '/' + id, JSON.stringify(agencyType), this.getHttpOptions()).toPromise();
   }
 
   private deleteAgencyType(id): Promise<any> {
-    return this.http.delete<any>(URL.ALL_FOR_AGENCY_TYPE_ADDRESS + '/' + id, this.getHttpOptions()).toPromise();
+    return this.http.delete<any>(URL.CALL_FOR_SERVICE_AGENCY_TYPE_ADDRESS + '/' + id, this.getHttpOptions()).toPromise();
   }
 
   protected updateModel(model: AgencyType) {

@@ -10,6 +10,7 @@ import { CallForServiceUnitType } from 'src/app/common/models/lookups/callForSer
 import { InvolvedUnitsService } from 'src/app/common/services/callDetails/InvolvedUnit.service';
 import { CallForService } from 'src/app/common/models/call/CallForService';
 import * as deepmerge from 'deepmerge';
+import { CommonService } from 'src/app/common/services/common/Common.service';
 
 @Component({
   selector: 'app-involved-units',
@@ -18,12 +19,12 @@ import * as deepmerge from 'deepmerge';
 })
 export class InvolvedUnitsComponent implements OnInit {
   unitType: CallForServiceUnitType[];
-  unitAgencies: Agency[];
+  unitAgencies: DataSource;
 
   involvedUnitsList: DataSource;
 
   constructor(public callService: CallsService, private cfsLookupService: CallForServiceLookupService, private personLookup: PersonLookupService,
-    private involvedUnitService: InvolvedUnitsService) {
+    private involvedUnitService: InvolvedUnitsService, private commonService: CommonService) {
       this.callService.callEmitter.subscribe((data: CallForService) => {
         this.involvedUnitsList = involvedUnitService.getInvolvedUnitList();
       });
@@ -31,7 +32,7 @@ export class InvolvedUnitsComponent implements OnInit {
 
   ngOnInit() {
     this.unitType = this.cfsLookupService.callForServiceUnitTypeList;
-    this.unitAgencies = this.personLookup.agencyList;
+    this.unitAgencies = this.commonService.getAgencyList();
     this.involvedUnitsList = this.involvedUnitService.getInvolvedUnitList();
   }
 

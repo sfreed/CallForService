@@ -23,8 +23,8 @@ export class StreetSuffixDAO extends BaseDAO {
       load: () => {
           return this.getStreetSuffixs();
       },
-      insert: (street) => {
-        return this.addStreetSuffix(street);
+      insert: (streetSuffix) => {
+        return this.addStreetSuffix(streetSuffix);
       },
       update: (key, street) => {
         return this.updateStreetSuffix(key, street);
@@ -52,16 +52,16 @@ export class StreetSuffixDAO extends BaseDAO {
     return this.http.get(URL.CALL_FOR_SERVICE_STATE_SUFFIX_ADDRESS + '/' + id, this.getHttpOptions()).toPromise();
   }
 
-  private addStreetSuffix (street: StreetNameSuffix): Promise<any> {
-    this.updateModel(street);
+  private addStreetSuffix (streetSuffix: StreetNameSuffix): Promise<any> {
+    this.updateModel(streetSuffix);
 
-    return this.http.post<any>(URL.CALL_FOR_SERVICE_STATE_SUFFIX_ADDRESS, JSON.stringify(street), this.getHttpOptions()).toPromise();
+    return this.http.post<any>(URL.CALL_FOR_SERVICE_STATE_SUFFIX_ADDRESS, JSON.stringify(streetSuffix), this.getHttpOptions()).toPromise();
   }
 
-  private updateStreetSuffix (id, street: StreetNameSuffix): Promise<any> {
-    this.updateModel(street);
+  private updateStreetSuffix (id, streetSuffix: StreetNameSuffix): Promise<any> {
+    this.updateModel(streetSuffix);
 
-    return this.http.put(URL.CALL_FOR_SERVICE_STATE_SUFFIX_ADDRESS + '/' + id, JSON.stringify(street), this.getHttpOptions()).toPromise();
+    return this.http.put(URL.CALL_FOR_SERVICE_STATE_SUFFIX_ADDRESS + '/' + id, JSON.stringify(streetSuffix), this.getHttpOptions()).toPromise();
   }
 
   private deleteStreetSuffix(id): Promise<any> {

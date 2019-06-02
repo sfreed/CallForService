@@ -55,15 +55,14 @@ export class InvolvedPersonDAO extends BaseDAO {
 
     private addInvolvedPerson (involvedPerson: InvolvedPersonItem): Promise<any> {
       this.updateModel(involvedPerson);
+
       return this.http.post<any>(this.endpoint + 'CallForServiceInvolvedPerson', JSON.stringify(involvedPerson), this.getHttpOptions()).toPromise();
     }
 
     private updateInvolvedPerson (id, involvedPerson: InvolvedPersonItem): Promise<any> {
       this.updateModel(involvedPerson);
-      return this.http.put(this.endpoint + 'CallForServiceInvolvedPerson?callId=' + this.callService.getActiveCall().id + '&personId=' + id, JSON.stringify(involvedPerson), this.getHttpOptions()).toPromise()
-        .then(res => {
-          return res;
-        });
+
+      return this.http.put(this.endpoint + 'CallForServiceInvolvedPerson?callId=' + this.callService.getActiveCall().id + '&personId=' + id, JSON.stringify(involvedPerson), this.getHttpOptions()).toPromise();
     }
 
     private deleteInvolvedPerson (id): Promise<any> {

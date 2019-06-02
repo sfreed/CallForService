@@ -26,11 +26,11 @@ export class UnitsDAO extends BaseDAO {
       load: (loadOptions) => {
         return this.getUnits(loadOptions.select);
       },
-      insert: (values) => {
-          return this.addUnit(values);
+      insert: (unit) => {
+          return this.addUnit(unit);
       },
-      update: (key, values) => {
-        return this.updateUnit(key, values);
+      update: (key, unit) => {
+        return this.updateUnit(key, unit);
       },
       remove: (key) => {
           return this.deleteUnit(key);
@@ -55,18 +55,16 @@ export class UnitsDAO extends BaseDAO {
     return this.http.get(URL.CFS_UNIT_ADDRESS + '/' + id, this.getHttpOptions()).toPromise();
   }
 
-  private addUnit (user: AvailableUnit): Promise<any> {
-    this.updateModel(user);
+  private addUnit (unit: AvailableUnit): Promise<any> {
+    this.updateModel(unit);
 
-    return this.http.post<any>(URL.CFS_UNIT_ADDRESS, JSON.stringify(user), this.getHttpOptions()).toPromise();
+    return this.http.post<any>(URL.CFS_UNIT_ADDRESS, JSON.stringify(unit), this.getHttpOptions()).toPromise();
   }
 
-  private updateUnit (id, user: AvailableUnit): Promise<any> {
-    this.updateModel(user);
+  private updateUnit (id, unit: AvailableUnit): Promise<any> {
+    this.updateModel(unit);
 
-    console.log('changing unit status', user);
-
-    return this.http.put(URL.CFS_UNIT_ADDRESS + '/' + id, JSON.stringify(user), this.getHttpOptions()).toPromise();
+    return this.http.put(URL.CFS_UNIT_ADDRESS + '/' + id, JSON.stringify(unit), this.getHttpOptions()).toPromise();
   }
 
   private deleteUnit (id): Promise<any> {

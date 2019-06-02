@@ -23,11 +23,11 @@ export class UnitDispositionDAO extends BaseDAO {
       load: () => {
           return this.getCallTypes();
       },
-      insert: (callType) => {
-        return this.addUnitDisposition(callType);
+      insert: (unitDisposition) => {
+        return this.addUnitDisposition(unitDisposition);
       },
-      update: (key, callType) => {
-        return this.updateUnitDisposition(key, callType);
+      update: (key, unitDisposition) => {
+        return this.updateUnitDisposition(key, unitDisposition);
       },
       remove: (key) => {
           return this.deleteUnitDisposition(key);
@@ -52,16 +52,16 @@ export class UnitDispositionDAO extends BaseDAO {
     return this.http.get(URL.CALL_FOR_SERVICE_UNIT_DISPOSITION_ADDRESS + '/' + id, this.getHttpOptions()).toPromise();
   }
 
-  private addUnitDisposition (call: CallForServiceUnitDisposition): Promise<any> {
-    this.updateModel(call);
+  private addUnitDisposition (unitDisposition: CallForServiceUnitDisposition): Promise<any> {
+    this.updateModel(unitDisposition);
 
-    return this.http.post<any>(URL.CALL_FOR_SERVICE_UNIT_DISPOSITION_ADDRESS, JSON.stringify(call), this.getHttpOptions()).toPromise();
+    return this.http.post<any>(URL.CALL_FOR_SERVICE_UNIT_DISPOSITION_ADDRESS, JSON.stringify(unitDisposition), this.getHttpOptions()).toPromise();
   }
 
-  private updateUnitDisposition (id, call: CallForServiceUnitDisposition): Promise<any> {
-    this.updateModel(call);
+  private updateUnitDisposition (id, unitDisposition: CallForServiceUnitDisposition): Promise<any> {
+    this.updateModel(unitDisposition);
 
-    return this.http.put(URL.CALL_FOR_SERVICE_UNIT_DISPOSITION_ADDRESS + '/' + id, JSON.stringify(call), this.getHttpOptions()).toPromise();
+    return this.http.put(URL.CALL_FOR_SERVICE_UNIT_DISPOSITION_ADDRESS + '/' + id, JSON.stringify(unitDisposition), this.getHttpOptions()).toPromise();
   }
 
   private deleteUnitDisposition (id): Promise<any> {

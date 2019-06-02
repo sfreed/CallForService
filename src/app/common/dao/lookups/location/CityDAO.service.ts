@@ -23,11 +23,11 @@ export class CityDAO extends BaseDAO {
       load: () => {
           return this.City();
       },
-      insert: (callType) => {
-        return this.addCity(callType);
+      insert: (city) => {
+        return this.addCity(city);
       },
-      update: (key, callType) => {
-        return this.updateCity(key, callType);
+      update: (key, city) => {
+        return this.updateCity(key, city);
       },
       remove: (key) => {
           return this.deleteCity(key);
@@ -52,16 +52,16 @@ export class CityDAO extends BaseDAO {
     return this.http.get(URL.CALL_FOR_SERVICE_CITY_ADDRESS + '/' + id, this.getHttpOptions()).toPromise();
   }
 
-  private addCity (call: City): Promise<any> {
-    this.updateModel(call);
+  private addCity (city: City): Promise<any> {
+    this.updateModel(city);
 
-    return this.http.post<any>(URL.CALL_FOR_SERVICE_CITY_ADDRESS, JSON.stringify(call), this.getHttpOptions()).toPromise();
+    return this.http.post<any>(URL.CALL_FOR_SERVICE_CITY_ADDRESS, JSON.stringify(city), this.getHttpOptions()).toPromise();
   }
 
-  private updateCity (id, call: City): Promise<any> {
-    this.updateModel(call);
+  private updateCity (id, city: City): Promise<any> {
+    this.updateModel(city);
 
-    return this.http.put(URL.CALL_FOR_SERVICE_CITY_ADDRESS + '/' + id, JSON.stringify(call), this.getHttpOptions()).toPromise();
+    return this.http.put(URL.CALL_FOR_SERVICE_CITY_ADDRESS + '/' + id, JSON.stringify(city), this.getHttpOptions()).toPromise();
   }
 
   private deleteCity (id): Promise<any> {

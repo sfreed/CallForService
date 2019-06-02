@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseDAO } from '../../BaseDAO';
+import { BaseDAO } from '../../../BaseDAO';
 import { AuthenticationService } from 'src/app/common/auth/auth.service';
 import { HttpClient } from '@angular/common/http';
 import CustomStore from 'devextreme/data/custom_store';
@@ -23,11 +23,11 @@ export class VehicleFuelTypeDAO extends BaseDAO {
       load: () => {
           return this.VehicleFuelType();
       },
-      insert: (callType) => {
-        return this.addVehicleFuelType(callType);
+      insert: (fuelType) => {
+        return this.addVehicleFuelType(fuelType);
       },
-      update: (key, callType) => {
-        return this.updateVehicleFuelType(key, callType);
+      update: (key, fuelType) => {
+        return this.updateVehicleFuelType(key, fuelType);
       },
       remove: (key) => {
           return this.deleteVehicleFuelType(key);
@@ -52,16 +52,16 @@ export class VehicleFuelTypeDAO extends BaseDAO {
     return this.http.get(URL.CALL_FOR_SERVICE_CITY_ADDRESS + '/' + id, this.getHttpOptions()).toPromise();
   }
 
-  private addVehicleFuelType (call: VehicleFuelType): Promise<any> {
-    this.updateModel(call);
+  private addVehicleFuelType (fuelType: VehicleFuelType): Promise<any> {
+    this.updateModel(fuelType);
 
-    return this.http.post<any>(URL.CALL_FOR_SERVICE_CITY_ADDRESS, JSON.stringify(call), this.getHttpOptions()).toPromise();
+    return this.http.post<any>(URL.CALL_FOR_SERVICE_CITY_ADDRESS, JSON.stringify(fuelType), this.getHttpOptions()).toPromise();
   }
 
-  private updateVehicleFuelType (id, call: VehicleFuelType): Promise<any> {
-    this.updateModel(call);
+  private updateVehicleFuelType (id, fuelType: VehicleFuelType): Promise<any> {
+    this.updateModel(fuelType);
 
-    return this.http.put(URL.CALL_FOR_SERVICE_CITY_ADDRESS + '/' + id, JSON.stringify(call), this.getHttpOptions()).toPromise();
+    return this.http.put(URL.CALL_FOR_SERVICE_CITY_ADDRESS + '/' + id, JSON.stringify(fuelType), this.getHttpOptions()).toPromise();
   }
 
   private deleteVehicleFuelType (id): Promise<any> {

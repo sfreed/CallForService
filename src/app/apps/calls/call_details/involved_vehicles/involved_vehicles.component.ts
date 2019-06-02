@@ -30,6 +30,7 @@ import { CallForService } from 'src/app/common/models/call/CallForService';
 import { VehicleService } from 'src/app/common/services/lookups/vehicle/Vehicle.service';
 import { LocationService } from 'src/app/common/services/lookups/location/Location.service';
 import * as deepmerge from 'deepmerge';
+import { PersonService } from 'src/app/common/services/lookups/person/Person.service';
 
 @Component({
   selector: 'app-vehicles',
@@ -51,22 +52,23 @@ export class VehiclesComponent implements OnInit {
   fuelTypes: DataSource;
   vehicleModels: DataSource;
 
+  namePrefixCodes: DataSource;
+  nameSuffixCodes: DataSource;
+  ethnicityCodes: DataSource;
+  hairColorCodes: DataSource;
+  hairTypeCodes: DataSource;
+  eyeWearCodes: DataSource;
+  facialHairCodes: DataSource;
+
   engineTypes: VehicleEngineType[];
   transmissionTypes: VehicleTransmissionType[];
-  namePrefixCodes: NamePrefix[];
-  nameSuffixCodes: NameSuffix[];
   streetNamePreDirectionCodes: StreetNameDirection[];
   wreckerServiceList: WreckerService[];
   wreckerRotationList: WreckerRotation[];
 
   genderCodes: Gender[];
   raceCodes: Race[];
-  ethnicityCodes: Ethnicity[];
-  hairColorCodes: HairColor[];
-  hairCodes: HairType[];
   eyeColorCodes: EyeColor[];
-  eyeWearCodes: Eyewear[];
-  facialHairCodes: FacialHair[];
 
   popupVisible = false;
 
@@ -75,7 +77,7 @@ export class VehiclesComponent implements OnInit {
   constructor(public callService: CallsService, private locationLookupService: LocationLookupService, private vehicleLookipService: VehicleLookupService,
     private personLookupService: PersonLookupService, private callForServiceLookupService: CallForServiceLookupService,
     private wreckerRotationService: WreckerRotationService, private involvedVehicleService: InvolvedVehicleService, private locationService: LocationService,
-    private vehicleService: VehicleService, private involvedUnitService: InvolvedUnitsService) {
+    private vehicleService: VehicleService, private involvedUnitService: InvolvedUnitsService, private personService: PersonService) {
       this.callService.callEmitter.subscribe((data: CallForService) => {
         this.involvedVehiclesList = this.involvedVehicleService.getInvolvedVehicleList();
       });
@@ -92,20 +94,20 @@ export class VehiclesComponent implements OnInit {
     this.types = this.vehicleService.getVehicleTypeList();
     this.styles = this.vehicleService.getVehicleStyleList();
     this.vehicleModels = this.vehicleService.getVehicleModelList();
+    this.namePrefixCodes = this.personService.getNamePrefixList();
+    this.nameSuffixCodes = this.personService.getNameSuffixList();
+    this.ethnicityCodes = this.personService.getEthicityList();
+    this.hairColorCodes = this.personService.getHairColorList();
+    this.hairTypeCodes = this.personService.getHairTypeList();
+    this.eyeWearCodes = this.personService.getEyewearList();
+    this.facialHairCodes = this.personService.getFacialHairList();
 
     this.engineTypes = this.vehicleLookipService.vehicleEngineTypeList;
     this.transmissionTypes = this.vehicleLookipService.vehicleTransmissionTypeList;
-    this.namePrefixCodes = this.personLookupService.namePrefixList;
-    this.nameSuffixCodes = this.personLookupService.nameSuffixList;
     this.streetNamePreDirectionCodes = this.locationLookupService.streetNameDirectionList;
     this.genderCodes = this.personLookupService.genderList;
     this.raceCodes = this.personLookupService.raceList;
-    this.ethnicityCodes = this.personLookupService.ethnicityList;
-    this.hairColorCodes = this.personLookupService.hairColorList;
-    this.hairCodes = this.personLookupService.hairTypeList;
     this.eyeColorCodes = this.personLookupService.eyeColorList;
-    this.eyeWearCodes = this.personLookupService.eyeWearList;
-    this.facialHairCodes = this.personLookupService.facialHairList;
     this.wreckerServiceList = this.callForServiceLookupService.wreckerService;
     this.wreckerRotationList = this.callForServiceLookupService.wreckerRotation;
     this.involvedVehiclesList = this.involvedVehicleService.getInvolvedVehicleList();

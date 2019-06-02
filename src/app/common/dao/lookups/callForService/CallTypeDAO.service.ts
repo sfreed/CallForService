@@ -52,16 +52,16 @@ export class CallTypeDAO extends BaseDAO {
     return this.http.get(URL.CALL_FOR_SERVICE_CALL_TYPE_ADDRESS + '/' + id, this.getHttpOptions()).toPromise();
   }
 
-  private addCallType (call: CallForServiceType): Promise<any> {
-    this.updateModel(call);
+  private addCallType (callType: CallForServiceType): Promise<any> {
+    this.updateModel(callType);
 
-    return this.http.post<any>(URL.CALL_FOR_SERVICE_CALL_TYPE_ADDRESS, JSON.stringify(call), this.getHttpOptions()).toPromise();
+    return this.http.post<any>(URL.CALL_FOR_SERVICE_CALL_TYPE_ADDRESS, JSON.stringify(callType), this.getHttpOptions()).toPromise();
   }
 
-  private updateCallType (id, call: CallForServiceType): Promise<any> {
-    this.updateModel(call);
+  private updateCallType (id, callType: CallForServiceType): Promise<any> {
+    this.updateModel(callType);
 
-    return this.http.put(URL.CALL_FOR_SERVICE_CALL_TYPE_ADDRESS + '/' + id, JSON.stringify(call), this.getHttpOptions()).toPromise();
+    return this.http.put(URL.CALL_FOR_SERVICE_CALL_TYPE_ADDRESS + '/' + id, JSON.stringify(callType), this.getHttpOptions()).toPromise();
   }
 
   private deleteCallType (id): Promise<any> {

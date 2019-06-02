@@ -8,9 +8,7 @@ import ArrayStore from 'devextreme/data/array_store';
 export class NotesService {
   private notesList: DataSource;
 
-  constructor() {
-
-  }
+  constructor() {}
 
   public getNotes(): DataSource {
     return this.notesList;

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseDAO } from '../../BaseDAO';
+import { BaseDAO } from '../../../BaseDAO';
 import { AuthenticationService } from 'src/app/common/auth/auth.service';
 import { HttpClient } from '@angular/common/http';
 import CustomStore from 'devextreme/data/custom_store';
@@ -23,11 +23,11 @@ export class VehicleTypeDAO extends BaseDAO {
       load: () => {
           return this.VehicleType();
       },
-      insert: (callType) => {
-        return this.addVehicleType(callType);
+      insert: (type) => {
+        return this.addVehicleType(type);
       },
-      update: (key, callType) => {
-        return this.updateVehicleType(key, callType);
+      update: (key, type) => {
+        return this.updateVehicleType(key, type);
       },
       remove: (key) => {
           return this.deleteVehicleType(key);
@@ -52,16 +52,16 @@ export class VehicleTypeDAO extends BaseDAO {
     return this.http.get(URL.CALL_FOR_SERVICE_VEHICLE_TYPE_ADDRESS + '/' + id, this.getHttpOptions()).toPromise();
   }
 
-  private addVehicleType (call: VehicleType): Promise<any> {
-    this.updateModel(call);
+  private addVehicleType (type: VehicleType): Promise<any> {
+    this.updateModel(type);
 
-    return this.http.post<any>(URL.CALL_FOR_SERVICE_VEHICLE_TYPE_ADDRESS, JSON.stringify(call), this.getHttpOptions()).toPromise();
+    return this.http.post<any>(URL.CALL_FOR_SERVICE_VEHICLE_TYPE_ADDRESS, JSON.stringify(type), this.getHttpOptions()).toPromise();
   }
 
-  private updateVehicleType (id, call: VehicleType): Promise<any> {
-    this.updateModel(call);
+  private updateVehicleType (id, type: VehicleType): Promise<any> {
+    this.updateModel(type);
 
-    return this.http.put(URL.CALL_FOR_SERVICE_VEHICLE_TYPE_ADDRESS + '/' + id, JSON.stringify(call), this.getHttpOptions()).toPromise();
+    return this.http.put(URL.CALL_FOR_SERVICE_VEHICLE_TYPE_ADDRESS + '/' + id, JSON.stringify(type), this.getHttpOptions()).toPromise();
   }
 
   private deleteVehicleType (id): Promise<any> {

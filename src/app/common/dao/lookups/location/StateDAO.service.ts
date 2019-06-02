@@ -23,11 +23,11 @@ export class StateDAO extends BaseDAO {
       load: () => {
           return this.State();
       },
-      insert: (callType) => {
-        return this.addState(callType);
+      insert: (state) => {
+        return this.addState(state);
       },
-      update: (key, callType) => {
-        return this.updateState(key, callType);
+      update: (key, state) => {
+        return this.updateState(key, state);
       },
       remove: (key) => {
           return this.deleteState(key);
@@ -52,16 +52,16 @@ export class StateDAO extends BaseDAO {
     return this.http.get(URL.CALL_FOR_SERVICE_STATE_ADDRESS + '/' + id, this.getHttpOptions()).toPromise();
   }
 
-  private addState (call: State): Promise<any> {
-    this.updateModel(call);
+  private addState (state: State): Promise<any> {
+    this.updateModel(state);
 
-    return this.http.post<any>(URL.CALL_FOR_SERVICE_STATE_ADDRESS, JSON.stringify(call), this.getHttpOptions()).toPromise();
+    return this.http.post<any>(URL.CALL_FOR_SERVICE_STATE_ADDRESS, JSON.stringify(state), this.getHttpOptions()).toPromise();
   }
 
-  private updateState (id, call: State): Promise<any> {
-    this.updateModel(call);
+  private updateState (id, state: State): Promise<any> {
+    this.updateModel(state);
 
-    return this.http.put(URL.CALL_FOR_SERVICE_STATE_ADDRESS + '/' + id, JSON.stringify(call), this.getHttpOptions()).toPromise();
+    return this.http.put(URL.CALL_FOR_SERVICE_STATE_ADDRESS + '/' + id, JSON.stringify(state), this.getHttpOptions()).toPromise();
   }
 
   private deleteState (id): Promise<any> {

@@ -25,11 +25,11 @@ export class MasterUserDAO extends BaseDAO {
       load: () => {
         return this.getMasterUsers();
       },
-      insert: (values) => {
-          return this.addMasterUser(values);
+      insert: (master) => {
+          return this.addMasterUser(master);
       },
-      update: (key, values) => {
-        return this.updateMasterUser(key, values);
+      update: (key, master) => {
+        return this.updateMasterUser(key, master);
       },
       remove: (key) => {
           return this.deleteMasterUser(key);
@@ -54,16 +54,16 @@ export class MasterUserDAO extends BaseDAO {
     return this.http.get(this.endpoint + 'MasterUser/' + id, this.getHttpOptions()).toPromise();
   }
 
-  private addMasterUser (user: MasterUser): Promise<any> {
-    this.updateModel(user);
+  private addMasterUser (master: MasterUser): Promise<any> {
+    this.updateModel(master);
 
-    return this.http.post<any>(this.endpoint + 'MasterUser', JSON.stringify(user), this.getHttpOptions()).toPromise();
+    return this.http.post<any>(this.endpoint + 'MasterUser', JSON.stringify(master), this.getHttpOptions()).toPromise();
   }
 
-  private updateMasterUser (id, user: MasterUser): Promise<any> {
-    this.updateModel(user);
+  private updateMasterUser (id, master: MasterUser): Promise<any> {
+    this.updateModel(master);
 
-    return this.http.put(this.endpoint + 'MasterUser/' + id, JSON.stringify(user), this.getHttpOptions()).toPromise();
+    return this.http.put(this.endpoint + 'MasterUser/' + id, JSON.stringify(master), this.getHttpOptions()).toPromise();
   }
 
   private deleteMasterUser (id): Promise<any> {

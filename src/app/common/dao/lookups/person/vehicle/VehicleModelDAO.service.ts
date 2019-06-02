@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseDAO } from '../../BaseDAO';
+import { BaseDAO } from '../../../BaseDAO';
 import { AuthenticationService } from 'src/app/common/auth/auth.service';
 import { HttpClient } from '@angular/common/http';
 import CustomStore from 'devextreme/data/custom_store';
@@ -23,11 +23,11 @@ export class VehicleModelDAO  extends BaseDAO {
       load: () => {
           return this.getVehicleModels();
       },
-      insert: (callType) => {
-        return this.addVehicleModel(callType);
+      insert: (model) => {
+        return this.addVehicleModel(model);
       },
-      update: (key, callType) => {
-        return this.updateVehicleModel(key, callType);
+      update: (key, model) => {
+        return this.updateVehicleModel(key, model);
       },
       remove: (key) => {
           return this.deleteVehicleModel(key);
@@ -52,16 +52,16 @@ export class VehicleModelDAO  extends BaseDAO {
     return this.http.get(URL.CALL_FOR_SERVICE_VEHICLE_MODEL_ADDRESS + '/' + id, this.getHttpOptions()).toPromise();
   }
 
-  private addVehicleModel (call: VehicleModel): Promise<any> {
-    this.updateModel(call);
+  private addVehicleModel (model: VehicleModel): Promise<any> {
+    this.updateModel(model);
 
-    return this.http.post<any>(URL.CALL_FOR_SERVICE_VEHICLE_MODEL_ADDRESS, JSON.stringify(call), this.getHttpOptions()).toPromise();
+    return this.http.post<any>(URL.CALL_FOR_SERVICE_VEHICLE_MODEL_ADDRESS, JSON.stringify(model), this.getHttpOptions()).toPromise();
   }
 
-  private updateVehicleModel (id, call: VehicleModel): Promise<any> {
-    this.updateModel(call);
+  private updateVehicleModel (id, model: VehicleModel): Promise<any> {
+    this.updateModel(model);
 
-    return this.http.put(URL.CALL_FOR_SERVICE_VEHICLE_MODEL_ADDRESS + '/' + id, JSON.stringify(call), this.getHttpOptions()).toPromise();
+    return this.http.put(URL.CALL_FOR_SERVICE_VEHICLE_MODEL_ADDRESS + '/' + id, JSON.stringify(model), this.getHttpOptions()).toPromise();
   }
 
   private deleteVehicleModel (id): Promise<any> {

@@ -10,22 +10,15 @@ import { StreetNameDirection } from 'src/app/common/models/lookups/location/Stre
 import { Street } from 'src/app/common/models/lookups/location/Street';
 import { County } from 'src/app/common/models/lookups/location/County';
 import { PatrolArea } from 'src/app/common/models/lookups/location/PatrolArea';
-import { ContactType } from 'src/app/common/models/lookups/person/ContactType';
-import { NamePrefix } from 'src/app/common/models/lookups/person/NamePrefix';
-import { NameSuffix } from 'src/app/common/models/lookups/person/NameSuffix';
 import { Gender } from 'src/app/common/models/lookups/person/Gender';
 import { Race } from 'src/app/common/models/lookups/person/Race';
-import { Ethnicity } from 'src/app/common/models/lookups/person/Ethnicity';
-import { HairColor } from 'src/app/common/models/lookups/person/HairColor';
-import { HairType } from 'src/app/common/models/lookups/person/HairType';
 import { EyeColor } from 'src/app/common/models/lookups/person/EyeColor';
-import { Eyewear } from 'src/app/common/models/lookups/person/EyeWear';
-import { FacialHair } from 'src/app/common/models/lookups/person/FacialHair';
-import { CallForServiceHospital } from 'src/app/common/models/common/CallForServiceHospital';
 import { InvolvedUnitsService } from 'src/app/common/services/callDetails/InvolvedUnit.service';
 import { CallForService } from 'src/app/common/models/call/CallForService';
 import { LocationService } from 'src/app/common/services/lookups/location/Location.service';
 import * as deepmerge from 'deepmerge';
+import { PersonService } from 'src/app/common/services/lookups/person/Person.service';
+import { CommonService } from 'src/app/common/services/common/Common.service';
 
 
 @Component({
@@ -43,22 +36,22 @@ export class InvolvedPersonsComponent implements OnInit {
   zones: DataSource;
   states: DataSource;
   streetNameSuffixs: DataSource;
+  contactCodes: DataSource;
+  namePrefixCodes: DataSource;
+  lastNameSuffixCodes: DataSource;
+  ethnicityCodes: DataSource;
+  hairColorCodes: DataSource;
+  hairTypeCodes: DataSource;
+  eyeWearCodes: DataSource;
+  facialHairCodes: DataSource;
+  hospitalCodes: DataSource;
 
-  contactCodes: ContactType[];
-  namePrefixCodes: NamePrefix[];
-  lastNameSuffixCodes: NameSuffix[];
   streetNamePreDirectionCodes: StreetNameDirection[];
   countyCodes: County[];
   patrolAreaCodes: PatrolArea[];
   genderCodes: Gender[];
   raceCodes: Race[];
-  ethnicityCodes: Ethnicity[];
-  hairColorCodes: HairColor[];
-  hairCodes: HairType[];
   eyeColorCodes: EyeColor[];
-  eyeWearCodes: Eyewear[];
-  facialHairCodes: FacialHair[];
-  hospitalCodes: CallForServiceHospital[];
 
   popupVisible = false;
 
@@ -72,13 +65,22 @@ export class InvolvedPersonsComponent implements OnInit {
 
   constructor(public callService: CallsService, private personLookupService: PersonLookupService, private callForServiceLookup: CallForServiceLookupService,
     private locationService: LocationService, private locationLookupService: LocationLookupService, private involvedPersonsService: InvolvedPersonService,
-    private involvedUnitService: InvolvedUnitsService) {
+    private involvedUnitService: InvolvedUnitsService, private personService: PersonService, private commonService: CommonService) {
       this.streetNames = this.locationService.getStreetList();
       this.cities = this.locationService.getCityList();
       this.addressTypes = this.locationService.getAddressTypeList();
       this.zones = this.locationService.getZoneList();
       this.states = this.locationService.getStateList();
       this.streetNameSuffixs = this.locationService.getStreetSuffixList();
+      this.contactCodes = this.personService.getContactTypeList();
+      this.namePrefixCodes = this.personService.getNamePrefixList();
+      this.lastNameSuffixCodes = this.personService.getNameSuffixList();
+      this.ethnicityCodes = this.personService.getEthicityList();
+      this.hairColorCodes = this.personService.getHairColorList();
+      this.hairTypeCodes = this.personService.getHairTypeList();
+      this.eyeWearCodes = this.personService.getEyewearList();
+      this.facialHairCodes = this.personService.getFacialHairList();
+      this.hospitalCodes = this.commonService.getHospitalService();
 
       this.callService.callEmitter.subscribe((data: CallForService) => {
         this.involvedPersonsList = this.involvedPersonsService.getInvolvedPersonList();
@@ -86,21 +88,12 @@ export class InvolvedPersonsComponent implements OnInit {
     }
 
     ngOnInit() {
-      this.contactCodes = this.personLookupService.contactTypeList;
-      this.namePrefixCodes = this.personLookupService.namePrefixList;
-      this.lastNameSuffixCodes = this.personLookupService.nameSuffixList;
+      this.eyeColorCodes = this.personLookupService.eyeColorList;
       this.streetNamePreDirectionCodes = this.locationLookupService.streetNameDirectionList;
       this.countyCodes = this.locationLookupService.countyList;
       this.patrolAreaCodes = this.locationLookupService.patrolAreaList;
       this.genderCodes = this.personLookupService.genderList;
       this.raceCodes = this.personLookupService.raceList;
-      this.ethnicityCodes = this.personLookupService.ethnicityList;
-      this.hairColorCodes = this.personLookupService.hairColorList;
-      this.hairCodes = this.personLookupService.hairTypeList;
-      this.eyeColorCodes = this.personLookupService.eyeColorList;
-      this.eyeWearCodes = this.personLookupService.eyeWearList;
-      this.facialHairCodes = this.personLookupService.facialHairList;
-      this.hospitalCodes = this.callForServiceLookup.callForServiceHospitalList;
       this.involvedPersonsList = this.involvedPersonsService.getInvolvedPersonList();
     }
 

@@ -1,41 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { URL } from '../../../models/common/URL.enum';
-import { Agency } from '../../../models/common/Agency';
-import { AgencyType } from '../../../models/common/AgencyType';
-import { ContactType } from '../../../models/lookups/person/ContactType';
-import { Ethnicity } from '../../../models/lookups/person/Ethnicity';
-import { EyeColor } from '../../../models/lookups/person/EyeColor';
-import { Eyewear } from '../../../models/lookups/person/EyeWear';
-import { FacialHair } from '../../../models/lookups/person/FacialHair';
 import { Gender } from '../../../models/lookups/person/Gender';
-import { HairColor } from '../../../models/lookups/person/HairColor';
-import { HairType } from '../../../models/lookups/person/HairType';
-import { NamePrefix } from '../../../models/lookups/person/NamePrefix';
-import { NameSuffix } from '../../../models/lookups/person/NameSuffix';
-import { OfficerRank } from '../../../models/lookups/person/OfficerRank';
 import { Race } from '../../../models/lookups/person/Race';
 import { PersonLookup } from '../../../models/lookups/person/PersonLookup';
+import { EyeColor } from 'src/app/common/models/lookups/person/EyeColor';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PersonLookupService {
-  agencyList: Agency[];
-  agencyTypeList: AgencyType[];
-  contactTypeList: ContactType[];
-  ethnicityList: Ethnicity[];
-  eyeColorList: EyeColor[];
-  eyeWearList: Eyewear[];
-  facialHairList: FacialHair[];
-  genderList: Gender[];
-  hairColorList: HairColor[];
-  hairTypeList: HairType[];
-  namePrefixList: NamePrefix[];
-  nameSuffixList: NameSuffix[];
-  officerRankList: OfficerRank[];
-  raceList: Race[];
 
+  genderList: Gender[];
+  raceList: Race[];
+  eyeColorList: EyeColor[];
 
   constructor(private httpClient: HttpClient) {}
 
@@ -49,19 +27,9 @@ export class PersonLookupService {
       .toPromise()
       .then(settings => {
         console.log('Person Settings from API: ', settings);
-        this.agencyList = settings.agency;
-        this.agencyTypeList = settings.agencyType;
-        this.contactTypeList = settings.contactType;
-        this.ethnicityList = settings.ethnicity;
         this.eyeColorList = settings.eyeColor;
-        this.eyeWearList = settings.eyewear;
-        this.facialHairList = settings.facialHair;
         this.genderList = settings.gender;
-        this.hairColorList = settings.hairColor;
-        this.hairTypeList = settings.hairType;
-        this.namePrefixList = settings.namePrefix;
-        this.nameSuffixList = settings.nameSuffix;
-        this.officerRankList = settings.officerRank;
+
         this.raceList = settings.race;
         return settings;
       });

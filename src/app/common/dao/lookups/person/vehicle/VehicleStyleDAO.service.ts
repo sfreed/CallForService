@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseDAO } from '../../BaseDAO';
+import { BaseDAO } from '../../../BaseDAO';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from 'src/app/common/auth/auth.service';
 import CustomStore from 'devextreme/data/custom_store';
@@ -23,11 +23,11 @@ export class VehicleStyleDAO extends BaseDAO {
       load: () => {
           return this.VehicleStyle();
       },
-      insert: (callType) => {
-        return this.addVehicleStyle(callType);
+      insert: (style) => {
+        return this.addVehicleStyle(style);
       },
-      update: (key, callType) => {
-        return this.updateVehicleStyle(key, callType);
+      update: (key, style) => {
+        return this.updateVehicleStyle(key, style);
       },
       remove: (key) => {
           return this.deleteVehicleStyle(key);
@@ -52,16 +52,16 @@ export class VehicleStyleDAO extends BaseDAO {
     return this.http.get(URL.CALL_FOR_SERVICE_VEHICLE_STYLE_ADDRESS + '/' + id, this.getHttpOptions()).toPromise();
   }
 
-  private addVehicleStyle (call: VehicleStyle): Promise<any> {
-    this.updateModel(call);
+  private addVehicleStyle (style: VehicleStyle): Promise<any> {
+    this.updateModel(style);
 
-    return this.http.post<any>(URL.CALL_FOR_SERVICE_VEHICLE_STYLE_ADDRESS, JSON.stringify(call), this.getHttpOptions()).toPromise();
+    return this.http.post<any>(URL.CALL_FOR_SERVICE_VEHICLE_STYLE_ADDRESS, JSON.stringify(style), this.getHttpOptions()).toPromise();
   }
 
-  private updateVehicleStyle (id, call: VehicleStyle): Promise<any> {
-    this.updateModel(call);
+  private updateVehicleStyle (id, style: VehicleStyle): Promise<any> {
+    this.updateModel(style);
 
-    return this.http.put(URL.CALL_FOR_SERVICE_VEHICLE_STYLE_ADDRESS + '/' + id, JSON.stringify(call), this.getHttpOptions()).toPromise();
+    return this.http.put(URL.CALL_FOR_SERVICE_VEHICLE_STYLE_ADDRESS + '/' + id, JSON.stringify(style), this.getHttpOptions()).toPromise();
   }
 
   private deleteVehicleStyle (id): Promise<any> {

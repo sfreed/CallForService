@@ -22,11 +22,11 @@ export class ZoneDAO extends BaseDAO {
       load: () => {
           return this.Zone();
       },
-      insert: (callType) => {
-        return this.addZone(callType);
+      insert: (zone) => {
+        return this.addZone(zone);
       },
-      update: (key, callType) => {
-        return this.updateZone(key, callType);
+      update: (key, zone) => {
+        return this.updateZone(key, zone);
       },
       remove: (key) => {
           return this.deleteZone(key);
@@ -51,16 +51,16 @@ export class ZoneDAO extends BaseDAO {
     return this.http.get(URL.CALL_FOR_SERVICE_ZONE_ADDRESS + '/' + id, this.getHttpOptions()).toPromise();
   }
 
-  private addZone (call: Zone): Promise<any> {
-    this.updateModel(call);
+  private addZone (zone: Zone): Promise<any> {
+    this.updateModel(zone);
 
-    return this.http.post<any>(URL.CALL_FOR_SERVICE_ZONE_ADDRESS, JSON.stringify(call), this.getHttpOptions()).toPromise();
+    return this.http.post<any>(URL.CALL_FOR_SERVICE_ZONE_ADDRESS, JSON.stringify(zone), this.getHttpOptions()).toPromise();
   }
 
-  private updateZone (id, call: Zone): Promise<any> {
-    this.updateModel(call);
+  private updateZone (id, zone: Zone): Promise<any> {
+    this.updateModel(zone);
 
-    return this.http.put(URL.CALL_FOR_SERVICE_ZONE_ADDRESS + '/' + id, JSON.stringify(call), this.getHttpOptions()).toPromise();
+    return this.http.put(URL.CALL_FOR_SERVICE_ZONE_ADDRESS + '/' + id, JSON.stringify(zone), this.getHttpOptions()).toPromise();
   }
 
   private deleteZone (id): Promise<any> {

@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CallsService } from 'src/app/common/services/call/Calls.service';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { ComplainantPerson } from 'src/app/common/models/call/ComplainantPerson';
 import { PersonLookupService } from 'src/app/common/services/lookups/person/PersonLookup.service';
-import { CallForService } from 'src/app/common/models/call/CallForService';
-import { NamePrefix } from 'src/app/common/models/lookups/person/NamePrefix';
-import { NameSuffix } from 'src/app/common/models/lookups/person/NameSuffix';
 import { InvolvedUnitsService } from 'src/app/common/services/callDetails/InvolvedUnit.service';
+import { PersonService } from 'src/app/common/services/lookups/person/Person.service';
+import DataSource from 'devextreme/data/data_source';
 
 @Component({
   selector: 'app-complainants',
@@ -18,8 +16,8 @@ export class ComplainantsComponent implements OnInit {
 
   showWaitIndicator = false;
 
-  namePrefix: NamePrefix[];
-  nameSuffix: NameSuffix[];
+  namePrefix: DataSource;
+  nameSuffix: DataSource;
 
   buttonOptions: any = {
     text: 'Save',
@@ -27,12 +25,12 @@ export class ComplainantsComponent implements OnInit {
     onClick: this.saveCall.bind(this)
   };
 
-  constructor(public callService: CallsService, private personLookupService: PersonLookupService, private involvedUnitService: InvolvedUnitsService) {}
+  constructor(public callService: CallsService, private personLookupService: PersonLookupService, private personService: PersonService, private involvedUnitService: InvolvedUnitsService) {}
 
   ngOnInit() {
-    this.namePrefix = this.personLookupService.namePrefixList;
+    this.namePrefix = this.personService.getNamePrefixList();
 
-    this.nameSuffix = this.personLookupService.nameSuffixList;
+    this.nameSuffix = this.personService.getNameSuffixList();
   }
 
   drop(event: CdkDragDrop<any>) {

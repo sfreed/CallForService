@@ -23,11 +23,11 @@ export class InvolvedUnitDAO extends BaseDAO {
       load: () => {
         return this.getInvolvedUnits();
       },
-      insert: (person) => {
-        return this.addInvolvedUnit(person);
+      insert: (unit) => {
+        return this.addInvolvedUnit(unit);
       },
-      update: (key, person: InvolvedUnitsItem) => {
-        return this.updateInvolvedUnit(key, person);
+      update: (key, unit: InvolvedUnitsItem) => {
+        return this.updateInvolvedUnit(key, unit);
       },
       remove: (key) => {
           return this.deleteInvolvedUnit(key);
@@ -54,20 +54,16 @@ export class InvolvedUnitDAO extends BaseDAO {
     return this.http.get<any>(this.endpoint + 'CallForServiceInvolvedUnit/?callId=' + this.callService.getActiveCall().id + '&personId=' + id, this.getHttpOptions()).toPromise();
   }
 
-  private addInvolvedUnit(involvedUnit: InvolvedUnitsItem): Promise<any> {
-    this.updateModel(involvedUnit);
+  private addInvolvedUnit(unit: InvolvedUnitsItem): Promise<any> {
+    this.updateModel(unit);
 
-    console.log('inserting person', JSON.stringify(involvedUnit));
-
-    return this.http.post<any>(this.endpoint + 'CallForServiceInvolvedUnit', JSON.stringify(involvedUnit), this.getHttpOptions()).toPromise();
+    return this.http.post<any>(this.endpoint + 'CallForServiceInvolvedUnit', JSON.stringify(unit), this.getHttpOptions()).toPromise();
   }
 
-  private updateInvolvedUnit(id, involvedUnit: InvolvedUnitsItem): Promise<any> {
-    return this.http.put(this.endpoint + 'CallForServiceInvolvedUnit?callId=' + this.callService.getActiveCall().id + '&personId=' + id, JSON.stringify(involvedUnit), this.getHttpOptions()).toPromise()
-    .then(res => {
-      console.log(JSON.stringify(res));
-      return res;
-    });
+  private updateInvolvedUnit(id, unit: InvolvedUnitsItem): Promise<any> {
+    this.updateModel(unit);
+
+    return this.http.put(this.endpoint + 'CallForServiceInvolvedUnit?callId=' + this.callService.getActiveCall().id + '&personId=' + id, JSON.stringify(unit), this.getHttpOptions()).toPromise();
   }
 
   private deleteInvolvedUnit(id): Promise<any> {

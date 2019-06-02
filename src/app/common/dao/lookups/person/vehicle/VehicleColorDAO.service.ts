@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseDAO } from '../../BaseDAO';
+import { BaseDAO } from '../../../BaseDAO';
 import { AuthenticationService } from 'src/app/common/auth/auth.service';
 import { HttpClient } from '@angular/common/http';
 import CustomStore from 'devextreme/data/custom_store';
@@ -23,11 +23,11 @@ export class VehicleColorDAO extends BaseDAO {
       load: () => {
           return this.VehicleColor();
       },
-      insert: (callType) => {
-        return this.addVehicleColor(callType);
+      insert: (color) => {
+        return this.addVehicleColor(color);
       },
-      update: (key, callType) => {
-        return this.updateVehicleColor(key, callType);
+      update: (key, color) => {
+        return this.updateVehicleColor(key, color);
       },
       remove: (key) => {
           return this.deleteVehicleColor(key);
@@ -52,16 +52,16 @@ export class VehicleColorDAO extends BaseDAO {
     return this.http.get(URL.CALL_FOR_SERVICE_VEHICLE_COLOR_ADDRESS + '/' + id, this.getHttpOptions()).toPromise();
   }
 
-  private addVehicleColor (call: VehicleColor): Promise<any> {
-    this.updateModel(call);
+  private addVehicleColor (color: VehicleColor): Promise<any> {
+    this.updateModel(color);
 
-    return this.http.post<any>(URL.CALL_FOR_SERVICE_VEHICLE_COLOR_ADDRESS, JSON.stringify(call), this.getHttpOptions()).toPromise();
+    return this.http.post<any>(URL.CALL_FOR_SERVICE_VEHICLE_COLOR_ADDRESS, JSON.stringify(color), this.getHttpOptions()).toPromise();
   }
 
-  private updateVehicleColor (id, call: VehicleColor): Promise<any> {
-    this.updateModel(call);
+  private updateVehicleColor (id, color: VehicleColor): Promise<any> {
+    this.updateModel(color);
 
-    return this.http.put(URL.CALL_FOR_SERVICE_VEHICLE_COLOR_ADDRESS + '/' + id, JSON.stringify(call), this.getHttpOptions()).toPromise();
+    return this.http.put(URL.CALL_FOR_SERVICE_VEHICLE_COLOR_ADDRESS + '/' + id, JSON.stringify(color), this.getHttpOptions()).toPromise();
   }
 
   private deleteVehicleColor (id): Promise<any> {

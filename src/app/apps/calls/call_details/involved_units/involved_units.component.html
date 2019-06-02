@@ -27,7 +27,7 @@
     <dxi-column dataField="callForServiceUnit.unitDescription" dataType="string" caption="Description"></dxi-column>
     <dxi-column dataField="callForServiceUnit.unitAgencyId" dataType="string" caption="Unit Type" width="20%">
       <dxo-lookup
-        [dataSource]="unitAgencies"
+        [dataSource]="unitAgencies.store()"
         valueExpr="id"
         displayExpr="agencyName">
     </dxo-lookup>

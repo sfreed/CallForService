@@ -22,11 +22,11 @@ export class AddressTypeDAO extends BaseDAO {
       load: () => {
           return this.AddressType();
       },
-      insert: (callType) => {
-        return this.addAddressType(callType);
+      insert: (addressType) => {
+        return this.addAddressType(addressType);
       },
-      update: (key, callType) => {
-        return this.updateAddressType(key, callType);
+      update: (key, addressType) => {
+        return this.updateAddressType(key, addressType);
       },
       remove: (key) => {
           return this.deleteAddressType(key);
@@ -51,16 +51,16 @@ export class AddressTypeDAO extends BaseDAO {
     return this.http.get(URL.CALL_FOR_SERVICE_ADDRESS_TYPE_ADDRESS + '/' + id, this.getHttpOptions()).toPromise();
   }
 
-  private addAddressType (call: AddressType): Promise<any> {
-    this.updateModel(call);
+  private addAddressType (addressType: AddressType): Promise<any> {
+    this.updateModel(addressType);
 
-    return this.http.post<any>(URL.CALL_FOR_SERVICE_ADDRESS_TYPE_ADDRESS, JSON.stringify(call), this.getHttpOptions()).toPromise();
+    return this.http.post<any>(URL.CALL_FOR_SERVICE_ADDRESS_TYPE_ADDRESS, JSON.stringify(addressType), this.getHttpOptions()).toPromise();
   }
 
-  private updateAddressType (id, call: AddressType): Promise<any> {
-    this.updateModel(call);
+  private updateAddressType (id, addressType: AddressType): Promise<any> {
+    this.updateModel(addressType);
 
-    return this.http.put(URL.CALL_FOR_SERVICE_ADDRESS_TYPE_ADDRESS + '/' + id, JSON.stringify(call), this.getHttpOptions()).toPromise();
+    return this.http.put(URL.CALL_FOR_SERVICE_ADDRESS_TYPE_ADDRESS + '/' + id, JSON.stringify(addressType), this.getHttpOptions()).toPromise();
   }
 
   private deleteAddressType (id): Promise<any> {

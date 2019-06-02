@@ -42,8 +42,6 @@ export class CallForServiceRemarksDAO extends BaseDAO {
   private addCallRemark (call: CallRemarksItem): Promise<any> {
     this.updateModel(call);
 
-    console.log('inserting call remark', JSON.stringify(call));
-
     return this.http.post<any>(URL.CALL_FOR_SERVICE_REMARKS_ADDRESS, JSON.stringify(call), this.getHttpOptions()).toPromise();
   }
 

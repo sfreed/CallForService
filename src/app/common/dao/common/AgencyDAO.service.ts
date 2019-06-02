@@ -45,27 +45,27 @@ export class AgencyDAO extends BaseDAO {
   }
 
   private getAgencies(): Promise<any> {
-    return this.http.get(URL.CALL_FOR_AGENCY_ADDRESS, this.getHttpOptions()).toPromise();
+    return this.http.get(URL.CALL_FOR_SERVICE_AGENCY_ADDRESS, this.getHttpOptions()).toPromise();
   }
 
   private getAgency(id): Promise<any> {
-    return this.http.get(URL.CALL_FOR_AGENCY_ADDRESS + '/' + id, this.getHttpOptions()).toPromise();
+    return this.http.get(URL.CALL_FOR_SERVICE_AGENCY_ADDRESS + '/' + id, this.getHttpOptions()).toPromise();
   }
 
   private addAgency(agency: Agency): Promise<any> {
     this.updateModel(agency);
 
-    return this.http.post<any>(URL.CALL_FOR_AGENCY_ADDRESS, JSON.stringify(agency), this.getHttpOptions()).toPromise();
+    return this.http.post<any>(URL.CALL_FOR_SERVICE_AGENCY_ADDRESS, JSON.stringify(agency), this.getHttpOptions()).toPromise();
   }
 
   private updateAgency(id, agency: Agency): Promise<any> {
     this.updateModel(agency);
 
-    return this.http.put(URL.CALL_FOR_AGENCY_ADDRESS + '/' + id, JSON.stringify(agency), this.getHttpOptions()).toPromise();
+    return this.http.put(URL.CALL_FOR_SERVICE_AGENCY_ADDRESS + '/' + id, JSON.stringify(agency), this.getHttpOptions()).toPromise();
   }
 
   private deleteAgency(id): Promise<any> {
-    return this.http.delete<any>(URL.CALL_FOR_AGENCY_ADDRESS + '/' + id, this.getHttpOptions()).toPromise();
+    return this.http.delete<any>(URL.CALL_FOR_SERVICE_AGENCY_ADDRESS + '/' + id, this.getHttpOptions()).toPromise();
   }
 
   protected updateModel(model: Agency) {
