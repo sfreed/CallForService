@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DxListComponent } from 'devextreme-angular';
 import notify from 'devextreme/ui/notify';
-import { _ } from 'underscore';
 import { DispatcherService } from 'src/app/common/services/master/Dispatcher.service';
 import CustomStore from 'devextreme/data/custom_store';
 

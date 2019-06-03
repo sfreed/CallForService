@@ -8,7 +8,8 @@
     cdkDropList
     (cdkDropListDropped)="drop($event)"
     [cdkDropListConnectedTo]="['activeUnits']"
-    (onRowUpdating)="updateRow($event)">
+    (onRowUpdating)="updateRow($event)"
+    (onEditingStart)="startEditing($event)">
     <dxo-scrolling mode="virtual"></dxo-scrolling>
     <dxo-selection mode="single"></dxo-selection>
     <dxo-editing
@@ -184,15 +185,22 @@
               <dxi-item dataField="vehicle.ownerPerson.facialHairId" [label]="{text: 'Facial Hair'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: facialHairCodes,  valueExpr:'id', displayExpr:'facialHairCodeDescription'}"></dxi-item>
             </dxi-item>
           </dxi-tab>
-          <dxi-tab title="Wrecker Service" width="100%" [colCount]="2">
-            <dxi-item dataField="isWrecker" [colSpan]="2" [label]="{text: 'Is Wrecker Needed?'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-            <dxi-item dataField="wreckerRotation" [label]="{text: 'Wrecker Rotation'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: wreckerRotationList,  valueExpr:'id', displayExpr:'rotationDescription', 'onSelectionChanged': assignToWreckerService }"></dxi-item>
-            <dxi-item dataField="wreckerServer" [label]="{text: 'Wrecker Service'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: wreckerServiceList,  displayExpr:'wreckerServiceName', 'onSelectionChanged': assignToWreckerService }"></dxi-item>
-            <dxi-item dataField="wreckerTimeCalled" [label]="{text: 'Time Called'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-            <dxi-item dataField="wreckerTimeArrived" [label]="{text: 'Time Arrived'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-            <dxi-item dataField="wreckerTowedDateTime" [label]="{text: 'Towed Date/Time'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-            <dxi-item dataField="wreckerTowedTo" [label]="{text: 'Towed To' }" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-            <dxi-item dataField="wreckerRemarks" [colSpan]="2" [label]="{text: 'Remarks'}" editorType="dxTextArea" [editorOptions]="{ stylingMode: 'filled', height: 150 }"></dxi-item>
+          <dxi-tab title="Wrecker Service" width="100%" [colCount]="8">
+            <dxi-item dataField="isWrecker" [colSpan]="8" [label]="{text: 'Is Wrecker Needed?'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+            <dxi-item dataField="wreckerRotation" [colSpan]="4"[label]="{text: 'Wrecker Rotation'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: wreckerRotationList,  valueExpr:'id', displayExpr:'rotationDescription' }"></dxi-item>
+            <dxi-item [colSpan]="1">
+                <dx-button
+                  icon="search"
+                  (onClick)="assignToWreckerService($event)"
+                  style="margin-right:10px; margin-top: 18px;">
+                </dx-button>
+              </dxi-item>
+            <dxi-item dataField="wreckerServer" [colSpan]="3"[label]="{text: 'Wrecker Service'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: wreckerServiceList,  displayExpr:'wreckerServiceName' }"></dxi-item>
+            <dxi-item dataField="wreckerTimeCalled" [colSpan]="4"[label]="{text: 'Time Called'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+            <dxi-item dataField="wreckerTimeArrived" [colSpan]="4"[label]="{text: 'Time Arrived'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+            <dxi-item dataField="wreckerTowedDateTime" [colSpan]="4"[label]="{text: 'Towed Date/Time'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+            <dxi-item dataField="wreckerTowedTo" [colSpan]="4"[label]="{text: 'Towed To' }" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+            <dxi-item dataField="wreckerRemarks" [colSpan]="8" [label]="{text: 'Remarks'}" editorType="dxTextArea" [editorOptions]="{ stylingMode: 'filled', height: 150 }"></dxi-item>
           </dxi-tab>
           <dxi-tab title="Vehicle Remarks" width="100%">
             <dxi-item dataField="vehicleRemarks" editorType="dxTextArea" [editorOptions]="{ stylingMode: 'filled', height: 150 }"></dxi-item>

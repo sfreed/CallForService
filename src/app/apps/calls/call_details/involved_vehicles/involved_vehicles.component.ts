@@ -11,16 +11,8 @@ import { WreckerRotationService } from 'src/app/common/services/callDetails/Wrec
 import DataSource from 'devextreme/data/data_source';
 import { InvolvedVehicleService } from 'src/app/common/services/callDetails/InvolvedVehicle.service';
 import { StreetNameDirection } from 'src/app/common/models/lookups/location/StreetNameDirection';
-import { NamePrefix } from 'src/app/common/models/lookups/person/NamePrefix';
-import { NameSuffix } from 'src/app/common/models/lookups/person/NameSuffix';
 import { Gender } from 'src/app/common/models/lookups/person/Gender';
 import { Race } from 'src/app/common/models/lookups/person/Race';
-import { Ethnicity } from 'src/app/common/models/lookups/person/Ethnicity';
-import { HairColor } from 'src/app/common/models/lookups/person/HairColor';
-import { HairType } from 'src/app/common/models/lookups/person/HairType';
-import { EyeColor } from 'src/app/common/models/lookups/person/EyeColor';
-import { Eyewear } from 'src/app/common/models/lookups/person/EyeWear';
-import { FacialHair } from 'src/app/common/models/lookups/person/FacialHair';
 import { VehicleModel } from 'src/app/common/models/lookups/vehicle/VehicleModel';
 import { VehicleEngineType } from 'src/app/common/models/lookups/vehicle/VehicleEngineType';
 import { VehicleTransmissionType } from 'src/app/common/models/lookups/vehicle/VehicleTransmissionType';
@@ -32,6 +24,7 @@ import { LocationService } from 'src/app/common/services/lookups/location/Locati
 import * as deepmerge from 'deepmerge';
 import { PersonService } from 'src/app/common/services/lookups/person/Person.service';
 import { StreetNameSuffix } from 'src/app/common/models/lookups/location/StreetNameSuffix';
+import { InvolvedVehicle } from 'src/app/common/models/callDetails/vehicle/InvolvedVehicle';
 
 @Component({
   selector: 'app-vehicles',
@@ -74,6 +67,7 @@ export class VehiclesComponent implements OnInit {
   popupVisible = false;
 
   selectedStreet: Street = new Street();
+  selectedVehicle: InvolvedVehicle;
 
   constructor(public callService: CallsService, private locationLookupService: LocationLookupService, private vehicleLookipService: VehicleLookupService,
     private personLookupService: PersonLookupService, private callForServiceLookupService: CallForServiceLookupService,
@@ -115,7 +109,7 @@ export class VehiclesComponent implements OnInit {
   }
 
   assignToWreckerService(e) {
-    console.log('clicked', this.wreckerServiceList);
+    console.log('clicked', this.selectedVehicle);
 
     this.wreckerRotationService.getNextRotationId(e.value);
   }
@@ -219,5 +213,10 @@ export class VehiclesComponent implements OnInit {
 
   updateRow(options) {
     options.newData = deepmerge(options.oldData, options.newData);
+  }
+
+  startEditing(options) {
+    console.log(options);
+    this.selectedVehicle = options.data;
   }
 }

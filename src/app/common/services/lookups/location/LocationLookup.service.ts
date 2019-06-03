@@ -45,7 +45,6 @@ export class LocationLookupService {
           const responseBody: any = token;
 
           if (typeof responseBody.access_token !== 'undefined') {
-            console.log('storing ' + responseBody.access_token);
             localStorage.setItem('id_token', responseBody.access_token);
           }
 

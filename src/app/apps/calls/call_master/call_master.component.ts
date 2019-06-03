@@ -78,11 +78,13 @@ export class CallMasterComponent implements OnInit {
     this.cfsLookupService.initialize().then(results => {
       this.personLookupService.initialize().then(people => {
         this.vehicleLookupService.initialize().then(vehicles => {
+          this.locationLookupService.initialize().then(location => {
             this.callOriginated = this.cfsLookupService.callForServiceOriginatedList;
 
             this.callDispositionStatus = this.cfsLookupService.callForServiceDispositionStatusList;
 
             this.filterCalls('dispatcherId', this.authService.getUser().personId);
+          });
         });
       });
     });

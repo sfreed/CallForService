@@ -11,15 +11,11 @@ import { AuthenticationService } from './auth.service';
     constructor(public authenticationService: AuthenticationService, private router: Router) { }
 
     public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-
-      console.log('can activate');
-
         if (this.authenticationService.getUser()) {
             // Signed in.
             return true;
         }
 
-        console.log('can activate2');
         // Stores the attempted URL for redirecting.
         const url: string = state.url;
         this.authenticationService.redirectUrl = url;

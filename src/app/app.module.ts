@@ -34,13 +34,7 @@ import { LocationLookupService } from './common/services/lookups/location/Locati
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    AuthenticationService, AuthGuard,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: (ds: LocationLookupService) => function() {return ds.initialize(); },
-      deps: [LocationLookupService],
-      multi: true
-    }
+    AuthenticationService, AuthGuard
   ],
   bootstrap: [ AppComponent ]})
 export class AppModule { }

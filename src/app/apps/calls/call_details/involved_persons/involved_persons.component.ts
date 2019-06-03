@@ -12,7 +12,6 @@ import { County } from 'src/app/common/models/lookups/location/County';
 import { PatrolArea } from 'src/app/common/models/lookups/location/PatrolArea';
 import { Gender } from 'src/app/common/models/lookups/person/Gender';
 import { Race } from 'src/app/common/models/lookups/person/Race';
-import { EyeColor } from 'src/app/common/models/lookups/person/EyeColor';
 import { InvolvedUnitsService } from 'src/app/common/services/callDetails/InvolvedUnit.service';
 import { CallForService } from 'src/app/common/models/call/CallForService';
 import { LocationService } from 'src/app/common/services/lookups/location/Location.service';

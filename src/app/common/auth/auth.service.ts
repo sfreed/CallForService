@@ -6,7 +6,6 @@ import 'rxjs/add/observable/throw';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { URL } from '../models/common/URL.enum';
-import { MasterUserService } from '../services/master/MasterUser.service';
 
 @Injectable()
 export class AuthenticationService {
@@ -41,10 +40,7 @@ export class AuthenticationService {
         .then(settings => {
             const responseBody: any = settings;
 
-            console.log('token res: ', settings);
-
             if (typeof responseBody.access_token !== 'undefined') {
-              console.log('storing ' + responseBody.access_token);
               localStorage.setItem('id_token', responseBody.access_token);
             }
 
@@ -110,7 +106,6 @@ export class AuthenticationService {
         return this.httpClient.post(URL.USER_LOGOUT_ENDPOINT, params, {headers: headers})
           .toPromise()
           .then( settings => {
-
               console.log('logout res: ', settings);
 
               const responseBody: any = settings;

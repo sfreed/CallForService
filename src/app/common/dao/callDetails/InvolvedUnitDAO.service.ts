@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { BaseDAO } from '../BaseDAO';
 import { CallsService } from '../../services/call/Calls.service';
 import { AuthenticationService } from '../../auth/auth.service';
-import { InvolvedPersonItem } from '../../models/callDetails/InvolvedPersonItem';
 import DataSource from 'devextreme/data/data_source';
 import CustomStore from 'devextreme/data/custom_store';
 import { HttpClient } from '@angular/common/http';
