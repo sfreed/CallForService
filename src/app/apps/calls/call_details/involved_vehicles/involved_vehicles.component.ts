@@ -31,6 +31,7 @@ import { VehicleService } from 'src/app/common/services/lookups/vehicle/Vehicle.
 import { LocationService } from 'src/app/common/services/lookups/location/Location.service';
 import * as deepmerge from 'deepmerge';
 import { PersonService } from 'src/app/common/services/lookups/person/Person.service';
+import { StreetNameSuffix } from 'src/app/common/models/lookups/location/StreetNameSuffix';
 
 @Component({
   selector: 'app-vehicles',
@@ -44,7 +45,6 @@ export class VehiclesComponent implements OnInit {
   streetNames: DataSource;
   cities: DataSource;
   states: DataSource;
-  streetNameSuffixs: DataSource;
 
   colors: DataSource;
   types: DataSource;
@@ -58,6 +58,7 @@ export class VehiclesComponent implements OnInit {
   hairColorCodes: DataSource;
   hairTypeCodes: DataSource;
   eyeWearCodes: DataSource;
+  eyeColorCodes: DataSource;
   facialHairCodes: DataSource;
 
   engineTypes: VehicleEngineType[];
@@ -65,10 +66,10 @@ export class VehiclesComponent implements OnInit {
   streetNamePreDirectionCodes: StreetNameDirection[];
   wreckerServiceList: WreckerService[];
   wreckerRotationList: WreckerRotation[];
+  streetNameSuffixs: StreetNameSuffix[];
 
   genderCodes: Gender[];
   raceCodes: Race[];
-  eyeColorCodes: EyeColor[];
 
   popupVisible = false;
 
@@ -87,7 +88,6 @@ export class VehiclesComponent implements OnInit {
     this.streetNames = this.locationService.getStreetList();
     this.cities = this.locationService.getCityList();
     this.states = this.locationService.getStateList();
-    this.streetNameSuffixs = this.locationService.getStreetSuffixList();
 
     this.colors = this.vehicleService.getVehicleColorList();
     this.fuelTypes = this.vehicleService.getVehicleFuelTypeList();
@@ -100,14 +100,15 @@ export class VehiclesComponent implements OnInit {
     this.hairColorCodes = this.personService.getHairColorList();
     this.hairTypeCodes = this.personService.getHairTypeList();
     this.eyeWearCodes = this.personService.getEyewearList();
+    this.eyeColorCodes = this.personService.getEyeColorList();
     this.facialHairCodes = this.personService.getFacialHairList();
 
+    this.streetNameSuffixs = this.locationLookupService.streetNameSuffix;
     this.engineTypes = this.vehicleLookipService.vehicleEngineTypeList;
     this.transmissionTypes = this.vehicleLookipService.vehicleTransmissionTypeList;
     this.streetNamePreDirectionCodes = this.locationLookupService.streetNameDirectionList;
     this.genderCodes = this.personLookupService.genderList;
     this.raceCodes = this.personLookupService.raceList;
-    this.eyeColorCodes = this.personLookupService.eyeColorList;
     this.wreckerServiceList = this.callForServiceLookupService.wreckerService;
     this.wreckerRotationList = this.callForServiceLookupService.wreckerRotation;
     this.involvedVehiclesList = this.involvedVehicleService.getInvolvedVehicleList();

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { VehicleColorDAO } from 'src/app/common/dao/lookups/person/vehicle/VehicleColorDAO.service';
-import { VehicleFuelTypeDAO } from 'src/app/common/dao/lookups/person/vehicle/VehicleFuelTypeDAO.service';
-import { VehicleTypeDAO } from 'src/app/common/dao/lookups/person/vehicle/VehicleTypeDAO.service';
-import { VehicleStyleDAO } from 'src/app/common/dao/lookups/person/vehicle/VehicleStyleDAO.service';
+import { VehicleColorDAO } from 'src/app/common/dao/lookups/vehicle/VehicleColorDAO.service';
+import { VehicleFuelTypeDAO } from 'src/app/common/dao/lookups/vehicle/VehicleFuelTypeDAO.service';
+import { VehicleTypeDAO } from 'src/app/common/dao/lookups/vehicle/VehicleTypeDAO.service';
+import { VehicleStyleDAO } from 'src/app/common/dao/lookups/vehicle/VehicleStyleDAO.service';
 import DataSource from 'devextreme/data/data_source';
-import { VehicleModelDAO } from 'src/app/common/dao/lookups/person/vehicle/VehicleModelDAO.service';
+import { VehicleModelDAO } from 'src/app/common/dao/lookups/vehicle/VehicleModelDAO.service';
 
 @Injectable({
   providedIn: 'root'

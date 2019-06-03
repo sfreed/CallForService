@@ -7,6 +7,7 @@ import { County } from '../../../models/lookups/location/County';
 import { Country } from '../../../models/lookups/location/Country';
 import { PatrolArea } from '../../../models/lookups/location/PatrolArea';
 import { Zone } from '../../../models/lookups/location/Zone';
+import { StreetNameSuffix } from 'src/app/common/models/lookups/location/StreetNameSuffix';
 
 
 @Injectable({
@@ -17,6 +18,7 @@ export class LocationLookupService {
   countyList: County[];
   patrolAreaList: PatrolArea[];
   streetNameDirectionList: StreetNameDirection[];
+  streetNameSuffix: StreetNameSuffix[];
   zoneList: Zone[];
 
   CLIENT_ID = 'CFSClient';
@@ -55,6 +57,7 @@ export class LocationLookupService {
               this.countyList = settings.county;
               this.patrolAreaList = settings.patrolArea;
               this.streetNameDirectionList = settings.streetNameDirection;
+              this.streetNameSuffix = settings.streetNameSuffix;
               this.zoneList = settings.zone;
               return settings;
             });

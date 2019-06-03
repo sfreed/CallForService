@@ -81,7 +81,7 @@
             <dxi-item dataField="involvedPerson.genderId" [label]="{text: 'Gender'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: genderCodes,  valueExpr:'id', displayExpr:'genderDescription'}"></dxi-item>
             <dxi-item dataField="involvedPerson.raceId" [label]="{text: 'Race'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: raceCodes,  valueExpr:'id', displayExpr:'raceDescription'}"></dxi-item>
             <dxi-item dataField="involvedPerson.ethnicityId" [label]="{text: 'Ethnicity'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: ethnicityCodes,  valueExpr:'id', displayExpr:'ethnicityCodeDescription'}"></dxi-item>
-            <dxi-item dataField="involvedPerson.eyeColorId" [label]="{text: 'Eye Color'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: eyeColorCodes,  valueExpr:'id', displayExpr:'eyeColorCodeDescription'}"></dxi-item>
+            <dxi-item dataField="involvedPerson.eyeColorId" [label]="{text: 'Eye Color'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', datasource: eyeColorCodes,  valueExpr:'id', displayExpr:'eyeColorCodeDescription'}"></dxi-item>
 
             <dxi-item dataField="involvedPerson.height" [editorOptions]="{ stylingMode: 'filled'}"></dxi-item>
             <dxi-item dataField="involvedPerson.weight" [editorOptions]="{ stylingMode: 'filled'}"></dxi-item>
@@ -124,7 +124,6 @@
     <dxi-column dataField="personAddress.addressTypeId" [visible]="false" [caption]="'Address Type'"><dxo-lookup [dataSource]="addressTypes.store()" valueExpr="id" displayExpr="description"></dxo-lookup></dxi-column>
     <dxi-column dataField="personAddress.streetNumber" [visible]="false" [caption]="'Street Number'"></dxi-column>
     <dxi-column dataField="personAddress.streetId" [visible]="false" [caption]="'Street Name'"><dxo-lookup [dataSource]="streetNames.store()" valueExpr="id" displayExpr="streetName"></dxo-lookup></dxi-column>
-    <dxi-column dataField="personAddress.streetNameSuffix" [visible]="false" [caption]="'Street Name Suffix'"><dxo-lookup [dataSource]="streetNameSuffixs.store()" valueExpr="id" displayExpr="streetNameSuffix"></dxo-lookup></dxi-column>
     <dxi-column dataField="personAddress.streetNamePreDirection" [visible]="false" [caption]="'Street Name Direction'"><dxo-lookup [dataSource]="streetNamePreDirectionCodes" valueExpr="id" displayExpr="streetNameDirectionCodeDescription"></dxo-lookup></dxi-column>
     <dxi-column dataField="involvedPerson.cityName" [visible]="false" [caption]="'City'"><dxo-lookup [dataSource]="cities.store()" valueExpr="id" displayExpr="cityName"></dxo-lookup></dxi-column>
     <dxi-column dataField="involvedPerson.zipCode" [visible]="false" [caption]="'Zip Code'"></dxi-column>
@@ -145,7 +144,7 @@
     <dxi-column dataField="involvedPerson.weight" dataType= "number" [visible]="false" [caption]="'Weight'"></dxi-column>
     <dxi-column dataField="involvedPerson.hairColorId" [visible]="false" [caption]="'Hair Color'"> <dxo-lookup [dataSource]="hairColorCodes.store()" valueExpr="id" displayExpr="hairColorCodeDescription"></dxo-lookup></dxi-column>
     <dxi-column dataField="involvedPerson.hairTypeId" [visible]="false" [caption]="'Hair Type'"> <dxo-lookup [dataSource]="hairTypeCodes.store()" valueExpr="id" displayExpr="hairTypeCodeDescription"></dxo-lookup></dxi-column>
-    <dxi-column dataField="involvedPerson.eyeColorId" [visible]="false" [caption]="'Eye Color'"> <dxo-lookup [dataSource]="eyeColorCodes" valueExpr="id" displayExpr="eyeColorCodeDescription"></dxo-lookup></dxi-column>
+    <dxi-column dataField="involvedPerson.eyeColorId" [visible]="false" [caption]="'Eye Color'"> <dxo-lookup [dataSource]="eyeColorCodes.store()" valueExpr="id" displayExpr="eyeColorCodeDescription"></dxo-lookup></dxi-column>
     <dxi-column dataField="involvedPerson.eyewearId" [visible]="false" [caption]="'Eyewear'"> <dxo-lookup [dataSource]="eyeWearCodes.store()" valueExpr="id" displayExpr="eyewearCodeDescription"></dxo-lookup></dxi-column>
     <dxi-column dataField="involvedPerson.facialHairId" [visible]="false" [caption]="'Facial Hair'"> <dxo-lookup [dataSource]="facialHairCodes.store()" valueExpr="id" displayExpr="facialHairCodeDescription"></dxo-lookup></dxi-column>
 
@@ -171,7 +170,7 @@
         <dxi-item dataField="streetNamePreModifier" [label]="{text: 'Pre Modifier'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
         <dxi-item dataField="streetNamePreDirectionId" [label]="{text: 'Pre Direction'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: streetNameDirections,  valueExpr:'id', displayExpr:'streetNameDirectionCodeDescription', searchEnabled:true, searchExpr:'streetNameDirectionCodeDescription', searchMode:'startsWith' }"></dxi-item>
         <dxi-item dataField="streetName" [label]="{text: 'Street Name'}" [editorOptions]="{ stylingMode: 'filled' }" ></dxi-item>
-        <dxi-item dataField="streetNameSuffixId" [colSpan]="1" [label]="{text: 'Suffix'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: streetNameSuffixs,  valueExpr:'id', displayExpr:'streetNameSuffixDescription', searchEnabled:true, searchExpr:'streetNameSuffixDescription', searchMode:'startsWith' }"></dxi-item>
+        <dxi-item dataField="streetNameSuffixId" [colSpan]="1" [label]="{text: 'Suffix'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: streetNameSuffixs,  valueExpr:'id', displayExpr:'streetNameSuffixDescription', searchEnabled:true, searchExpr:'streetNameSuffixDescription', searchMode:'startsWith' }"></dxi-item>
         <dxi-item dataField="streetNamePostDirectionId" [label]="{text: 'Post Direction'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: streetNameDirections,  valueExpr:'id', displayExpr:'streetNameDirectionCodeDescription', searchEnabled:true, searchExpr:'streetNameDirectionCodeDescription', searchMode:'startsWith' }"></dxi-item>
         <dxi-item dataField="streetNamePostModifier" [label]="{text: 'Post Modifier'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
 

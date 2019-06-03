@@ -16,7 +16,7 @@ import { OfficerRankDAO } from 'src/app/common/dao/lookups/person/OfficerRankDAO
 })
 export class PersonService {
 
-  constructor(private contactTypeDAO: ContactTypeDAO, private ethnicityDAO: EthnicityDAO, private eyeColorDAO: EyeColorDAO, private eyeyearDAO: EyeWearDAO,
+  constructor(private contactTypeDAO: ContactTypeDAO, private ethnicityDAO: EthnicityDAO, private eyeColorDAO: EyeColorDAO, private eyewearDAO: EyeWearDAO,
     private facialHairDAO: FacialHairDAO, private hairColorDAO: HairColorDAO, private hairTypeDAO: HairTypeDAO, private namePrefixDAO: NamePrefixDAO,
     private nameSuffixDAO: NameSuffixDAO, private officerRankDAO: OfficerRankDAO) { }
 
@@ -28,12 +28,12 @@ export class PersonService {
     return this.ethnicityDAO.getEthnicityListDS();
   }
 
-  getVehicleStyleList(): DataSource {
+  getEyeColorList(): DataSource {
     return this.eyeColorDAO.getEyeColorListDS();
   }
 
   getEyewearList(): DataSource {
-    return this.eyeyearDAO.getEyeWearListDS();
+    return this.eyewearDAO.getEyeWearListDS();
   }
 
   getFacialHairList(): DataSource {

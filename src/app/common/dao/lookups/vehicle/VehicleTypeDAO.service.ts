@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseDAO } from '../../../BaseDAO';
+import { BaseDAO } from '../../BaseDAO';
 import { AuthenticationService } from 'src/app/common/auth/auth.service';
 import { HttpClient } from '@angular/common/http';
 import CustomStore from 'devextreme/data/custom_store';
@@ -21,7 +21,7 @@ export class VehicleTypeDAO extends BaseDAO {
         return this.getVehicleType(key);
       },
       load: () => {
-          return this.VehicleType();
+          return this.getVehicleTypes();
       },
       insert: (type) => {
         return this.addVehicleType(type);
@@ -44,7 +44,7 @@ export class VehicleTypeDAO extends BaseDAO {
     return ds;
   }
 
-  private VehicleType(): Promise<any> {
+  private getVehicleTypes(): Promise<any> {
     return this.http.get(URL.CALL_FOR_SERVICE_VEHICLE_TYPE_ADDRESS, this.getHttpOptions()).toPromise();
   }
 

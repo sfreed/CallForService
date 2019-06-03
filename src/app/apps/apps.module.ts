@@ -3,7 +3,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { DxBoxModule, DxListModule, DxDataGridModule, DxSwitchModule, DxToolbarModule, DxSelectBoxModule,
   DxButtonModule, DxDrawerModule, DxContextMenuModule, DxTextAreaModule, DxPopupModule,
-  DxTabPanelModule, DxFormModule, DxAccordionModule, DxDateBoxModule, DxTextBoxModule, DxAutocompleteModule, DxLoadPanelModule} from 'devextreme-angular';
+  DxTabPanelModule, DxFormModule, DxAccordionModule, DxDateBoxModule, DxTextBoxModule, DxAutocompleteModule,
+  DxLoadPanelModule} from 'devextreme-angular';
 import { ActiveListComponent} from './units/active_list/active_list.component';
 import { UnitService } from '../common/services/units/Unit.service';
 import { DispatcherHistoryComponent } from './dispatcher/dispatcherHistory/dispatcherHistory.component';
@@ -19,12 +20,13 @@ import { InvolvedUnitsComponent } from './calls/call_details/involved_units/invo
 import { UnitQueueComponent } from './units/unit_queue/unit_queue.component';
 import { LocationsComponent } from './calls/call_details/locations/locations.component';
 import { CallRemarksComponent } from './calls/call_remarks/call_remarks.component';
+import {HotkeyModule} from 'angular2-hotkeys';
 
 @NgModule({
   imports: [ BrowserModule, BrowserAnimationsModule, DragDropModule,
     DxBoxModule, DxListModule, DxDataGridModule, DxSwitchModule, DxToolbarModule, DxSelectBoxModule, DxButtonModule,
     DxDrawerModule, DxTabPanelModule, DxContextMenuModule, DxTextAreaModule, DxPopupModule, DxFormModule, DxAccordionModule,
-    DxDateBoxModule, DxTextBoxModule, DxAutocompleteModule, DxLoadPanelModule ],
+    DxDateBoxModule, DxTextBoxModule, DxAutocompleteModule, DxLoadPanelModule, HotkeyModule.forRoot() ],
   declarations: [ActiveListComponent, DispatcherHistoryComponent, CallMasterComponent, UnitQueueComponent,
     CallDetailsComponent, CallRemarksComponent, DetailsComponent, LocationsComponent,
     InvolvedUnitsComponent, VehiclesComponent, ComplainantsComponent, InvolvedPersonsComponent ],

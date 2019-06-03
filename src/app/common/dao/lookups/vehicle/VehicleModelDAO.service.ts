@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseDAO } from '../../../BaseDAO';
+import { BaseDAO } from '../../BaseDAO';
 import { AuthenticationService } from 'src/app/common/auth/auth.service';
 import { HttpClient } from '@angular/common/http';
 import CustomStore from 'devextreme/data/custom_store';

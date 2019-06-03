@@ -22,11 +22,11 @@
     "@angular/platform-browser": "^7.2.15",
     "@angular/platform-browser-dynamic": "^7.2.15",
     "@angular/router": "^7.2.15",
+    "angular2-hotkeys": "^2.1.4",
     "core-js": "^2.6.2",
     "deepmerge": "^3.2.0",
     "devextreme": "^19.1.0",
     "devextreme-angular": "^19.1.0",
-    "devextreme-aspnet-data-nojquery": "^2.2.0",
     "priorityqueue": "^0.2.1",
     "rxjs": "~6.3.3",
     "rxjs-compat": "^6.5.2",
@@ -34,7 +34,6 @@
     "streams": "^0.1.0",
     "tslib": "^1.9.0",
     "underscore": "^1.9.1",
-    "uuid": "^3.3.2",
     "zone.js": "^0.8.28"
   },
   "devDependencies": {

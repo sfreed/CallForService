@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseDAO } from '../../../BaseDAO';
+import { BaseDAO } from '../../BaseDAO';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from 'src/app/common/auth/auth.service';
 import CustomStore from 'devextreme/data/custom_store';
@@ -21,7 +21,7 @@ export class VehicleStyleDAO extends BaseDAO {
         return this.getVehicleStyle(key);
       },
       load: () => {
-          return this.VehicleStyle();
+          return this.getVehicleStyles();
       },
       insert: (style) => {
         return this.addVehicleStyle(style);
@@ -44,7 +44,7 @@ export class VehicleStyleDAO extends BaseDAO {
     return ds;
   }
 
-  private VehicleStyle(): Promise<any> {
+  private getVehicleStyles(): Promise<any> {
     return this.http.get(URL.CALL_FOR_SERVICE_VEHICLE_STYLE_ADDRESS, this.getHttpOptions()).toPromise();
   }
 

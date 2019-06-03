@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CallsService } from 'src/app/common/services/call/Calls.service';
-import { DispatcherService } from 'src/app/common/services/master/Dispatcher.service';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { CallForServiceLookupService } from 'src/app/common/services/lookups/callForService/CallForServiceLookup.service';
 import { CallTypeDAO } from 'src/app/common/dao/lookups/callForService/CallTypeDAO.service';
@@ -35,7 +34,7 @@ export class DetailsComponent implements OnInit {
     }
 };
 
-  constructor(public callService: CallsService,  public dispatcherService: DispatcherService, private cfsLookupService: CallForServiceLookupService,
+  constructor(public callService: CallsService, private cfsLookupService: CallForServiceLookupService,
     private masterUserService: MasterUserService, private cfsCallTypeDS: CallTypeDAO, private involvedUnitService: InvolvedUnitsService) {
       this.callTypes = this.cfsCallTypeDS.getCallTypeListDS();
 

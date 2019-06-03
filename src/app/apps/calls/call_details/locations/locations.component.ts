@@ -9,6 +9,7 @@ import { PatrolArea } from 'src/app/common/models/lookups/location/PatrolArea';
 import { Street } from 'src/app/common/models/lookups/location/Street';
 import { InvolvedUnitsService } from 'src/app/common/services/callDetails/InvolvedUnit.service';
 import { LocationService } from 'src/app/common/services/lookups/location/Location.service';
+import { StreetNameSuffix } from 'src/app/common/models/lookups/location/StreetNameSuffix';
 
 @Component({
   selector: 'app-locations',
@@ -22,8 +23,8 @@ export class LocationsComponent implements OnInit {
   streetNames: DataSource;
   cities: DataSource;
   zones: DataSource;
-  streetNameSuffixs: DataSource;
 
+  streetNameSuffixs: StreetNameSuffix[];
   streetNameDirections: StreetNameDirection[];
   countyCodes: County[];
   patrolAreaCodes: PatrolArea[];
@@ -44,7 +45,7 @@ export class LocationsComponent implements OnInit {
       this.cities = this.locationService.getCityList();
       this.addressTypes = this.locationService.getAddressTypeList();
       this.zones = this.locationService.getZoneList();
-      this.streetNameSuffixs = this.locationService.getStreetSuffixList();
+      this.streetNameSuffixs = this.locationLookupService.streetNameSuffix;
   }
 
   ngOnInit() {

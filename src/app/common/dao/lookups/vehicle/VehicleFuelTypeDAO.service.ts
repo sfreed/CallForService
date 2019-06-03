@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseDAO } from '../../../BaseDAO';
+import { BaseDAO } from '../../BaseDAO';
 import { AuthenticationService } from 'src/app/common/auth/auth.service';
 import { HttpClient } from '@angular/common/http';
 import CustomStore from 'devextreme/data/custom_store';
@@ -21,7 +21,7 @@ export class VehicleFuelTypeDAO extends BaseDAO {
         return this.getVehicleFuelType(key);
       },
       load: () => {
-          return this.VehicleFuelType();
+          return this.getVehicleFuelTypes();
       },
       insert: (fuelType) => {
         return this.addVehicleFuelType(fuelType);
@@ -44,28 +44,28 @@ export class VehicleFuelTypeDAO extends BaseDAO {
     return ds;
   }
 
-  private VehicleFuelType(): Promise<any> {
-    return this.http.get(URL.CALL_FOR_SERVICE_CITY_ADDRESS, this.getHttpOptions()).toPromise();
+  private getVehicleFuelTypes(): Promise<any> {
+    return this.http.get(URL.CALL_FOR_SERVICE_VEHICLE_FUEL_TYPE_ADDRESS, this.getHttpOptions()).toPromise();
   }
 
   private getVehicleFuelType(id): Promise<any> {
-    return this.http.get(URL.CALL_FOR_SERVICE_CITY_ADDRESS + '/' + id, this.getHttpOptions()).toPromise();
+    return this.http.get(URL.CALL_FOR_SERVICE_VEHICLE_FUEL_TYPE_ADDRESS + '/' + id, this.getHttpOptions()).toPromise();
   }
 
   private addVehicleFuelType (fuelType: VehicleFuelType): Promise<any> {
     this.updateModel(fuelType);
 
-    return this.http.post<any>(URL.CALL_FOR_SERVICE_CITY_ADDRESS, JSON.stringify(fuelType), this.getHttpOptions()).toPromise();
+    return this.http.post<any>(URL.CALL_FOR_SERVICE_VEHICLE_FUEL_TYPE_ADDRESS, JSON.stringify(fuelType), this.getHttpOptions()).toPromise();
   }
 
   private updateVehicleFuelType (id, fuelType: VehicleFuelType): Promise<any> {
     this.updateModel(fuelType);
 
-    return this.http.put(URL.CALL_FOR_SERVICE_CITY_ADDRESS + '/' + id, JSON.stringify(fuelType), this.getHttpOptions()).toPromise();
+    return this.http.put(URL.CALL_FOR_SERVICE_VEHICLE_FUEL_TYPE_ADDRESS + '/' + id, JSON.stringify(fuelType), this.getHttpOptions()).toPromise();
   }
 
   private deleteVehicleFuelType (id): Promise<any> {
-    return this.http.delete<any>(URL.CALL_FOR_SERVICE_CITY_ADDRESS + '/' + id, this.getHttpOptions()).toPromise();
+    return this.http.delete<any>(URL.CALL_FOR_SERVICE_VEHICLE_FUEL_TYPE_ADDRESS + '/' + id, this.getHttpOptions()).toPromise();
   }
 
   protected updateModel(model: VehicleFuelType) {

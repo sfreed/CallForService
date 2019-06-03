@@ -112,7 +112,7 @@
               <dxi-item dataField="vehicleDriverPerson.genderId" [label]="{text: 'Gender'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: genderCodes,  valueExpr:'id', displayExpr:'genderDescription'}"></dxi-item>
               <dxi-item dataField="vehicleDriverPerson.raceId" [label]="{text: 'Race'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: raceCodes,  valueExpr:'id', displayExpr:'raceDescription'}"></dxi-item>
               <dxi-item dataField="vehicleDriverPerson.ethnicityId" [label]="{text: 'Ethnicity'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: ethnicityCodes,  valueExpr:'id', displayExpr:'ethnicityCodeDescription'}"></dxi-item>
-              <dxi-item dataField="vehicleDriverPerson.eyeColorId" [label]="{text: 'Eye Color'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: eyeColorCodes,  valueExpr:'id', displayExpr:'eyeColorCodeDescription'}"></dxi-item>
+              <dxi-item dataField="vehicleDriverPerson.eyeColorId" [label]="{text: 'Eye Color'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: eyeColorCodes,  valueExpr:'id', displayExpr:'eyeColorCodeDescription'}"></dxi-item>
               <dxi-item dataField="vehicleDriverPerson.height" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
               <dxi-item dataField="vehicleDriverPerson.weight" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
               <dxi-item dataField="vehicleDriverPerson.hairColorId" [label]="{text: 'Hair Color'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: hairColorCodes,  valueExpr:'id', displayExpr:'hairColorCodeDescription'}"></dxi-item>
@@ -165,7 +165,7 @@
                   <dx-button
                     icon="edit"
                     (onClick)="editStreet()"
-                    style="margin-top: 18px;">stateCodes
+                    style="margin-top: 18px;">
                   </dx-button>
                 </dxi-item>
                 <dxi-item dataField="vehicle.ownerPerson.cityId" [colSpan]="3" [label]="{text: 'City'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: cities,  valueExpr:'id', displayExpr: getCityName , searchEnabled:true, searchExpr:'cityName', searchMode:'startsWith'}"></dxi-item>
@@ -175,7 +175,7 @@
               <dxi-item dataField="vehicle.ownerPerson.genderId" [label]="{text: 'Gender'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: genderCodes,  valueExpr:'id', displayExpr:'genderDescription'}"></dxi-item>
               <dxi-item dataField="vehicle.ownerPerson.raceId" [label]="{text: 'Race'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: raceCodes,  valueExpr:'id', displayExpr:'raceDescription'}"></dxi-item>
               <dxi-item dataField="vehicle.ownerPerson.ethnicityId" [label]="{text: 'Ethnicity'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: ethnicityCodes,  valueExpr:'id', displayExpr:'ethnicityCodeDescription'}"></dxi-item>
-              <dxi-item dataField="vehicle.ownerPerson.eyeColorId" [label]="{text: 'Eye Color'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: eyeColorCodes,  valueExpr:'id', displayExpr:'eyeColorCodeDescription'}"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.eyeColorId" [label]="{text: 'Eye Color'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: eyeColorCodes,  valueExpr:'id', displayExpr:'eyeColorCodeDescription'}"></dxi-item>
               <dxi-item dataField="vehicle.ownerPerson.height" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
               <dxi-item dataField="vehicle.ownerPerson.weight" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
               <dxi-item dataField="vehicle.ownerPerson.hairColorId" [label]="{text: 'Hair Color'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: hairColorCodes,  valueExpr:'id', displayExpr:'hairColorCodeDescription'}"></dxi-item>
@@ -192,7 +192,7 @@
             <dxi-item dataField="wreckerTimeArrived" [label]="{text: 'Time Arrived'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
             <dxi-item dataField="wreckerTowedDateTime" [label]="{text: 'Towed Date/Time'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
             <dxi-item dataField="wreckerTowedTo" [label]="{text: 'Towed To' }" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-            <dxi-item dataField="wreckerRemarks" [colSpan]="2" [label]="{text: 'Remarksr'}" editorType="dxTextArea" [editorOptions]="{ stylingMode: 'filled', height: 150 }"></dxi-item>
+            <dxi-item dataField="wreckerRemarks" [colSpan]="2" [label]="{text: 'Remarks'}" editorType="dxTextArea" [editorOptions]="{ stylingMode: 'filled', height: 150 }"></dxi-item>
           </dxi-tab>
           <dxi-tab title="Vehicle Remarks" width="100%">
             <dxi-item dataField="vehicleRemarks" editorType="dxTextArea" [editorOptions]="{ stylingMode: 'filled', height: 150 }"></dxi-item>
@@ -234,8 +234,6 @@
     <dxi-column dataField="vehicle.ownerPerson.driversLicenseIssueDate" dataType="date" [visible]="false" [caption]="'DL Issue Date'"></dxi-column>
     <dxi-column dataField="vehicle.ownerPerson.driversLicenseIssueState" [visible]="false" [caption]="'DL State'"><dxo-lookup [dataSource]="states.store()" valueExpr="id" displayExpr="stateName"></dxo-lookup></dxi-column>
     <dxi-column dataField="vehicle.ownerPerson.streetId" [visible]="false" [caption]="'Street Name'"><dxo-lookup [dataSource]="streetNames.store()" valueExpr="id" displayExpr="streetName"> </dxo-lookup></dxi-column>
-    <dxi-column dataField="vehicle.ownerPerson.streetNamePreDirection" [visible]="false" [caption]="'Street Name Pre Direction'"><dxo-lookup [dataSource]="streetNamePreDirectionCodes" valueExpr="id" displayExpr="streetNameDirectionCodeDescription"> </dxo-lookup></dxi-column>
-    <dxi-column dataField="vehicle.ownerPerson.streetNameSuffix" [visible]="false" [caption]="'Street Name Suffix'"><dxo-lookup [dataSource]="streetNameSuffixs.store()" valueExpr="id" displayExpr="streetNameSuffix"> </dxo-lookup></dxi-column>
     <dxi-column dataField="vehicle.ownerPerson.cityName" [visible]="false" [caption]="'City'"><dxo-lookup [dataSource]="cities.store()" valueExpr="id" displayExpr="cityName"></dxo-lookup></dxi-column>
     <dxi-column dataField="vehicle.ownerPerson.zipCode" [visible]="false" [caption]="'Zip Code'"></dxi-column>
     <dxi-column dataField="vehicle.ownerPerson.homePhoneNumber" [visible]="false" [caption]="'Home Phone'"></dxi-column>
@@ -248,7 +246,7 @@
     <dxi-column dataField="vehicle.ownerPerson.weight" dataType= "number" [visible]="false" [caption]="'Weight'"></dxi-column>
     <dxi-column dataField="vehicle.ownerPerson.hairColorId" [visible]="false" [caption]="'Hair Color'"><dxo-lookup [dataSource]="hairColorCodes.store()" valueExpr="id" displayExpr="hairColorCodeDescription"> </dxo-lookup></dxi-column>
     <dxi-column dataField="vehicle.ownerPerson.hairTypeId" [visible]="false" [caption]="'Hair Type'"><dxo-lookup [dataSource]="hairTypeCodes.store()" valueExpr="id" displayExpr="hairTypeCodeDescription"> </dxo-lookup></dxi-column>
-    <dxi-column dataField="vehicle.ownerPerson.eyeColorId" [visible]="false" [caption]="'Eye Color'"><dxo-lookup [dataSource]="eyeColorCodes" valueExpr="id" displayExpr="eyeColorCodeDescription"> </dxo-lookup></dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.eyeColorId" [visible]="false" [caption]="'Eye Color'"><dxo-lookup [dataSource]="eyeColorCodes.store()" valueExpr="id" displayExpr="eyeColorCodeDescription"> </dxo-lookup></dxi-column>
     <dxi-column dataField="vehicle.ownerPerson.eyewearId" [visible]="false" [caption]="'Eyewear'"><dxo-lookup [dataSource]="eyeWearCodes.store()" valueExpr="id" displayExpr="eyewearCodeDescription"> </dxo-lookup></dxi-column>
     <dxi-column dataField="vehicle.ownerPerson.facialHairId" [visible]="false" [caption]="'Facial Hair'"><dxo-lookup [dataSource]="facialHairCodes.store()" valueExpr="id" displayExpr="facialHairCodeDescription"> </dxo-lookup></dxi-column>
     <dxi-column dataField="vehicle.ownerPerson.isDeceased" dataType="boolean" [visible]="false" [caption]="'Deceased?'"></dxi-column>
@@ -267,8 +265,6 @@
     <dxi-column dataField="vehicleDriverPerson.driversLicenseIssueDate" dataType="date" [visible]="false" [caption]="'DL Issue Date'"></dxi-column>
     <dxi-column dataField="vehicleDriverPerson.driversLicenseIssueState" [visible]="false" [caption]="'DL State'"><dxo-lookup [dataSource]="states.store()" valueExpr="id" displayExpr="stateName"></dxo-lookup></dxi-column>
     <dxi-column dataField="vehicleDriverPerson.streetId" [visible]="false" [caption]="'Street Name'"><dxo-lookup [dataSource]="streetNames.store()" valueExpr="id" displayExpr="streetName"> </dxo-lookup></dxi-column>
-    <dxi-column dataField="vehicleDriverPerson.streetNamePreDirection" [visible]="false" [caption]="'Street Name Pre Direction'"><dxo-lookup [dataSource]="streetNamePreDirectionCodes" valueExpr="id" displayExpr="streetNameDirectionCodeDescription"> </dxo-lookup></dxi-column>
-    <dxi-column dataField="vehicleDriverPerson.streetNameSuffix" [visible]="false" [caption]="'Street Name Suffix'"><dxo-lookup [dataSource]="streetNameSuffixs.store()" valueExpr="id" displayExpr="streetNameSuffix"> </dxo-lookup></dxi-column>
     <dxi-column dataField="vehicleDriverPerson.cityName" [visible]="false" [caption]="'City'"><dxo-lookup [dataSource]="cities.store()" valueExpr="id" displayExpr="cityName"></dxo-lookup></dxi-column>
     <dxi-column dataField="vehicleDriverPerson.zipCode" [visible]="false" [caption]="'Zip Code'"></dxi-column>
     <dxi-column dataField="vehicleDriverPerson.homePhoneNumber" [visible]="false" [caption]="'Home Phone'"></dxi-column>
@@ -281,7 +277,7 @@
     <dxi-column dataField="vehicleDriverPerson.weight" dataType= "number" [visible]="false" [caption]="'Weight'"></dxi-column>
     <dxi-column dataField="vehicleDriverPerson.hairColorId" [visible]="false" [caption]="'Hair Color'"><dxo-lookup [dataSource]="hairColorCodes.store()" valueExpr="id" displayExpr="hairColorCodeDescription"> </dxo-lookup></dxi-column>
     <dxi-column dataField="vehicleDriverPerson.hairTypeId" [visible]="false" [caption]="'Hair Type'"><dxo-lookup [dataSource]="hairTypeCodes.store()" valueExpr="id" displayExpr="hairTypeCodeDescription"> </dxo-lookup></dxi-column>
-    <dxi-column dataField="vehicleDriverPerson.eyeColorId" [visible]="false" [caption]="'Eye Color'"><dxo-lookup [dataSource]="eyeColorCodes" valueExpr="id" displayExpr="eyeColorCodeDescription"> </dxo-lookup></dxi-column>
+    <dxi-column dataField="vehicleDriverPerson.eyeColorId" [visible]="false" [caption]="'Eye Color'"><dxo-lookup [dataSource]="eyeColorCodes.store()" valueExpr="id" displayExpr="eyeColorCodeDescription"> </dxo-lookup></dxi-column>
     <dxi-column dataField="vehicleDriverPerson.eyewearId" [visible]="false" [caption]="'Eyewear'"><dxo-lookup [dataSource]="eyeWearCodes.store()" valueExpr="id" displayExpr="eyewearCodeDescription"> </dxo-lookup></dxi-column>
     <dxi-column dataField="vehicleDriverPerson.facialHairId" [visible]="false" [caption]="'Facial Hair'"><dxo-lookup [dataSource]="facialHairCodes.store()" valueExpr="id" displayExpr="facialHairCodeDescription"> </dxo-lookup></dxi-column>
     <dxi-column dataField="vehicleDriverPerson.isDeceased" dataType="boolean" [visible]="false" [caption]="'Deceased?'"></dxi-column>

@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CallsService } from 'src/app/common/services/call/Calls.service';
-import { DispatcherService } from 'src/app/common/services/master/Dispatcher.service';
 import { CallForService } from 'src/app/common/models/call/CallForService';
 import { PersonLookupService } from 'src/app/common/services/lookups/person/PersonLookup.service';
 import { CallForServiceLookupService } from 'src/app/common/services/lookups/callForService/CallForServiceLookup.service';
@@ -9,14 +8,14 @@ import { DxDataGridComponent } from 'devextreme-angular';
 import DataSource from 'devextreme/data/data_source';
 import { AuthenticationService } from 'src/app/common/auth/auth.service';
 import { CallTypeDAO } from 'src/app/common/dao/lookups/callForService/CallTypeDAO.service';
-import { MasterUserDAO } from 'src/app/common/dao/master/MasterUserDAO.service';
-import { StreetDAO } from 'src/app/common/dao/lookups/location/StreetDAO.service';
-import { AddressTypeDAO } from 'src/app/common/dao/lookups/location/AddressTypeDAO.service';
-import { CityDAO } from 'src/app/common/dao/lookups/location/CityDAO.service';
-import { ZoneDAO } from 'src/app/common/dao/lookups/location/ZoneDAO.service';
 import { CallForServiceOriginated } from 'src/app/common/models/lookups/callForService/CallForServiceOriginated';
 import { CallForServiceDispositionStatus } from 'src/app/common/models/lookups/callForService/CallForServiceDispositionStatus';
 import { MasterUserService } from 'src/app/common/services/master/MasterUser.service';
+import { Street } from 'src/app/common/models/lookups/location/Street';
+import { LocationService } from 'src/app/common/services/lookups/location/Location.service';
+import { County } from 'src/app/common/models/lookups/location/County';
+import { LocationLookupService } from 'src/app/common/services/lookups/location/LocationLookup.service';
+import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 
 @Component({
   selector: 'app-call-master',
@@ -30,20 +29,25 @@ export class CallMasterComponent implements OnInit {
   newCall: CallForService;
   callOriginated: CallForServiceOriginated[];
   callDispositionStatus: CallForServiceDispositionStatus[];
+  counties: County[];
 
   calls: DataSource;
   dispatchers: DataSource;
   callTypes: DataSource;
-  addressTypeCodes: DataSource;
+  addressTypes: DataSource;
   streetNames: DataSource;
-  cityCodes: DataSource;
+  cities: DataSource;
   zoneCodes: DataSource;
 
   isRowSelected = false;
 
   window: Window = window;
 
-  popupVisible = false;
+  addCallPopupVisible = false;
+
+  addStreetPopUpVisible = false;
+
+  selectedStreet: Street = new Street();
 
   buttonOptions: any = {
     text: 'Save',
@@ -51,16 +55,23 @@ export class CallMasterComponent implements OnInit {
     onClick: this.launchCall.bind(this)
   };
 
-  constructor(public callService: CallsService, public dispatcherService: DispatcherService, private personLookupService: PersonLookupService,
-    private cfsLookupService: CallForServiceLookupService, private vehicleLookupService: VehicleLookupService,
+  constructor(public callService: CallsService, private personLookupService: PersonLookupService,
+    private cfsLookupService: CallForServiceLookupService, private vehicleLookupService: VehicleLookupService, private locationService: LocationService,
     public authService: AuthenticationService, public cfsCallTypeDao: CallTypeDAO, private masterUserService: MasterUserService,
-    private streetDao: StreetDAO, private cityDao: CityDAO, private addressTypeDao: AddressTypeDAO, private zoneDao: ZoneDAO) {
+    private locationLookupService: LocationLookupService, private _hotkeysService: HotkeysService) {
       this.callTypes = this.cfsCallTypeDao.getCallTypeListDS();
       this.dispatchers = this.masterUserService.getMasterUserList();
-      this.streetNames = this.streetDao.getStreetListDS();
-      this.cityCodes = this.cityDao.getCityListDS();
-      this.addressTypeCodes = this.addressTypeDao.getAddressTypeListDS();
-      this.zoneCodes = this.zoneDao.getZoneListDS();
+      this.streetNames = this.locationService.getStreetList();
+      this.cities = this.locationService.getCityList();
+      this.addressTypes = this.locationService.getAddressTypeList();
+      this.zoneCodes = this.locationService.getZoneList();
+
+      this.counties = this.locationLookupService.countyList;
+
+      this._hotkeysService.add(new Hotkey('ctrl+alt+n', (event: KeyboardEvent): boolean => {
+        this.startCall();
+        return false; // Prevent bubbling
+    }));
     }
 
   ngOnInit() {
@@ -81,12 +92,12 @@ export class CallMasterComponent implements OnInit {
     this.newCall = new CallForService();
     this.newCall.dispatchedByPerson = this.authService.getUser();
     this.newCall.receivedDateTime = new Date().toISOString();
-    this.popupVisible = true;
+    this.addCallPopupVisible = true;
   }
 
   launchCall() {
     this.callService.startNewCall(this.newCall).then(response => {
-      this.popupVisible = false;
+      this.addCallPopupVisible = false;
       this.dataGrid.instance.refresh().then(res => {
         this.dataGrid.focusedRowIndex = 0;
         this.dataGrid.instance.selectRowsByIndexes([0]);
@@ -124,5 +135,71 @@ export class CallMasterComponent implements OnInit {
 
   now() {
     return new Date().toISOString();
+  }
+
+  addStreet() {
+    this.selectedStreet = new Street();
+    this.addStreetPopUpVisible = true;
+  }
+
+  editStreet () {
+    this.locationService.getStreetList().store().byKey(this.callService.getActiveCall().locationPrimary.streetId).then(results => {
+      this.selectedStreet = results;
+      this.addStreetPopUpVisible = true;
+    });
+  }
+
+  saveStreet () {
+    if (this.selectedStreet.id) {
+      this.locationService.getStreetList().store().update(this.selectedStreet.id, this.selectedStreet).then(results => {
+        console.log('updating', results);
+        this.locationService.getStreetList().reload();
+        this.addStreetPopUpVisible = false;
+      });
+    } else {
+      this.locationService.getStreetList().store().insert(this.selectedStreet).then(results => {
+        console.log('adding', results);
+        this.locationService.getStreetList().reload();
+        this.addStreetPopUpVisible = false;
+      });
+    }
+  }
+
+  getCityName(e) {
+    if (e) {
+      return e.cityName + ', ' + e.stateCode;
+    }
+  }
+
+  getStreetName(e: Street) {
+    if (e) {
+      let retVal = '';
+
+      if (e.streetNamePreDirectionCode) {
+        retVal += e.streetNamePreDirectionCode + ' ';
+      }
+
+      if (e.streetNamePreModifier) {
+        retVal += e.streetNamePreModifier + ' ';
+      }
+
+      if (e.streetName) {
+        retVal += e.streetName + ' ';
+      }
+
+      if (e.streetNameSuffixDescription) {
+        retVal += e.streetNameSuffixDescription + ' ';
+      }
+
+      if (e.streetNamePostModifier) {
+        retVal += e.streetNamePostModifier + ' ';
+      }
+
+      if (e.streetNamePostDirectionCode) {
+        retVal += e.streetNamePostDirectionCode + ' ';
+      }
+
+      return  retVal.trim();
+    }
   }
 }

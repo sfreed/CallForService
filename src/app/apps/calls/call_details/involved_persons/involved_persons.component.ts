@@ -19,6 +19,7 @@ import { LocationService } from 'src/app/common/services/lookups/location/Locati
 import * as deepmerge from 'deepmerge';
 import { PersonService } from 'src/app/common/services/lookups/person/Person.service';
 import { CommonService } from 'src/app/common/services/common/Common.service';
+import { StreetNameSuffix } from 'src/app/common/models/lookups/location/StreetNameSuffix';
 
 
 @Component({
@@ -35,7 +36,6 @@ export class InvolvedPersonsComponent implements OnInit {
   cities: DataSource;
   zones: DataSource;
   states: DataSource;
-  streetNameSuffixs: DataSource;
   contactCodes: DataSource;
   namePrefixCodes: DataSource;
   lastNameSuffixCodes: DataSource;
@@ -43,15 +43,17 @@ export class InvolvedPersonsComponent implements OnInit {
   hairColorCodes: DataSource;
   hairTypeCodes: DataSource;
   eyeWearCodes: DataSource;
+  eyeColorCodes: DataSource;
   facialHairCodes: DataSource;
   hospitalCodes: DataSource;
 
   streetNamePreDirectionCodes: StreetNameDirection[];
+  streetNameSuffixs: StreetNameSuffix[];
+
   countyCodes: County[];
   patrolAreaCodes: PatrolArea[];
   genderCodes: Gender[];
   raceCodes: Race[];
-  eyeColorCodes: EyeColor[];
 
   popupVisible = false;
 
@@ -71,7 +73,6 @@ export class InvolvedPersonsComponent implements OnInit {
       this.addressTypes = this.locationService.getAddressTypeList();
       this.zones = this.locationService.getZoneList();
       this.states = this.locationService.getStateList();
-      this.streetNameSuffixs = this.locationService.getStreetSuffixList();
       this.contactCodes = this.personService.getContactTypeList();
       this.namePrefixCodes = this.personService.getNamePrefixList();
       this.lastNameSuffixCodes = this.personService.getNameSuffixList();
@@ -79,6 +80,7 @@ export class InvolvedPersonsComponent implements OnInit {
       this.hairColorCodes = this.personService.getHairColorList();
       this.hairTypeCodes = this.personService.getHairTypeList();
       this.eyeWearCodes = this.personService.getEyewearList();
+      this.eyeColorCodes = this.personService.getEyeColorList();
       this.facialHairCodes = this.personService.getFacialHairList();
       this.hospitalCodes = this.commonService.getHospitalService();
 
@@ -88,8 +90,8 @@ export class InvolvedPersonsComponent implements OnInit {
     }
 
     ngOnInit() {
-      this.eyeColorCodes = this.personLookupService.eyeColorList;
       this.streetNamePreDirectionCodes = this.locationLookupService.streetNameDirectionList;
+      this.streetNameSuffixs = this.locationLookupService.streetNameSuffix;
       this.countyCodes = this.locationLookupService.countyList;
       this.patrolAreaCodes = this.locationLookupService.patrolAreaList;
       this.genderCodes = this.personLookupService.genderList;

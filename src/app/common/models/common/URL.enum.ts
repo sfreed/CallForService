@@ -19,7 +19,7 @@ export enum URL {
   CALL_FOR_SERVICE_ADDRESS_TYPE_ADDRESS= 'https://courtwareapp.azurewebsites.net/api/AddressType',
   CALL_FOR_SERVICE_ZONE_ADDRESS= 'https://courtwareapp.azurewebsites.net/api/Zone',
   CALL_FOR_SERVICE_STATE_ADDRESS= 'https://courtwareapp.azurewebsites.net/api/State',
-  CALL_FOR_SERVICE_STATE_SUFFIX_ADDRESS= 'https://courtwareapp.azurewebsites.net/api/State',
+  CALL_FOR_SERVICE_STREET_SUFFIX_ADDRESS= 'https://courtwareapp.azurewebsites.net/api/StreetSuffix',
   CALL_FOR_SERVICE_VEHICLE_COLOR_ADDRESS= 'https://courtwareapp.azurewebsites.net/api/VehicleColor',
   CALL_FOR_SERVICE_VEHICLE_FUEL_TYPE_ADDRESS= 'https://courtwareapp.azurewebsites.net/api/VehicleFuelType',
   CALL_FOR_SERVICE_VEHICLE_STYLE_ADDRESS= 'https://courtwareapp.azurewebsites.net/api/VehicleStyle',
