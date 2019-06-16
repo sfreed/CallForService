@@ -36,7 +36,11 @@ export class CallForServiceRemarksDAO extends BaseDAO {
   }
 
   private getCallsRemarks(callID): Promise<any> {
-    return this.http.get(URL.CALL_FOR_SERVICE_REMARKS_ADDRESS + '?callId=' + callID, this.getHttpOptions()).toPromise();
+    return this.http.get(URL.CALL_FOR_SERVICE_REMARKS_ADDRESS + '?callId=' + callID, this.getHttpOptions()).toPromise()
+    .then(results => {
+      console.log('call Remarks List', results);
+      return results;
+    });
   }
 
   private addCallRemark (call: CallRemarksItem): Promise<any> {

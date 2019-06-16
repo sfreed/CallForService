@@ -20,6 +20,7 @@ export class InvolvedUnitsService {
     const involvedUnit = new InvolvedUnitsItem();
     involvedUnit.callForServiceUnit = unit;
     involvedUnit.callForServiceId = this.callService.getActiveCall().id;
+    involvedUnit.callForServiceUnitId = unit.id;
     involvedUnit.isPrimaryUnit = true;
     involvedUnit.callForServiceDateTime = this.callService.getActiveCall().receivedDateTime;
     involvedUnit.dispatchDateTime = new Date().toISOString();

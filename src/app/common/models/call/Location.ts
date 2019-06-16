@@ -1,6 +1,6 @@
 import { BaseModel } from '../BaseModel';
 
-export class LocationPrimary extends BaseModel {
+export class Location extends BaseModel {
   id: string;
   name: string;
   addressTypeId: number;
@@ -9,6 +9,7 @@ export class LocationPrimary extends BaseModel {
   streetId: string;
   countyId: number;
   cityId: number;
+  zipId: number;
   zoneId: number;
   patrolAreaId: number;
   latitude: number;

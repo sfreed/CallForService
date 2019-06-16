@@ -19,6 +19,7 @@ import * as deepmerge from 'deepmerge';
 import { PersonService } from 'src/app/common/services/lookups/person/Person.service';
 import { CommonService } from 'src/app/common/services/common/Common.service';
 import { StreetNameSuffix } from 'src/app/common/models/lookups/location/StreetNameSuffix';
+import { IdentificationClassService } from 'src/app/common/services/lookups/person/IdentificationClass.service';
 
 
 @Component({
@@ -33,6 +34,7 @@ export class InvolvedPersonsComponent implements OnInit {
   addressTypes: DataSource;
   streetNames: DataSource;
   cities: DataSource;
+  counties: DataSource;
   zones: DataSource;
   states: DataSource;
   contactCodes: DataSource;
@@ -45,11 +47,11 @@ export class InvolvedPersonsComponent implements OnInit {
   eyeColorCodes: DataSource;
   facialHairCodes: DataSource;
   hospitalCodes: DataSource;
+  idClass: DataSource;
 
   streetNamePreDirectionCodes: StreetNameDirection[];
   streetNameSuffixs: StreetNameSuffix[];
 
-  countyCodes: County[];
   patrolAreaCodes: PatrolArea[];
   genderCodes: Gender[];
   raceCodes: Race[];
@@ -66,9 +68,11 @@ export class InvolvedPersonsComponent implements OnInit {
 
   constructor(public callService: CallsService, private personLookupService: PersonLookupService, private callForServiceLookup: CallForServiceLookupService,
     private locationService: LocationService, private locationLookupService: LocationLookupService, private involvedPersonsService: InvolvedPersonService,
-    private involvedUnitService: InvolvedUnitsService, private personService: PersonService, private commonService: CommonService) {
+    private involvedUnitService: InvolvedUnitsService, private personService: PersonService, private commonService: CommonService,
+    private identificationClassService: IdentificationClassService) {
       this.streetNames = this.locationService.getStreetList();
       this.cities = this.locationService.getCityList();
+      this.counties = this.locationService.getCountyList();
       this.addressTypes = this.locationService.getAddressTypeList();
       this.zones = this.locationService.getZoneList();
       this.states = this.locationService.getStateList();
@@ -82,6 +86,7 @@ export class InvolvedPersonsComponent implements OnInit {
       this.eyeColorCodes = this.personService.getEyeColorList();
       this.facialHairCodes = this.personService.getFacialHairList();
       this.hospitalCodes = this.commonService.getHospitalService();
+      this.idClass = this.identificationClassService.getIdentificationClassListDS();
 
       this.callService.callEmitter.subscribe((data: CallForService) => {
         this.involvedPersonsList = this.involvedPersonsService.getInvolvedPersonList();
@@ -91,7 +96,6 @@ export class InvolvedPersonsComponent implements OnInit {
     ngOnInit() {
       this.streetNamePreDirectionCodes = this.locationLookupService.streetNameDirectionList;
       this.streetNameSuffixs = this.locationLookupService.streetNameSuffix;
-      this.countyCodes = this.locationLookupService.countyList;
       this.patrolAreaCodes = this.locationLookupService.patrolAreaList;
       this.genderCodes = this.personLookupService.genderList;
       this.raceCodes = this.personLookupService.raceList;

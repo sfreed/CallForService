@@ -5,7 +5,6 @@ import { WreckerService } from './vehicle/WreckerService';
 import { InvolvedPerson } from './person/InvolvedPerson';
 
 export class InvolvedVehiclesItem extends BaseModel {
-  id: number;
   callForServiceId: number;
   vehicleId: string;
   vehicle: InvolvedVehicle;
@@ -22,6 +21,5 @@ export class InvolvedVehiclesItem extends BaseModel {
   wreckerSelectTyped: number;
   wreckerTimeCalled: string;
   wreckerTimeArrived: string;
-  isSameAsDriver: boolean;
-  ownerPersonId: string;
+  isDriverSameAsOwner: boolean;
 }

@@ -1,4 +1,3 @@
-
 <dx-accordion
     #accordion
     [collapsible]="false"
@@ -105,7 +104,7 @@
           <dxi-item dataField="searchCall.dispatchedByPerson" [label]="{text: 'Dispatched By'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: dispatchers,  valueExpr:'id', displayExpr:'fullName', searchEnabled:true, searchExpr:'fullName', searchMode:'startsWith'}"></dxi-item>
           <dxi-item dataField="searchCall.complainantPerson.fullName" [label]="{text: 'Complainant Name'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
       </dxi-item>
-      <dxi-item [colSpan]="2" itemType="button" horizontalAlignment="right" [buttonOptions]="buttonOptions"></dxi-item>
+      <dxi-item [colSpan]="2" itemType="button" horizontalAlignment="right" [buttonOptions]="buttonOptionSearch"></dxi-item>
     </dx-form>
   </dxi-item>
 </dx-accordion>
@@ -157,12 +156,12 @@
         itemType="button"
         horizontalAlignment="right"
         verticalAlignment="bottom"
-        [buttonOptions]="buttonOptions">
+        [buttonOptions]="buttonOptionsNewCall">
       </dxi-item>
     </dx-form>
   </dx-popup>
 
-<dx-popup
+  <dx-popup
   class="popup"
   [width]="800"
   [height]="600"
@@ -183,7 +182,7 @@
           itemType="button"
           horizontalAlignment="right"
           verticalAlignment="bottom"
-          [buttonOptions]="buttonOptions">
+          [buttonOptions]="buttonOptionsNewStreet">
         </dxi-item>
       </dx-form>
 </dx-popup>

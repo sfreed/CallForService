@@ -15,7 +15,7 @@ export class InvolvedUnitDAO extends BaseDAO {
   constructor(private http: HttpClient, private callService: CallsService, private authService: AuthenticationService) {
     super();
     this.store = new CustomStore({
-      key: 'personId',
+      key: 'id',
       byKey: (key) => {
         return this.getInvolvedUnit(key);
       },
@@ -50,7 +50,7 @@ export class InvolvedUnitDAO extends BaseDAO {
       });
   }
   private getInvolvedUnit(id): Promise<any> {
-    return this.http.get<any>(this.endpoint + 'CallForServiceInvolvedUnit/?callId=' + this.callService.getActiveCall().id + '&personId=' + id, this.getHttpOptions()).toPromise();
+    return this.http.get<any>(this.endpoint + 'CallForServiceInvolvedUnit?callId=' + this.callService.getActiveCall().id + '&personId=' + id, this.getHttpOptions()).toPromise();
   }
 
   private addInvolvedUnit(unit: InvolvedUnitsItem): Promise<any> {
@@ -76,5 +76,4 @@ export class InvolvedUnitDAO extends BaseDAO {
     model.callForServiceUnit.createdUserId = this.authService.getUser().id;
     model.callForServiceUnit.effectiveDateTime = new Date().toISOString();
   }
-
 }

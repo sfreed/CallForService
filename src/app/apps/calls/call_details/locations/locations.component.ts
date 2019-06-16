@@ -10,6 +10,7 @@ import { Street } from 'src/app/common/models/lookups/location/Street';
 import { InvolvedUnitsService } from 'src/app/common/services/callDetails/InvolvedUnit.service';
 import { LocationService } from 'src/app/common/services/lookups/location/Location.service';
 import { StreetNameSuffix } from 'src/app/common/models/lookups/location/StreetNameSuffix';
+import { Location } from 'src/app/common/models/call/Location';
 
 @Component({
   selector: 'app-locations',
@@ -22,11 +23,11 @@ export class LocationsComponent implements OnInit {
   addressTypes: DataSource;
   streetNames: DataSource;
   cities: DataSource;
+  counties: DataSource;
   zones: DataSource;
 
   streetNameSuffixs: StreetNameSuffix[];
   streetNameDirections: StreetNameDirection[];
-  countyCodes: County[];
   patrolAreaCodes: PatrolArea[];
 
   buttonOptions: any = {
@@ -43,15 +44,16 @@ export class LocationsComponent implements OnInit {
      private involvedUnitService: InvolvedUnitsService) {
       this.streetNames = this.locationService.getStreetList();
       this.cities = this.locationService.getCityList();
+      this.counties = this.locationService.getCountyList();
       this.addressTypes = this.locationService.getAddressTypeList();
       this.zones = this.locationService.getZoneList();
-      this.streetNameSuffixs = this.locationLookupService.streetNameSuffix;
   }
 
   ngOnInit() {
-    this.countyCodes = this.locationLookupService.countyList;
+
     this.patrolAreaCodes = this.locationLookupService.patrolAreaList;
     this.streetNameDirections = this.locationLookupService.streetNameDirectionList;
+    this.streetNameSuffixs = this.locationLookupService.streetNameSuffix;
   }
 
   drop(event: CdkDragDrop<any>) {
@@ -71,14 +73,15 @@ export class LocationsComponent implements OnInit {
     this.callService.saveCall(this.callService.getActiveCall()).then(res => this.showWaitIndicator = false);
   }
 
-  addStreet() {
+  addStreet(location: Location) {
     this.selectedStreet = new Street();
     this.popupVisible = true;
   }
 
-  editStreet () {
-    this.locationService.getStreetList().store().byKey(this.callService.getActiveCall().locationPrimary.streetId).then(results => {
+  editStreet (location: Location) {
+    this.locationService.getStreetList().store().byKey(location.streetId).then(results => {
       this.selectedStreet = results;
+      location.streetId = this.selectedStreet.id;
       this.popupVisible = true;
     });
   }

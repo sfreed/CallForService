@@ -1,13 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CallsService } from 'src/app/common/services/call/Calls.service';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { LocationLookupService } from 'src/app/common/services/lookups/location/LocationLookup.service';
 import { VehicleLookupService } from 'src/app/common/services/lookups/vehicle/VehicleLookup.service';
 import { PersonLookupService } from 'src/app/common/services/lookups/person/PersonLookup.service';
-import { WreckerService } from 'src/app/common/models/callDetails/vehicle/WreckerService';
-import { CallForServiceLookupService } from 'src/app/common/services/lookups/callForService/CallForServiceLookup.service';
-import { WreckerRotation } from 'src/app/common/models/callDetails/vehicle/WreckerRotation';
-import { WreckerRotationService } from 'src/app/common/services/callDetails/WreckerRotation.service';
 import DataSource from 'devextreme/data/data_source';
 import { InvolvedVehicleService } from 'src/app/common/services/callDetails/InvolvedVehicle.service';
 import { StreetNameDirection } from 'src/app/common/models/lookups/location/StreetNameDirection';
@@ -24,7 +20,9 @@ import { LocationService } from 'src/app/common/services/lookups/location/Locati
 import * as deepmerge from 'deepmerge';
 import { PersonService } from 'src/app/common/services/lookups/person/Person.service';
 import { StreetNameSuffix } from 'src/app/common/models/lookups/location/StreetNameSuffix';
-import { InvolvedVehicle } from 'src/app/common/models/callDetails/vehicle/InvolvedVehicle';
+import { WreckerService } from 'src/app/common/services/callDetails/Wrecker.service';
+import { InvolvedVehiclesItem } from 'src/app/common/models/callDetails/InvolvedVehicleItem';
+import { DxSelectBoxComponent } from 'devextreme-angular';
 
 @Component({
   selector: 'app-vehicles',
@@ -32,6 +30,8 @@ import { InvolvedVehicle } from 'src/app/common/models/callDetails/vehicle/Invol
   styleUrls: ['./involved_vehicles.component.css']
 })
 export class VehiclesComponent implements OnInit {
+  @ViewChild('wreckerServer') wreckerServerSelect: DxSelectBoxComponent;
+
   rules = { 'X': /[02-9]/ };
 
   involvedVehiclesList: DataSource;
@@ -54,11 +54,13 @@ export class VehiclesComponent implements OnInit {
   eyeColorCodes: DataSource;
   facialHairCodes: DataSource;
 
+  wreckerRotationList: DataSource;
+  wreckerServiceList: DataSource;
+
   engineTypes: VehicleEngineType[];
   transmissionTypes: VehicleTransmissionType[];
   streetNamePreDirectionCodes: StreetNameDirection[];
-  wreckerServiceList: WreckerService[];
-  wreckerRotationList: WreckerRotation[];
+
   streetNameSuffixs: StreetNameSuffix[];
 
   genderCodes: Gender[];
@@ -67,12 +69,27 @@ export class VehiclesComponent implements OnInit {
   popupVisible = false;
 
   selectedStreet: Street = new Street();
-  selectedVehicle: InvolvedVehicle;
+  selectedVehicle: InvolvedVehiclesItem;
+
+  wreckerRotationSelectOptions =  {
+    stylingMode: 'filled',
+    dataSource: this.wreckerRotationList,
+    valueExpr: 'id',
+    displayExpr: 'rotationDescription',
+    onValueChanged: this.assignToWreckerService.bind(this)
+  };
+
+  wreckerServiceSelectOptions =  {
+    stylingMode: 'filled',
+    dataSource: this.wreckerServiceList,
+    valueExpr: 'id',
+    displayExpr: 'wreckerServiceName'
+  };
 
   constructor(public callService: CallsService, private locationLookupService: LocationLookupService, private vehicleLookipService: VehicleLookupService,
-    private personLookupService: PersonLookupService, private callForServiceLookupService: CallForServiceLookupService,
-    private wreckerRotationService: WreckerRotationService, private involvedVehicleService: InvolvedVehicleService, private locationService: LocationService,
-    private vehicleService: VehicleService, private involvedUnitService: InvolvedUnitsService, private personService: PersonService) {
+    private personLookupService: PersonLookupService, private wreckerService: WreckerService, private involvedVehicleService: InvolvedVehicleService,
+    private locationService: LocationService, private vehicleService: VehicleService, private involvedUnitService: InvolvedUnitsService,
+    private personService: PersonService) {
       this.callService.callEmitter.subscribe((data: CallForService) => {
         this.involvedVehiclesList = this.involvedVehicleService.getInvolvedVehicleList();
       });
@@ -96,6 +113,8 @@ export class VehiclesComponent implements OnInit {
     this.eyeWearCodes = this.personService.getEyewearList();
     this.eyeColorCodes = this.personService.getEyeColorList();
     this.facialHairCodes = this.personService.getFacialHairList();
+    this.wreckerRotationList = this.wreckerService.getWreckerRoationList();
+    this.wreckerServiceList = this.wreckerService.getWreckerServiceList();
 
     this.streetNameSuffixs = this.locationLookupService.streetNameSuffix;
     this.engineTypes = this.vehicleLookipService.vehicleEngineTypeList;
@@ -103,15 +122,22 @@ export class VehiclesComponent implements OnInit {
     this.streetNamePreDirectionCodes = this.locationLookupService.streetNameDirectionList;
     this.genderCodes = this.personLookupService.genderList;
     this.raceCodes = this.personLookupService.raceList;
-    this.wreckerServiceList = this.callForServiceLookupService.wreckerService;
-    this.wreckerRotationList = this.callForServiceLookupService.wreckerRotation;
+
     this.involvedVehiclesList = this.involvedVehicleService.getInvolvedVehicleList();
   }
 
   assignToWreckerService(e) {
-    console.log('clicked', this.selectedVehicle);
+//    console.log('changing', e);
+//    this.wreckerService.getNextRotationId(e.value).then(results => {
 
-    this.wreckerRotationService.getNextRotationId(e.value);
+//      console.log('setting value', results, this.selectedVehicle);
+//      this.selectedVehicle.wreckerServerId = results;
+//      this.wreckerServerSelect.instance.repaint();
+
+//      console.log('set value', results, this.selectedVehicle);
+
+//      console.log('select instance', this.wreckerServerSelect);
+//    });
   }
 
   drop(event: CdkDragDrop<any>) {
@@ -212,11 +238,11 @@ export class VehiclesComponent implements OnInit {
   }
 
   updateRow(options) {
+    console.log('update called');
     options.newData = deepmerge(options.oldData, options.newData);
   }
 
-  startEditing(options) {
-    console.log(options);
-    this.selectedVehicle = options.data;
+  getInvolvedVehicle(e) {
+    this.selectedVehicle = e.data;
   }
 }

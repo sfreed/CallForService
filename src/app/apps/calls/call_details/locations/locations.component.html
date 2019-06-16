@@ -10,18 +10,18 @@
           <dxi-item>
             <dx-button
               icon="add"
-              (onClick)="addStreet()"
-              style="margin-right:10px; margin-top: 18px;">
+              (onClick)="addStreet(callService.getActiveCall().locationPrimary)"
+              style="margin-right:5px; margin-top: 18px;">
             </dx-button>
             <dx-button
               icon="edit"
-              (onClick)="editStreet()"
+              (onClick)="editStreet(callService.getActiveCall().locationPrimary)"
               style="margin-top: 18px;">
             </dx-button>
           </dxi-item>
 
           <dxi-item dataField="locationPrimary.cityId" [colSpan]="3" [label]="{text: 'City'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: cities,  valueExpr:'id', displayExpr: getCityName , searchEnabled:true, searchExpr:'cityName', searchMode:'startsWith'}"></dxi-item>
-          <dxi-item dataField="locationPrimary.countyId" [colSpan]="2" [label]="{text: 'County'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: countyCodes,  valueExpr:'id', displayExpr:'countyName', searchEnabled:true, searchExpr:'countyName', searchMode:'startsWith'}"></dxi-item>
+          <dxi-item dataField="locationPrimary.countyId" [colSpan]="2" [label]="{text: 'County'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: counties,  valueExpr:'id', displayExpr:'countyName', searchEnabled:true, searchExpr:'countyName', searchMode:'startsWith'}"></dxi-item>
         </dxi-item>
         <dxi-item itemType="group" caption="Location" [colCount]="2">
           <dxi-item dataField="locationPrimary.zoneId" [label]="{text: 'Zone'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: zones,  valueExpr:'id', displayExpr:'description', searchEnabled:true, searchExpr:'description', searchMode:'startsWith'}"></dxi-item>
@@ -44,17 +44,17 @@
           <dxi-item>
             <dx-button
               icon="add"
-              (onClick)="addStreet()"
-              style="margin-right:10px; margin-top: 18px;">
+              (onClick)="addStreet(callService.getActiveCall().secondaryLocationLocation)"
+              style="margin-right:5px; margin-top: 18px;">
             </dx-button>
             <dx-button
               icon="edit"
-              (onClick)="editStreet()"
+              (onClick)="editStreet(callService.getActiveCall().secondaryLocationLocation)"
               style="margin-top: 18px;">
             </dx-button>
           </dxi-item>
           <dxi-item dataField="secondaryLocationLocation.cityId" [colSpan]="3" [label]="{text: 'City'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: cities,  valueExpr:'id', displayExpr: getCityName , searchEnabled:true, searchExpr:'cityName', searchMode:'startsWith'}"></dxi-item>
-          <dxi-item dataField="secondaryLocationLocation.countyId" [colSpan]="2" [label]="{text: 'County'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: countyCodes,  valueExpr:'id', displayExpr: getStreetName, searchEnabled:true, searchExpr:'countyName', searchMode:'startsWith'}"></dxi-item>
+          <dxi-item dataField="secondaryLocationLocation.countyId" [colSpan]="2" [label]="{text: 'County'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: counties,  valueExpr:'id', displayExpr: 'countyName', searchEnabled:true, searchExpr:'countyName', searchMode:'startsWith'}"></dxi-item>
         </dxi-item>
         <dxi-item itemType="group" caption="Location" [colCount]="2">
           <dxi-item dataField="secondaryLocationLocation.zoneId" [label]="{text: 'Zone'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: zones,  valueExpr:'id', displayExpr:'description', searchEnabled:true, searchExpr:'description', searchMode:'startsWith'}"></dxi-item>

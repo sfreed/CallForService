@@ -14,8 +14,11 @@ export class WreckerRotationDAO extends BaseDAO {
     this.store = new CustomStore({
       key: 'id',
       byKey: (key) => {
-        return this.getNextRotation(key);
-      }
+        return this.getWReckerRotation(key);
+      },
+      load: () => {
+        return this.getWReckerRotations();
+      },
     });
   }
 
@@ -28,7 +31,15 @@ export class WreckerRotationDAO extends BaseDAO {
     return ds;
   }
 
-  private getNextRotation(id): Promise<any> {
+  public getNextRotation(id): Promise<any> {
     return this.http.get(this.endpoint + 'WreckerRotationService/' + id, this.getHttpOptions()).toPromise();
+  }
+
+  private getWReckerRotation(key): Promise<any> {
+    return this.http.get<any>(this.endpoint + 'WreckerRotation/' + key, this.getHttpOptions()).toPromise();
+  }
+
+  private getWReckerRotations(): Promise<any> {
+    return this.http.get<any>(this.endpoint + 'WreckerRotation', this.getHttpOptions()).toPromise();
   }
 }

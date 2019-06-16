@@ -1,5 +1,5 @@
 
-    <h2>ActiveUnits</h2>
+    <div class="listHeader listHeaderTop">Active Units</div>
     <dx-list
       id="activeUnits"
       #activeUnitsList
@@ -7,7 +7,7 @@
       [searchMode]="'startswith'"
       [searchValue]="'2'"
       [dataSource]="activeUnits"
-      [height]="window.innerHeight/2.5"
+      [height]="window.innerHeight/2.4"
       [scrollingEnabled]="true"
       selectionMode = "single"
       (onItemClick)="selectUnit($event)"
@@ -31,7 +31,7 @@
         </dx-context-menu>
       </div>
     </dx-list>
-    <h2>InctiveUnits</h2>
+    <div class="listHeader">Inactive Units</div>
     <dx-list
       id="inActiveUnits"
       #inActiveUnitsList
@@ -39,7 +39,7 @@
       [searchMode]="'startswith'"
       [searchValue]="'1'"
       [dataSource]="inactiveUnits"
-      [height]="window.innerHeight/2.5"
+      [height]="window.innerHeight/2.4"
       [scrollingEnabled]="true"
       selectionMode = "single"
       (onItemClick)="selectUnit($event)"

@@ -1,6 +1,5 @@
 import { DispatchedByPerson } from './DispatchedByPerson';
-import { LocationPrimary } from './LocationPrimary';
-import { SecondaryLocationLocation } from './SecondaryLocationLocation';
+import { Location } from './Location';
 import { ComplainantPerson } from './ComplainantPerson';
 import { BaseModel } from '../BaseModel';
 
@@ -14,8 +13,8 @@ export class CallForService extends BaseModel {
   closedDateTime: string;
   dispatchedByPerson: DispatchedByPerson;
   originatedId: number;
-  locationPrimary: LocationPrimary;
-  secondaryLocationLocation: SecondaryLocationLocation;
+  locationPrimary: Location;
+  secondaryLocationLocation: Location;
   complainantPerson: ComplainantPerson;
   typeId: number;
   typePriorityOrder: number;

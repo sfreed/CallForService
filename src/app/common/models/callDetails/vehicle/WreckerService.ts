@@ -9,5 +9,4 @@ export class WreckerService extends BaseModel {
   rotationSequence: number;
   towingFee: number;
   wreckerRotationType: number;
-  isUserEditable: boolean;
 }

@@ -16,6 +16,8 @@ import { LocationService } from 'src/app/common/services/lookups/location/Locati
 import { County } from 'src/app/common/models/lookups/location/County';
 import { LocationLookupService } from 'src/app/common/services/lookups/location/LocationLookup.service';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
+import { StreetNameSuffix } from 'src/app/common/models/lookups/location/StreetNameSuffix';
+import { StreetNameDirection } from 'src/app/common/models/lookups/location/StreetNameDirection';
 
 @Component({
   selector: 'app-call-master',
@@ -30,6 +32,8 @@ export class CallMasterComponent implements OnInit {
   callOriginated: CallForServiceOriginated[];
   callDispositionStatus: CallForServiceDispositionStatus[];
   counties: County[];
+  streetNameSuffixs: StreetNameSuffix[];
+  streetNameDirections: StreetNameDirection[];
 
   calls: DataSource;
   dispatchers: DataSource;
@@ -49,10 +53,20 @@ export class CallMasterComponent implements OnInit {
 
   selectedStreet: Street = new Street();
 
-  buttonOptions: any = {
+  buttonOptionsNewCall: any = {
     text: 'Save',
     type: 'success',
     onClick: this.launchCall.bind(this)
+  };
+
+  buttonOptionsNewStreet: any = {
+    text: 'Save',
+    type: 'success',
+    onClick: this.saveStreet.bind(this)
+  };
+
+  buttonOptionSearch: any =  {
+
   };
 
   constructor(public callService: CallsService, private personLookupService: PersonLookupService,
@@ -65,8 +79,6 @@ export class CallMasterComponent implements OnInit {
       this.cities = this.locationService.getCityList();
       this.addressTypes = this.locationService.getAddressTypeList();
       this.zoneCodes = this.locationService.getZoneList();
-
-      this.counties = this.locationLookupService.countyList;
 
       this._hotkeysService.add(new Hotkey('ctrl+alt+n', (event: KeyboardEvent): boolean => {
         this.startCall();
@@ -82,6 +94,10 @@ export class CallMasterComponent implements OnInit {
             this.callOriginated = this.cfsLookupService.callForServiceOriginatedList;
 
             this.callDispositionStatus = this.cfsLookupService.callForServiceDispositionStatusList;
+
+            this.counties = this.locationLookupService.countyList;
+            this.streetNameDirections = this.locationLookupService.streetNameDirectionList;
+            this.streetNameSuffixs = this.locationLookupService.streetNameSuffix;
 
             this.filterCalls('dispatcherId', this.authService.getUser().personId);
           });

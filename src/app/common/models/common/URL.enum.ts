@@ -39,4 +39,6 @@ export enum URL {
   CALL_FOR_SERVICE_NAME_PREFIX_ADDRESS= 'https://courtwareapp.azurewebsites.net/api/NamePrefix',
   CALL_FOR_SERVICE_NAME_SUFFIX_ADDRESS= 'https://courtwareapp.azurewebsites.net/api/NameSuffix',
   CALL_FOR_SERVICE_OFFICER_RANK_ADDRESS= 'https://courtwareapp.azurewebsites.net/api/OfficerRank',
+  CALL_FOR_SERVICE_ID_CLASS_ADDRESS= 'https://courtwareapp.azurewebsites.net/api/IdentificationClass',
+  CALL_FOR_SERVICE_COUNTY_ADDRESS= 'https://courtwareapp.azurewebsites.net/api/County',
 }

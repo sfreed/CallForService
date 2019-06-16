@@ -78,9 +78,9 @@ export class InvolvedPersonDAO extends BaseDAO {
         model.involvedPerson.effectiveDateTime = new Date().toISOString();
       }
 
-      if (model.personAddress) {
-        model.personAddress.createdUserId = this.authService.getUser().id;
-        model.personAddress.effectiveDateTime = new Date().toISOString();
+      if (model.involvedPerson) {
+        model.involvedPerson.location.createdUserId = this.authService.getUser().id;
+        model.involvedPerson.location.effectiveDateTime = new Date().toISOString();
       }
     }
 }

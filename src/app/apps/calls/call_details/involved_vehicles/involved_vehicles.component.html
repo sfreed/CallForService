@@ -8,8 +8,8 @@
     cdkDropList
     (cdkDropListDropped)="drop($event)"
     [cdkDropListConnectedTo]="['activeUnits']"
-    (onRowUpdating)="updateRow($event)"
-    (onEditingStart)="startEditing($event)">
+    (onEditingStart)="getInvolvedVehicle($event)"
+    (onRowUpdating)="updateRow($event)">
     <dxo-scrolling mode="virtual"></dxo-scrolling>
     <dxo-selection mode="single"></dxo-selection>
     <dxo-editing
@@ -19,7 +19,7 @@
       [allowAdding]="true"
       [useIcons]="true">
       <dxo-popup title="Involved Vehicle" [showTitle]="true" [width]="1000" [height]="900"></dxo-popup>
-      <dxo-form [width]="'200%'" [labelLocation]="'top'">
+      <dxo-form [width]="'200%'" [labelLocation]="'top'" >
         <dxi-item itemType="tabbed" [tabPanelOptions]="{ deferRendering: false }" caption="Involved Person" [widthRatio]="1">
           <dxi-tab title="Vehicle" width="100%">
             <dxi-item itemType="group" caption="Tag Information" [colCount]="4">
@@ -92,8 +92,8 @@
               <dxi-item dataField="vehicleDriverPerson.mobilePhoneNumber" [editorOptions]="{ stylingMode: 'filled', mask: '(X00) 000-0000', maskRules: rules }"></dxi-item>
             </dxi-item>
             <dxi-item itemType="group" caption="Address" [colCount]="5">
-              <dxi-item dataField="vehicleDriverPerson.streetNumber" [colSpan]="1" [label]="{ text: 'Number' }" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-              <dxi-item dataField="vehicleDriverPerson.streetId" [colSpan]="3" [label]="{text: 'Street Name'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: streetNames,  valueExpr:'id', displayExpr: getStreetName, searchEnabled:true, searchExpr:'streetName', searchMode:'startsWith'}"></dxi-item>
+              <dxi-item dataField="vehicleDriverPerson.location.streetNumber" [colSpan]="1" [label]="{ text: 'Number' }" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+              <dxi-item dataField="vehicleDriverPerson.location.streetId" [colSpan]="3" [label]="{text: 'Street Name'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: streetNames,  valueExpr:'id', displayExpr: getStreetName, searchEnabled:true, searchExpr:'streetName', searchMode:'startsWith'}"></dxi-item>
               <dxi-item>
                 <dx-button
                   icon="add"
@@ -106,8 +106,8 @@
                   style="margin-top: 18px;">
                 </dx-button>
               </dxi-item>
-              <dxi-item dataField="vehicleDriverPerson.cityId" [colSpan]="3" [label]="{text: 'City'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: cities,  valueExpr:'id', displayExpr: getCityName , searchEnabled:true, searchExpr:'cityName', searchMode:'startsWith'}"></dxi-item>
-              <dxi-item dataField="vehicleDriverPerson.zipCode" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+              <dxi-item dataField="vehicleDriverPerson.location.cityId" [colSpan]="3" [label]="{text: 'City'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: cities,  valueExpr:'id', displayExpr: getCityName , searchEnabled:true, searchExpr:'cityName', searchMode:'startsWith'}"></dxi-item>
+              <dxi-item dataField="vehicleDriverPerson.location.zipCode" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
             </dxi-item>
             <dxi-item itemType="group" caption="Description" [colSpan]="2" [colCount]="2">
               <dxi-item dataField="vehicleDriverPerson.genderId" [label]="{text: 'Gender'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: genderCodes,  valueExpr:'id', displayExpr:'genderDescription'}"></dxi-item>
@@ -155,8 +155,8 @@
               <dxi-item dataField="vehicle.ownerPerson.mobilePhoneNumber" [editorOptions]="{ stylingMode: 'filled', mask: '(X00) 000-0000', maskRules: rules }"></dxi-item>
             </dxi-item>
             <dxi-item itemType="group" caption="Address" [colCount]="5">
-                <dxi-item dataField="vehicle.ownerPerson.streetNumber" [colSpan]="1" [label]="{ text: 'Number' }" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-                <dxi-item dataField="vehicle.ownerPerson.streetId" [colSpan]="3" [label]="{text: 'Street Name'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: streetNames,  valueExpr:'id', displayExpr: getStreetName, searchEnabled:true, searchExpr:'streetName', searchMode:'startsWith'}"></dxi-item>
+                <dxi-item dataField="vehicle.ownerPerson.location.streetNumber" [colSpan]="1" [label]="{ text: 'Number' }" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+                <dxi-item dataField="vehicle.ownerPerson.location.streetId" [colSpan]="3" [label]="{text: 'Street Name'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: streetNames,  valueExpr:'id', displayExpr: getStreetName, searchEnabled:true, searchExpr:'streetName', searchMode:'startsWith'}"></dxi-item>
                 <dxi-item>
                   <dx-button
                     icon="add"
@@ -169,8 +169,8 @@
                     style="margin-top: 18px;">
                   </dx-button>
                 </dxi-item>
-                <dxi-item dataField="vehicle.ownerPerson.cityId" [colSpan]="3" [label]="{text: 'City'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: cities,  valueExpr:'id', displayExpr: getCityName , searchEnabled:true, searchExpr:'cityName', searchMode:'startsWith'}"></dxi-item>
-                <dxi-item dataField="vehicle.ownerPerson.zipCode" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+                <dxi-item dataField="vehicle.ownerPerson.location.cityId" [colSpan]="3" [label]="{text: 'City'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: cities,  valueExpr:'id', displayExpr: getCityName , searchEnabled:true, searchExpr:'cityName', searchMode:'startsWith'}"></dxi-item>
+                <dxi-item dataField="vehicle.ownerPerson.location.zipCode" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
             </dxi-item>
             <dxi-item itemType="group" caption="Description" [colSpan]="2" [colCount]="2">
               <dxi-item dataField="vehicle.ownerPerson.genderId" [label]="{text: 'Gender'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: genderCodes,  valueExpr:'id', displayExpr:'genderDescription'}"></dxi-item>
@@ -187,15 +187,8 @@
           </dxi-tab>
           <dxi-tab title="Wrecker Service" width="100%" [colCount]="8">
             <dxi-item dataField="isWrecker" [colSpan]="8" [label]="{text: 'Is Wrecker Needed?'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-            <dxi-item dataField="wreckerRotation" [colSpan]="4"[label]="{text: 'Wrecker Rotation'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: wreckerRotationList,  valueExpr:'id', displayExpr:'rotationDescription' }"></dxi-item>
-            <dxi-item [colSpan]="1">
-                <dx-button
-                  icon="search"
-                  (onClick)="assignToWreckerService($event)"
-                  style="margin-right:10px; margin-top: 18px;">
-                </dx-button>
-              </dxi-item>
-            <dxi-item dataField="wreckerServer" [colSpan]="3"[label]="{text: 'Wrecker Service'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: wreckerServiceList,  displayExpr:'wreckerServiceName' }"></dxi-item>
+            <dxi-item dataField="wreckerRotation" [colSpan]="4" [label]="{text: 'Wrecker Rotation'}" editorType="dxSelectBox" [editorOptions]="wreckerRotationSelectOptions"></dxi-item>
+            <dxi-item dataField="wreckerServerId" #wreckerServer [colSpan]="4" [label]="{text: 'Wrecker Service'}" editorType="dxSelectBox" [editorOptions]="wreckerServiceSelectOptions"></dxi-item>
             <dxi-item dataField="wreckerTimeCalled" [colSpan]="4"[label]="{text: 'Time Called'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
             <dxi-item dataField="wreckerTimeArrived" [colSpan]="4"[label]="{text: 'Time Arrived'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
             <dxi-item dataField="wreckerTowedDateTime" [colSpan]="4"[label]="{text: 'Towed Date/Time'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
@@ -241,9 +234,10 @@
     <dxi-column dataField="vehicle.ownerPerson.driversLicenseExpirationDate" dataType="date" [visible]="false" [caption]="'DL Expiration Date'"></dxi-column>
     <dxi-column dataField="vehicle.ownerPerson.driversLicenseIssueDate" dataType="date" [visible]="false" [caption]="'DL Issue Date'"></dxi-column>
     <dxi-column dataField="vehicle.ownerPerson.driversLicenseIssueState" [visible]="false" [caption]="'DL State'"><dxo-lookup [dataSource]="states.store()" valueExpr="id" displayExpr="stateName"></dxo-lookup></dxi-column>
-    <dxi-column dataField="vehicle.ownerPerson.streetId" [visible]="false" [caption]="'Street Name'"><dxo-lookup [dataSource]="streetNames.store()" valueExpr="id" displayExpr="streetName"> </dxo-lookup></dxi-column>
-    <dxi-column dataField="vehicle.ownerPerson.cityName" [visible]="false" [caption]="'City'"><dxo-lookup [dataSource]="cities.store()" valueExpr="id" displayExpr="cityName"></dxo-lookup></dxi-column>
-    <dxi-column dataField="vehicle.ownerPerson.zipCode" [visible]="false" [caption]="'Zip Code'"></dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.location.streetNumber" [visible]="false" [caption]="'Street Number'"></dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.location.streetId" [visible]="false" [caption]="'Street Name'"><dxo-lookup [dataSource]="streetNames.store()" valueExpr="id" displayExpr="streetName"> </dxo-lookup></dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.location.cityName" [visible]="false" [caption]="'City'"><dxo-lookup [dataSource]="cities.store()" valueExpr="id" displayExpr="cityName"></dxo-lookup></dxi-column>
+    <dxi-column dataField="vehicle.ownerPerson.location.zipCode" [visible]="false" [caption]="'Zip Code'"></dxi-column>
     <dxi-column dataField="vehicle.ownerPerson.homePhoneNumber" [visible]="false" [caption]="'Home Phone'"></dxi-column>
     <dxi-column dataField="vehicle.ownerPerson.workPhoneNumber" [visible]="false" [caption]="'Work Phone'"></dxi-column>
     <dxi-column dataField="vehicle.ownerPerson.mobilePhoneNumber" [visible]="false" [caption]="'Mobile Number'"></dxi-column>
@@ -272,9 +266,10 @@
     <dxi-column dataField="vehicleDriverPerson.driversLicenseExpirationDate" dataType="date" [visible]="false" [caption]="'DL Expiration Date'"></dxi-column>
     <dxi-column dataField="vehicleDriverPerson.driversLicenseIssueDate" dataType="date" [visible]="false" [caption]="'DL Issue Date'"></dxi-column>
     <dxi-column dataField="vehicleDriverPerson.driversLicenseIssueState" [visible]="false" [caption]="'DL State'"><dxo-lookup [dataSource]="states.store()" valueExpr="id" displayExpr="stateName"></dxo-lookup></dxi-column>
-    <dxi-column dataField="vehicleDriverPerson.streetId" [visible]="false" [caption]="'Street Name'"><dxo-lookup [dataSource]="streetNames.store()" valueExpr="id" displayExpr="streetName"> </dxo-lookup></dxi-column>
-    <dxi-column dataField="vehicleDriverPerson.cityName" [visible]="false" [caption]="'City'"><dxo-lookup [dataSource]="cities.store()" valueExpr="id" displayExpr="cityName"></dxo-lookup></dxi-column>
-    <dxi-column dataField="vehicleDriverPerson.zipCode" [visible]="false" [caption]="'Zip Code'"></dxi-column>
+    <dxi-column dataField="vehicleDriverPerson.location.streetId" [visible]="false" [caption]="'Street Number'"></dxi-column>
+    <dxi-column dataField="vehicleDriverPerson.location.streetId" [visible]="false" [caption]="'Street Name'"><dxo-lookup [dataSource]="streetNames.store()" valueExpr="id" displayExpr="streetName"> </dxo-lookup></dxi-column>
+    <dxi-column dataField="vehicleDriverPerson.location.cityName" [visible]="false" [caption]="'City'"><dxo-lookup [dataSource]="cities.store()" valueExpr="id" displayExpr="cityName"></dxo-lookup></dxi-column>
+    <dxi-column dataField="vehicleDriverPerson.location.zipCode" [visible]="false" [caption]="'Zip Code'"></dxi-column>
     <dxi-column dataField="vehicleDriverPerson.homePhoneNumber" [visible]="false" [caption]="'Home Phone'"></dxi-column>
     <dxi-column dataField="vehicleDriverPerson.workPhoneNumber" [visible]="false" [caption]="'Work Phone'"></dxi-column>
     <dxi-column dataField="vehicleDriverPerson.mobilePhoneNumber" [visible]="false" [caption]="'Mobile Number'"></dxi-column>
@@ -294,7 +289,8 @@
     <dxi-column dataField="vehicleDriverPerson.dateOfDeath" dataType="date" [visible]="false" [caption]="'Date of Death'"></dxi-column>
 
     <dxi-column dataField="isWrecker" [caption]="'Is Wrecker Needed?'" [visible]="false" dataType="boolean"></dxi-column>
-    <dxi-column dataField="wreckerServer" [caption]="'Wrecker Service'" [visible]="false"><dxo-lookup [dataSource]="wreckerServiceList" valueExpr="id" displayExpr="wreckerServiceName" > </dxo-lookup></dxi-column>
+    <dxi-column dataField="wreckerRotation" [caption]="'Wrecker Rotation'" [visible]="false"><dxo-lookup [dataSource]="wreckerRotationList.store()" valueExpr="id" displayExpr="rotationDescription" > </dxo-lookup></dxi-column>
+    <dxi-column dataField="wreckerServerId" [caption]="'Wrecker Service'" [visible]="false"><dxo-lookup [dataSource]="wreckerServiceList.store()" valueExpr="id" displayExpr="wreckerServiceName" > </dxo-lookup></dxi-column>
     <dxi-column dataField="wreckerTowedTo" [caption]="'Towed To'" [visible]="false"></dxi-column>
     <dxi-column dataField="wreckerTowedDateTime" [caption]="'Towed Date Time'" [visible]="false" dataType="datetime"></dxi-column>
     <dxi-column dataField="wreckerRemarks" [caption]="'Wrecker Remarks'" [visible]="false"></dxi-column>

@@ -1,4 +1,5 @@
 import { BaseModel } from '../../BaseModel';
+import { Location } from '../../call/Location';
 
 export class InvolvedPerson extends BaseModel {
   id: string;
@@ -9,14 +10,7 @@ export class InvolvedPerson extends BaseModel {
   lastNameSuffixCodeId: number;
   sortName: string;
   fullName: string;
-  streetNumber: string;
-  streetNumberSuffix: string;
-  streetNamePreDirection: string;
-  streetName: string;
-  streetNameSuffix: string;
-  cityName: string;
-  stateName: string;
-  zipCode: string;
+  location: Location;
   socialSecurityNumber: string;
   driversLicenseNumber: string;
   driversLicenseState: string;

@@ -43,7 +43,8 @@ export class InvolvedVehicleDAO extends BaseDAO {
   }
 
   private getInvolvedVehicles(): Promise<any> {
-    return this.http.get<any>(this.endpoint + 'CallForServiceInvolvedVehicle?callId=' + this.callService.getActiveCall().id, this.getHttpOptions()).toPromise()        .then(results => {
+    return this.http.get<any>(this.endpoint + 'CallForServiceInvolvedVehicle?callId=' + this.callService.getActiveCall().id, this.getHttpOptions()).toPromise()
+      .then(results => {
       console.log('involved Vehicle List', results);
       return results;
     });
