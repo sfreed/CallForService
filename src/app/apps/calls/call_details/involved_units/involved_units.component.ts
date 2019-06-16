@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CallsService } from 'src/app/common/services/call/Calls.service';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { CallForServiceLookupService } from 'src/app/common/services/lookups/callForService/CallForServiceLookup.service';
@@ -10,6 +10,7 @@ import { InvolvedUnitsService } from 'src/app/common/services/callDetails/Involv
 import { CallForService } from 'src/app/common/models/call/CallForService';
 import * as deepmerge from 'deepmerge';
 import { CommonService } from 'src/app/common/services/common/Common.service';
+import { DxDataGridComponent } from 'devextreme-angular';
 
 @Component({
   selector: 'app-involved-units',
@@ -17,6 +18,8 @@ import { CommonService } from 'src/app/common/services/common/Common.service';
   styleUrls: ['./involved_units.component.css']
 })
 export class InvolvedUnitsComponent implements OnInit {
+  @ViewChild('unitContainer') unitContainer: DxDataGridComponent;
+
   unitType: CallForServiceUnitType[];
   unitAgencies: DataSource;
 
@@ -43,7 +46,9 @@ export class InvolvedUnitsComponent implements OnInit {
     if (event.item.element.nativeElement.classList.contains('OFFICER')) {
       const officer = event.item.data;
 
-      this.involvedUnitService.assignUnitToActiveCall(officer);
+      this.involvedUnitService.assignUnitToActiveCall(officer).then(results => {
+        this.unitContainer.instance.refresh();
+      });
     }
   }
 

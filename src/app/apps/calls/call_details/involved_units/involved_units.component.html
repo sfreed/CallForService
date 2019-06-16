@@ -1,5 +1,6 @@
 <div *ngIf="callService.getActiveCall()">
   <dx-data-grid id="unitContainer"
+    #unitContainer
     [dataSource]="involvedUnitsList"
     [rowAlternationEnabled]="true"
     [showBorders]="true"
@@ -8,21 +9,16 @@
     cdkDropList
     (cdkDropListDropped)="drop($event)"
     [cdkDropListConnectedTo]="['activeUnits']"
-    (onRowUpdating)="updateRow($event)">>
+    (onRowUpdating)="updateRow($event)">
     <dxo-scrolling mode="virtual"></dxo-scrolling>
     <dxo-selection mode="single"></dxo-selection>
-    <dxo-editing
-      mode="popup"
-      [allowDeleting]="true"
-      [useIcons]="true">
-    </dxo-editing>
     <dxi-column dataField="dispatchDateTime" dataType="date" [format]="'shortDateShortTime'" caption="Dispatch Time" width="20%"></dxi-column>
     <dxi-column dataField="callForServiceUnit.unitType" dataType="string" caption="Unit Type" width="20%">
       <dxo-lookup
         [dataSource]="unitType"
         valueExpr="id"
         displayExpr="unitDescription">
-    </dxo-lookup>
+      </dxo-lookup>
     </dxi-column>
     <dxi-column dataField="callForServiceUnit.unitDescription" dataType="string" caption="Description"></dxi-column>
     <dxi-column dataField="callForServiceUnit.unitAgencyId" dataType="string" caption="Unit Type" width="20%">

@@ -16,7 +16,7 @@ export class InvolvedUnitsService {
     return this.involvedUnitDao.getInvolvedUnitsDS();
   }
 
-  assignUnitToActiveCall(unit: AvailableUnit): boolean {
+  assignUnitToActiveCall(unit: AvailableUnit): Promise<any> {
     const involvedUnit = new InvolvedUnitsItem();
     involvedUnit.callForServiceUnit = unit;
     involvedUnit.callForServiceId = this.callService.getActiveCall().id;
@@ -26,8 +26,6 @@ export class InvolvedUnitsService {
     involvedUnit.dispatchDateTime = new Date().toISOString();
 
     console.log('assigning unit' + JSON.stringify(involvedUnit));
-    this.getInvolvedUnitList().store().insert(involvedUnit);
-
-    return true;
+    return this.getInvolvedUnitList().store().insert(involvedUnit);
   }
 }

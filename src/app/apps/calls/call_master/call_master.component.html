@@ -67,10 +67,10 @@
       </dxi-column>
       <dxi-column [caption]="'Complainant'" [calculateCellValue]="getComplainantDisplayValue"></dxi-column>
       <dxi-column dataField="dispatchedByPerson.fullName" dataType="string" [caption]="'Dispatcher'"></dxi-column>
-      <dxi-column dataField="callDispositionStatusId" dataType="string" [caption]="'Disposition Status'" [sortIndex]="0" sortOrder="asc" [visible]="false">
+      <dxi-column dataField="callDispositionStatusId" dataType="string" [caption]="'Disposition Status'" [visible]="false">
         <dxo-lookup [dataSource]="callDispositionStatus" valueExpr="id" displayExpr="callForServiceDispositionStatusDescription"></dxo-lookup>
       </dxi-column>
-      <dxi-column dataField="receivedDateTime" dataType="datetime" [format]="'MM/dd/yyyy HH:mm:ss'" [caption]="'Received Time'" [sortIndex]="1" sortOrder="desc"></dxi-column>
+      <dxi-column dataField="receivedDateTime" dataType="datetime" [format]="'MM/dd/yyyy HH:mm:ss'" [caption]="'Received Time'" [sortIndex]="0" sortOrder="desc"></dxi-column>
       <dxi-column dataField="dispatchedDateTime" dataType="datetime" [format]="'MM/dd/yyyy HH:mm:ss'" [caption]="'Dispatched Time'"></dxi-column>
 
       <dxi-column dataField="onHoldDateTime" dataType="datetime" [format]="'MM/dd/yyyy HH:mm:ss'" [caption]="'On Hold Time'" [visible]="false"></dxi-column>

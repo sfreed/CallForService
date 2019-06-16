@@ -15,7 +15,7 @@ export class InvolvedUnitDAO extends BaseDAO {
   constructor(private http: HttpClient, private callService: CallsService, private authService: AuthenticationService) {
     super();
     this.store = new CustomStore({
-      key: 'id',
+      key: ['callForServiceId', 'callForServiceUnitId'],
       byKey: (key) => {
         return this.getInvolvedUnit(key);
       },
