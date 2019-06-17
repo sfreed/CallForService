@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://courtwareapp.azurewebsites.net/api/UserLogIn'
+  apiUrl: 'https://courtwareapp.azurewebsites.net',
+  apiVersion: '/api'
 };

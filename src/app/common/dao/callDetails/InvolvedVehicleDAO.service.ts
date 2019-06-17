@@ -6,6 +6,7 @@ import { CallsService } from '../../services/call/Calls.service';
 import { BaseDAO } from '../BaseDAO';
 import { InvolvedVehiclesItem } from '../../models/callDetails/InvolvedVehicleItem';
 import { AuthenticationService } from '../../auth/auth.service';
+import { URL } from '../../models/common/URL.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +44,7 @@ export class InvolvedVehicleDAO extends BaseDAO {
   }
 
   private getInvolvedVehicles(): Promise<any> {
-    return this.http.get<any>(this.endpoint + 'CallForServiceInvolvedVehicle?callId=' + this.callService.getActiveCall().id, this.getHttpOptions()).toPromise()
+    return this.http.get<any>(URL.CALL_FOR_SERVICE_INVOLVED_VEHICLE_ADDRESS + '?callId=' + this.callService.getActiveCall().id, this.getHttpOptions()).toPromise()
       .then(results => {
       console.log('involved Vehicle List', results);
       return results;
@@ -51,23 +52,23 @@ export class InvolvedVehicleDAO extends BaseDAO {
   }
 
   private getInvolvedVehicle(id): Promise<any> {
-    return this.http.get<any>(this.endpoint + 'CallForServiceInvolvedVehicle/' + id + '?callId=' + this.callService.getActiveCall().id, this.getHttpOptions()).toPromise();
+    return this.http.get<any>(URL.CALL_FOR_SERVICE_INVOLVED_VEHICLE_ADDRESS + '/' + id + '?callId=' + this.callService.getActiveCall().id, this.getHttpOptions()).toPromise();
   }
 
   private addInvolvedVehicle (vehicle: InvolvedVehiclesItem): Promise<any> {
     this.updateModel(vehicle);
 
-    return this.http.post<any>(this.endpoint + 'CallForServiceInvolvedVehicle', JSON.stringify(vehicle), this.getHttpOptions()).toPromise();
+    return this.http.post<any>(URL.CALL_FOR_SERVICE_INVOLVED_VEHICLE_ADDRESS, JSON.stringify(vehicle), this.getHttpOptions()).toPromise();
   }
 
   private updateInvolvedVehicle (id, vehicle: InvolvedVehiclesItem): Promise<any> {
     this.updateModel(vehicle);
 
-    return this.http.put(this.endpoint + 'CallForServiceInvolvedVehicle?callId=' + this.callService.getActiveCall().id + '&vehicleId=' + id, JSON.stringify(vehicle), this.getHttpOptions()).toPromise();
+    return this.http.put(URL.CALL_FOR_SERVICE_INVOLVED_VEHICLE_ADDRESS + '?callId=' + this.callService.getActiveCall().id + '&vehicleId=' + id, JSON.stringify(vehicle), this.getHttpOptions()).toPromise();
   }
 
   private deleteInvolvedVehicle (id): Promise<any> {
-    return this.http.delete<any>(this.endpoint + 'CallForServiceInvolvedVehicle?callId=' + this.callService.getActiveCall().id + '&vehicleId==' + id, this.getHttpOptions()).toPromise();
+    return this.http.delete<any>(URL.CALL_FOR_SERVICE_INVOLVED_VEHICLE_ADDRESS + '?callId=' + this.callService.getActiveCall().id + '&vehicleId==' + id, this.getHttpOptions()).toPromise();
   }
 
   protected updateModel(model: InvolvedVehiclesItem) {

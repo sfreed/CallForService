@@ -6,6 +6,7 @@ import { MasterUser } from '../../models/master/MasterUser';
 import { BaseDAO } from '../BaseDAO';
 import { BaseModel } from '../../models/BaseModel';
 import { AuthenticationService } from '../../auth/auth.service';
+import { URL } from '../../models/common/URL.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -47,27 +48,27 @@ export class MasterUserDAO extends BaseDAO {
   }
 
   private getMasterUsers(): Promise<any> {
-    return this.http.get(this.endpoint + 'MasterUser', this.getHttpOptions()).toPromise();
+    return this.http.get(URL.DISPATCHER_ADDRESS, this.getHttpOptions()).toPromise();
   }
 
   private getMasterUser(id): Promise<any> {
-    return this.http.get(this.endpoint + 'MasterUser/' + id, this.getHttpOptions()).toPromise();
+    return this.http.get(URL.DISPATCHER_ADDRESS + '/' + id, this.getHttpOptions()).toPromise();
   }
 
   private addMasterUser (master: MasterUser): Promise<any> {
     this.updateModel(master);
 
-    return this.http.post<any>(this.endpoint + 'MasterUser', JSON.stringify(master), this.getHttpOptions()).toPromise();
+    return this.http.post<any>(URL.DISPATCHER_ADDRESS, JSON.stringify(master), this.getHttpOptions()).toPromise();
   }
 
   private updateMasterUser (id, master: MasterUser): Promise<any> {
     this.updateModel(master);
 
-    return this.http.put(this.endpoint + 'MasterUser/' + id, JSON.stringify(master), this.getHttpOptions()).toPromise();
+    return this.http.put(URL.DISPATCHER_ADDRESS + '/' + id, JSON.stringify(master), this.getHttpOptions()).toPromise();
   }
 
   private deleteMasterUser (id): Promise<any> {
-    return this.http.delete<any>(this.endpoint + 'MasterUser/' + id, this.getHttpOptions()).toPromise();
+    return this.http.delete<any>(URL.DISPATCHER_ADDRESS + '/' + id, this.getHttpOptions()).toPromise();
   }
 
   protected updateModel(model: BaseModel) {

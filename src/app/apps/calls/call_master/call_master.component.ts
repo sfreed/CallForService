@@ -135,6 +135,18 @@ export class CallMasterComponent implements OnInit {
    this.dataGrid.instance.showColumnChooser();
   }
 
+  getMyCalls() {
+    this.filterCalls('dispatcherId', this.authService.getUser().personId);
+  }
+
+  getActiveCalls() {
+    this.filterCalls('callStatus', 1);
+  }
+
+  getCallsByDispatcher(data) {
+    this.filterCalls('dispatcherId', data.value);
+  }
+
   filterCalls(key, value) {
     this.calls = this.callService.getCallList(key, value);
   }
@@ -219,5 +231,43 @@ export class CallMasterComponent implements OnInit {
 
       return  retVal.trim();
     }
+  }
+
+  onToolbarPreparing(e) {
+    e.toolbarOptions.items.unshift({
+      location: 'before',
+      widget: 'dxButton',
+      options: {
+        width: 136,
+        text: 'New Call',
+        onClick: this.startCall.bind(this)
+      }
+    }, {
+      location: 'before',
+      widget: 'dxButton',
+      options: {
+        text: 'Active Calls',
+        onClick: this.getActiveCalls.bind(this)
+      }
+    }, {
+      location: 'before',
+      widget: 'dxButton',
+      options: {
+        text: 'My Calls',
+        onClick: this.getMyCalls.bind(this)
+      }
+    }, {
+      location: 'before',
+      widget: 'dxSelectBox',
+      options: {
+        caption: 'Dispatcher',
+        width: 200,
+        dataSource: this.dispatchers.store(),
+        displayExpr: 'fullName',
+        valueExpr: 'personId',
+        value: this.authService.getUser().personId,
+        onValueChanged: this.getCallsByDispatcher.bind(this)
+      }
+    });
   }
 }

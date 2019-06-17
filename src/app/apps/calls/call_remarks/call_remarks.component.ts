@@ -4,6 +4,7 @@ import { CallsService } from 'src/app/common/services/call/Calls.service';
 import DataSource from 'devextreme/data/data_source';
 import { DxDataGridComponent } from 'devextreme-angular';
 import { CallForService } from 'src/app/common/models/call/CallForService';
+import { MasterUserService } from 'src/app/common/services/master/MasterUser.service';
 
 @Component({
   selector: 'app-call-notes',
@@ -19,10 +20,14 @@ export class CallRemarksComponent implements OnInit {
 
   currentNote: string;
 
-  constructor(public remarksService: RemarksService, public callService: CallsService) {
+  dispatchers: DataSource;
+
+  constructor(public remarksService: RemarksService, public callService: CallsService, private masterUserService: MasterUserService) {
     this.callService.callEmitter.subscribe((data: CallForService) => {
       this.callRemarksListDS = this.remarksService.getCallRemarksDS();
     });
+
+    this.dispatchers = this.masterUserService.getMasterUserList();
 
     this.callNotesToolbarItems = [{
       location: 'center',

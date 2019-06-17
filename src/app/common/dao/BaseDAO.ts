@@ -6,8 +6,6 @@ import { HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class BaseDAO {
-  endpoint = 'https://courtwareapp.azurewebsites.net/api/';
-
   protected store: CustomStore;
 
   constructor() {}

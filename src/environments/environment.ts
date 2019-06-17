@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://courtwareapp.azurewebsites.net/api/UserLogIn'
+  apiUrl: 'https://courtwareapp.azurewebsites.net',
+  apiVersion: '/api'
 };
 
 /*

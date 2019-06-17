@@ -49,7 +49,7 @@ export class OfficerRankDAO extends BaseDAO {
   }
 
   private getOfficerRank(id): Promise<any> {
-    return this.http.get(URL.CALL_FOR_SERVICE_OFFICER_RANK_ADDRESS + '/' + id, this.getHttpOptions()).toPromise();
+    return this.http.get(URL + '/' + id, this.getHttpOptions()).toPromise();
   }
 
   private addOfficerRank (officerRank: OfficerRank): Promise<any> {

@@ -6,6 +6,7 @@ import DataSource from 'devextreme/data/data_source';
 import CustomStore from 'devextreme/data/custom_store';
 import { HttpClient } from '@angular/common/http';
 import { InvolvedUnitsItem } from '../../models/callDetails/InvolvedUnitItem';
+import { URL } from '../../models/common/URL.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -43,30 +44,30 @@ export class InvolvedUnitDAO extends BaseDAO {
   }
 
   private getInvolvedUnits(): Promise<any> {
-    return this.http.get<any>(this.endpoint + 'CallForServiceInvolvedUnit?callId=' + this.callService.getActiveCall().id, this.getHttpOptions()).toPromise()
+    return this.http.get<any>(URL.CALL_FOR_SERVICE_INVOLVED_UNIT_ADDRESS + '?callId=' + this.callService.getActiveCall().id, this.getHttpOptions()).toPromise()
       .then(results => {
         console.log('involved Units List', results);
         return results;
       });
   }
   private getInvolvedUnit(id): Promise<any> {
-    return this.http.get<any>(this.endpoint + 'CallForServiceInvolvedUnit?callId=' + this.callService.getActiveCall().id + '&personId=' + id, this.getHttpOptions()).toPromise();
+    return this.http.get<any>(URL.CALL_FOR_SERVICE_INVOLVED_UNIT_ADDRESS + '?callId=' + this.callService.getActiveCall().id + '&personId=' + id, this.getHttpOptions()).toPromise();
   }
 
   private addInvolvedUnit(unit: InvolvedUnitsItem): Promise<any> {
     this.updateModel(unit);
 
-    return this.http.post<any>(this.endpoint + 'CallForServiceInvolvedUnit', JSON.stringify(unit), this.getHttpOptions()).toPromise();
+    return this.http.post<any>(URL.CALL_FOR_SERVICE_INVOLVED_UNIT_ADDRESS, JSON.stringify(unit), this.getHttpOptions()).toPromise();
   }
 
   private updateInvolvedUnit(id, unit: InvolvedUnitsItem): Promise<any> {
     this.updateModel(unit);
 
-    return this.http.put(this.endpoint + 'CallForServiceInvolvedUnit?callId=' + this.callService.getActiveCall().id + '&personId=' + id, JSON.stringify(unit), this.getHttpOptions()).toPromise();
+    return this.http.put(URL.CALL_FOR_SERVICE_INVOLVED_UNIT_ADDRESS + '?callId=' + this.callService.getActiveCall().id + '&personId=' + id, JSON.stringify(unit), this.getHttpOptions()).toPromise();
   }
 
   private deleteInvolvedUnit(id): Promise<any> {
-    return this.http.delete<any>(this.endpoint + 'CallForServiceInvolvedUnit?callId=' + this.callService.getActiveCall().id + '&personId=' + id, this.getHttpOptions()).toPromise();
+    return this.http.delete<any>(URL.CALL_FOR_SERVICE_INVOLVED_UNIT_ADDRESS + '?callId=' + this.callService.getActiveCall().id + '&personId=' + id, this.getHttpOptions()).toPromise();
   }
 
   protected updateModel(model: InvolvedUnitsItem) {

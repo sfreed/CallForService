@@ -19,7 +19,7 @@
         <div
           id="switchdiv{{data.id}}"
           class="OFFICER unitName badge{{data.id}} active{{data.active}} example-box" cdkDrag [cdkDragData]="data">
-            #{{data.unitDescription}}<span style="float:right;">({{getUnitQueueCount(data)}})</span>
+            #{{data.unitDescription}}<!--<span style="float:right;">({{getUnitQueueCount(data)}})</span>-->
         </div>
 
         <dx-context-menu

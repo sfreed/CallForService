@@ -5,36 +5,6 @@
     [animationDuration]="300"
     [height]="window.innerHeight / 2 - 35">
   <dxi-item title="Calls" class="accordianHeader">
-    <div class="formSelectContainer">
-        <div class="dx-field formSelect">
-          <div class="dx-field-value" style="width: 100%;">
-            <div style="display:table-cell; vertical-align: middle;  float: left">
-                <dx-button
-                icon="dx-icon dx-icon-column-chooser"
-                (onClick)="showColumnChooser()">
-              </dx-button>
-            </div>
-            <div style="display:table-cell; vertical-align: middle;  float: left; padding-left: 10px;">
-                <dx-button
-                  text="New Call"
-                  (onClick)="startCall()">
-                </dx-button>
-            </div>
-            <div style="display:table-cell; vertical-align: middle;  float: left; padding-left: 10px;">
-                <dx-button
-                  text="Active Calls"
-                  (onClick)="filterCalls('callStatus', 1)">
-                </dx-button>
-              </div>
-            <div style="display:table-cell; vertical-align: middle;  float: left; padding-left: 10px;">
-              <dx-button
-                text="My Calls"
-                (onClick)="filterCalls('dispatcherId', this.authService.getUser().personId)">
-              </dx-button>
-              </div>
-          </div>
-        </div>
-    </div>
     <dx-data-grid
         #mastergrid
         id="gridContainer" class="callGrid"
@@ -48,7 +18,8 @@
         [focusedRowKey]="0"
         (onFocusedRow)="focusRowSelected($event)"
         (onFocusedRowChanged)="selectionChanged($event)"
-        [columnAutoWidth] = "true">
+        [columnAutoWidth] = "true"
+        (onToolbarPreparing)="onToolbarPreparing($event)">
       <dxo-paging [pageSize]="20"></dxo-paging>
       <dxo-pager
           [showPageSizeSelector]="true"
