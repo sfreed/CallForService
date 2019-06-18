@@ -3,20 +3,10 @@
   padding: 9px 12px;
   box-sizing: border-box;
   display: block;
-  background-color: #fff;
-  border-bottom-color: #476981;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-top-color: #476981;
-  border-top-style: solid;
-  border-top-width: 2px;
+  background-color: #328CC1;
+  color: white
 }
 
-.listHeaderTop {
-  border-top-color: white;
-  border-top-style: solid;
-  border-top-width: 2px;
-}
 .unitName {
   text-align: left;
 }
@@ -37,16 +27,6 @@
   font-weight: bold;
   font-size: 115%;
   color: white;
-}
-
-.detailsToolBar {
-  background-color: #328CC1;
-  color: white;
-  font-size: xx-large;
-  padding-top:5px;
-  padding-bottom:5px;
-  margin-top: 0px;
-  align-content: center;
 }
 
 .example-list {

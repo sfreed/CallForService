@@ -1,84 +1,53 @@
-<dx-accordion
-    #accordion
-    [collapsible]="false"
-    [multiple]="false"
-    [animationDuration]="300"
-    [height]="window.innerHeight / 2 - 35">
-  <dxi-item title="Calls" class="accordianHeader">
-    <dx-data-grid
-        #mastergrid
-        id="gridContainer" class="callGrid"
-        [dataSource]="calls"
-        [remoteOperations]="false"
-        [allowColumnReordering]="true"
-        [rowAlternationEnabled]="true"
-        [showBorders]="true"
-        [height]="window.innerHeight / 2 - 180"
-        [focusedRowEnabled]="true"
-        [focusedRowKey]="0"
-        (onFocusedRow)="focusRowSelected($event)"
-        (onFocusedRowChanged)="selectionChanged($event)"
-        [columnAutoWidth] = "true"
-        (onToolbarPreparing)="onToolbarPreparing($event)">
-      <dxo-paging [pageSize]="20"></dxo-paging>
-      <dxo-pager
-          [showPageSizeSelector]="true"
-          [allowedPageSizes]="[20, 40, 60]"
-          [showInfo]="true">
-      </dxo-pager>
-      <dxo-filter-row [visible]="true"></dxo-filter-row>
-      <dxo-header-filter [visible]="true"></dxo-header-filter>
-      <dxo-selection mode="single"></dxo-selection>
-      <dxo-sorting mode="multiple"> </dxo-sorting>
-      <dxo-state-storing [enabled]="true" type="localStorage" storageKey="storage"></dxo-state-storing>
-      <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling>
+<dx-data-grid
+    #mastergrid
+    id="gridContainer"
+    class="callGrid"
+    [dataSource]="calls"
+    [remoteOperations]="false"
+    [allowColumnReordering]="true"
+    [rowAlternationEnabled]="true"
+    [showBorders]="true"
+    [height]="window.innerHeight/2-55"
+    [focusedRowEnabled]="true"
+    [focusedRowKey]="0"
+    [columnAutoWidth] = "true"
+    (onFocusedRowChanged)="selectionChanged($event)"
+    (onToolbarPreparing)="onToolbarPreparing($event)">
+  <dxo-paging [pageSize]="20"></dxo-paging>
+  <dxo-pager
+      [visible]="true"
+      [showPageSizeSelector]="true"
+      [allowedPageSizes]="[20, 40, 60]"
+      [showInfo]="true">
+  </dxo-pager>
+  <dxo-filter-row [visible]="true"></dxo-filter-row>
+  <dxo-header-filter [visible]="true"></dxo-header-filter>
+  <dxo-selection mode="single"></dxo-selection>
+  <dxo-sorting mode="multiple"> </dxo-sorting>
+  <dxo-state-storing [enabled]="true" type="localStorage" storageKey="storage"></dxo-state-storing>
+  <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling>
+  <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
 
-      <dxi-column dataField="typeId" dataType="string" [caption]="'Call Type'">
-        <dxo-lookup [dataSource]="callTypes.store()" valueExpr="id" displayExpr="description"> </dxo-lookup>
-      </dxi-column>
-      <dxi-column [caption]="'Complainant'" [calculateCellValue]="getComplainantDisplayValue"></dxi-column>
-      <dxi-column dataField="dispatchedByPerson.fullName" dataType="string" [caption]="'Dispatcher'"></dxi-column>
-      <dxi-column dataField="callDispositionStatusId" dataType="string" [caption]="'Disposition Status'" [visible]="false">
-        <dxo-lookup [dataSource]="callDispositionStatus" valueExpr="id" displayExpr="callForServiceDispositionStatusDescription"></dxo-lookup>
-      </dxi-column>
-      <dxi-column dataField="receivedDateTime" dataType="datetime" [format]="'MM/dd/yyyy HH:mm:ss'" [caption]="'Received Time'" [sortIndex]="0" sortOrder="desc"></dxi-column>
-      <dxi-column dataField="dispatchedDateTime" dataType="datetime" [format]="'MM/dd/yyyy HH:mm:ss'" [caption]="'Dispatched Time'"></dxi-column>
+  <dxi-column dataField="typeId" dataType="string" [caption]="'Call Type'"><dxo-lookup [dataSource]="callTypes.store()" valueExpr="id" displayExpr="description"> </dxo-lookup></dxi-column>
+  <dxi-column [caption]="'Complainant'" [calculateCellValue]="getComplainantDisplayValue"></dxi-column>
+  <dxi-column dataField="dispatchedByPerson.fullName" dataType="string" [caption]="'Dispatcher'"></dxi-column>
+  <dxi-column dataField="callDispositionStatusId" dataType="string" [caption]="'Disposition Status'" [visible]="false"><dxo-lookup [dataSource]="callDispositionStatus" valueExpr="id" displayExpr="callForServiceDispositionStatusDescription"></dxo-lookup></dxi-column>
+  <dxi-column dataField="receivedDateTime" dataType="datetime" [format]="'MM/dd/yyyy HH:mm:ss'" [caption]="'Received Time'" [sortIndex]="0" sortOrder="desc"></dxi-column>
+  <dxi-column dataField="dispatchedDateTime" dataType="datetime" [format]="'MM/dd/yyyy HH:mm:ss'" [caption]="'Dispatched Time'"></dxi-column>
 
-      <dxi-column dataField="onHoldDateTime" dataType="datetime" [format]="'MM/dd/yyyy HH:mm:ss'" [caption]="'On Hold Time'" [visible]="false"></dxi-column>
-      <dxi-column dataField="closedDateTime" dataType="datetime" [format]="'MM/dd/yyyy HH:mm:ss'" [caption]="'Closed Time'" [visible]="false"></dxi-column>
-      <dxi-column dataType="number" dataField="callForServiceCodePriorityOrder" [caption]="'Code Priority Order'" [visible]="false"></dxi-column>
+  <dxi-column dataField="onHoldDateTime" dataType="datetime" [format]="'MM/dd/yyyy HH:mm:ss'" [caption]="'On Hold Time'" [visible]="false"></dxi-column>
+  <dxi-column dataField="closedDateTime" dataType="datetime" [format]="'MM/dd/yyyy HH:mm:ss'" [caption]="'Closed Time'" [visible]="false"></dxi-column>
+  <dxi-column dataType="number" dataField="callForServiceCodePriorityOrder" [caption]="'Code Priority Order'" [visible]="false"></dxi-column>
 
-      <dxi-column dataField="locationPrimary.streetNumber" dataType="string" [caption]="'Street Number'" [visible]="true"></dxi-column>
-      <dxi-column dataField="locationPrimary.streetId" dataType="string" [caption]="'Street Name'" [visible]="true">
-          <dxo-lookup [dataSource]="streetNames.store()" valueExpr="id" displayExpr="streetName"></dxo-lookup>
-      </dxi-column>
-      <dxi-column dataField="locationPrimary.cityId" dataType="string" [caption]="'City'" [visible]="true">
-          <dxo-lookup [dataSource]="cities.store()" valueExpr="id" displayExpr="cityName"></dxo-lookup>
-      </dxi-column>
+  <dxi-column dataField="locationPrimary.streetNumber" dataType="string" [caption]="'Street Number'" [visible]="true"></dxi-column>
+  <dxi-column dataField="locationPrimary.streetId" dataType="string" [caption]="'Street Name'" [visible]="true"><dxo-lookup [dataSource]="streetNames.store()" valueExpr="id" displayExpr="streetName"></dxo-lookup></dxi-column>
+  <dxi-column dataField="locationPrimary.cityId" dataType="string" [caption]="'City'" [visible]="true"><dxo-lookup [dataSource]="cities.store()" valueExpr="id" displayExpr="cityName"></dxo-lookup></dxi-column>
 
-      <dxi-column dataField="secondaryLocationLocation" dataType="string" [caption]="'Secondary Location'" [visible]="false"></dxi-column>
-      <dxi-column dataType="boolean" dataField="isAlertTimeActive" [caption]="'Alert Active?'" [visible]="false"></dxi-column>
-      <dxi-column dataType="number" dataField="alertTimeInterval" [caption]="'Alert Time Interval'" [visible]="false"></dxi-column>
-      <dxi-column dataType="string" dataField="alertTimeStart" [caption]="'Alert Time Start'" [visible]="false"></dxi-column>
-    </dx-data-grid>
-  </dxi-item>
-
-  <dxi-item title="Search" class="accordianHeader">
-    <dx-form id="callForm" class="callForm" [formData]="searchCall" height="350" [colCount]="2" [labelLocation]="'top'">
-      <dxi-item itemType="group" caption="Call Time Information" [widthRatio]="1">
-        <dxi-item dataField="searchCall.receivedDateTime" [label]="{text: 'Received Time'}" editorType="dxDateBox" [editorOptions]="{ stylingMode: 'filled', type: 'datetime' }"></dxi-item>
-        <dxi-item dataField="searchCall.dispatchedDateTime" [label]="{text: 'Dispatched Time'}" editorType="dxDateBox" [editorOptions]="{ stylingMode: 'filled', type: 'datetime' }"></dxi-item>
-      </dxi-item>
-      <dxi-item itemType="group" caption="Call Information" [widthRatio]="1">
-          <dxi-item dataField="searchCall.typeId" [label]="{text: 'Call Type'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: callTypes,  valueExpr:'id', displayExpr:'description', searchEnabled:true, searchExpr:'description', searchMode:'startsWith'}"></dxi-item>
-          <dxi-item dataField="searchCall.originatedId" [label]="{text: 'Originated From'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: callOriginated,  valueExpr:'id', displayExpr:'originatedFrom', searchEnabled:true, searchExpr:'originatedFrom', searchMode:'startsWith'}"></dxi-item>
-          <dxi-item dataField="searchCall.dispatchedByPerson" [label]="{text: 'Dispatched By'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: dispatchers,  valueExpr:'id', displayExpr:'fullName', searchEnabled:true, searchExpr:'fullName', searchMode:'startsWith'}"></dxi-item>
-          <dxi-item dataField="searchCall.complainantPerson.fullName" [label]="{text: 'Complainant Name'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-      </dxi-item>
-      <dxi-item [colSpan]="2" itemType="button" horizontalAlignment="right" [buttonOptions]="buttonOptionSearch"></dxi-item>
-    </dx-form>
-  </dxi-item>
-</dx-accordion>
+  <dxi-column dataField="secondaryLocationLocation" dataType="string" [caption]="'Secondary Location'" [visible]="false"></dxi-column>
+  <dxi-column dataType="boolean" dataField="isAlertTimeActive" [caption]="'Alert Active?'" [visible]="false"></dxi-column>
+  <dxi-column dataType="number" dataField="alertTimeInterval" [caption]="'Alert Time Interval'" [visible]="false"></dxi-column>
+  <dxi-column dataType="string" dataField="alertTimeStart" [caption]="'Alert Time Start'" [visible]="false"></dxi-column>
+</dx-data-grid>
 
 <dx-popup
   class="popup"
@@ -90,49 +59,53 @@
   [closeOnOutsideClick]="false"
   [(visible)]="addCallPopupVisible">
   <dx-form id="callForm" class="callForm" [formData]="newCall" [labelLocation]="'top'">
-      <dxi-item itemType="group" caption="Call Information" [widthRatio]="1" [colCount]="2">
-          <dxi-item dataField="typeId" [label]="{text: 'Call Type'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: callTypes,  valueExpr:'id', displayExpr: getCFSTypeDisplayValue, searchEnabled:true, searchExpr:'code', searchMode:'startsWith'}"></dxi-item>
-          <dxi-item dataField="originatedId" [label]="{text: 'Originated From'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: callOriginated,  valueExpr:'id', displayExpr:'originatedFrom', searchEnabled:true, searchExpr:'originatedFrom', searchMode:'startsWith'}"></dxi-item>
-          <dxi-item dataField="dispatchedByPerson.personId" [label]="{text: 'Dispatched By'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: dispatchers, valueExpr:'personId', displayExpr:'fullName', searchEnabled:true, searchExpr:'fullName', searchMode:'startsWith'}"></dxi-item>
-          <dxi-item dataField="receivedDateTime" editorType="dxDateBox" [editorOptions]="{ type: 'datetime' }"></dxi-item>
-      </dxi-item>
-      <dxi-item itemType="group" caption="Caller Name" [widthRatio]="1" [colCount]="3">
-        <dxi-item dataField="complainantPerson.id" dataType="number" [visible]="false" [editorOptions]="{ stylingMode: 'filled'}"></dxi-item>
-        <dxi-item dataField="complainantPerson.firstName" dataType="string" [label]="{text: 'First'}" [editorOptions]="{ stylingMode: 'filled'}"></dxi-item>
-        <dxi-item dataField="complainantPerson.middleName" dataType="string" [label]="{text: 'Middle'}" [editorOptions]="{ stylingMode: 'filled'}"></dxi-item>
-        <dxi-item dataField="complainantPerson.lastName" dataType="string" [label]="{text: 'Last'}" [editorOptions]="{ stylingMode: 'filled'}"></dxi-item>
-      </dxi-item>
-      <dxi-item itemType="group" caption="Address" [colCount]="5">
-          <dxi-item dataField="locationPrimary.addressTypeId" [colSpan]="5" [label]="{text: 'Address Type'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: addressTypes,  valueExpr:'id', displayExpr:'description', searchEnabled:true, searchExpr:'description', searchMode:'startsWith'}"></dxi-item>
-          <dxi-item dataField="locationPrimary.streetNumber" [colSpan]="1" [label]="{text: 'Number' }" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-          <dxi-item dataField="locationPrimary.streetId" [colSpan]="3" [label]="{text: 'Street Name'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: streetNames,  valueExpr:'id', displayExpr: getStreetName, searchEnabled:true, searchExpr:'streetName', searchMode:'startsWith'}"></dxi-item>
-
-          <dxi-item>
-            <dx-button
-              icon="add"
-              (onClick)="addStreet()"
-              style="margin-right:10px; margin-top: 18px;">
-            </dx-button>
-            <dx-button
-              icon="edit"
-              (onClick)="editStreet()"
-              style="margin-top: 18px;">
-            </dx-button>
-          </dxi-item>
-
-          <dxi-item dataField="locationPrimary.cityId" [colSpan]="3" [label]="{text: 'City'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: cities,  valueExpr:'id', displayExpr: getCityName , searchEnabled:true, searchExpr:'cityName', searchMode:'startsWith'}"></dxi-item>
-          <dxi-item dataField="locationPrimary.countyId" [colSpan]="2" [label]="{text: 'County'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: counties,  valueExpr:'id', displayExpr:'countyName', searchEnabled:true, searchExpr:'countyName', searchMode:'startsWith'}"></dxi-item>
+    <dxi-item itemType="group" caption="Call Information" [widthRatio]="1" [colCount]="2">
+        <dxi-item dataField="typeId" [label]="{text: 'Call Type'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: callTypes,  valueExpr:'id', displayExpr: getCFSTypeDisplayValue, searchEnabled:true, searchExpr:'code', searchMode:'startsWith'}"></dxi-item>
+        <dxi-item dataField="originatedId" [label]="{text: 'Originated From'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: callOriginated,  valueExpr:'id', displayExpr:'originatedFrom', searchEnabled:true, searchExpr:'originatedFrom', searchMode:'startsWith'}"></dxi-item>
+        <dxi-item dataField="dispatchedByPerson.personId" [label]="{text: 'Dispatched By'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: dispatchers, valueExpr:'personId', displayExpr:'fullName', searchEnabled:true, searchExpr:'fullName', searchMode:'startsWith'}"></dxi-item>
+        <dxi-item dataField="receivedDateTime" editorType="dxDateBox" [editorOptions]="{ type: 'datetime' }"></dxi-item>
+    </dxi-item>
+    <dxi-item itemType="group" caption="Caller Name" [widthRatio]="1" [colCount]="3">
+      <dxi-item dataField="complainantPerson.id" dataType="number" [visible]="false" [editorOptions]="{ stylingMode: 'filled'}"></dxi-item>
+      <dxi-item dataField="complainantPerson.firstName" dataType="string" [label]="{text: 'First'}" [editorOptions]="{ stylingMode: 'filled'}"></dxi-item>
+      <dxi-item dataField="complainantPerson.middleName" dataType="string" [label]="{text: 'Middle'}" [editorOptions]="{ stylingMode: 'filled'}"></dxi-item>
+      <dxi-item dataField="complainantPerson.lastName" dataType="string" [label]="{text: 'Last'}" [editorOptions]="{ stylingMode: 'filled'}"></dxi-item>
+    </dxi-item>
+    <dxi-item itemType="group" caption="Address" [colCount]="5">
+        <dxi-item dataField="locationPrimary.addressTypeId" [colSpan]="5" [label]="{text: 'Address Type'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: addressTypes,  valueExpr:'id', displayExpr:'description', searchEnabled:true, searchExpr:'description', searchMode:'startsWith'}"></dxi-item>
+        <dxi-item dataField="locationPrimary.streetNumber" [colSpan]="1" [label]="{text: 'Number' }" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+        <dxi-item dataField="locationPrimary.streetId" [colSpan]="3" [label]="{text: 'Street Name'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: streetNames,  valueExpr:'id', displayExpr: getStreetName, searchEnabled:true, searchExpr:'streetName', searchMode:'startsWith'}"></dxi-item>
+        <dxi-item>
+          <dx-button
+            icon="add"
+            (onClick)="addStreet()"
+            style="margin-right:10px; margin-top: 18px;">
+          </dx-button>
+          <dx-button
+            icon="edit"
+            (onClick)="editStreet()"
+            style="margin-top: 18px;">
+          </dx-button>
         </dxi-item>
-      <dxi-item [colSpan]="2"
-        itemType="button"
-        horizontalAlignment="right"
-        verticalAlignment="bottom"
-        [buttonOptions]="buttonOptionsNewCall">
+        <dxi-item dataField="locationPrimary.cityId" [colSpan]="3" [label]="{text: 'City'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: cities,  valueExpr:'id', displayExpr: getCityName , searchEnabled:true, searchExpr:'cityName', searchMode:'startsWith'}"></dxi-item>
+        <dxi-item dataField="locationPrimary.countyId" [colSpan]="2" [label]="{text: 'County'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: counties,  valueExpr:'id', displayExpr:'countyName', searchEnabled:true, searchExpr:'countyName', searchMode:'startsWith'}"></dxi-item>
       </dxi-item>
-    </dx-form>
-  </dx-popup>
+      <dxi-item style="float: right;" [colSpan]="2">
+          <dx-button
+            text="Save"
+            (onClick)="launchNewCall()"
+            style="margin-right:5px; margin-top: 18px;">
+          </dx-button>
+          <dx-button
+            text="Cancel"
+            (onClick)="cancelNewCall()"
+            style="margin-top: 18px;">
+          </dx-button>
+      </dxi-item>
+  </dx-form>
+</dx-popup>
 
-  <dx-popup
+<dx-popup
   class="popup"
   [width]="800"
   [height]="600"
@@ -149,13 +122,54 @@
         <dxi-item dataField="streetNamePostDirectionId" [label]="{text: 'Post Direction'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: streetNameDirections,  valueExpr:'id', displayExpr:'streetNameDirectionCodeDescription', searchEnabled:true, searchExpr:'streetNameDirectionCodeDescription', searchMode:'startsWith' }"></dxi-item>
         <dxi-item dataField="streetNamePostModifier" [label]="{text: 'Post Modifier'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
 
-        <dxi-item [colSpan]="2"
-          itemType="button"
-          horizontalAlignment="right"
-          verticalAlignment="bottom"
-          [buttonOptions]="buttonOptionsNewStreet">
+        <dxi-item style="float: right;" [colSpan]="2">
+            <dx-button
+              text="Save"
+              (onClick)="saveStreet()"
+              style="margin-right:5px; margin-top: 18px;">
+            </dx-button>
+            <dx-button
+              text="Cancel"
+              (onClick)="cancelStreet()"
+              style="margin-top: 18px;">
+            </dx-button>
         </dxi-item>
       </dx-form>
+</dx-popup>
+
+<dx-popup
+  class="popup"
+  [width]="800"
+  [height]="600"
+  [showTitle]="true"
+  title="Search for Call"
+  [dragEnabled]="false"
+  [closeOnOutsideClick]="false"
+  [(visible)]="searchPopUpVisible">
+  <dx-form id="callForm" class="callForm" [formData]="searchCall" height="350" [colCount]="2" [labelLocation]="'top'">
+    <dxi-item itemType="group" caption="Call Time Information" [widthRatio]="1">
+      <dxi-item dataField="searchCall.receivedDateTime" [label]="{text: 'Received Time'}" editorType="dxDateBox" [editorOptions]="{ stylingMode: 'filled', type: 'datetime' }"></dxi-item>
+      <dxi-item dataField="searchCall.dispatchedDateTime" [label]="{text: 'Dispatched Time'}" editorType="dxDateBox" [editorOptions]="{ stylingMode: 'filled', type: 'datetime' }"></dxi-item>
+    </dxi-item>
+    <dxi-item itemType="group" caption="Call Information" [widthRatio]="1">
+        <dxi-item dataField="searchCall.typeId" [label]="{text: 'Call Type'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: callTypes,  valueExpr:'id', displayExpr:'description', searchEnabled:true, searchExpr:'description', searchMode:'startsWith'}"></dxi-item>
+        <dxi-item dataField="searchCall.originatedId" [label]="{text: 'Originated From'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: callOriginated,  valueExpr:'id', displayExpr:'originatedFrom', searchEnabled:true, searchExpr:'originatedFrom', searchMode:'startsWith'}"></dxi-item>
+        <dxi-item dataField="searchCall.dispatchedByPerson" [label]="{text: 'Dispatched By'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: dispatchers,  valueExpr:'id', displayExpr:'fullName', searchEnabled:true, searchExpr:'fullName', searchMode:'startsWith'}"></dxi-item>
+        <dxi-item dataField="searchCall.complainantPerson.fullName" [label]="{text: 'Complainant Name'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+    </dxi-item>
+    <dxi-item style="float: right;" [colSpan]="2">
+        <dx-button
+          text="Save"
+          (onClick)="showSearchScreen()"
+          style="margin-right:5px; margin-top: 18px;">
+        </dx-button>
+        <dx-button
+          text="Cancel"
+          (onClick)="cancelSearchScreen()"
+          style="margin-top: 18px;">
+        </dx-button>
+    </dxi-item>
+  </dx-form>
 </dx-popup>
 
 

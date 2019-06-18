@@ -1,14 +1,14 @@
 .detailsContainer {
   width: 100%;
+  padding: 0px;
+  margin: 0px;
 }
 
 .detailsToolBar {
-  background-color: #476981;
-  color: white;
-  font-size: xx-large;
-  padding-top:0px;
-  margin-top: 0px;
-  align-content: center;
+  font-size: 18px;
+  box-sizing: border-box;
+  display: block;
+  background-color: #328CC1;
 }
 
 ::ng-deep .tabpanel-item {

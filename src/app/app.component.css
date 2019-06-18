@@ -7,26 +7,3 @@
   background-color: #328CC1;
   border: 5p solid black;
 }
-
-.callTableBox {
-  border: 2px solid #476981;
-  border-top: 0px solid #476981;
-  border-bottom: 0px solid #476981;
-  background-color: #328CC1;
-  padding-top: 0px;
-  margin: 0px;
-}
-
-.callDetailsBox {
-  border: 2px solid #476981;
-  background-color: #328CC1;
-  height: 100%;
-  padding: 5px;
-}
-
-.callDetailsNotesBox {
-  border: 2px solid #476981;
-  background-color: #328CC1;
-  height: 100%;
-  padding: 5px;
-}

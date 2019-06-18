@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit {
       location: 'before',
       locateInMenu: 'never',
       template: () => {
-          return '<div>Courtware Call For Service</div>';
+          return '<img height="100px" src="../../../assets/CW-CFS-LOGO.png">';
       }
     }, {
       location: 'after',
@@ -51,25 +51,26 @@ export class HeaderComponent implements OnInit {
           dispatcherService.toggleDispatcherHistory();
         }
       }
-    }, {
-        locateInMenu: 'always',
-        text: 'Settings',
-        onClick: () => {
-            notify('Settings Clicked!');
-        }
-    }, {
-      locateInMenu: 'always',
-      text: 'Preferences',
-      onClick: () => {
-          notify('Preferences Clicked!');
-      }
-    }, {
-      locateInMenu: 'always',
-      text: 'Logout',
-      onClick: () => {
-          this.authenticationService.logout();
-      }
     }
+    // {
+    //    locateInMenu: 'always',
+    //    text: 'Settings',
+    //    onClick: () => {
+    //        notify('Settings Clicked!');
+    //    }
+    // }, {
+    //  locateInMenu: 'always',
+    //  text: 'Preferences',
+    //  onClick: () => {
+    //      notify('Preferences Clicked!');
+    //  }
+    // }, {
+    //  locateInMenu: 'always',
+    //  text: 'Logout',
+    //  onClick: () => {
+    //      this.authenticationService.logout();
+    //  }
+    // }
     // }, {
     //   locateInMenu: 'always',
     //   text: 'Add Officers',

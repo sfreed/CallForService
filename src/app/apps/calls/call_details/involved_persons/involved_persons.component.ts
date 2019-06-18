@@ -146,6 +146,10 @@ export class InvolvedPersonsComponent implements OnInit {
     }
   }
 
+  cancelStreet(e) {
+    this.popupVisible = false;
+  }
+
   getCityName(e) {
     if (e) {
       return e.cityName + ', ' + e.stateCode;

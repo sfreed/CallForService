@@ -32,7 +32,7 @@
             itemType="button"
             horizontalAlignment="right"
             verticalAlignment="bottom"
-            [buttonOptions]="buttonOptions">
+            [buttonOptions]="buttonSaveCallOptions">
           </dxi-item>
         </dxi-item>
       </dxi-tab>
@@ -65,7 +65,7 @@
             itemType="button"
             horizontalAlignment="right"
             verticalAlignment="bottom"
-            [buttonOptions]="buttonOptions">
+            [buttonOptions]="buttonSaveCallOptions">
           </dxi-item>
         </dxi-item>
       </dxi-tab>
@@ -100,11 +100,17 @@
         <dxi-item dataField="streetNamePostDirectionId" [label]="{text: 'Post Direction'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: streetNameDirections,  valueExpr:'id', displayExpr:'streetNameDirectionCodeDescription', searchEnabled:true, searchExpr:'streetNameDirectionCodeDescription', searchMode:'startsWith' }"></dxi-item>
         <dxi-item dataField="streetNamePostModifier" [label]="{text: 'Post Modifier'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
 
-        <dxi-item [colSpan]="2"
-          itemType="button"
-          horizontalAlignment="right"
-          verticalAlignment="bottom"
-          [buttonOptions]="buttonOptions">
+        <dxi-item style="float: right;" [colSpan]="2">
+            <dx-button
+              text="Save"
+              (onClick)="saveStreet()"
+              style="margin-right:5px; margin-top: 18px;">
+            </dx-button>
+            <dx-button
+              text="Cancel"
+              (onClick)="cancelStreet()"
+              style="margin-top: 18px;">
+            </dx-button>
         </dxi-item>
       </dx-form>
 </dx-popup>

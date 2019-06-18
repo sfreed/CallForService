@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { DxBoxModule, DxListModule, DxDataGridModule, DxSwitchModule, DxToolbarModule, DxSelectBoxModule,
   DxButtonModule, DxDrawerModule, DxContextMenuModule, DxTextAreaModule, DxPopupModule,
@@ -23,7 +22,7 @@ import { CallRemarksComponent } from './calls/call_remarks/call_remarks.componen
 import {HotkeyModule} from 'angular2-hotkeys';
 
 @NgModule({
-  imports: [ BrowserModule, BrowserAnimationsModule, DragDropModule,
+  imports: [ BrowserModule, DragDropModule,
     DxBoxModule, DxListModule, DxDataGridModule, DxSwitchModule, DxToolbarModule, DxSelectBoxModule, DxButtonModule,
     DxDrawerModule, DxTabPanelModule, DxContextMenuModule, DxTextAreaModule, DxPopupModule, DxFormModule, DxAccordionModule,
     DxDateBoxModule, DxTextBoxModule, DxAutocompleteModule, DxLoadPanelModule, HotkeyModule.forRoot() ],

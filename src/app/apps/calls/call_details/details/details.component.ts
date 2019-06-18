@@ -21,9 +21,11 @@ export class DetailsComponent implements OnInit {
   callTypes: DataSource;
   dispatchers: DataSource;
 
+  window: Window = window;
+
   buttonOptions: any = {
     text: 'Save',
-    type: 'success',
+    type: 'normal',
     onClick: this.saveCall.bind(this)
   };
 

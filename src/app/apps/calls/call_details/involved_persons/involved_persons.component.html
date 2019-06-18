@@ -156,28 +156,34 @@
   </dx-data-grid>
 
   <dx-popup
-  class="popup"
-  [width]="800"
-  [height]="600"
-  [showTitle]="true"
-  title="Add / Edit Street"
-  [dragEnabled]="false"
-  [closeOnOutsideClick]="false"
-  [(visible)]="popupVisible">
-      <dx-form id="callForm" class="callForm" [formData]="selectedStreet" [labelLocation]="'top'">
-        <dxi-item dataField="streetNamePreModifier" [label]="{text: 'Pre Modifier'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-        <dxi-item dataField="streetNamePreDirectionId" [label]="{text: 'Pre Direction'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: streetNameDirections,  valueExpr:'id', displayExpr:'streetNameDirectionCodeDescription', searchEnabled:true, searchExpr:'streetNameDirectionCodeDescription', searchMode:'startsWith' }"></dxi-item>
-        <dxi-item dataField="streetName" [label]="{text: 'Street Name'}" [editorOptions]="{ stylingMode: 'filled' }" ></dxi-item>
-        <dxi-item dataField="streetNameSuffixId" [colSpan]="1" [label]="{text: 'Suffix'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: streetNameSuffixs,  valueExpr:'id', displayExpr:'streetNameSuffixDescription', searchEnabled:true, searchExpr:'streetNameSuffixDescription', searchMode:'startsWith' }"></dxi-item>
-        <dxi-item dataField="streetNamePostDirectionId" [label]="{text: 'Post Direction'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: streetNameDirections,  valueExpr:'id', displayExpr:'streetNameDirectionCodeDescription', searchEnabled:true, searchExpr:'streetNameDirectionCodeDescription', searchMode:'startsWith' }"></dxi-item>
-        <dxi-item dataField="streetNamePostModifier" [label]="{text: 'Post Modifier'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+    class="popup"
+    [width]="800"
+    [height]="600"
+    [showTitle]="true"
+    title="Add / Edit Street"
+    [dragEnabled]="false"
+    [closeOnOutsideClick]="false"
+    [(visible)]="popupVisible">
+        <dx-form id="callForm" class="callForm" [formData]="selectedStreet" [labelLocation]="'top'">
+          <dxi-item dataField="streetNamePreModifier" [label]="{text: 'Pre Modifier'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+          <dxi-item dataField="streetNamePreDirectionId" [label]="{text: 'Pre Direction'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: streetNameDirections,  valueExpr:'id', displayExpr:'streetNameDirectionCodeDescription', searchEnabled:true, searchExpr:'streetNameDirectionCodeDescription', searchMode:'startsWith' }"></dxi-item>
+          <dxi-item dataField="streetName" [label]="{text: 'Street Name'}" [editorOptions]="{ stylingMode: 'filled' }" ></dxi-item>
+          <dxi-item dataField="streetNameSuffixId" [colSpan]="1" [label]="{text: 'Suffix'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: streetNameSuffixs,  valueExpr:'id', displayExpr:'streetNameSuffixDescription', searchEnabled:true, searchExpr:'streetNameSuffixDescription', searchMode:'startsWith' }"></dxi-item>
+          <dxi-item dataField="streetNamePostDirectionId" [label]="{text: 'Post Direction'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: streetNameDirections,  valueExpr:'id', displayExpr:'streetNameDirectionCodeDescription', searchEnabled:true, searchExpr:'streetNameDirectionCodeDescription', searchMode:'startsWith' }"></dxi-item>
+          <dxi-item dataField="streetNamePostModifier" [label]="{text: 'Post Modifier'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
 
-        <dxi-item [colSpan]="2"
-          itemType="button"
-          horizontalAlignment="right"
-          verticalAlignment="bottom"
-          [buttonOptions]="buttonOptions">
-        </dxi-item>
-      </dx-form>
-</dx-popup>
+          <dxi-item style="float: right;" [colSpan]="2">
+              <dx-button
+                text="Save"
+                (onClick)="saveStreet()"
+                style="margin-right:5px; margin-top: 18px;">
+              </dx-button>
+              <dx-button
+                text="Cancel"
+                (onClick)="cancelStreet()"
+                style="margin-top: 18px;">
+              </dx-button>
+          </dxi-item>
+        </dx-form>
+  </dx-popup>
 </div>

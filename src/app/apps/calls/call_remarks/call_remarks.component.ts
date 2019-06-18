@@ -14,8 +14,6 @@ import { MasterUserService } from 'src/app/common/services/master/MasterUser.ser
 export class CallRemarksComponent implements OnInit {
   @ViewChild('callRemarksGrid') clientGrid: DxDataGridComponent;
 
-  callNotesToolbarItems: any;
-
   callRemarksListDS: DataSource;
 
   currentNote: string;
@@ -28,14 +26,6 @@ export class CallRemarksComponent implements OnInit {
     });
 
     this.dispatchers = this.masterUserService.getMasterUserList();
-
-    this.callNotesToolbarItems = [{
-      location: 'center',
-      locateInMenu: 'never',
-      template: () => {
-          return '<div style="font-size: large;">Call Remarks</div>';
-      }
-    }];
   }
 
   ngOnInit() {

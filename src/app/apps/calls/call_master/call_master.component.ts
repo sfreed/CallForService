@@ -43,7 +43,6 @@ export class CallMasterComponent implements OnInit {
   cities: DataSource;
   zoneCodes: DataSource;
 
-  isRowSelected = false;
 
   window: Window = window;
 
@@ -51,22 +50,14 @@ export class CallMasterComponent implements OnInit {
 
   addStreetPopUpVisible = false;
 
+  searchPopUpVisible = false;
+
   selectedStreet: Street = new Street();
 
-  buttonOptionsNewCall: any = {
-    text: 'Save',
-    type: 'success',
-    onClick: this.launchCall.bind(this)
-  };
-
-  buttonOptionsNewStreet: any = {
-    text: 'Save',
-    type: 'success',
-    onClick: this.saveStreet.bind(this)
-  };
-
   buttonOptionSearch: any =  {
-
+    text: 'Search',
+    type: 'normal',
+    onClick: this.searchForCall.bind(this)
   };
 
   constructor(public callService: CallsService, private personLookupService: PersonLookupService,
@@ -106,6 +97,18 @@ export class CallMasterComponent implements OnInit {
     });
   }
 
+  showSearchScreen() {
+    this.searchPopUpVisible = true;
+  }
+
+  cancelSearchScreen() {
+    this.searchPopUpVisible = false;
+  }
+
+  searchForCall() {
+
+  }
+
   startCall() {
     this.newCall = new CallForService();
     this.newCall.dispatchedByPerson = this.authService.getUser();
@@ -113,7 +116,7 @@ export class CallMasterComponent implements OnInit {
     this.addCallPopupVisible = true;
   }
 
-  launchCall() {
+  launchNewCall() {
     this.callService.startNewCall(this.newCall).then(response => {
       this.addCallPopupVisible = false;
       this.dataGrid.instance.refresh().then(res => {
@@ -123,12 +126,12 @@ export class CallMasterComponent implements OnInit {
     });
   }
 
-  selectionChanged(e) {
-    this.callService.setActiveCall(e.row.data);
+  cancelNewCall() {
+    this.addCallPopupVisible = false;
   }
 
-  focusRowSelected(e) {
-    console.log('selected', e);
+  selectionChanged(e) {
+    this.callService.setActiveCall(e.row.data);
   }
 
   showColumnChooser () {
@@ -193,6 +196,10 @@ export class CallMasterComponent implements OnInit {
         this.addStreetPopUpVisible = false;
       });
     }
+  }
+
+  cancelStreet(e) {
+    this.addStreetPopUpVisible = false;
   }
 
   getCityName(e) {
@@ -267,6 +274,13 @@ export class CallMasterComponent implements OnInit {
         valueExpr: 'personId',
         value: this.authService.getUser().personId,
         onValueChanged: this.getCallsByDispatcher.bind(this)
+      }
+    }, {
+      location: 'after',
+      widget: 'dxButton',
+      options: {
+        icon: 'search',
+        onClick: this.showSearchScreen.bind(this)
       }
     });
   }

@@ -21,7 +21,7 @@ export class ComplainantsComponent implements OnInit {
 
   buttonOptions: any = {
     text: 'Save',
-    type: 'success',
+    type: 'normal',
     onClick: this.saveCall.bind(this)
   };
 

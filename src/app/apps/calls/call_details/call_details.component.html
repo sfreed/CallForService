@@ -1,14 +1,14 @@
 <dx-toolbar
   class="detailsToolBar"
-  width="100%">
+  width="100%" height="40px">
   <dxi-item [location]="'center'" locateInMenu="never">
-      <div style="font-size: large;">Call Details</div>
+      <div>Call Details</div>
   </dxi-item>
 </dx-toolbar>
-<div *ngIf="callService.getActiveCall()" id="callTabsContainer" class="detailsContainer">
+<div *ngIf="callService.getActiveCall()" >
   <dx-tab-panel
     id="callTabsContainer"
-    [height]="'100%'"
+    [height]="window.innerHeight/2 - 100"
     [loop]="false"
     [scrollingEnabled]="true"
     [noDataText]="'No Items added to Call!'">

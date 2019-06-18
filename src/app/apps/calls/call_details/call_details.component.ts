@@ -8,6 +8,8 @@ import { CallsService } from 'src/app/common/services/call/Calls.service';
 })
 export class CallDetailsComponent implements OnInit {
 
+  window: Window = window;
+
   constructor(public callService: CallsService) {}
 
   ngOnInit() {

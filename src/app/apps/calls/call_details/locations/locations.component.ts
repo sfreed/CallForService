@@ -30,15 +30,15 @@ export class LocationsComponent implements OnInit {
   streetNameDirections: StreetNameDirection[];
   patrolAreaCodes: PatrolArea[];
 
-  buttonOptions: any = {
-    text: 'Save',
-    type: 'success',
-    onClick: this.saveStreet.bind(this)
-  };
-
   popupVisible = false;
 
   selectedStreet: Street = new Street();
+
+  buttonSaveCallOptions: any = {
+    text: 'Save',
+    type: 'normal',
+    onClick: this.saveCall.bind(this)
+  };
 
   constructor(public callService: CallsService, private locationLookupService: LocationLookupService, private locationService: LocationService,
      private involvedUnitService: InvolvedUnitsService) {
@@ -100,6 +100,10 @@ export class LocationsComponent implements OnInit {
         this.popupVisible = false;
       });
     }
+  }
+
+  cancelStreet(e) {
+    this.popupVisible = false;
   }
 
   getCityName(e) {

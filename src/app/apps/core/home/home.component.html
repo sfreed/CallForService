@@ -1,62 +1,28 @@
-<dx-box
-  direction="col"
-  [height]="'100%'">
-  <dxi-item
-      [baseSize]="'100%'">
+<dx-box direction="col" [height]="'100%'">
+  <dxi-item [baseSize]="100">
       <app-header></app-header>
   </dxi-item>
-  <dxi-item
-      [baseSize]="'100%'">
-    <dx-box
-        direction="row"
-        [height]="'100%'">
-      <dxi-item
-          [baseSize]="'15%'">
+  <dxi-item [baseSize]="window.innerHeight - 100">
+    <dx-box direction="row" height="100%" style="border: solid 5px #476981;">
+      <dxi-item [baseSize]="200">
         <app-active-list></app-active-list>
       </dxi-item>
-      <dxi-item
-          [baseSize]="'85%'">
-        <dx-drawer
-            openedStateMode="overlap"
-            revealMode="expand"
-            maxSize="400"
-            minSize="0"
-            position="right"
-            template="template"
-            [opened]="false"
-            [height]="'100%'"
-            [closeOnOutsideClick]="true">
-          <div *dxTemplate="let data of 'template'">
-            <app-dispatcher-history></app-dispatcher-history>
-          </div>
-          <dx-box
-              direction="col"
-              [height]="'100%'">
-            <dxi-item
-                class="callTableBox"
-                [baseSize]="'100%'">
+      <dxi-item [baseSize]="window.innerWidth - 200" >
+          <dx-box direction="col" height="100%" style="border-left: solid 5px #476981;">
+            <dxi-item class="callTableBox" [baseSize]="window.innerHeight/2 - 50">
               <app-call-master></app-call-master>
             </dxi-item>
-            <dxi-item
-                [baseSize]="'100%'">
-              <dx-box
-                  direction="row"
-                  width="100%"
-                  [height]="'100%'">
-                <dxi-item
-                    class="callDetailsBox"
-                    [baseSize]="'65%'">
+            <dxi-item [baseSize]="window.innerHeight/2 - 50">
+              <dx-box direction="row" width="100%" height="100%" style="border-top: solid 5px #476981;">
+                <dxi-item class="callDetailsBox" [baseSize]="window.innerWidth/5*3" >
                   <app-call-details></app-call-details>
                 </dxi-item>
-                <dxi-item
-                    class="callDetailsNotesBox"
-                    [baseSize]="'35%'">
+                <dxi-item class="callDetailsNotesBox" [baseSize]="window.innerWidth/5*2" style="border-left: solid 5px #476981;">
                   <app-call-notes></app-call-notes>
                 </dxi-item>
               </dx-box>
             </dxi-item>
           </dx-box>
-        </dx-drawer>
       </dxi-item>
     </dx-box>
   </dxi-item>
