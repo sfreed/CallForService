@@ -102,7 +102,7 @@ export class LocationsComponent implements OnInit {
     }
   }
 
-  cancelStreet(e) {
+  cancelStreet() {
     this.popupVisible = false;
   }
 

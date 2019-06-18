@@ -198,7 +198,7 @@ export class CallMasterComponent implements OnInit {
     }
   }
 
-  cancelStreet(e) {
+  cancelStreet() {
     this.addStreetPopUpVisible = false;
   }
 
