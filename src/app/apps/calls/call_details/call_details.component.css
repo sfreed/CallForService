@@ -9,6 +9,7 @@
   box-sizing: border-box;
   display: block;
   background-color: #328CC1;
+  color: white;
 }
 
 ::ng-deep .tabpanel-item {
