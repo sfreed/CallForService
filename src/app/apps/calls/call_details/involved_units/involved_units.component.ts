@@ -11,6 +11,7 @@ import { CallForService } from 'src/app/common/models/call/CallForService';
 import * as deepmerge from 'deepmerge';
 import { CommonService } from 'src/app/common/services/common/Common.service';
 import { DxDataGridComponent } from 'devextreme-angular';
+import notify from 'devextreme/ui/notify';
 
 @Component({
   selector: 'app-involved-units',
@@ -62,5 +63,36 @@ export class InvolvedUnitsComponent implements OnInit {
 
   updateRow(options) {
     options.newData = deepmerge(options.oldData, options.newData);
+  }
+
+  showContextMenu(e) {
+    if (e.row.rowType === 'data') {
+      e.items = [{
+        text: 'Enroute',
+        onItemClick: this.updateUnitTime.bind(this, e, 'Enroute')
+      }, {
+        text: 'On Scene',
+        onItemClick: this.updateUnitTime.bind(this, e, 'On Scene')
+      }, {
+        text: 'Leave Scene',
+        onItemClick: this.updateUnitTime.bind(this, e, 'Leave Scene')
+      }];
+    }
+  }
+
+  updateUnitTime(data, action) {
+    const unit: InvolvedUnitsItem = data.row.data;
+
+    const time = new Date().toISOString();
+    if (action === 'Enroute') {
+      unit.enrouteDateTime = time;
+    } else if (action === 'On Scene') {
+      unit.arrivedDateTime = time;
+    } else if (action === 'Leave Scene') {
+      unit.leaveSceneDateTime = time;
+    }
+
+    this.involvedUnitService.updateUnitTime(unit);
+    notify(unit.callForServiceUnit.unitDescription + ' : ' + action + ' : ' + time);
   }
 }

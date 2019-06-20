@@ -27,6 +27,7 @@ export class InvolvedUnitDAO extends BaseDAO {
         return this.addInvolvedUnit(unit);
       },
       update: (key, unit: InvolvedUnitsItem) => {
+        console.log('updating unit2', unit);
         return this.updateInvolvedUnit(key, unit);
       },
       remove: (key) => {
@@ -61,6 +62,8 @@ export class InvolvedUnitDAO extends BaseDAO {
   }
 
   private updateInvolvedUnit(id, unit: InvolvedUnitsItem): Promise<any> {
+    console.log('updating unit3', unit);
+
     this.updateModel(unit);
 
     return this.http.put(URL.CALL_FOR_SERVICE_INVOLVED_UNIT_ADDRESS + '?callId=' + this.callService.getActiveCall().id + '&personId=' + id, JSON.stringify(unit), this.getHttpOptions()).toPromise();

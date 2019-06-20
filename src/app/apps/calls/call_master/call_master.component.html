@@ -60,9 +60,9 @@
   [(visible)]="addCallPopupVisible">
   <dx-form id="callForm" class="callForm" [formData]="newCall" [labelLocation]="'top'">
     <dxi-item itemType="group" caption="Call Information" [widthRatio]="1" [colCount]="2">
-        <dxi-item dataField="typeId" [label]="{text: 'Call Type'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: callTypes,  valueExpr:'id', displayExpr: getCFSTypeDisplayValue, searchEnabled:true, searchExpr:'code', searchMode:'startsWith'}"></dxi-item>
-        <dxi-item dataField="originatedId" [label]="{text: 'Originated From'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: callOriginated,  valueExpr:'id', displayExpr:'originatedFrom', searchEnabled:true, searchExpr:'originatedFrom', searchMode:'startsWith'}"></dxi-item>
-        <dxi-item dataField="dispatchedByPerson.personId" [label]="{text: 'Dispatched By'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: dispatchers, valueExpr:'personId', displayExpr:'fullName', searchEnabled:true, searchExpr:'fullName', searchMode:'startsWith'}"></dxi-item>
+        <dxi-item dataField="typeId" [label]="{text: 'Call Type'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: callTypes,  valueExpr:'id', displayExpr: getCFSTypeDisplayValue, searchEnabled:true, searchExpr:['code', 'description'], searchMode:'contains'}"></dxi-item>
+        <dxi-item dataField="originatedId" [label]="{text: 'Originated From'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: callOriginated,  valueExpr:'id', displayExpr:'originatedFrom', searchEnabled:true, searchExpr:'originatedFrom', searchMode:'contains'}"></dxi-item>
+        <dxi-item dataField="dispatchedByPerson.personId" [label]="{text: 'Dispatched By'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: dispatchers, valueExpr:'personId', displayExpr:'fullName', searchEnabled:true, searchExpr:'fullName', searchMode:'contains'}"></dxi-item>
         <dxi-item dataField="receivedDateTime" editorType="dxDateBox" [editorOptions]="{ type: 'datetime' }"></dxi-item>
     </dxi-item>
     <dxi-item itemType="group" caption="Caller Name" [widthRatio]="1" [colCount]="3">
@@ -72,9 +72,9 @@
       <dxi-item dataField="complainantPerson.lastName" dataType="string" [label]="{text: 'Last'}" [editorOptions]="{ stylingMode: 'filled'}"></dxi-item>
     </dxi-item>
     <dxi-item itemType="group" caption="Address" [colCount]="5">
-        <dxi-item dataField="locationPrimary.addressTypeId" [colSpan]="5" [label]="{text: 'Address Type'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: addressTypes,  valueExpr:'id', displayExpr:'description', searchEnabled:true, searchExpr:'description', searchMode:'startsWith'}"></dxi-item>
+        <dxi-item dataField="locationPrimary.addressTypeId" [colSpan]="5" [label]="{text: 'Address Type'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: addressTypes,  valueExpr:'id', displayExpr:'description', searchEnabled:true, searchExpr:'description', searchMode:'contains'}"></dxi-item>
         <dxi-item dataField="locationPrimary.streetNumber" [colSpan]="1" [label]="{text: 'Number' }" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-        <dxi-item dataField="locationPrimary.streetId" [colSpan]="3" [label]="{text: 'Street Name'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: streetNames,  valueExpr:'id', displayExpr: getStreetName, searchEnabled:true, searchExpr:'streetName', searchMode:'startsWith'}"></dxi-item>
+        <dxi-item dataField="locationPrimary.streetId" [colSpan]="3" [label]="{text: 'Street Name'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: streetNames,  valueExpr:'id', displayExpr: getStreetName, searchEnabled:true, searchExpr:'streetName', searchMode:'contains'}"></dxi-item>
         <dxi-item>
           <dx-button
             icon="add"

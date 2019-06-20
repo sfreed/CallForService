@@ -23,6 +23,7 @@ export const URL = {
   CALL_FOR_SERVICE_STATE_ADDRESS: environment.apiUrl + environment.apiVersion + '/State',
   CALL_FOR_SERVICE_INVOLVED_PERSON_ADDRESS: environment.apiUrl + environment.apiVersion + '/CallForServiceInvolvedPerson',
   CALL_FOR_SERVICE_INVOLVED_UNIT_ADDRESS: environment.apiUrl + environment.apiVersion + '/CallForServiceInvolvedUnit',
+  CALL_FOR_SERVICE_INVOLVED_UNIT_TIMES_ADDRESS: environment.apiUrl + environment.apiVersion + '/CallForServiceInvolvedUnitTimes',
   CALL_FOR_SERVICE_INVOLVED_VEHICLE_ADDRESS: environment.apiUrl + environment.apiVersion + '/CallForServiceInvolvedVehicle',
   CALL_FOR_SERVICE_STREET_SUFFIX_ADDRESS: environment.apiUrl + environment.apiVersion + '/StreetSuffix',
   CALL_FOR_SERVICE_VEHICLE_COLOR_ADDRESS: environment.apiUrl + environment.apiVersion + '/VehicleColor',

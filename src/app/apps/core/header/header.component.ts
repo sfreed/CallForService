@@ -37,8 +37,9 @@ export class HeaderComponent implements OnInit {
       locateInMenu: 'never',
       options: {
           icon: 'fa fa-truck',
+          hint: 'Service Setup',
           onClick: () => {
-              notify('Add button has been clicked!');
+              notify('Services has been clicked!');
           }
       }
     }, {
@@ -47,8 +48,20 @@ export class HeaderComponent implements OnInit {
       locateInMenu: 'never',
       options: {
         icon: 'fa fa-pencil',
+        hint: 'Settings',
         onClick: () => {
-          dispatcherService.toggleDispatcherHistory();
+          notify('Settings has been clicked!');
+        }
+      }
+    },  {
+      location: 'after',
+      widget: 'dxButton',
+      locateInMenu: 'never',
+      options: {
+        icon: 'folder',
+        hint: 'Reports',
+        onClick: () => {
+          notify('Reports has been clicked!');
         }
       }
     }

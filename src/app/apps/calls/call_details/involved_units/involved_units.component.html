@@ -9,11 +9,15 @@
     cdkDropList
     (cdkDropListDropped)="drop($event)"
     [cdkDropListConnectedTo]="['activeUnits']"
-    (onRowUpdating)="updateRow($event)">
+    (onRowUpdating)="updateRow($event)"
+    (onContextMenuPreparing)="showContextMenu($event)">
     <dxo-scrolling mode="virtual"></dxo-scrolling>
     <dxo-selection mode="single"></dxo-selection>
-    <dxi-column dataField="dispatchDateTime" dataType="date" [format]="'shortDateShortTime'" caption="Dispatch Time" width="20%"></dxi-column>
-    <dxi-column dataField="callForServiceUnit.unitType" dataType="string" caption="Unit Type" width="20%">
+    <dxi-column dataField="dispatchDateTime" dataType="date" [format]="'shortDateShortTime'" caption="Dispatch Time"></dxi-column>
+    <dxi-column dataField="enrouteDateTime" dataType="date" [format]="'shortDateShortTime'" caption="Enrout Time"></dxi-column>
+    <dxi-column dataField="arrivedDateTime" dataType="date" [format]="'shortDateShortTime'" caption="On Scene Time"></dxi-column>
+    <dxi-column dataField="leaveSceneDateTime" dataType="date" [format]="'shortDateShortTime'" caption="Leave Scene Time"></dxi-column>
+    <dxi-column dataField="callForServiceUnit.unitType" dataType="string" caption="Unit Type" width="10%">
       <dxo-lookup
         [dataSource]="unitType"
         valueExpr="id"
@@ -21,7 +25,7 @@
       </dxo-lookup>
     </dxi-column>
     <dxi-column dataField="callForServiceUnit.unitDescription" dataType="string" caption="Description"></dxi-column>
-    <dxi-column dataField="callForServiceUnit.unitAgencyId" dataType="string" caption="Unit Type" width="20%">
+    <dxi-column dataField="callForServiceUnit.unitAgencyId" dataType="string" caption="Agency">
       <dxo-lookup
         [dataSource]="unitAgencies.store()"
         valueExpr="id"

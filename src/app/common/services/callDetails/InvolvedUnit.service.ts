@@ -4,16 +4,21 @@ import DataSource from 'devextreme/data/data_source';
 import { AvailableUnit } from '../../models/units/AvailableUnit';
 import { InvolvedUnitsItem } from '../../models/callDetails/InvolvedUnitItem';
 import { CallsService } from '../call/Calls.service';
+import { InvolvedUnitTimesDAO } from '../../dao/callDetails/InvolvedUnitTimesDAO.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InvolvedUnitsService {
 
-  constructor(private involvedUnitDao: InvolvedUnitDAO, private callService: CallsService) { }
+  constructor(private involvedUnitDao: InvolvedUnitDAO, private involvedUnitTimesDao: InvolvedUnitTimesDAO, private callService: CallsService) { }
 
   getInvolvedUnitList(): DataSource {
     return this.involvedUnitDao.getInvolvedUnitsDS();
+  }
+
+  getInvolvedUnitTimes(): DataSource {
+    return this.involvedUnitTimesDao.getInvolvedUnitTimesDS();
   }
 
   assignUnitToActiveCall(unit: AvailableUnit): Promise<any> {
@@ -27,5 +32,11 @@ export class InvolvedUnitsService {
 
     console.log('assigning unit' + JSON.stringify(involvedUnit));
     return this.getInvolvedUnitList().store().insert(involvedUnit);
+  }
+
+  updateUnitTime(unit: InvolvedUnitsItem) {
+    console.log('updating unit0', unit);
+    this.getInvolvedUnitTimes().store().update([unit.callForServiceId, unit.callForServiceUnitId], unit);
+
   }
 }
