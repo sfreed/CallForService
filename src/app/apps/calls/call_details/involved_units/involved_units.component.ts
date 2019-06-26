@@ -83,7 +83,7 @@ export class InvolvedUnitsComponent implements OnInit {
   updateUnitTime(data, action) {
     const unit: InvolvedUnitsItem = data.row.data;
 
-    const time = new Date().toISOString();
+    const time = new Date().toDateString();
     if (action === 'Enroute') {
       unit.enrouteDateTime = time;
     } else if (action === 'On Scene') {

@@ -1,10 +1,10 @@
 <div *ngIf="callService.getActiveCall()">
   <dx-form id="detailsForm" class="callForm" [formData]="callService.getActiveCall()" height="350" [colCount]="2" [labelLocation]="'top'">
     <dxi-item itemType="group" caption="Call Time Information" [widthRatio]="1" [colCount]="2">
-      <dxi-item dataField="receivedDateTime" [label]="{text: 'Received Time'}" editorType="dxDateBox" [editorOptions]="{ stylingMode: 'filled', type: 'datetime', displayFormat:'MM/dd/yyyy HH:mm:ss'}"></dxi-item>
-      <dxi-item dataField="dispatchedDateTime" [label]="{text: 'Dispatched Time'}" editorType="dxDateBox" [editorOptions]="{ stylingMode: 'filled', type: 'datetime', displayFormat:'MM/dd/yyyy HH:mm:ss' }"></dxi-item>
-      <dxi-item dataField="onHoldDateTime" [label]="{text: 'On Hold Time'}" editorType="dxDateBox" [editorOptions]="{ stylingMode: 'filled', type: 'datetime', displayFormat:'MM/dd/yyyy HH:mm:ss' }"></dxi-item>
-      <dxi-item dataField="closedDateTime" [label]="{text: 'Closed Time'}" editorType="dxDateBox" [editorOptions]="{ stylingMode: 'filled', type: 'datetime', displayFormat:'MM/dd/yyyy HH:mm:ss' }"></dxi-item>
+      <dxi-item dataField="receivedDateTime" [label]="{text: 'Received Time'}" editorType="dxDateBox" [editorOptions]="{ dateSerializationFormat: 'yyyy-MM-ddTHH:mm:ss', stylingMode: 'filled', type: 'datetime', displayFormat:'MM/dd/yyyy HH:mm:ss'}"></dxi-item>
+      <dxi-item dataField="dispatchedDateTime" [label]="{text: 'Dispatched Time'}" editorType="dxDateBox" [editorOptions]="{ dateSerializationFormat: 'yyyy-MM-ddTHH:mm:ss', stylingMode: 'filled', type: 'datetime', displayFormat:'MM/dd/yyyy HH:mm:ss' }"></dxi-item>
+      <dxi-item dataField="onHoldDateTime" [label]="{text: 'On Hold Time'}" editorType="dxDateBox" [editorOptions]="{ dateSerializationFormat: 'yyyy-MM-ddTHH:mm:ss', stylingMode: 'filled', type: 'datetime', displayFormat:'MM/dd/yyyy HH:mm:ss' }"></dxi-item>
+      <dxi-item dataField="closedDateTime" [label]="{text: 'Closed Time'}" editorType="dxDateBox" [editorOptions]="{ dateSerializationFormat: 'yyyy-MM-ddTHH:mm:ss', stylingMode: 'filled', type: 'datetime', displayFormat:'MM/dd/yyyy HH:mm:ss' }"></dxi-item>
     </dxi-item>
     <dxi-item itemType="group" caption="Call Information" [widthRatio]="1" [colCount]="2">
       <dxi-item dataField="typeId" [colSpan]="2" [label]="{text: 'Call Type'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: callTypes,  valueExpr:'id', displayExpr: getCFSTypeDisplayValue, searchEnabled:true, searchExpr:['code', 'description'], searchMode:'contains'}"></dxi-item>

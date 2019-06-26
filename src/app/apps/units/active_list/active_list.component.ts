@@ -36,25 +36,25 @@ export class ActiveListComponent implements OnInit {
     private authService: AuthenticationService, private involvedUnitService: InvolvedUnitsService) {
     this.adminFormEmitter = adminService.adminFormEmitter;
 
-    this.activeMenuItems = [{
-      id: 1,
-      text: 'Log Off',
-      disabled: false
-    }, {
-      id: 2,
-      text: 'Dispatch To Current Call',
-      disabled: false
-    }, {
-      id: 3,
-      text: 'View Unit Call Queue',
-      disabled: false
-    }];
+    // this.activeMenuItems = [{
+    //  id: 1,
+    //  text: 'Log Off',
+    //  disabled: false
+    // }, {
+    //  id: 2,
+    //  text: 'Dispatch To Current Call',
+    //  disabled: false
+    // }, {
+    //  id: 3,
+    //  text: 'View Unit Call Queue',
+    //  disabled: false
+    // }];
 
-    this.inactiveMenuItems = [{
-      id: 0,
-      text: 'Log In',
-      disabled: false
-    }];
+    // this.inactiveMenuItems = [{
+    //  id: 0,
+    //  text: 'Log In',
+    //  disabled: false
+    // }];
 
     this.activeUnits = this.unitService.getActiveUnitsList();
     this.inactiveUnits = this.unitService.getInactiveUnitsList();
@@ -120,7 +120,7 @@ export class ActiveListComponent implements OnInit {
     }
 
     if (event.container.id === 'activeUnits') {
-      event.item.data.dateTimeIn = new Date().toISOString();
+      event.item.data.dateTimeIn = new Date().toDateString();
       event.item.data.effectiveDateTime = new Date();
       event.item.data.createdUserId = this.authService.getUser().id;
       event.item.data.status = 2;
@@ -129,7 +129,7 @@ export class ActiveListComponent implements OnInit {
     }
 
     if (event.container.id === 'inActiveUnits') {
-      event.item.data.dateTimeOut = new Date().toISOString();
+      event.item.data.dateTimeOut = new Date().toDateString();
       event.item.data.effectiveDateTime = new Date();
       event.item.data.createdUserId = this.authService.getUser().id;
       event.item.data.status = 1;

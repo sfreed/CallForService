@@ -139,19 +139,6 @@ export class VehiclesComponent implements OnInit {
 //      console.log('select instance', this.wreckerServerSelect);
 //    });
   }
-
-  drop(event: CdkDragDrop<any>) {
-    if (event.previousContainer === event.container) {
-      return;
-    }
-
-    if (event.item.element.nativeElement.classList.contains('OFFICER')) {
-      const officer = event.item.data;
-
-      this.involvedUnitService.assignUnitToActiveCall(officer);
-    }
-  }
-
   searchTag() {
 
   }

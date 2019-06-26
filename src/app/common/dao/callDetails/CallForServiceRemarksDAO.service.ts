@@ -51,7 +51,7 @@ export class CallForServiceRemarksDAO extends BaseDAO {
 
   protected updateModel(model: CallRemarksItem) {
     model.createdUserId = this.authService.getUser().id;
-    model.effectiveDateTime = new Date().toISOString();
+    model.effectiveDateTime = new Date().toDateString();
   }
 
 }

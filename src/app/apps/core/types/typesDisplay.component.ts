@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AdminService } from 'src/app/common/services/common/Admin.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { AdminService } from 'src/app/common/services/common/Admin.service';
   styleUrls: ['./typesDisplay.component.css']
 })
 export class TypesDisplayComponent implements OnInit {
-  isVisible = false;
+  isVisible: boolean;
 
   constructor(public adminService: AdminService) {
     this.adminService.adminFormEmitter.subscribe(

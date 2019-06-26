@@ -70,6 +70,6 @@ export class CountyDAO extends BaseDAO {
 
   protected updateModel(model: County) {
     model.createdUserId = this.authService.getUser().id;
-    model.effectiveDateTime = new Date().toISOString();
+    model.effectiveDateTime = new Date().toDateString();
   }
 }

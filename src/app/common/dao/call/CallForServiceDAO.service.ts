@@ -65,25 +65,25 @@ export class CallForServiceDAO extends BaseDAO {
 
   protected updateModel(model: CallForService) {
     model.createdUserId = this.authService.getUser().id;
-    model.effectiveDateTime = new Date().toISOString();
+    model.effectiveDateTime = new Date().toDateString();
     if (model.locationPrimary) {
       model.locationPrimary.createdUserId = this.authService.getUser().id;
-      model.locationPrimary.effectiveDateTime = new Date().toISOString();
+      model.locationPrimary.effectiveDateTime = new Date().toDateString();
     }
 
     if (model.secondaryLocationLocation) {
       model.secondaryLocationLocation.createdUserId = this.authService.getUser().id;
-      model.secondaryLocationLocation.effectiveDateTime = new Date().toISOString();
+      model.secondaryLocationLocation.effectiveDateTime = new Date().toDateString();
     }
 
     if (model.complainantPerson) {
       model.complainantPerson.createdUserId = this.authService.getUser().id;
-      model.complainantPerson.effectiveDateTime = new Date().toISOString();
+      model.complainantPerson.effectiveDateTime = new Date().toDateString();
     }
 
     if (model.dispatchedByPerson) {
       model.dispatchedByPerson.createdUserId = this.authService.getUser().id;
-      model.dispatchedByPerson.effectiveDateTime = new Date().toISOString();
+      model.dispatchedByPerson.effectiveDateTime = new Date().toDateString();
     }
   }
 }

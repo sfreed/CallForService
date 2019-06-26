@@ -40,7 +40,7 @@ export class InvolvedUnitTimesDAO extends BaseDAO {
   }
 
   protected updateModel(model: InvolvedUnitsItem) {
-    model.effectiveDateTime = new Date().toISOString();
-    model.callForServiceUnit.effectiveDateTime = new Date().toISOString();
+    model.effectiveDateTime = new Date().toDateString();
+    model.callForServiceUnit.effectiveDateTime = new Date().toDateString();
   }
 }

@@ -19,7 +19,12 @@
         <div
           id="switchdiv{{data.id}}"
           class="OFFICER unitName badge{{data.id}} active{{data.active}} example-box" cdkDrag [cdkDragData]="data">
-            #{{data.unitDescription}}<!--<span style="float:right;">({{getUnitQueueCount(data)}})</span>-->
+            <div style="display: inline-block;">
+              #{{data.unitDescription}}<!--<span style="float:right;">({{getUnitQueueCount(data)}})</span>-->
+            </div>
+            <div style="display: inline-block;">
+              #{{data.currentCall}} |  #{{data.location}}
+            </div>
         </div>
 
         <dx-context-menu
@@ -46,12 +51,17 @@
       class="example-container"
       cdkDropList
       (cdkDropListDropped)="drop($event)"
-      [cdkDropListConnectedTo]="['activeUnits', 'callHistoryGrid', 'complainantForm', 'hospitalGrid', 'involvedPersonsGrid', 'unitContainer', 'vehicleGrid', 'callDetailForm', 'wreckerGrid']">
+      [cdkDropListConnectedTo]="['activeUnits']">
       <div *dxTemplate="let data of 'item'">
         <div
           id="switchdiv{{data.id}}"
           class="OFFICER unitName badge{{data.id}} active{{data.active}} example-box" cdkDrag [cdkDragData]="data">
-            #{{data.unitDescription}}
+          <div style="display: inline-block;">
+            #{{data.unitDescription}}<!--<span style="float:right;">({{getUnitQueueCount(data)}})</span>-->
+          </div>
+          <div style="display: inline-block;">
+            Off Duty
+          </div>
         </div>
 
         <dx-context-menu

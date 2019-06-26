@@ -76,8 +76,8 @@ export class InvolvedUnitDAO extends BaseDAO {
   protected updateModel(model: InvolvedUnitsItem) {
     model.callForServiceId = this.callService.getActiveCall().id;
     model.createdUserId = this.authService.getUser().id;
-    model.effectiveDateTime = new Date().toISOString();
+    model.effectiveDateTime = new Date().toDateString();
     model.callForServiceUnit.createdUserId = this.authService.getUser().id;
-    model.callForServiceUnit.effectiveDateTime = new Date().toISOString();
+    model.callForServiceUnit.effectiveDateTime = new Date().toDateString();
   }
 }

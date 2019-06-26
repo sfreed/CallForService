@@ -5,9 +5,6 @@
     [showBorders]="true"
     [showColumnHeaders]="true"
     height="350"
-    cdkDropList
-    (cdkDropListDropped)="drop($event)"
-    [cdkDropListConnectedTo]="['activeUnits']"
     (onRowUpdating)="updateRow($event)">>
     <dxo-scrolling mode="virtual"></dxo-scrolling>
     <dxo-selection mode="single"></dxo-selection>

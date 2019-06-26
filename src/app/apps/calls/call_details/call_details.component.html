@@ -13,7 +13,7 @@
     [scrollingEnabled]="true"
     [noDataText]="'No Items added to Call!'">
 
-    <dxi-item class="tabpanel-item" title="Call Details">
+    <dxi-item class="tabpanel-item" [title]="'Call Details  (' + callService.getActiveCall().id + ')'">
       <app-details></app-details>
     </dxi-item>
     <dxi-item class="tabpanel-item" title="Locations">
@@ -22,7 +22,7 @@
     <dxi-item class="tabpanel-item" title="Complainants" >
       <app-complainants></app-complainants>
   </dxi-item>
-    <dxi-item class="tabpanel-item" title="Involved Units">
+    <dxi-item class="tabpanel-item" [title]="'Involved Units'">
       <app-involved-units></app-involved-units>
     </dxi-item>
     <dxi-item class="tabpanel-item" title="Involved Persons">

@@ -74,16 +74,16 @@ export class InvolvedVehicleDAO extends BaseDAO {
   protected updateModel(model: InvolvedVehiclesItem) {
     model.callForServiceId = this.callService.getActiveCall().id;
     model.createdUserId = this.authService.getUser().id;
-    model.effectiveDateTime = new Date().toISOString();
+    model.effectiveDateTime = new Date().toDateString();
     model.vehicle.createdUserId = this.authService.getUser().id;
-    model.vehicle.ownerPerson.effectiveDateTime = new Date().toISOString();
+    model.vehicle.ownerPerson.effectiveDateTime = new Date().toDateString();
     model.vehicle.ownerPerson.createdUserId = this.authService.getUser().id;
 
-    model.vehicle.tagInformation.effectiveDateTime = new Date().toISOString();
+    model.vehicle.tagInformation.effectiveDateTime = new Date().toDateString();
     model.vehicle.tagInformation.createdUserId = this.authService.getUser().id;
 
-    model.vehicle.effectiveDateTime = new Date().toISOString();
+    model.vehicle.effectiveDateTime = new Date().toDateString();
     model.vehicleDriverPerson.createdUserId = this.authService.getUser().id;
-    model.vehicleDriverPerson.effectiveDateTime = new Date().toISOString();
+    model.vehicleDriverPerson.effectiveDateTime = new Date().toDateString();
   }
 }

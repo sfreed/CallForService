@@ -32,7 +32,7 @@ export class DetailsComponent implements OnInit {
   todayButton: any = {
     text: 'Now',
     onClick: () => {
-        this.callService.getActiveCall().receivedDateTime = new Date().toISOString();
+        this.callService.getActiveCall().receivedDateTime = new Date().toDateString();
     }
 };
 
@@ -49,18 +49,6 @@ export class DetailsComponent implements OnInit {
 
   getComplainantName() {
     return this.callService.getActiveCall().complainantPerson.fullName;
-  }
-
-  drop(event: CdkDragDrop<any>) {
-    if (event.previousContainer === event.container) {
-      return;
-    }
-
-    if (event.item.element.nativeElement.classList.contains('OFFICER')) {
-      const officer = event.item.data;
-
-      this.involvedUnitService.assignUnitToActiveCall(officer);
-    }
   }
 
   saveCall(e) {

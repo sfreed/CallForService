@@ -3,6 +3,7 @@ import { DispatcherService } from 'src/app/common/services/master/Dispatcher.ser
 import notify from 'devextreme/ui/notify';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/common/auth/auth.service';
+import { AdminService } from 'src/app/common/services/common/Admin.service';
 
 @Component({
   selector: 'app-header',
@@ -24,7 +25,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(public dispatcherService: DispatcherService,
     private router: Router,
-    private authenticationService: AuthenticationService) {
+    private authenticationService: AuthenticationService, private adminService: AdminService) {
     this.menuItems = [{
       location: 'before',
       locateInMenu: 'never',
@@ -39,7 +40,7 @@ export class HeaderComponent implements OnInit {
           icon: 'fa fa-truck',
           hint: 'Service Setup',
           onClick: () => {
-              notify('Services has been clicked!');
+            notify('Services has been clicked!');
           }
       }
     }, {
@@ -47,10 +48,10 @@ export class HeaderComponent implements OnInit {
       widget: 'dxButton',
       locateInMenu: 'never',
       options: {
-        icon: 'fa fa-pencil',
+        icon: 'fa fa-gear',
         hint: 'Settings',
         onClick: () => {
-          notify('Settings has been clicked!');
+          this.adminService.adminFormEmitter.emit(['typesPanelVisible', true]);
         }
       }
     },  {

@@ -28,7 +28,7 @@ export class InvolvedUnitsService {
     involvedUnit.callForServiceUnitId = unit.id;
     involvedUnit.isPrimaryUnit = true;
     involvedUnit.callForServiceDateTime = this.callService.getActiveCall().receivedDateTime;
-    involvedUnit.dispatchDateTime = new Date().toISOString();
+    involvedUnit.dispatchDateTime = new Date().toDateString();
 
     console.log('assigning unit' + JSON.stringify(involvedUnit));
     return this.getInvolvedUnitList().store().insert(involvedUnit);

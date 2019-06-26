@@ -33,18 +33,6 @@ export class ComplainantsComponent implements OnInit {
     this.nameSuffix = this.personService.getNameSuffixList();
   }
 
-  drop(event: CdkDragDrop<any>) {
-    if (event.previousContainer === event.container) {
-      return;
-    }
-
-    if (event.item.element.nativeElement.classList.contains('OFFICER')) {
-      const officer = event.item.data;
-
-      this.involvedUnitService.assignUnitToActiveCall(officer);
-    }
-  }
-
   saveCall(e) {
     this.showWaitIndicator = true;
     this.callService.saveCall(this.callService.getActiveCall()).then(res => this.showWaitIndicator = false);

@@ -28,7 +28,7 @@ export class CallsService {
     newCall.id = 0;
     newCall.isVoid = false;
     newCall.createdUserId = this.authService.getUser().id;
-    newCall.effectiveDateTime = new Date().toISOString();
+    newCall.effectiveDateTime = new Date().toDateString();
     if (newCall.complainantPerson) {
       newCall.complainantPerson.id = '00000000-0000-0000-0000-000000000000';
     }

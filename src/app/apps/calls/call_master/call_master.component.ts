@@ -52,6 +52,8 @@ export class CallMasterComponent implements OnInit {
 
   searchPopUpVisible = false;
 
+  mapPopupVisible = false;
+
   selectedStreet: Street = new Street();
 
   buttonOptionSearch: any =  {
@@ -97,6 +99,10 @@ export class CallMasterComponent implements OnInit {
     });
   }
 
+  showMapScreen() {
+    this.window.open('/map', '_blank ', 'menubar=no, resizable=no, scrollbars=no, statusbar=no, titlebar=no, toolbar=no, top=0, left=0, width=' + this.window.screen.width + ', height=' + this.window.screen.height);
+  }
+
   showSearchScreen() {
     this.searchPopUpVisible = true;
   }
@@ -112,7 +118,7 @@ export class CallMasterComponent implements OnInit {
   startCall() {
     this.newCall = new CallForService();
     this.newCall.dispatchedByPerson = this.authService.getUser();
-    this.newCall.receivedDateTime = new Date().toISOString();
+    this.newCall.receivedDateTime = new Date().toDateString() + ' ' + new Date().toTimeString();
     this.addCallPopupVisible = true;
   }
 
@@ -167,7 +173,7 @@ export class CallMasterComponent implements OnInit {
   }
 
   now() {
-    return new Date().toISOString();
+    return new Date().toDateString() + ' ' + new Date().toTimeString();
   }
 
   addStreet() {
@@ -274,6 +280,13 @@ export class CallMasterComponent implements OnInit {
         valueExpr: 'personId',
         value: this.authService.getUser().personId,
         onValueChanged: this.getCallsByDispatcher.bind(this)
+      }
+    }, {
+      location: 'after',
+      widget: 'dxButton',
+      options: {
+        icon: 'globe',
+        onClick: this.showMapScreen.bind(this)
       }
     }, {
       location: 'after',

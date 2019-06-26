@@ -1,9 +1,6 @@
 <div *ngIf="callService.getActiveCall()">
   <dx-form id="complainantForm" class="complainantForm" height="350" [colCount]="2" [labelLocation]="'top'"
-      [formData]="callService.getActiveCall().complainantPerson"
-      cdkDropList
-      (cdkDropListDropped)="drop($event)"
-      [cdkDropListConnectedTo]="['activeUnits']">
+      [formData]="callService.getActiveCall().complainantPerson">
     <dxi-item itemType="group" caption="Complainant Information" [widthRatio]="1" [colCount]="5">
       <dxi-item dataField="id" dataType="number" [visible]="false" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
       <dxi-item dataField="namePrefixCodeId" [label]="{text: 'Prefix'}" [colSpan]="1" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: namePrefix,  valueExpr:'id', displayExpr:'namePrefixDescription', searchEnabled:true, searchExpr:'namePrefixDescription', searchMode:'startsWith'}"></dxi-item>

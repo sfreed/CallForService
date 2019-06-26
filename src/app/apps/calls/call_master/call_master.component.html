@@ -28,6 +28,7 @@
   <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling>
   <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
 
+  <dxi-column dataField="id" dataType="string" [caption]="'Call Id'"></dxi-column>
   <dxi-column dataField="typeId" dataType="string" [caption]="'Call Type'"><dxo-lookup [dataSource]="callTypes.store()" valueExpr="id" displayExpr="description"> </dxo-lookup></dxi-column>
   <dxi-column [caption]="'Complainant'" [calculateCellValue]="getComplainantDisplayValue"></dxi-column>
   <dxi-column dataField="dispatchedByPerson.fullName" dataType="string" [caption]="'Dispatcher'"></dxi-column>
@@ -52,7 +53,7 @@
 <dx-popup
   class="popup"
   [width]="800"
-  [height]="800"
+  [height]="850"
   [showTitle]="true"
   title="Start A Call"
   [dragEnabled]="false"
@@ -63,13 +64,14 @@
         <dxi-item dataField="typeId" [label]="{text: 'Call Type'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: callTypes,  valueExpr:'id', displayExpr: getCFSTypeDisplayValue, searchEnabled:true, searchExpr:['code', 'description'], searchMode:'contains'}"></dxi-item>
         <dxi-item dataField="originatedId" [label]="{text: 'Originated From'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: callOriginated,  valueExpr:'id', displayExpr:'originatedFrom', searchEnabled:true, searchExpr:'originatedFrom', searchMode:'contains'}"></dxi-item>
         <dxi-item dataField="dispatchedByPerson.personId" [label]="{text: 'Dispatched By'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: dispatchers, valueExpr:'personId', displayExpr:'fullName', searchEnabled:true, searchExpr:'fullName', searchMode:'contains'}"></dxi-item>
-        <dxi-item dataField="receivedDateTime" editorType="dxDateBox" [editorOptions]="{ type: 'datetime' }"></dxi-item>
+        <dxi-item dataField="receivedDateTime" editorType="dxDateBox" [editorOptions]="{ dateSerializationFormat: 'yyyy-MM-ddTHH:mm:ss', type: 'datetime', displayFormat:'MM/dd/yyyy HH:mm:ss' }"></dxi-item>
     </dxi-item>
     <dxi-item itemType="group" caption="Caller Name" [widthRatio]="1" [colCount]="3">
       <dxi-item dataField="complainantPerson.id" dataType="number" [visible]="false" [editorOptions]="{ stylingMode: 'filled'}"></dxi-item>
       <dxi-item dataField="complainantPerson.firstName" dataType="string" [label]="{text: 'First'}" [editorOptions]="{ stylingMode: 'filled'}"></dxi-item>
       <dxi-item dataField="complainantPerson.middleName" dataType="string" [label]="{text: 'Middle'}" [editorOptions]="{ stylingMode: 'filled'}"></dxi-item>
       <dxi-item dataField="complainantPerson.lastName" dataType="string" [label]="{text: 'Last'}" [editorOptions]="{ stylingMode: 'filled'}"></dxi-item>
+      <dxi-item dataField="complainantPerson.homePhoneNumber" [label]="{text: 'Home Phone'}" [editorOptions]="{ stylingMode: 'filled'}"></dxi-item>
     </dxi-item>
     <dxi-item itemType="group" caption="Address" [colCount]="5">
         <dxi-item dataField="locationPrimary.addressTypeId" [colSpan]="5" [label]="{text: 'Address Type'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: addressTypes,  valueExpr:'id', displayExpr:'description', searchEnabled:true, searchExpr:'description', searchMode:'contains'}"></dxi-item>

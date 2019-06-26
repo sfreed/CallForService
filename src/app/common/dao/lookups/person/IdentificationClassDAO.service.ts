@@ -70,7 +70,7 @@ export class IdentificationClassDAO extends BaseDAO {
 
   protected updateModel(model: IdentificationClass) {
     model.createdUserId = this.authService.getUser().id;
-    model.effectiveDateTime = new Date().toISOString();
+    model.effectiveDateTime = new Date().toDateString();
   }
 
 }
