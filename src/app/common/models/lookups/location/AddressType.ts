@@ -2,8 +2,8 @@ import { BaseModel } from '../../BaseModel';
 
 export class AddressType extends BaseModel {
   id: number;
-  addressTypeCode: string;
-  addressTypeName: string;
+  code: string;
+  description: string;
   isActive: boolean;
   isUserEditable: boolean;
 }

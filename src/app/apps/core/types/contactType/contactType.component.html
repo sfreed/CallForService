@@ -1,8 +1,10 @@
 <dx-data-grid id="contactTypeGrid"
+    [dataSource]="contactTypeList"
     [rowAlternationEnabled]="true"
     [showBorders]="true"
     [showColumnHeaders]="true"
-    height="350">
+    height="350"
+    (onRowUpdating)="updateRow($event)">
   <dxo-scrolling mode="virtual"></dxo-scrolling>
   <dxo-selection mode="single"></dxo-selection>
   <dxo-editing

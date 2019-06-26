@@ -45,7 +45,11 @@ export class ContactTypeDAO extends BaseDAO {
   }
 
   private getContactTypes(): Promise<any> {
-    return this.http.get(URL.CALL_FOR_SERVICE_CONTACT_TYPE_ADDRESS, this.getHttpOptions()).toPromise();
+    return this.http.get(URL.CALL_FOR_SERVICE_CONTACT_TYPE_ADDRESS, this.getHttpOptions()).toPromise()
+    .then(results => {
+      console.log('Contact Types', results);
+      return results;
+    });
   }
 
   private getContactType(id): Promise<any> {

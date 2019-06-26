@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CallsService } from 'src/app/common/services/call/Calls.service';
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { LocationLookupService } from 'src/app/common/services/lookups/location/LocationLookup.service';
 import { VehicleLookupService } from 'src/app/common/services/lookups/vehicle/VehicleLookup.service';
 import { PersonLookupService } from 'src/app/common/services/lookups/person/PersonLookup.service';

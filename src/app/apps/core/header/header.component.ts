@@ -23,9 +23,8 @@ export class HeaderComponent implements OnInit {
 
   availableUnitsPanelVisible = false;
 
-  constructor(public dispatcherService: DispatcherService,
-    private router: Router,
-    private authenticationService: AuthenticationService, private adminService: AdminService) {
+  constructor(public dispatcherService: DispatcherService, private router: Router, private authenticationService: AuthenticationService,
+    private adminService: AdminService) {
     this.menuItems = [{
       location: 'before',
       locateInMenu: 'never',

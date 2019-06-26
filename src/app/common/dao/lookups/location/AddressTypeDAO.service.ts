@@ -20,7 +20,7 @@ export class AddressTypeDAO extends BaseDAO {
         return this.getAddressType(key);
       },
       load: () => {
-          return this.AddressType();
+          return this.getAddressTypes();
       },
       insert: (addressType) => {
         return this.addAddressType(addressType);
@@ -43,8 +43,12 @@ export class AddressTypeDAO extends BaseDAO {
     return ds;
   }
 
-  private AddressType(): Promise<any> {
-    return this.http.get(URL.CALL_FOR_SERVICE_ADDRESS_TYPE_ADDRESS, this.getHttpOptions()).toPromise();
+  private getAddressTypes(): Promise<any> {
+    return this.http.get(URL.CALL_FOR_SERVICE_ADDRESS_TYPE_ADDRESS, this.getHttpOptions()).toPromise()
+    .then(results => {
+      console.log('Address Types', results);
+      return results;
+    });
   }
 
   private getAddressType(id): Promise<any> {

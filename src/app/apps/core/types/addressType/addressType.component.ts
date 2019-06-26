@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { LocationLookupService } from 'src/app/common/services/lookups/location/LocationLookup.service';
+import { LocationService } from 'src/app/common/services/lookups/location/Location.service';
+import DataSource from 'devextreme/data/data_source';
+import * as deepmerge from 'deepmerge';
 
 @Component({
   selector: 'app-address-type',
@@ -8,9 +10,17 @@ import { LocationLookupService } from 'src/app/common/services/lookups/location/
 })
 export class AddressTypeComponent implements OnInit {
 
-  constructor(public locationLookupService: LocationLookupService) { }
+  addressTypes: DataSource;
+
+  constructor(public locationService: LocationService) {
+    this.addressTypes = locationService.getAddressTypeList();
+  }
 
   ngOnInit() {
+  }
+
+  updateRow(options) {
+    options.newData = deepmerge(options.oldData, options.newData);
   }
 
 }
