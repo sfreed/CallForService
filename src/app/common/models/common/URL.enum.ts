@@ -2,6 +2,7 @@ import { environment } from 'src/environments/environment';
 
 export const URL = {
   CFS_UNIT_ADDRESS: environment.apiUrl + environment.apiVersion + '/CallForServiceUnitActivity',
+  CFS_UNIT_TYPE_ADDRESS: environment.apiUrl + environment.apiVersion + '/CallForServiceUnitType',
   CFS_UNIT_AVAILABLE_ADDRESS: environment.apiUrl + environment.apiVersion + '/CallForServiceUnitAvailable',
   CFS_LOOKUP_SERVICE_ADDRESS: environment.apiUrl + environment.apiVersion + '/CallForServiceLookup',
   PERSON_LOOKUP_SERVICE_ADDRESS: environment.apiUrl + environment.apiVersion + '/PersonLookup',

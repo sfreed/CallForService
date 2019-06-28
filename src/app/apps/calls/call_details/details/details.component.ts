@@ -7,6 +7,7 @@ import DataSource from 'devextreme/data/data_source';
 import { CallForServiceOriginated } from 'src/app/common/models/lookups/callForService/CallForServiceOriginated';
 import { InvolvedUnitsService } from 'src/app/common/services/callDetails/InvolvedUnit.service';
 import { MasterUserService } from 'src/app/common/services/master/MasterUser.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-details',
@@ -32,12 +33,12 @@ export class DetailsComponent implements OnInit {
   todayButton: any = {
     text: 'Now',
     onClick: () => {
-        this.callService.getActiveCall().receivedDateTime = new Date().toDateString();
+        this.callService.getActiveCall().receivedDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
     }
 };
 
   constructor(public callService: CallsService, private cfsLookupService: CallForServiceLookupService,
-    private masterUserService: MasterUserService, private cfsCallTypeDS: CallTypeDAO, private involvedUnitService: InvolvedUnitsService) {
+    private masterUserService: MasterUserService, private cfsCallTypeDS: CallTypeDAO, private involvedUnitService: InvolvedUnitsService, private datePipe: DatePipe) {
       this.callTypes = this.cfsCallTypeDS.getCallTypeListDS();
 
       this.dispatchers = this.masterUserService.getMasterUserList();

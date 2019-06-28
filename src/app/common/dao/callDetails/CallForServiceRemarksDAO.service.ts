@@ -6,13 +6,14 @@ import { URL } from '../../models/common/URL.enum';
 import { BaseDAO } from '../BaseDAO';
 import { AuthenticationService } from '../../auth/auth.service';
 import { CallRemarksItem } from '../../models/callDetails/CallRemark';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CallForServiceRemarksDAO extends BaseDAO {
 
-  constructor(private http: HttpClient, private authService: AuthenticationService) {
+  constructor(private http: HttpClient, private authService: AuthenticationService, private datePipe: DatePipe) {
     super();
     this.store = new CustomStore({
       key: 'id',
@@ -36,11 +37,7 @@ export class CallForServiceRemarksDAO extends BaseDAO {
   }
 
   private getCallsRemarks(callID): Promise<any> {
-    return this.http.get(URL.CALL_FOR_SERVICE_REMARKS_ADDRESS + '?callId=' + callID, this.getHttpOptions()).toPromise()
-    .then(results => {
-      console.log('call Remarks List', results);
-      return results;
-    });
+    return this.http.get(URL.CALL_FOR_SERVICE_REMARKS_ADDRESS + '?callId=' + callID, this.getHttpOptions()).toPromise();
   }
 
   private addCallRemark (call: CallRemarksItem): Promise<any> {
@@ -50,8 +47,8 @@ export class CallForServiceRemarksDAO extends BaseDAO {
   }
 
   protected updateModel(model: CallRemarksItem) {
-    model.createdUserId = this.authService.getUser().id;
-    model.effectiveDateTime = new Date().toDateString();
+    model.createdUserId = this.authService.getUser().personId;
+    model.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
   }
 
 }

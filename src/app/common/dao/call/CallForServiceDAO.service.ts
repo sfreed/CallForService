@@ -6,13 +6,14 @@ import { CallForService } from '../../models/call/CallForService';
 import { URL } from '../../models/common/URL.enum';
 import { BaseDAO } from '../BaseDAO';
 import { AuthenticationService } from '../../auth/auth.service';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CallForServiceDAO extends BaseDAO {
 
-  constructor(private http: HttpClient, private authService: AuthenticationService) {
+  constructor(private http: HttpClient, private authService: AuthenticationService, private datePipe: DatePipe) {
     super();
     this.store = new CustomStore({
       key: 'id',
@@ -65,25 +66,25 @@ export class CallForServiceDAO extends BaseDAO {
 
   protected updateModel(model: CallForService) {
     model.createdUserId = this.authService.getUser().id;
-    model.effectiveDateTime = new Date().toDateString();
+    model.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
     if (model.locationPrimary) {
       model.locationPrimary.createdUserId = this.authService.getUser().id;
-      model.locationPrimary.effectiveDateTime = new Date().toDateString();
+      model.locationPrimary.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
     }
 
     if (model.secondaryLocationLocation) {
       model.secondaryLocationLocation.createdUserId = this.authService.getUser().id;
-      model.secondaryLocationLocation.effectiveDateTime = new Date().toDateString();
+      model.secondaryLocationLocation.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
     }
 
     if (model.complainantPerson) {
       model.complainantPerson.createdUserId = this.authService.getUser().id;
-      model.complainantPerson.effectiveDateTime = new Date().toDateString();
+      model.complainantPerson.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
     }
 
     if (model.dispatchedByPerson) {
       model.dispatchedByPerson.createdUserId = this.authService.getUser().id;
-      model.dispatchedByPerson.effectiveDateTime = new Date().toDateString();
+      model.dispatchedByPerson.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
     }
   }
 }

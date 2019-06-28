@@ -4,6 +4,7 @@ import notify from 'devextreme/ui/notify';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/common/auth/auth.service';
 import { AdminService } from 'src/app/common/services/common/Admin.service';
+import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 
 @Component({
   selector: 'app-header',
@@ -23,8 +24,16 @@ export class HeaderComponent implements OnInit {
 
   availableUnitsPanelVisible = false;
 
+  window: Window = window;
+
   constructor(public dispatcherService: DispatcherService, private router: Router, private authenticationService: AuthenticationService,
-    private adminService: AdminService) {
+    private adminService: AdminService, private _hotkeysService: HotkeysService) {
+
+    this._hotkeysService.add(new Hotkey('ctrl+alt+r', (event: KeyboardEvent): boolean => {
+      this.showReportsScreen();
+      return false;
+    }));
+
     this.menuItems = [{
       location: 'before',
       locateInMenu: 'never',
@@ -60,10 +69,8 @@ export class HeaderComponent implements OnInit {
       options: {
         icon: 'folder',
         hint: 'Reports',
-        onClick: () => {
-          notify('Reports has been clicked!');
-        }
-      }
+        onClick: this.showReportsScreen.bind(this)
+      },
     }
     // {
     //    locateInMenu: 'always',
@@ -130,5 +137,9 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.authenticationService.logout();
     this.router.navigate(['/login']);
+  }
+
+  showReportsScreen() {
+    this.window.open('http://google.com', '_blank ', 'menubar=no, resizable=no, scrollbars=no, statusbar=no, titlebar=no, toolbar=no, top=0, left=0, width=' + this.window.screen.width + ', height=' + this.window.screen.height);
   }
 }

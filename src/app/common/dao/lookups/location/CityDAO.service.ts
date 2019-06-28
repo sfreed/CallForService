@@ -6,13 +6,14 @@ import { URL } from '../../../models/common/URL.enum';
 import { BaseDAO } from '../../BaseDAO';
 import { AuthenticationService } from '../../../auth/auth.service';
 import { City } from '../../../models/lookups/location/City';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CityDAO extends BaseDAO {
 
-  constructor(private http: HttpClient, private authService: AuthenticationService) {
+  constructor(private http: HttpClient, private authService: AuthenticationService, private datePipe: DatePipe) {
     super();
     this.store = new CustomStore({
       key: 'id',
@@ -70,6 +71,6 @@ export class CityDAO extends BaseDAO {
 
   protected updateModel(model: City) {
     model.createdUserId = this.authService.getUser().id;
-    model.effectiveDateTime = new Date().toDateString();
+    model.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
   }
 }

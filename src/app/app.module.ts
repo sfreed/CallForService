@@ -22,6 +22,7 @@ import { AuthenticationService } from './common/auth/auth.service';
 import { HttpModule } from '@angular/http';
 import { AuthGuard } from './common/auth/auth.guard';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   imports: [ BrowserModule, HttpClientModule, AppsModule, HttpModule, DxCheckBoxModule, DxFormModule, DxLoadPanelModule, ReactiveFormsModule,
@@ -31,7 +32,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    AuthenticationService, AuthGuard
+    AuthenticationService, AuthGuard, DatePipe
   ],
   bootstrap: [ AppComponent ]})
 export class AppModule { }

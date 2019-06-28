@@ -14,4 +14,5 @@ export class Location extends BaseModel {
   patrolAreaId: number;
   latitude: number;
   longitude: number;
+  building: string; // temp
 }

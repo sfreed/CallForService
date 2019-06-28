@@ -5,13 +5,14 @@ import { AvailableUnit } from '../../models/units/AvailableUnit';
 import { InvolvedUnitsItem } from '../../models/callDetails/InvolvedUnitItem';
 import { CallsService } from '../call/Calls.service';
 import { InvolvedUnitTimesDAO } from '../../dao/callDetails/InvolvedUnitTimesDAO.service';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InvolvedUnitsService {
 
-  constructor(private involvedUnitDao: InvolvedUnitDAO, private involvedUnitTimesDao: InvolvedUnitTimesDAO, private callService: CallsService) { }
+  constructor(private involvedUnitDao: InvolvedUnitDAO, private involvedUnitTimesDao: InvolvedUnitTimesDAO, private callService: CallsService, private datePipe: DatePipe) { }
 
   getInvolvedUnitList(): DataSource {
     return this.involvedUnitDao.getInvolvedUnitsDS();
@@ -22,13 +23,16 @@ export class InvolvedUnitsService {
   }
 
   assignUnitToActiveCall(unit: AvailableUnit): Promise<any> {
+    unit.currentCall = '#' + this.callService.getActiveCall().id;
+    unit.location = ' | ' + this.callService.getActiveCall().locationPrimary.zoneId;
+
     const involvedUnit = new InvolvedUnitsItem();
     involvedUnit.callForServiceUnit = unit;
     involvedUnit.callForServiceId = this.callService.getActiveCall().id;
     involvedUnit.callForServiceUnitId = unit.id;
     involvedUnit.isPrimaryUnit = true;
     involvedUnit.callForServiceDateTime = this.callService.getActiveCall().receivedDateTime;
-    involvedUnit.dispatchDateTime = new Date().toDateString();
+    involvedUnit.dispatchDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
 
     console.log('assigning unit' + JSON.stringify(involvedUnit));
     return this.getInvolvedUnitList().store().insert(involvedUnit);

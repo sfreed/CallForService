@@ -7,6 +7,7 @@ import { BaseDAO } from '../BaseDAO';
 import { BaseModel } from '../../models/BaseModel';
 import { AuthenticationService } from '../../auth/auth.service';
 import { URL } from '../../models/common/URL.enum';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class MasterUserDAO extends BaseDAO {
 
   masterUserDS: DataSource;
 
-  constructor(private http: HttpClient, private authService: AuthenticationService) {
+  constructor(private http: HttpClient, private authService: AuthenticationService, private datePipe: DatePipe) {
     super();
     this.store = new CustomStore({
       key: 'id',
@@ -48,7 +49,11 @@ export class MasterUserDAO extends BaseDAO {
   }
 
   private getMasterUsers(): Promise<any> {
-    return this.http.get(URL.DISPATCHER_ADDRESS, this.getHttpOptions()).toPromise();
+    return this.http.get(URL.DISPATCHER_ADDRESS, this.getHttpOptions()).toPromise()
+    .then(results => {
+      console.log('Master User List', results);
+      return results;
+    });
   }
 
   private getMasterUser(id): Promise<any> {
@@ -73,6 +78,6 @@ export class MasterUserDAO extends BaseDAO {
 
   protected updateModel(model: BaseModel) {
     model.createdUserId = this.authService.getUser().id;
-    model.effectiveDateTime = new Date().toDateString();
+    model.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
   }
 }

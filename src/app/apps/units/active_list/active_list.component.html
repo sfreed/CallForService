@@ -19,12 +19,30 @@
         <div
           id="switchdiv{{data.id}}"
           class="OFFICER unitName badge{{data.id}} active{{data.active}} example-box" cdkDrag [cdkDragData]="data">
-            <div style="display: inline-block;">
-              #{{data.unitDescription}}<!--<span style="float:right;">({{getUnitQueueCount(data)}})</span>-->
-            </div>
-            <div style="display: inline-block;">
-              #{{data.currentCall}} |  #{{data.location}}
-            </div>
+          <table width="190px" style="margin: 0px; padding: 0px;">
+            <tr>
+              <td width="20%">
+                  <img [src]="getUnitActivityImage(data)">
+              </td>
+              <td width="80%">
+                <table width="100%">
+                    <tr>
+                      <td>
+                          #{{data.unitDescription}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td *ngIf="data.currentCall">
+                          {{data.currentCall}}
+                      </td>
+                      <td *ngIf="!data.currentCall">
+                          Available
+                      </td>
+                    </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
         </div>
 
         <dx-context-menu
@@ -56,12 +74,27 @@
         <div
           id="switchdiv{{data.id}}"
           class="OFFICER unitName badge{{data.id}} active{{data.active}} example-box" cdkDrag [cdkDragData]="data">
-          <div style="display: inline-block;">
-            #{{data.unitDescription}}<!--<span style="float:right;">({{getUnitQueueCount(data)}})</span>-->
-          </div>
-          <div style="display: inline-block;">
-            Off Duty
-          </div>
+          <table width="190px" style="margin: 0px; padding: 0px;">
+              <tr>
+                <td width="20%">
+                    <img src="../../../../assets/unassigned_unit.png">
+                </td>
+                <td width="80%">
+                  <table width="100%">
+                      <tr>
+                        <td>
+                            #{{data.unitDescription}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                            Off Duty
+                        </td>
+                      </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
         </div>
 
         <dx-context-menu

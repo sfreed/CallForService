@@ -25,6 +25,7 @@
     "angular2-hotkeys": "^2.1.4",
     "bootstrap4": "0.0.1-security",
     "core-js": "^2.6.2",
+    "dateformat": "^3.0.3",
     "deepmerge": "^3.2.0",
     "devextreme": "^19.1.0",
     "devextreme-angular": "^19.1.0",

@@ -17,4 +17,6 @@ export class AvailableUnit extends BaseModel {
   latitude: number;
   longitude: number;
   speed: number;
+  currentCall: string;
+  location: string;
 }

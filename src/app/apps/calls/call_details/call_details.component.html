@@ -2,7 +2,7 @@
   class="detailsToolBar"
   width="100%" height="40px">
   <dxi-item [location]="'center'" locateInMenu="never">
-      <div>Call Details</div>
+      <div>Call Details {{callService.getActiveCall() ? '(' + callService.getActiveCall().id + ')' : ''}}</div>
   </dxi-item>
 </dx-toolbar>
 <div *ngIf="callService.getActiveCall()" >
@@ -13,7 +13,7 @@
     [scrollingEnabled]="true"
     [noDataText]="'No Items added to Call!'">
 
-    <dxi-item class="tabpanel-item" [title]="'Call Details  (' + callService.getActiveCall().id + ')'">
+    <dxi-item class="tabpanel-item" [title]="'Call Details'">
       <app-details></app-details>
     </dxi-item>
     <dxi-item class="tabpanel-item" title="Locations">

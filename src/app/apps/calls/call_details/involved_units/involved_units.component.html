@@ -5,21 +5,30 @@
     [rowAlternationEnabled]="true"
     [showBorders]="true"
     [showColumnHeaders]="true"
-    height="350"
+    height="325"
     cdkDropList
     (cdkDropListDropped)="drop($event)"
     [cdkDropListConnectedTo]="['activeUnits']"
     (onRowUpdating)="updateRow($event)"
     (onContextMenuPreparing)="showContextMenu($event)">
-    <dxo-scrolling mode="virtual"></dxo-scrolling>
+    <dxo-paging [pageSize]="5"></dxo-paging>
+    <dxo-pager
+        [visible]="true"
+        [showPageSizeSelector]="true"
+        [allowedPageSizes]="[5, 10, 20]"
+        [showInfo]="true">
+    </dxo-pager>
+    <dxo-filter-row [visible]="true"></dxo-filter-row>
+    <dxo-header-filter [visible]="true"></dxo-header-filter>
     <dxo-selection mode="single"></dxo-selection>
+    <dxo-sorting mode="multiple"> </dxo-sorting>
     <dxi-column dataField="dispatchDateTime" dataType="date" [format]="'shortDateShortTime'" caption="Dispatch Time"></dxi-column>
     <dxi-column dataField="enrouteDateTime" dataType="date" [format]="'shortDateShortTime'" caption="Enroute Time"></dxi-column>
     <dxi-column dataField="arrivedDateTime" dataType="date" [format]="'shortDateShortTime'" caption="On Scene Time"></dxi-column>
     <dxi-column dataField="leaveSceneDateTime" dataType="date" [format]="'shortDateShortTime'" caption="Leave Scene Time"></dxi-column>
     <dxi-column dataField="callForServiceUnit.unitType" dataType="string" caption="Unit Type" width="10%">
       <dxo-lookup
-        [dataSource]="unitType"
+        [dataSource]="unitType.store()"
         valueExpr="id"
         displayExpr="unitDescription">
       </dxo-lookup>

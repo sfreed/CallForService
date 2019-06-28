@@ -29,6 +29,7 @@ export class LocationsComponent implements OnInit {
   streetNameSuffixs: StreetNameSuffix[];
   streetNameDirections: StreetNameDirection[];
   patrolAreaCodes: PatrolArea[];
+  buildings: string[];
 
   popupVisible = false;
 
@@ -40,13 +41,13 @@ export class LocationsComponent implements OnInit {
     onClick: this.saveCall.bind(this)
   };
 
-  constructor(public callService: CallsService, private locationLookupService: LocationLookupService, private locationService: LocationService,
-     private involvedUnitService: InvolvedUnitsService) {
+  constructor(public callService: CallsService, private locationLookupService: LocationLookupService, private locationService: LocationService) {
       this.streetNames = this.locationService.getStreetList();
       this.cities = this.locationService.getCityList();
       this.counties = this.locationService.getCountyList();
       this.addressTypes = this.locationService.getAddressTypeList();
       this.zones = this.locationService.getZoneList();
+      this.buildings = ['Building 1', 'Building2', 'Building 3', 'Building 4'];
   }
 
   ngOnInit() {

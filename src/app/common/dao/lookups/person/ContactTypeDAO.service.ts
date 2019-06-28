@@ -6,13 +6,14 @@ import CustomStore from 'devextreme/data/custom_store';
 import DataSource from 'devextreme/data/data_source';
 import { URL } from 'src/app/common/models/common/URL.enum';
 import { ContactType } from 'src/app/common/models/lookups/person/ContactType';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContactTypeDAO extends BaseDAO {
 
-  constructor(private http: HttpClient, private authService: AuthenticationService) {
+  constructor(private http: HttpClient, private authService: AuthenticationService, private datePipe: DatePipe) {
     super();
     this.store = new CustomStore({
       key: 'id',
@@ -74,7 +75,7 @@ export class ContactTypeDAO extends BaseDAO {
 
   protected updateModel(model: ContactType) {
     model.createdUserId = this.authService.getUser().id;
-    model.effectiveDateTime = new Date().toDateString();
+    model.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
   }
 
 }

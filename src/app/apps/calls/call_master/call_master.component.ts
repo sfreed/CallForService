@@ -18,6 +18,7 @@ import { LocationLookupService } from 'src/app/common/services/lookups/location/
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { StreetNameSuffix } from 'src/app/common/models/lookups/location/StreetNameSuffix';
 import { StreetNameDirection } from 'src/app/common/models/lookups/location/StreetNameDirection';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-call-master',
@@ -64,7 +65,7 @@ export class CallMasterComponent implements OnInit {
 
   constructor(public callService: CallsService, private personLookupService: PersonLookupService,
     private cfsLookupService: CallForServiceLookupService, private vehicleLookupService: VehicleLookupService, private locationService: LocationService,
-    public authService: AuthenticationService, public cfsCallTypeDao: CallTypeDAO, private masterUserService: MasterUserService,
+    public authService: AuthenticationService, public cfsCallTypeDao: CallTypeDAO, private masterUserService: MasterUserService, private datePipe: DatePipe,
     private locationLookupService: LocationLookupService, private _hotkeysService: HotkeysService) {
       this.callTypes = this.cfsCallTypeDao.getCallTypeListDS();
       this.dispatchers = this.masterUserService.getMasterUserList();
@@ -76,7 +77,7 @@ export class CallMasterComponent implements OnInit {
       this._hotkeysService.add(new Hotkey('ctrl+alt+n', (event: KeyboardEvent): boolean => {
         this.startCall();
         return false; // Prevent bubbling
-    }));
+      }));
     }
 
   ngOnInit() {
@@ -118,7 +119,7 @@ export class CallMasterComponent implements OnInit {
   startCall() {
     this.newCall = new CallForService();
     this.newCall.dispatchedByPerson = this.authService.getUser();
-    this.newCall.receivedDateTime = new Date().toDateString() + ' ' + new Date().toTimeString();
+    this.newCall.receivedDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
     this.addCallPopupVisible = true;
   }
 
@@ -173,7 +174,7 @@ export class CallMasterComponent implements OnInit {
   }
 
   now() {
-    return new Date().toDateString() + ' ' + new Date().toTimeString();
+    return this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
   }
 
   addStreet() {

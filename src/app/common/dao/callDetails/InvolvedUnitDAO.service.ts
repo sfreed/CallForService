@@ -7,13 +7,14 @@ import CustomStore from 'devextreme/data/custom_store';
 import { HttpClient } from '@angular/common/http';
 import { InvolvedUnitsItem } from '../../models/callDetails/InvolvedUnitItem';
 import { URL } from '../../models/common/URL.enum';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InvolvedUnitDAO extends BaseDAO {
 
-  constructor(private http: HttpClient, private callService: CallsService, private authService: AuthenticationService) {
+  constructor(private http: HttpClient, private callService: CallsService, private authService: AuthenticationService, private datePipe: DatePipe) {
     super();
     this.store = new CustomStore({
       key: ['callForServiceId', 'callForServiceUnitId'],
@@ -76,8 +77,8 @@ export class InvolvedUnitDAO extends BaseDAO {
   protected updateModel(model: InvolvedUnitsItem) {
     model.callForServiceId = this.callService.getActiveCall().id;
     model.createdUserId = this.authService.getUser().id;
-    model.effectiveDateTime = new Date().toDateString();
+    model.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
     model.callForServiceUnit.createdUserId = this.authService.getUser().id;
-    model.callForServiceUnit.effectiveDateTime = new Date().toDateString();
+    model.callForServiceUnit.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
   }
 }

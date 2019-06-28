@@ -22,11 +22,9 @@ export class RemarksService {
   public saveCallRemark(remark): Promise<any> {
     const callRemark = new CallRemarksItem();
     callRemark.callForServiceId = this.callService.getActiveCall().id;
-    callRemark.createdUserId = this.authService.getUser().personId;
-    callRemark.effectiveDateTime = new Date().toDateString();
     callRemark.remarks = remark;
 
-     return this.remarksDao.getCallRemarksListDS().store().insert(callRemark);
+    return this.remarksDao.getCallRemarksListDS().store().insert(callRemark);
   }
 
 }

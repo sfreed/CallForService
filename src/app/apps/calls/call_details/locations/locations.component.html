@@ -28,6 +28,8 @@
           <dxi-item dataField="locationPrimary.patrolAreaId" [label]="{text: 'Patrol Area'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: patrolAreaCodes,  valueExpr:'id', displayExpr:'patrolAreaCodeDescription', searchEnabled:true, searchExpr:'patrolAreaCodeDescription', searchMode:'startsWith'}"></dxi-item>
           <dxi-item dataField="locationPrimary.latitude" [label]="{text: 'Latitude'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
           <dxi-item dataField="locationPrimary.longitude" [label]="{text: 'Longitude'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+          <dxi-item dataField="locationPrimary.building" [label]="{text: 'Building'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: buildings}"></dxi-item>
+
           <dxi-item [colSpan]="2"
             itemType="button"
             horizontalAlignment="right"
@@ -61,6 +63,8 @@
           <dxi-item dataField="secondaryLocationLocation.patrolAreaId" [label]="{text: 'Patrol Area'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: patrolAreaCodes,  valueExpr:'id', displayExpr:'patrolAreaCodeDescription', searchEnabled:true, searchExpr:'patrolAreaCodeDescription', searchMode:'startsWith'}"></dxi-item>
           <dxi-item dataField="secondaryLocationLocation.latitude" [label]="{text: 'Latitude'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
           <dxi-item dataField="secondaryLocationLocation.longitude" [label]="{text: 'Longitude'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+          <dxi-item dataField="secondaryLocationLocation.building" [label]="{text: 'Building'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', items: buildings}"></dxi-item>
+
           <dxi-item [colSpan]="2"
             itemType="button"
             horizontalAlignment="right"

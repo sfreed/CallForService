@@ -7,13 +7,14 @@ import { BaseDAO } from '../BaseDAO';
 import { InvolvedVehiclesItem } from '../../models/callDetails/InvolvedVehicleItem';
 import { AuthenticationService } from '../../auth/auth.service';
 import { URL } from '../../models/common/URL.enum';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InvolvedVehicleDAO extends BaseDAO {
 
-  constructor(private http: HttpClient, private callService: CallsService, private authService: AuthenticationService) {
+  constructor(private http: HttpClient, private callService: CallsService, private authService: AuthenticationService, private datePipe: DatePipe) {
     super();
     this.store = new CustomStore({
       key: 'vehicleId',
@@ -74,16 +75,16 @@ export class InvolvedVehicleDAO extends BaseDAO {
   protected updateModel(model: InvolvedVehiclesItem) {
     model.callForServiceId = this.callService.getActiveCall().id;
     model.createdUserId = this.authService.getUser().id;
-    model.effectiveDateTime = new Date().toDateString();
+    model.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
     model.vehicle.createdUserId = this.authService.getUser().id;
-    model.vehicle.ownerPerson.effectiveDateTime = new Date().toDateString();
+    model.vehicle.ownerPerson.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
     model.vehicle.ownerPerson.createdUserId = this.authService.getUser().id;
 
-    model.vehicle.tagInformation.effectiveDateTime = new Date().toDateString();
+    model.vehicle.tagInformation.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
     model.vehicle.tagInformation.createdUserId = this.authService.getUser().id;
 
-    model.vehicle.effectiveDateTime = new Date().toDateString();
+    model.vehicle.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
     model.vehicleDriverPerson.createdUserId = this.authService.getUser().id;
-    model.vehicleDriverPerson.effectiveDateTime = new Date().toDateString();
+    model.vehicleDriverPerson.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
   }
 }

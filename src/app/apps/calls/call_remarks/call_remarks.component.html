@@ -15,8 +15,8 @@
       height="220">
     <dxo-scrolling mode="virtual"></dxo-scrolling>
     <dxo-selection mode="single"></dxo-selection>
-    <dxi-column dataField="effectiveDateTime" dataType="datetime" [sortIndex]="0" width="20%"></dxi-column>
-    <dxi-column dataField="createdUserId" dataType="datetime" [sortIndex]="0" width="20%"><dxo-lookup [dataSource]="dispatchers.store()" valueExpr="id" displayExpr="fullName"></dxo-lookup></dxi-column>
+    <dxi-column dataField="effectiveDateTime" dataType="datetime" [sortIndex]="0" width="20%" [caption]="'Time'" [format]="'MM/dd/yy HH:mm:ss'"></dxi-column>
+    <dxi-column dataField="createdUserId" dataType="string" [caption]="'Dispatcher'" width="20%"><dxo-lookup [dataSource]="dispatchers.store()" valueExpr="personId" displayExpr="fullName"></dxo-lookup></dxi-column>
     <dxi-column dataField="remarks" dataType="string"></dxi-column>
   </dx-data-grid>
 

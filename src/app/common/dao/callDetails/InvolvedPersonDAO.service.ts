@@ -7,13 +7,14 @@ import { BaseDAO } from '../BaseDAO';
 import { InvolvedPersonItem } from '../../models/callDetails/InvolvedPersonItem';
 import { AuthenticationService } from '../../auth/auth.service';
 import { URL } from '../../models/common/URL.enum';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InvolvedPersonDAO extends BaseDAO {
 
-    constructor(private http: HttpClient, private callService: CallsService, private authService: AuthenticationService) {
+    constructor(private http: HttpClient, private callService: CallsService, private authService: AuthenticationService, private datePipe: DatePipe) {
       super();
       this.store = new CustomStore({
         key: 'personId',
@@ -73,15 +74,15 @@ export class InvolvedPersonDAO extends BaseDAO {
     protected updateModel(model: InvolvedPersonItem) {
       model.callForServiceId = this.callService.getActiveCall().id;
       model.createdUserId = this.authService.getUser().id;
-      model.effectiveDateTime = new Date().toDateString();
+      model.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
       if (model.involvedPerson) {
         model.involvedPerson.createdUserId = this.authService.getUser().id;
-        model.involvedPerson.effectiveDateTime = new Date().toDateString();
+        model.involvedPerson.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
       }
 
       if (model.involvedPerson) {
         model.involvedPerson.location.createdUserId = this.authService.getUser().id;
-        model.involvedPerson.location.effectiveDateTime = new Date().toDateString();
+        model.involvedPerson.location.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
       }
     }
 }

@@ -5,6 +5,7 @@ import { CallForService } from 'src/app/common/models/call/CallForService';
 import { AvailableUnit } from '../../models/units/AvailableUnit';
 import { CallForServiceDAO } from '../../dao/call/CallForServiceDAO.service';
 import { AuthenticationService } from '../../auth/auth.service';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class CallsService {
 
   unitCallQueue = new Map();
 
-  constructor(private cfsDAO: CallForServiceDAO, private authService: AuthenticationService) {}
+  constructor(private cfsDAO: CallForServiceDAO, private authService: AuthenticationService, private datePipe: DatePipe) {}
 
   getCallList(key, value): DataSource {
     return this.cfsDAO.getCallListDS(key, value);
@@ -28,7 +29,7 @@ export class CallsService {
     newCall.id = 0;
     newCall.isVoid = false;
     newCall.createdUserId = this.authService.getUser().id;
-    newCall.effectiveDateTime = new Date().toDateString();
+    newCall.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
     if (newCall.complainantPerson) {
       newCall.complainantPerson.id = '00000000-0000-0000-0000-000000000000';
     }

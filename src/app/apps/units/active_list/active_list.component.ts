@@ -9,6 +9,7 @@ import { UnitService } from 'src/app/common/services/units/Unit.service';
 import { AuthenticationService } from 'src/app/common/auth/auth.service';
 import { AvailableUnit } from 'src/app/common/models/units/AvailableUnit';
 import { InvolvedUnitsService } from 'src/app/common/services/callDetails/InvolvedUnit.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-active-list',
@@ -33,7 +34,7 @@ export class ActiveListComponent implements OnInit {
   inactiveMenuItems: any;
 
   constructor(public unitService: UnitService, public dispatcherHistory: DispatcherService, public callService: CallsService, public adminService: AdminService,
-    private authService: AuthenticationService, private involvedUnitService: InvolvedUnitsService) {
+    private authService: AuthenticationService, private involvedUnitService: InvolvedUnitsService, private datePipe: DatePipe) {
     this.adminFormEmitter = adminService.adminFormEmitter;
 
     // this.activeMenuItems = [{
@@ -61,6 +62,14 @@ export class ActiveListComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+  getUnitActivityImage(e: AvailableUnit) {
+    if (e.currentCall) {
+      return  '../../../../assets/assigned_unit.png';
+    } else {
+      return '../../../../assets/unassigned_unit.png';
+    }
+  }
 
   contextItemClick(e, unit) {
     if (e.itemData.id === 0) {
@@ -120,7 +129,7 @@ export class ActiveListComponent implements OnInit {
     }
 
     if (event.container.id === 'activeUnits') {
-      event.item.data.dateTimeIn = new Date().toDateString();
+      event.item.data.dateTimeIn = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
       event.item.data.effectiveDateTime = new Date();
       event.item.data.createdUserId = this.authService.getUser().id;
       event.item.data.status = 2;
@@ -129,7 +138,7 @@ export class ActiveListComponent implements OnInit {
     }
 
     if (event.container.id === 'inActiveUnits') {
-      event.item.data.dateTimeOut = new Date().toDateString();
+      event.item.data.dateTimeOut = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
       event.item.data.effectiveDateTime = new Date();
       event.item.data.createdUserId = this.authService.getUser().id;
       event.item.data.status = 1;
