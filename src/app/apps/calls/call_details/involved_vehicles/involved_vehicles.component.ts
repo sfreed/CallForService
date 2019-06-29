@@ -65,7 +65,8 @@ export class VehiclesComponent implements OnInit {
   genderCodes: Gender[];
   raceCodes: Race[];
 
-  popupVisible = false;
+  addStreetPopupVisible = false;
+  addWreckerPopupVisible = false;
 
   selectedStreet: Street = new Street();
   selectedVehicle: InvolvedVehiclesItem;
@@ -152,7 +153,7 @@ export class VehiclesComponent implements OnInit {
 
   addStreet() {
     this.selectedStreet = new Street();
-    this.popupVisible = true;
+    this.addStreetPopupVisible = true;
   }
 
   editStreet (e) {
@@ -168,19 +169,19 @@ export class VehiclesComponent implements OnInit {
       this.locationService.getStreetList().store().update(this.selectedStreet.id, this.selectedStreet).then(results => {
         console.log('updating', results);
         this.locationService.getStreetList().reload();
-        this.popupVisible = false;
+        this.addStreetPopupVisible = false;
       });
     } else {
       this.locationService.getStreetList().store().insert(this.selectedStreet).then(results => {
         console.log('adding', results);
         this.locationService.getStreetList().reload();
-        this.popupVisible = false;
+        this.addStreetPopupVisible = false;
       });
     }
   }
 
   cancelStreet(e) {
-    this.popupVisible = false;
+    this.addStreetPopupVisible = false;
   }
 
   getCityName(e) {
@@ -234,5 +235,13 @@ export class VehiclesComponent implements OnInit {
 
   getInvolvedVehicle(e) {
     this.selectedVehicle = e.data;
+  }
+
+  showWreckerService(e) {
+    this.selectedVehicle = e.row.data;
+    console.log('pressed', e);
+    this.addWreckerPopupVisible = true;
+
+    e.event.preventDefault();
   }
 }

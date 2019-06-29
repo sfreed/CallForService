@@ -191,16 +191,6 @@
               <dxi-item dataField="vehicle.ownerPerson.facialHairId" [label]="{text: 'Facial Hair'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: facialHairCodes,  valueExpr:'id', displayExpr:'facialHairCodeDescription'}"></dxi-item>
             </dxi-item>
           </dxi-tab>
-          <dxi-tab title="Wrecker Service" width="100%" [colCount]="8">
-            <dxi-item dataField="isWrecker" [colSpan]="8" [label]="{text: 'Is Wrecker Needed?'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-            <dxi-item dataField="wreckerRotation" [colSpan]="4" [label]="{text: 'Wrecker Rotation'}" editorType="dxSelectBox" [editorOptions]="wreckerRotationSelectOptions"></dxi-item>
-            <dxi-item dataField="wreckerServerId" #wreckerServer [colSpan]="4" [label]="{text: 'Wrecker Service'}" editorType="dxSelectBox" [editorOptions]="wreckerServiceSelectOptions"></dxi-item>
-            <dxi-item dataField="wreckerTimeCalled" [colSpan]="4"[label]="{text: 'Time Called'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-            <dxi-item dataField="wreckerTimeArrived" [colSpan]="4"[label]="{text: 'Time Arrived'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-            <dxi-item dataField="wreckerTowedDateTime" [colSpan]="4"[label]="{text: 'Towed Date/Time'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-            <dxi-item dataField="wreckerTowedTo" [colSpan]="4"[label]="{text: 'Towed To' }" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-            <dxi-item dataField="wreckerRemarks" [colSpan]="8" [label]="{text: 'Remarks'}" editorType="dxTextArea" [editorOptions]="{ stylingMode: 'filled', height: 150 }"></dxi-item>
-          </dxi-tab>
           <dxi-tab title="Vehicle Remarks" width="100%">
             <dxi-item dataField="vehicleRemarks" editorType="dxTextArea" [editorOptions]="{ stylingMode: 'filled', height: 150 }"></dxi-item>
           </dxi-tab>
@@ -215,6 +205,11 @@
     <dxi-column dataField="vehicle.color" [caption]="'Color'" [visible]="true"><dxo-lookup [dataSource]="colors.store()" valueExpr="id" displayExpr="vehicleColorCodeDescription"></dxo-lookup></dxi-column>
     <dxi-column dataField="vehicle.type" [caption]="'Type'" [visible]="true"><dxo-lookup [dataSource]="types.store()" valueExpr="id" displayExpr="vehicleTypeCodeDescription"></dxo-lookup></dxi-column>
     <dxi-column dataField="vehicle.style" [caption]="'Style'" [visible]="true"><dxo-lookup [dataSource]="styles.store()" valueExpr="id" displayExpr="vehicleStyleCodeDescription"></dxo-lookup></dxi-column>
+    <dxi-column type="buttons" [width]="110">
+      <dxi-button name="edit"></dxi-button>
+      <dxi-button name="delete"></dxi-button>
+    </dxi-column>
+
     <dxi-column dataField="vehicle.numberOfWheels" [caption]="'Number of Wheels'" [visible]="false" dataType="number"></dxi-column>
     <dxi-column dataField="vehicle.numberOfAxles" [caption]="'Number of Axels'" [visible]="false" dataType="number"></dxi-column>
     <dxi-column dataField="vehicle.numberOfCylinders" [caption]="'Number Of Cylinders'" [visible]="false" dataType="number"></dxi-column>
@@ -305,15 +300,15 @@
     <dxi-column dataField="isSameAsDriver" [caption]="'Same as Driver?'" [visible]="false" dataType="boolean"></dxi-column>
   </dx-data-grid>
 
-<dx-popup
-  class="popup"
-  [width]="800"
-  [height]="600"
-  [showTitle]="true"
-  title="Add / Edit Street"
-  [dragEnabled]="false"
-  [closeOnOutsideClick]="false"
-  [(visible)]="popupVisible">
+  <dx-popup
+    class="popup"
+    [width]="800"
+    [height]="600"
+    [showTitle]="true"
+    title="Add / Edit Street"
+    [dragEnabled]="false"
+    [closeOnOutsideClick]="false"
+    [(visible)]="addStreetPopupVisible">
       <dx-form id="callForm" class="callForm" [formData]="selectedStreet" [labelLocation]="'top'">
         <dxi-item dataField="streetNamePreModifier" [label]="{text: 'Pre Modifier'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
         <dxi-item dataField="streetNamePreDirectionId" [label]="{text: 'Pre Direction'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: streetNameDirections,  valueExpr:'id', displayExpr:'streetNameDirectionCodeDescription', searchEnabled:true, searchExpr:'streetNameDirectionCodeDescription', searchMode:'startsWith' }"></dxi-item>
@@ -334,6 +329,31 @@
               style="margin-top: 18px;">
             </dx-button>
         </dxi-item>
+      </dx-form>
+  </dx-popup>
+
+  <dx-popup
+    class="popup"
+    [width]="800"
+    [height]="600"
+    [showTitle]="true"
+    title="Wrecker Service"
+    [dragEnabled]="false"
+    [closeOnOutsideClick]="false"
+    [(visible)]="addWreckerPopupVisible">
+      <dx-form id="callForm" class="callForm" [formData]="selectedVehicle" [labelLocation]="'top'">
+        <dxi-item itemType="group" caption="Address" [colCount]="8">
+          <dxi-item dataField="isWrecker" [colSpan]="8" [label]="{text: 'Is Wrecker Needed?'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+          <dxi-item dataField="wreckerRotation" [colSpan]="4" [label]="{text: 'Wrecker Rotation'}" editorType="dxSelectBox" [editorOptions]="wreckerRotationSelectOptions"></dxi-item>
+          <dxi-item dataField="wreckerServerId" #wreckerServer [colSpan]="4" [label]="{text: 'Wrecker Service'}" editorType="dxSelectBox" [editorOptions]="wreckerServiceSelectOptions"></dxi-item>
+          <dxi-item dataField="wreckerTimeCalled" [colSpan]="4"[label]="{text: 'Time Called'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+          <dxi-item dataField="wreckerTimeArrived" [colSpan]="4"[label]="{text: 'Time Arrived'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+          <dxi-item dataField="wreckerTowedDateTime" [colSpan]="4"[label]="{text: 'Towed Date/Time'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+          <dxi-item dataField="wreckerTowedTo" [colSpan]="4"[label]="{text: 'Towed To' }" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+          <dxi-item dataField="wreckerRemarks" [colSpan]="8" [label]="{text: 'Remarks'}" editorType="dxTextArea" [editorOptions]="{ stylingMode: 'filled', height: 150 }"></dxi-item>
+
+        </dxi-item>
+
       </dx-form>
   </dx-popup>
 </div>

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { AppsModule } from './apps/apps.module';
@@ -23,6 +23,7 @@ import { HttpModule } from '@angular/http';
 import { AuthGuard } from './common/auth/auth.guard';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { CallForServiceLookupService } from './common/services/lookups/callForService/CallForServiceLookup.service';
 
 @NgModule({
   imports: [ BrowserModule, HttpClientModule, AppsModule, HttpModule, DxCheckBoxModule, DxFormModule, DxLoadPanelModule, ReactiveFormsModule,
@@ -30,6 +31,13 @@ import { DatePipe } from '@angular/common';
   declarations: [ AppComponent, HeaderComponent, AddressTypeComponent, AgencyTypeComponent, ContactTypeComponent, OfficerRankComponent, UnitTypeComponent,
     TypesDisplayComponent, HomeComponent, AlertComponent, LoginComponent],
   providers: [
+    CallForServiceLookupService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (ds: CallForServiceLookupService) => function() { return ds.initialize(); },
+      deps: [CallForServiceLookupService],
+      multi: true
+    },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     AuthenticationService, AuthGuard, DatePipe

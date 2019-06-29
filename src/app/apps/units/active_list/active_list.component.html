@@ -33,7 +33,7 @@
                     </tr>
                     <tr>
                       <td *ngIf="data.currentCall">
-                          {{data.currentCall}}
+                          {{'#' + data.currentCall}}
                       </td>
                       <td *ngIf="!data.currentCall">
                           Available
@@ -77,7 +77,7 @@
           <table width="190px" style="margin: 0px; padding: 0px;">
               <tr>
                 <td width="20%">
-                    <img src="../../../../assets/unassigned_unit.png">
+                  <img [src]="getUnitActivityImage(data)">
                 </td>
                 <td width="80%">
                   <table width="100%">
@@ -106,6 +106,4 @@
         </dx-context-menu>
       </div>
     </dx-list>
-
-
 <app-unit-queue></app-unit-queue>

@@ -23,8 +23,7 @@ export class InvolvedUnitsService {
   }
 
   assignUnitToActiveCall(unit: AvailableUnit): Promise<any> {
-    unit.currentCall = '#' + this.callService.getActiveCall().id;
-    unit.location = ' | ' + this.callService.getActiveCall().locationPrimary.zoneId;
+    unit.currentCall = this.callService.getActiveCall().id;
 
     const involvedUnit = new InvolvedUnitsItem();
     involvedUnit.callForServiceUnit = unit;

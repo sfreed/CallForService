@@ -10,6 +10,8 @@ import { AuthenticationService } from 'src/app/common/auth/auth.service';
 import { AvailableUnit } from 'src/app/common/models/units/AvailableUnit';
 import { InvolvedUnitsService } from 'src/app/common/services/callDetails/InvolvedUnit.service';
 import { DatePipe } from '@angular/common';
+import { CallForServiceUnitType } from 'src/app/common/models/lookups/callForService/CallForServiceUnitType';
+import { CallForServiceLookupService } from 'src/app/common/services/lookups/callForService/CallForServiceLookup.service';
 
 @Component({
   selector: 'app-active-list',
@@ -33,8 +35,10 @@ export class ActiveListComponent implements OnInit {
 
   inactiveMenuItems: any;
 
+  callForServiceUnitTypeList: CallForServiceUnitType[];
+
   constructor(public unitService: UnitService, public dispatcherHistory: DispatcherService, public callService: CallsService, public adminService: AdminService,
-    private authService: AuthenticationService, private involvedUnitService: InvolvedUnitsService, private datePipe: DatePipe) {
+    private authService: AuthenticationService, private involvedUnitService: InvolvedUnitsService, private datePipe: DatePipe, private cfsLookupService: CallForServiceLookupService) {
     this.adminFormEmitter = adminService.adminFormEmitter;
 
     // this.activeMenuItems = [{
@@ -57,17 +61,22 @@ export class ActiveListComponent implements OnInit {
     //  disabled: false
     // }];
 
+    this.callForServiceUnitTypeList = this.cfsLookupService.callForServiceUnitTypeList;
     this.activeUnits = this.unitService.getActiveUnitsList();
     this.inactiveUnits = this.unitService.getInactiveUnitsList();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+
+  }
 
   getUnitActivityImage(e: AvailableUnit) {
+    const unitType: CallForServiceUnitType = this.callForServiceUnitTypeList.filter(r => r.id === e.unitType)[0];
+
     if (e.currentCall) {
-      return  '../../../../assets/assigned_unit.png';
+      return  '../../../../assets/' + unitType.unitCode + '_assigned.png';
     } else {
-      return '../../../../assets/unassigned_unit.png';
+      return '../../../../assets/' + unitType.unitCode + '_unassigned.png';
     }
   }
 

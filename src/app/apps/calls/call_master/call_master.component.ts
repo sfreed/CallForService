@@ -81,7 +81,7 @@ export class CallMasterComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.cfsLookupService.initialize().then(results => {
+
       this.personLookupService.initialize().then(people => {
         this.vehicleLookupService.initialize().then(vehicles => {
           this.locationLookupService.initialize().then(location => {
@@ -97,7 +97,6 @@ export class CallMasterComponent implements OnInit {
           });
         });
       });
-    });
   }
 
   showMapScreen() {
