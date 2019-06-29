@@ -5,7 +5,6 @@ import { WreckerService } from '../../../models/callDetails/vehicle/WreckerServi
 import { WreckerRotation } from '../../../models/callDetails/vehicle/WreckerRotation';
 import { CallForServiceHospital } from '../../../models/common/CallForServiceHospital';
 import { CallForServiceOriginated } from '../../../models/lookups/callForService/CallForServiceOriginated';
-import { CallForServiceType } from '../../../models/lookups/callForService/CallForServiceType';
 import { CallForServiceUnitType } from '../../../models/lookups/callForService/CallForServiceUnitType';
 import { CallForServiceLookup } from '../../../models/lookups/callForService/CallForServiceLookup';
 import { CallForServiceDispositionStatus } from '../../../models/lookups/callForService/CallForServiceDispositionStatus';
@@ -30,7 +29,7 @@ export class CallForServiceLookupService {
         'Content-Type':  'application/json',
         'Authorization': 'bearer ' + localStorage.getItem('id_token')
       })
-    })
+      })
       .toPromise()
       .then(settings => {
         console.log('CallForService Settings from API: ', settings);

@@ -208,6 +208,11 @@
     <dxi-column type="buttons" [width]="110">
       <dxi-button name="edit"></dxi-button>
       <dxi-button name="delete"></dxi-button>
+      <dxi-button
+          hint="Wrecker Service"
+          icon="fas fa-truck"
+          [visible]="false"
+          [onClick]="showWreckerService.bind(this)"></dxi-button>
     </dxi-column>
 
     <dxi-column dataField="vehicle.numberOfWheels" [caption]="'Number of Wheels'" [visible]="false" dataType="number"></dxi-column>
