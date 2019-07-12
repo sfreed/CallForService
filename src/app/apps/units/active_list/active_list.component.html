@@ -22,7 +22,7 @@
           <table width="190px" style="margin: 0px; padding: 0px;">
             <tr>
               <td width="20%">
-                  <img [src]="getUnitActivityImage(data)">
+                  <img [src]="getUnitActivityImage(data, true)" width="34px" height="34px">
               </td>
               <td width="80%">
                 <table width="100%">
@@ -77,7 +77,7 @@
           <table width="190px" style="margin: 0px; padding: 0px;">
               <tr>
                 <td width="20%">
-                  <img [src]="getUnitActivityImage(data)">
+                  <img [src]="getUnitActivityImage(data, false)" width="34px" height="34px">
                 </td>
                 <td width="80%">
                   <table width="100%">
@@ -107,3 +107,58 @@
       </div>
     </dx-list>
 <app-unit-queue></app-unit-queue>
+
+<dx-popup
+  class="popup"
+  [width]="400"
+  [height]="200"
+  [showTitle]="true"
+  title="Enter Start Maileage"
+  [dragEnabled]="false"
+  [closeOnOutsideClick]="false"
+  [(visible)]="showStartMileageScreen">
+      <dx-form id="callForm" class="callForm" [formData]="currentUnit" [labelLocation]="'top'">
+        <dxi-item dataField="startMiles" [label]="{text: 'Start Miles'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+
+        <dxi-item style="float: right;" [colSpan]="2">
+            <dx-button
+              text="Save"
+              (onClick)="updateUnit()"
+              style="margin-right:5px; margin-top: 18px;">
+            </dx-button>
+            <dx-button
+              text="Cancel"
+              (onClick)="cancelUpdateUnit()"
+              style="margin-top: 18px;">
+            </dx-button>
+        </dxi-item>
+      </dx-form>
+</dx-popup>
+
+
+<dx-popup
+  class="popup"
+  [width]="400"
+  [height]="200"
+  [showTitle]="true"
+  title="Enter End Mileage"
+  [dragEnabled]="false"
+  [closeOnOutsideClick]="false"
+  [(visible)]="showEndMileageScreen">
+      <dx-form id="callForm" class="callForm" [formData]="currentUnit" [labelLocation]="'top'">
+        <dxi-item dataField="endMiles" [label]="{text: 'End Miles'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+
+        <dxi-item style="float: right;" [colSpan]="2">
+            <dx-button
+              text="Save"
+              (onClick)="updateUnit()"
+              style="margin-right:5px; margin-top: 18px;">
+            </dx-button>
+            <dx-button
+              text="Cancel"
+              (onClick)="cancelUpdateUnit()"
+              style="margin-top: 18px;">
+            </dx-button>
+        </dxi-item>
+      </dx-form>
+</dx-popup>

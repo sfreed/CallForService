@@ -80,7 +80,10 @@ export class InvolvedVehicleDAO extends BaseDAO {
     model.vehicle.ownerPerson.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
     model.vehicle.ownerPerson.createdUserId = this.authService.getUser().id;
 
+    model.vehicleDriverPerson.location.createdUserId = this.authService.getUser().id;
+    model.vehicleDriverPerson.location.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
     model.vehicle.ownerPerson.location.createdUserId = this.authService.getUser().id;
+
     model.vehicle.ownerPerson.location.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
 
     model.vehicle.tagInformation.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');

@@ -23,6 +23,7 @@ export const URL = {
   CALL_FOR_SERVICE_ZONE_ADDRESS: environment.apiUrl + environment.apiVersion + '/Zone',
   CALL_FOR_SERVICE_STATE_ADDRESS: environment.apiUrl + environment.apiVersion + '/State',
   CALL_FOR_SERVICE_INVOLVED_PERSON_ADDRESS: environment.apiUrl + environment.apiVersion + '/CallForServiceInvolvedPerson',
+  CALL_FOR_SERVICE_COMPLAINANT_ADDRESS: environment.apiUrl + environment.apiVersion + '/CallForServiceComplainant',
   CALL_FOR_SERVICE_INVOLVED_UNIT_ADDRESS: environment.apiUrl + environment.apiVersion + '/CallForServiceInvolvedUnit',
   CALL_FOR_SERVICE_INVOLVED_UNIT_TIMES_ADDRESS: environment.apiUrl + environment.apiVersion + '/CallForServiceInvolvedUnitTimes',
   CALL_FOR_SERVICE_INVOLVED_VEHICLE_ADDRESS: environment.apiUrl + environment.apiVersion + '/CallForServiceInvolvedVehicle',

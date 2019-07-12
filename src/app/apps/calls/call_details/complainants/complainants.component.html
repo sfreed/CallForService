@@ -1,26 +1,61 @@
 <div *ngIf="callService.getActiveCall()">
-  <dx-form id="complainantForm" class="complainantForm" height="350" [colCount]="2" [labelLocation]="'top'"
-      [formData]="callService.getActiveCall().complainantPerson">
-    <dxi-item itemType="group" caption="Complainant Information" [widthRatio]="1" [colCount]="5">
-      <dxi-item dataField="id" dataType="number" [visible]="false" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-      <dxi-item dataField="namePrefixCodeId" [label]="{text: 'Prefix'}" [colSpan]="1" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: namePrefix,  valueExpr:'id', displayExpr:'namePrefixDescription', searchEnabled:true, searchExpr:'namePrefixDescription', searchMode:'startsWith'}"></dxi-item>
-      <dxi-item dataField="firstName" dataType="string" [colSpan]="2" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-      <dxi-item dataField="middleName" dataType="string" [colSpan]="2" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-      <dxi-item dataField="lastName" dataType="string" [colSpan]="3" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-      <dxi-item dataField="nameSuffixCodeId" [colSpan]="2" [label]="{text: 'Suffix'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: nameSuffix,  valueExpr:'id', displayExpr:'nameSuffixDescription', searchEnabled:true, searchExpr:'nameSuffixDescription', searchMode:'startsWith'}"></dxi-item>
-    </dxi-item>
-    <dxi-item itemType="group" caption="Contact Information" [widthRatio]="1">
-      <dxi-item dataField="homePhoneNumber" dataType="string" [editorOptions]="{ stylingMode: 'filled', mask: '(X00) 000-0000', maskRules: rules }"></dxi-item>
-      <dxi-item dataField="workPhoneNumber" dataType="string" [editorOptions]="{ stylingMode: 'filled',  mask: '(X00) 000-0000', maskRules: rules }"></dxi-item>
-      <dxi-item dataField="mobilePhoneNumber" dataType="string" [editorOptions]="{ stylingMode: 'filled', mask: '(X00) 000-0000', maskRules: rules }"></dxi-item>
-      <dxi-item [colSpan]="2"
-        itemType="button"
-        horizontalAlignment="right"
-        verticalAlignment="bottom"
-        [buttonOptions]="buttonOptions">
-      </dxi-item>
-    </dxi-item>
-  </dx-form>
+  <dx-data-grid id="involvedPersonsGrid"
+    [dataSource]="complainantList"
+    [rowAlternationEnabled]="true"
+    [showBorders]="true"
+    [showColumnHeaders]="true"
+    height="325"
+    (onRowUpdating)="updateRow($event)">
+    <dxo-paging [pageSize]="20"></dxo-paging>
+    <dxo-pager
+        [visible]="true"
+        [showPageSizeSelector]="true"
+        [allowedPageSizes]="[5, 10, 20]"
+        [showInfo]="true">
+    </dxo-pager>
+    <dxo-filter-row [visible]="true"></dxo-filter-row>
+    <dxo-header-filter [visible]="true"></dxo-header-filter>
+    <dxo-selection mode="single"></dxo-selection>
+    <dxo-sorting mode="multiple"> </dxo-sorting>
+    <dxo-editing
+      mode="popup"
+      [refreshMode]="'full'"
+      [allowUpdating]="true"
+      [allowDeleting]="true"
+      [allowAdding]="true"
+      [useIcons]="true">
+      <dxo-popup title="Involved Person" [showTitle]="true" [width]="1000" [height]="700"></dxo-popup>
+      <dx-form id="complainantForm" class="complainantForm" height="350" [colCount]="2" [labelLocation]="'top'">
+        <dxi-item itemType="group" caption="Complainant Information" [colSpan]="3" [colCount]="5">
+          <dxi-item dataField="id" dataType="number" [visible]="false" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+          <dxi-item dataField="namePrefixCodeId" [label]="{text: 'Prefix'}" [colSpan]="1" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: namePrefix,  valueExpr:'id', displayExpr:'namePrefixDescription', searchEnabled:true, searchExpr:'namePrefixDescription', searchMode:'startsWith'}"></dxi-item>
+          <dxi-item dataField="firstName" dataType="string" [colSpan]="2" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+          <dxi-item dataField="middleName" dataType="string" [colSpan]="2" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+          <dxi-item dataField="lastName" dataType="string" [colSpan]="3" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+          <dxi-item dataField="nameSuffixCodeId" [colSpan]="2" [label]="{text: 'Suffix'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: nameSuffix,  valueExpr:'id', displayExpr:'nameSuffixDescription', searchEnabled:true, searchExpr:'nameSuffixDescription', searchMode:'startsWith'}"></dxi-item>
+        </dxi-item>
+        <dxi-item itemType="group" caption="Contact Information" [widthRatio]="1">
+          <dxi-item dataField="homePhoneNumber" dataType="string" [editorOptions]="{ stylingMode: 'filled', mask: '(X00) 000-0000', maskRules: rules }"></dxi-item>
+          <dxi-item dataField="workPhoneNumber" dataType="string" [editorOptions]="{ stylingMode: 'filled',  mask: '(X00) 000-0000', maskRules: rules }"></dxi-item>
+          <dxi-item dataField="mobilePhoneNumber" dataType="string" [editorOptions]="{ stylingMode: 'filled', mask: '(X00) 000-0000', maskRules: rules }"></dxi-item>
+          <dxi-item [colSpan]="2"
+            itemType="button"
+            horizontalAlignment="right"
+            verticalAlignment="bottom"
+            [buttonOptions]="buttonOptions">
+          </dxi-item>
+        </dxi-item>
+      </dx-form>
+    </dxo-editing>
+    <dxi-column dataField="namePrefixCodeId" dataType="number" [caption]="'Prefix'"><dxo-lookup [dataSource]="namePrefix.store()" valueExpr="id" displayExpr="namePrefixDescription"> </dxo-lookup></dxi-column>
+    <dxi-column dataField="firstName" dataType="string" [caption]="'First Name'"></dxi-column>
+    <dxi-column dataField="middleName" dataType="string" [caption]="'Middle Name'"></dxi-column>
+    <dxi-column dataField="lastName" dataType="string" [caption]="'Last Name'"></dxi-column>
+    <dxi-column dataField="nameSuffixCodeId" dataType="number" [caption]="'Suffix'"><dxo-lookup [dataSource]="nameSuffix.store()" valueExpr="id" displayExpr="nameSuffixDescription"> </dxo-lookup></dxi-column>
+    <dxi-column dataField="homePhoneNumber" dataType="string" [visible]="false" [caption]="'Home Phone'"></dxi-column>
+    <dxi-column dataField="workPhoneNumber" dataType="string" [visible]="false" [caption]="'Work Phone'"></dxi-column>
+    <dxi-column dataField="mobilePhoneNumber" dataType="string" [visible]="false" [caption]="'Mobile Phone'"></dxi-column>
+  </dx-data-grid>
 </div>
 
 <dx-load-panel

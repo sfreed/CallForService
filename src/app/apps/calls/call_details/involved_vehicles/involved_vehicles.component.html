@@ -130,7 +130,7 @@
           </dxi-tab>
           <dxi-tab title="Owner" width="100%">
             <dxi-item itemType="group" caption="Name" [colCount]="3">
-              <dxi-item dataField="isSameAsDriver" [colSpan]="3" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+              <dxi-item dataField="isSameAsDriver" [colSpan]="3" [editorOptions]="{ stylingMode: 'filled', onClick: 'sameAsDriver'}" ></dxi-item>
               <dxi-item dataField="vehicle.ownerPerson.namePrefixCodeId" [label]="{text: 'Name Prefix'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: namePrefixCodes,  valueExpr:'id', displayExpr:'namePrefixDescription'}"></dxi-item>
               <dxi-item dataField="vehicle.ownerPerson.firstName" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
               <dxi-item dataField="vehicle.ownerPerson.middleName" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
@@ -224,7 +224,7 @@
     <dxi-column dataField="vehicle.fuelType" [caption]="'Fuel Type'" [visible]="false" dataType="number"><dxo-lookup [dataSource]="fuelTypes.store()" valueExpr="id" displayExpr="vehicleFuelTypeCodeDescription"></dxo-lookup></dxi-column>
     <dxi-column dataField="vehicle.tagInformation.tagNumber" dataType="string" [caption]="'Tag Number'" [visible]="false"></dxi-column>
     <dxi-column dataField="vehicle.tagInformation.tagState" dataType="number" [caption]="'Tag State'" [visible]="false"><dxo-lookup [dataSource]="states.store()" valueExpr="id" displayExpr="stateName"></dxo-lookup></dxi-column>
-    <dxi-column dataField="vehicle.tagInformation.tagExpiresYear" dataType="string" [caption]="'Tag Expires'" [visible]="false"></dxi-column>
+    <dxi-column dataField="vehicle.tagInformation.tagExpiresYear" dataType="number" [caption]="'Tag Expiration Year'" [visible]="false"></dxi-column>
     <dxi-column dataField="vehicleGCICResults" [caption]="'CGIC Results'" [visible]="false"></dxi-column>
     <dxi-column dataField="vehicleRemarks" [caption]="'Remarks'" [visible]="false"></dxi-column>
 

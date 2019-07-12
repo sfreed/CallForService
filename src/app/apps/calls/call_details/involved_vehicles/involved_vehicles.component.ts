@@ -244,4 +244,8 @@ export class VehiclesComponent implements OnInit {
 
     e.event.preventDefault();
   }
+
+  sameAsDriver(e) {
+console.log('clicked', e);
+  }
 }

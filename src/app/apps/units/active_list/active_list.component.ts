@@ -37,6 +37,10 @@ export class ActiveListComponent implements OnInit {
 
   callForServiceUnitTypeList: CallForServiceUnitType[];
 
+  currentUnit: AvailableUnit;
+  showStartMileageScreen = false;
+  showEndMileageScreen = false;
+
   constructor(public unitService: UnitService, public dispatcherHistory: DispatcherService, public callService: CallsService, public adminService: AdminService,
     private authService: AuthenticationService, private involvedUnitService: InvolvedUnitsService, private datePipe: DatePipe, private cfsLookupService: CallForServiceLookupService) {
     this.adminFormEmitter = adminService.adminFormEmitter;
@@ -70,10 +74,10 @@ export class ActiveListComponent implements OnInit {
 
   }
 
-  getUnitActivityImage(e: AvailableUnit) {
+  getUnitActivityImage(e: AvailableUnit, activeFlag) {
     const unitType: CallForServiceUnitType = this.callForServiceUnitTypeList.filter(r => r.id === e.unitType)[0];
 
-    if (e.currentCall) {
+    if (e.currentCall && activeFlag) {
       return  '../../../../assets/' + unitType.unitCode + '_assigned.png';
     } else {
       return '../../../../assets/' + unitType.unitCode + '_unassigned.png';
@@ -144,6 +148,9 @@ export class ActiveListComponent implements OnInit {
       event.item.data.status = 2;
       event.item.data.startMiles = 0;
       console.log('activating', event.item.data);
+
+      this.currentUnit = event.item.data;
+      this.showStartMileageScreen = true;
     }
 
     if (event.container.id === 'inActiveUnits') {
@@ -153,12 +160,25 @@ export class ActiveListComponent implements OnInit {
       event.item.data.status = 1;
       event.item.data.endMiles = 0;
       console.log('deactivating', event.item.data);
-    }
 
-    this.unitService.changeUnitStatus(event.item.data).then(results => {
+      this.currentUnit = event.item.data;
+      this.showEndMileageScreen = true;
+    }
+  }
+
+  updateUnit() {
+    this.unitService.changeUnitStatus(this.currentUnit).then(results => {
+      this.showStartMileageScreen = false;
+      this.showEndMileageScreen = false;
       this.activeUnitsList.instance.reload();
       this.inActiveUnitsList.instance.reload();
     });
 
+  }
+
+  cancelUpdateUnit() {
+    this.currentUnit = null;
+    this.showStartMileageScreen = false;
+    this.showEndMileageScreen = false;
   }
 }

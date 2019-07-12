@@ -57,6 +57,8 @@ export class CallMasterComponent implements OnInit {
 
   selectedStreet: Street = new Street();
 
+  callSet = 'Active Calls';
+
   buttonOptionSearch: any =  {
     text: 'Search',
     type: 'normal',
@@ -145,14 +147,17 @@ export class CallMasterComponent implements OnInit {
   }
 
   getMyCalls() {
+    this.callSet = 'My Calls';
     this.filterCalls('dispatcherId', this.authService.getUser().personId);
   }
 
   getActiveCalls() {
+    this.callSet = 'Active Calls';
     this.filterCalls('callStatus', 1);
   }
 
   getCallsByDispatcher(data) {
+    this.callSet = 'Calls By Dispatcher';
     this.filterCalls('dispatcherId', data.value);
   }
 
@@ -281,6 +286,8 @@ export class CallMasterComponent implements OnInit {
         value: this.authService.getUser().personId,
         onValueChanged: this.getCallsByDispatcher.bind(this)
       }
+    }, {
+      template: 'callSetTemplate'
     }, {
       location: 'after',
       widget: 'dxButton',

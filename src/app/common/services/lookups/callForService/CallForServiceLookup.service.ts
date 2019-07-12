@@ -8,6 +8,7 @@ import { CallForServiceOriginated } from '../../../models/lookups/callForService
 import { CallForServiceUnitType } from '../../../models/lookups/callForService/CallForServiceUnitType';
 import { CallForServiceLookup } from '../../../models/lookups/callForService/CallForServiceLookup';
 import { CallForServiceDispositionStatus } from '../../../models/lookups/callForService/CallForServiceDispositionStatus';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -23,27 +24,70 @@ export class CallForServiceLookupService {
 
   constructor(private httpClient: HttpClient) {}
 
-  initialize(): Promise<CallForServiceLookup> {
-    const promise = this.httpClient.get<CallForServiceLookup>(URL.CFS_LOOKUP_SERVICE_ADDRESS, {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'Authorization': 'bearer ' + localStorage.getItem('id_token')
-      })
-      })
+  initialize(): Promise<any> {
+    const params: any = {
+      client_id: environment.CLIENT_ID,
+      grant_type: environment.GRANT_TYPE,
+      username: environment.TOKEN_USER_NAME,
+      password: environment.TOKEN_PASSWORD
+    };
+
+    const body: string = this.encodeParams(params);
+
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/x-www-form-urlencoded');
+
+    return this.httpClient.post(URL.TOKEN_ENDPOINT, body, { headers: headers })
       .toPromise()
       .then(settings => {
-        console.log('CallForService Settings from API: ', settings);
-        this.callForServiceHospitalList = settings.callForServiceHospital;
-        this.callForServiceOriginatedList = settings.callForServiceOriginated;
-        this.callForServiceDispositionStatusList = settings.callForServiceDispositionStatus;
-        this.callForServiceOriginated = settings.callForServiceOriginated;
-        this.callForServiceUnitTypeList = settings.callForServiceUnitType;
-        this.wreckerService = settings.wreckerService;
-        this.wreckerRotation = settings.wreckerRotation;
+          const responseBody: any = settings;
 
-        return settings;
-      });
+          if (typeof responseBody.access_token !== 'undefined') {
+            localStorage.setItem('id_token', responseBody.access_token);
+          }
 
-      return promise;
+          this.httpClient.get<CallForServiceLookup>(URL.CFS_LOOKUP_SERVICE_ADDRESS, {
+            headers: new HttpHeaders({
+              'Content-Type':  'application/json',
+              'Authorization': 'bearer ' + localStorage.getItem('id_token')
+            })
+            })
+            .toPromise()
+            .then(resp => {
+              console.log('CallForService Settings from API: ', resp);
+              this.callForServiceHospitalList = resp.callForServiceHospital;
+              this.callForServiceOriginatedList = resp.callForServiceOriginated;
+              this.callForServiceDispositionStatusList = resp.callForServiceDispositionStatus;
+              this.callForServiceOriginated = resp.callForServiceOriginated;
+              this.callForServiceUnitTypeList = resp.callForServiceUnitType;
+              this.wreckerService = resp.wreckerService;
+              this.wreckerRotation = resp.wreckerRotation;
+
+              return resp;
+            });
+        }
+      );
+  }
+
+      /**
+     * // Encodes the parameters.
+     *
+     * @param params The parameters to be encoded
+     * @return The encoded parameters
+     */
+    private encodeParams(params: any): string {
+      let body = '';
+
+      for (const key in params) {
+        if (params) {
+          if (body.length) {
+              body += '&';
+          }
+          body += key + '=';
+          body += encodeURIComponent(params[key]);
+        }
+      }
+
+      return body;
   }
 }

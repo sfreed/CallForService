@@ -6,15 +6,11 @@ import 'rxjs/add/observable/throw';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { URL } from '../models/common/URL.enum';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class AuthenticationService {
     public redirectUrl: string;
-
-    CLIENT_ID = 'CFSClient';
-    GRANT_TYPE = 'password';
-    TOKEN_USER_NAME = 'applications@courtware.net';
-    TOKEN_PASSWORD = 'Courtware@Tz1pbX0JLYLki';
 
     private currentUser: any;
 
@@ -24,10 +20,10 @@ export class AuthenticationService {
 
     public getToken(): Promise<any> {
       const params: any = {
-        client_id: this.CLIENT_ID,
-        grant_type: this.GRANT_TYPE,
-        username: this.TOKEN_USER_NAME,
-        password: this.TOKEN_PASSWORD
+        client_id: environment.CLIENT_ID,
+        grant_type: environment.GRANT_TYPE,
+        username: environment.TOKEN_USER_NAME,
+        password: environment.TOKEN_PASSWORD
       };
 
       const body: string = this.encodeParams(params);
