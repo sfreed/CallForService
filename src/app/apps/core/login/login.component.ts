@@ -57,7 +57,13 @@ export class LoginComponent implements OnInit {
       this.authenticationService.login(this.f.username.value, this.f.password.value)
           .then(
               data => {
+
+                if (data.Errors && data.Errors.length > 0) {
+                  this.alertService.error(data.Errors[0].errorDisplayMessage);
+                  this.showWaitIndicator = false;
+                } else {
                   this.router.navigate([this.returnUrl]);
+                }
               },
               error => {
                   this.alertService.error(error);

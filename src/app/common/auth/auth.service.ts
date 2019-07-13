@@ -75,6 +75,7 @@ export class AuthenticationService {
             if (typeof responseBody !== 'undefined') {
               this.currentUser = responseBody;
             }
+            return settings;
           });
     }
 
