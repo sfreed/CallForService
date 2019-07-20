@@ -49,7 +49,7 @@ export class UnitsDAO extends BaseDAO {
   }
 
   private getUnits(unitType): Promise<any> {
-    return this.http.get(URL.CFS_UNIT_ADDRESS + '?status=' + unitType, this.getHttpOptions()).toPromise()
+    return this.http.get(URL.CFS_UNIT_ADDRESS, this.getHttpOptions()).toPromise()
     .then(results => {
       console.log('Units List', results);
       return results;
