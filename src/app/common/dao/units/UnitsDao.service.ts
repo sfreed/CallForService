@@ -42,7 +42,7 @@ export class UnitsDAO extends BaseDAO {
   public getUnitsDS(): DataSource {
     const ds =  new DataSource({
       store: this.store,
-      sort: 'unitDescription'
+      sort: ['currentCall', 'unitDescription']
     });
 
     return ds;

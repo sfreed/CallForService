@@ -22,10 +22,10 @@
     <dxo-header-filter [visible]="true"></dxo-header-filter>
     <dxo-selection mode="single"></dxo-selection>
     <dxo-sorting mode="multiple"> </dxo-sorting>
-    <dxi-column dataField="dispatchDateTime" dataType="date" [format]="'shortDateShortTime'" caption="Dispatch Time"></dxi-column>
-    <dxi-column dataField="enrouteDateTime" dataType="date" [format]="'shortDateShortTime'" caption="Enroute Time"></dxi-column>
-    <dxi-column dataField="arrivedDateTime" dataType="date" [format]="'shortDateShortTime'" caption="On Scene Time"></dxi-column>
-    <dxi-column dataField="leaveSceneDateTime" dataType="date" [format]="'shortDateShortTime'" caption="Leave Scene Time"></dxi-column>
+    <dxi-column dataField="dispatchDateTime" dataType="date" [format]="'shortDateShortTime'" caption="Dispatched"></dxi-column>
+    <dxi-column dataField="enrouteDateTime" dataType="date" [format]="'shortDateShortTime'" caption="Enroute"></dxi-column>
+    <dxi-column dataField="arrivedDateTime" dataType="date" [format]="'shortDateShortTime'" caption="Arrived Scene"></dxi-column>
+    <dxi-column dataField="inserviceDateTime" dataType="date" [format]="'shortDateShortTime'" caption="In Service"></dxi-column>
     <dxi-column dataField="callForServiceUnit.unitType" dataType="string" caption="Unit Type" width="10%">
       <dxo-lookup
         [dataSource]="unitType.store()"
