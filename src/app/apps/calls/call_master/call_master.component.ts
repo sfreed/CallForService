@@ -292,7 +292,7 @@ export class CallMasterComponent implements OnInit {
       location: 'after',
       widget: 'dxButton',
       options: {
-        icon: 'globe',
+        icon: '../../../../assets/map.png',
         onClick: this.showMapScreen.bind(this)
       }
     }, {

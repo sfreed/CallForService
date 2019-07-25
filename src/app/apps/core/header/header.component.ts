@@ -60,7 +60,7 @@ export class HeaderComponent implements OnInit {
       widget: 'dxButton',
       locateInMenu: 'never',
       options: {
-          icon: 'card',
+          icon: '../../../../assets/activate-unit.png',
           hint: 'Activate / Deactivate Units',
           onClick: () => {
             this.showActivatePopup();
@@ -82,7 +82,7 @@ export class HeaderComponent implements OnInit {
       widget: 'dxButton',
       locateInMenu: 'never',
       options: {
-        icon: 'fa fa-gear',
+        icon: '../../../../assets/settings-icon.png',
         hint: 'Settings',
         onClick: () => {
           this.adminService.adminFormEmitter.emit(['typesPanelVisible', true]);
@@ -93,7 +93,7 @@ export class HeaderComponent implements OnInit {
       widget: 'dxButton',
       locateInMenu: 'never',
       options: {
-        icon: 'folder',
+        icon: '../../../../assets/reports.png',
         hint: 'Reports',
         onClick: this.showReportsScreen.bind(this)
       },

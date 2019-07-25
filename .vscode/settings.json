@@ -1,4 +1,4 @@
 {
     "appService.deploySubpath": "dist\\CallForService",
-    "appService.defaultWebAppToDeploy": "/subscriptions/b73d77cb-b184-4ad1-85d0-c47b94a34a3f/resourceGroups/CourtwareApp/providers/Microsoft.Web/sites/CourtwareAppUI"
+    "appService.defaultWebAppToDeploy": "None"
 }
