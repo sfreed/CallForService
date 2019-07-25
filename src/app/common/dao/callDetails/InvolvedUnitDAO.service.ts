@@ -67,7 +67,7 @@ export class InvolvedUnitDAO extends BaseDAO {
 
     this.updateModel(unit);
 
-    return this.http.put(URL.CALL_FOR_SERVICE_INVOLVED_UNIT_ADDRESS + '?callId=' + this.callService.getActiveCall().id + '&personId=' + id, JSON.stringify(unit), this.getHttpOptions()).toPromise();
+    return this.http.put(URL.CALL_FOR_SERVICE_INVOLVED_UNIT_ADDRESS + '/' + id, JSON.stringify(unit), this.getHttpOptions()).toPromise();
   }
 
   private deleteInvolvedUnit(id): Promise<any> {

@@ -6,6 +6,8 @@ import { AvailableUnit } from '../../models/units/AvailableUnit';
 import { CallForServiceDAO } from '../../dao/call/CallForServiceDAO.service';
 import { AuthenticationService } from '../../auth/auth.service';
 import { DatePipe } from '@angular/common';
+import { CallForServiceCloseCallDAO } from '../../dao/call/CallForServiceCloseCallDAO.service';
+import { CloseCall } from '../../models/call/CloseCall';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +21,7 @@ export class CallsService {
 
   unitCallQueue = new Map();
 
-  constructor(private cfsDAO: CallForServiceDAO, private authService: AuthenticationService, private datePipe: DatePipe) {}
+  constructor(private cfsDAO: CallForServiceDAO, private cfsCloseDao: CallForServiceCloseCallDAO, private authService: AuthenticationService, private datePipe: DatePipe) {}
 
   getCallList(key, value): DataSource {
     return this.cfsDAO.getCallListDS(key, value);
@@ -53,6 +55,14 @@ export class CallsService {
 
   saveCall(call: CallForService): Promise<any> {
     return this.cfsDAO.getCallListDS().store().update(call.id, call);
+  }
+
+  closeCall(call: CallForService): Promise<any> {
+    const closeCall: CloseCall = new CloseCall();
+    closeCall.id = call.id;
+    closeCall.closedDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
+
+    return this.cfsCloseDao.getCallCloseDS().store().insert(closeCall);
   }
 
   getActiveCall(): CallForService {

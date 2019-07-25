@@ -46,7 +46,13 @@
   <dxi-column dataType="boolean" dataField="isAlertTimeActive" [caption]="'Alert Active?'" [visible]="false"></dxi-column>
   <dxi-column dataType="number" dataField="alertTimeInterval" [caption]="'Alert Time Interval'" [visible]="false"></dxi-column>
   <dxi-column dataType="string" dataField="alertTimeStart" [caption]="'Alert Time Start'" [visible]="false"></dxi-column>
-
+  <dxi-column type="buttons">
+    <dxi-button
+        hint="Close Call"
+        icon="close"
+        [visible]="true"
+        [onClick]="closeCall.bind(this)"></dxi-button>
+  </dxi-column>
   <div *dxTemplate="let data of 'callSetTemplate'">
     <div style="font-size: 2em; font-weight: 700;">
       {{callSet}}

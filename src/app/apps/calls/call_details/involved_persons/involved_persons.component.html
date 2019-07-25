@@ -38,7 +38,7 @@
             </dxi-item>
             <dxi-item itemType="group" caption="Information" [colSpan]="1">
               <dxi-item dataField="involvedPerson.dateOfBirth" [editorOptions]="{ stylingMode: 'filled'}"></dxi-item>
-              <dxi-item dataField="involvedPerson.socialSecurityNumber" [editorOptions]="{ stylingMode: 'filled'}"></dxi-item>
+              <dxi-item dataField="involvedPerson.socialSecurityNumber" [editorOptions]="{ stylingMode: 'filled', mask: '000-00-0000'}"></dxi-item>
             </dxi-item>
             <dxi-item itemType="group" caption="Driver Licence" [colSpan]="3" [colCount]="5">
               <dxi-item dataField="involvedPerson.driversLicenseState" [label]="{text: 'DL State'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: states,  valueExpr:'id', displayExpr:'stateName'}"></dxi-item>

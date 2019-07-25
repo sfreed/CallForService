@@ -7,7 +7,7 @@
       [searchMode]="'startswith'"
       [searchValue]="'2'"
       [dataSource]="activeUnits"
-      [height]="window.innerHeight/2 - 100"
+      [height]="window.innerHeight - 175"
       [scrollingEnabled]="true"
       selectionMode = "single"
       (onItemClick)="selectUnit($event)"
@@ -54,8 +54,9 @@
         </dx-context-menu>
       </div>
     </dx-list>
-    <div class="listHeader" style="border-top: solid 5px #476981; height: 45px;">Inactive Units</div>
+
     <dx-list
+      [visible]="false"
       id="inActiveUnits"
       #inActiveUnitsList
       [searchExpr]="'status'"

@@ -68,8 +68,7 @@ export class InvolvedPersonsComponent implements OnInit {
 
   constructor(public callService: CallsService, private personLookupService: PersonLookupService, private callForServiceLookup: CallForServiceLookupService,
     private locationService: LocationService, private locationLookupService: LocationLookupService, private involvedPersonsService: InvolvedPersonService,
-    private involvedUnitService: InvolvedUnitsService, private personService: PersonService, private commonService: CommonService,
-    private identificationClassService: IdentificationClassService) {
+    private personService: PersonService, private commonService: CommonService, private identificationClassService: IdentificationClassService) {
       this.streetNames = this.locationService.getStreetList();
       this.cities = this.locationService.getCityList();
       this.counties = this.locationService.getCountyList();

@@ -6,6 +6,7 @@ import { InvolvedUnitsItem } from '../../models/callDetails/InvolvedUnitItem';
 import { CallsService } from '../call/Calls.service';
 import { InvolvedUnitTimesDAO } from '../../dao/callDetails/InvolvedUnitTimesDAO.service';
 import { DatePipe } from '@angular/common';
+import { UnitTimes } from '../../models/units/UnitTimes';
 
 @Injectable({
   providedIn: 'root'
@@ -37,9 +38,15 @@ export class InvolvedUnitsService {
     return this.getInvolvedUnitList().store().insert(involvedUnit);
   }
 
-  updateUnitTime(unit: InvolvedUnitsItem) {
-    console.log('updating unit0', unit);
-    this.getInvolvedUnitTimes().store().update([unit.callForServiceId, unit.callForServiceUnitId], unit);
+  updateUnitTime(unit: UnitTimes): Promise<any> {
+    console.log('updating unit time', unit);
+    return this.getInvolvedUnitTimes().store().update([unit.callForServiceId, unit.callForServiceUnitId], unit);
+
+  }
+
+  updateUnit(unit: InvolvedUnitsItem) {
+    console.log('updating unit', unit);
+    this.involvedUnitDao.getInvolvedUnitsDS().store().update(unit.callForServiceUnitId, unit);
 
   }
 }

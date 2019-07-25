@@ -19,8 +19,7 @@ export class CallForServiceLookupService {
   callForServiceOriginated: CallForServiceOriginated[];
   callForServiceUnitTypeList: CallForServiceUnitType[];
   callForServiceDispositionStatusList: CallForServiceDispositionStatus[];
-  wreckerService: WreckerService[];
-  wreckerRotation: WreckerRotation[];
+
 
   constructor(private httpClient: HttpClient) {}
 
@@ -60,8 +59,6 @@ export class CallForServiceLookupService {
               this.callForServiceDispositionStatusList = resp.callForServiceDispositionStatus;
               this.callForServiceOriginated = resp.callForServiceOriginated;
               this.callForServiceUnitTypeList = resp.callForServiceUnitType;
-              this.wreckerService = resp.wreckerService;
-              this.wreckerRotation = resp.wreckerRotation;
 
               return resp;
             });

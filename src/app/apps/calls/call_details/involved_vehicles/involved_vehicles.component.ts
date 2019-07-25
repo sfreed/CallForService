@@ -71,20 +71,8 @@ export class VehiclesComponent implements OnInit {
   selectedStreet: Street = new Street();
   selectedVehicle: InvolvedVehiclesItem;
 
-  wreckerRotationSelectOptions =  {
-    stylingMode: 'filled',
-    dataSource: this.wreckerRotationList,
-    valueExpr: 'id',
-    displayExpr: 'rotationDescription',
-    onValueChanged: this.assignToWreckerService.bind(this)
-  };
-
-  wreckerServiceSelectOptions =  {
-    stylingMode: 'filled',
-    dataSource: this.wreckerServiceList,
-    valueExpr: 'id',
-    displayExpr: 'wreckerServiceName'
-  };
+  wreckerRotationSelectOptions = {};
+  wreckerServiceSelectOptions = {};
 
   constructor(public callService: CallsService, private locationLookupService: LocationLookupService, private vehicleLookipService: VehicleLookupService,
     private personLookupService: PersonLookupService, private wreckerService: WreckerService, private involvedVehicleService: InvolvedVehicleService,
@@ -124,20 +112,27 @@ export class VehiclesComponent implements OnInit {
     this.raceCodes = this.personLookupService.raceList;
 
     this.involvedVehiclesList = this.involvedVehicleService.getInvolvedVehicleList();
+
+    this.wreckerRotationSelectOptions =  {
+      stylingMode: 'filled',
+      dataSource: this.wreckerRotationList,
+      valueExpr: 'id',
+      displayExpr: 'rotationDescription',
+      onSelectionChanged: this.assignToWreckerService.bind(this)
+    };
+
+   this.wreckerServiceSelectOptions =  {
+      stylingMode: 'filled',
+      dataSource: this.wreckerServiceList,
+      valueExpr: 'id',
+      displayExpr: 'wreckerServiceName'
+    };
   }
 
   assignToWreckerService(e) {
-//    console.log('changing', e);
-//    this.wreckerService.getNextRotationId(e.value).then(results => {
-
-//      console.log('setting value', results, this.selectedVehicle);
-//      this.selectedVehicle.wreckerServerId = results;
-//      this.wreckerServerSelect.instance.repaint();
-
-//      console.log('set value', results, this.selectedVehicle);
-
-//      console.log('select instance', this.wreckerServerSelect);
-//    });
+    this.wreckerService.getNextRotationId(e.selectedItem.id).then(results => {
+      this.selectedVehicle.wreckerServerId = results;
+    });
   }
   searchTag() {
 
@@ -246,6 +241,10 @@ export class VehiclesComponent implements OnInit {
   }
 
   sameAsDriver(e) {
-console.log('clicked', e);
+    console.log('clicked', e);
+  }
+
+  checkYearLength(e) {
+    console.log('checkYearLength', e);
   }
 }

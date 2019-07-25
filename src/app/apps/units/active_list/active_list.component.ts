@@ -45,6 +45,16 @@ export class ActiveListComponent implements OnInit {
     private authService: AuthenticationService, private involvedUnitService: InvolvedUnitsService, private datePipe: DatePipe, private cfsLookupService: CallForServiceLookupService) {
     this.adminFormEmitter = adminService.adminFormEmitter;
 
+    this.adminFormEmitter.subscribe((data) => {
+      console.log('received event');
+      if (data[0] === 'refreshActiveUnitList') {
+
+        console.log('received refreshActiveUnitList event');
+
+        this.activeUnitsList.instance.reload();
+      }
+    });
+
     // this.activeMenuItems = [{
     //  id: 1,
     //  text: 'Log Off',

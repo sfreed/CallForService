@@ -1,3 +1,101 @@
 <dx-toolbar class="header" [items]="menuItems"></dx-toolbar>
 
 <app-types-display></app-types-display>
+
+
+<dx-popup
+  class="popup"
+  [width]="800"
+  [height]="600"
+  [showTitle]="true"
+  title="Activate / Deactivate Units"
+  [dragEnabled]="false"
+  [closeOnOutsideClick]="false"
+  [(visible)]="activatePopupVisible">
+
+  <table>
+    <tr style="width: 100%;">
+      <th class="listHeader" style="width: 40%;">
+          Active Units
+      </th>
+      <th style="width: 20%;">
+
+      </th>
+      <th class="listHeader" style="width: 40%;">
+          Inactive Units
+      </th>
+    </tr>
+    <tr style="width: 100%;">
+      <td style="width: 40%; vertical-align: top">
+          <dx-list
+            [searchExpr]="'status'"
+            [searchMode]="'startswith'"
+            [searchValue]="'2'"
+            [dataSource]="activeUnits"
+            [scrollingEnabled]="true"
+            selectionMode = "multiple"
+            [showSelectionControls]="true"
+            [(selectedItems)]="itemsToDeactivate">
+              <div *dxTemplate="let data of 'item'">
+              <div
+                id="switchdiv{{data.id}}"
+                class="OFFICER unitName badge{{data.id}} active{{data.active}} example-box">
+                <table width="190px" style="margin: 0px; padding: 0px;">
+                  <tr>
+                    <td width="80%">
+                      <table width="100%">
+                          <tr>
+                            <td>
+                                #{{data.unitDescription}}
+                            </td>
+                          </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </dx-list>
+      </td>
+      <td style="width: 20%; text-align: center">
+        <div>
+          <dx-button [icon]="'arrowright'" (onClick)="deactivateUnits()" style="margin: 15px;"></dx-button>
+        </div>
+        <div>
+          <dx-button [icon]="'arrowleft'" (onClick)="activateUnits()" style="margin: 15px;"></dx-button>
+        </div>
+      </td>
+      <td style="width: 40%; vertical-align: top">
+          <dx-list
+            [searchExpr]="'status'"
+            [searchMode]="'startswith'"
+            [searchValue]="'1'"
+            [dataSource]="inactiveUnits"
+            [scrollingEnabled]="true"
+            selectionMode = "multiple"
+            [showSelectionControls]="true"
+            [(selectedItems)]="itemsToActivate">
+            <div *dxTemplate="let data of 'item'">
+              <div
+                id="switchdiv{{data.id}}"
+                class="OFFICER unitName badge{{data.id}} active{{data.active}} example-box">
+                <table width="190px" style="margin: 0px; padding: 0px;">
+                    <tr>
+                      <td width="80%">
+                        <table width="100%">
+                            <tr>
+                              <td>
+                                  #{{data.unitDescription}}
+                              </td>
+                            </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+              </div>
+            </div>
+          </dx-list>
+      </td>
+    </tr>
+  </table>
+</dx-popup>

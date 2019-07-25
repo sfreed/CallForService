@@ -10,6 +10,7 @@ export const URL = {
   LOCATION_LOOKUP_SERVICE_ADDRESS: environment.apiUrl + environment.apiVersion + '/LocationLookup',
   MASTER_USER_ADDRESS: environment.apiUrl + environment.apiVersion + '/MasterUser',
   CALL_FOR_SERVICE_ADDRESS: environment.apiUrl + environment.apiVersion + '/CallForService',
+  CALL_FOR_SERVICE_CLOSE_CALL_ADDRESS: environment.apiUrl + environment.apiVersion + '/CallForServiceCloseCall',
   CALL_FOR_SERVICE_DETAILS_ADDRESS: environment.apiUrl + environment.apiVersion + '/CallForServiceDetails',
   USER_LOGIN_ENDPOINT: environment.apiUrl + environment.apiVersion + '/UserLogIn',
   USER_LOGOUT_ENDPOINT: environment.apiUrl + environment.apiVersion + '/UserLogOut',
@@ -50,5 +51,6 @@ export const URL = {
   CALL_FOR_SERVICE_ID_CLASS_ADDRESS: environment.apiUrl + environment.apiVersion + '/IdentificationClass',
   CALL_FOR_SERVICE_COUNTY_ADDRESS: environment.apiUrl + environment.apiVersion + '/County',
   CALL_FOR_SERVICE_WRECKER_ROTATION_ADDRESS: environment.apiUrl + environment.apiVersion + '/WreckerRotation',
-  CALL_FOR_SERVICE_WRECKER_SERVICE_ADDRESS: environment.apiUrl + environment.apiVersion + '/WreckerService'
+  CALL_FOR_SERVICE_WRECKER_SERVICE_ADDRESS: environment.apiUrl + environment.apiVersion + '/WreckerService',
+  CALL_FOR_SERVICE_WRECKER_ROTATION_SERVICE_ADDRESS: environment.apiUrl + environment.apiVersion + '/WreckerRotationService'
 };

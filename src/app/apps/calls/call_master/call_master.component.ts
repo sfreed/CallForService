@@ -57,7 +57,7 @@ export class CallMasterComponent implements OnInit {
 
   selectedStreet: Street = new Street();
 
-  callSet = 'Active Calls';
+  callSet = 'My Active Calls';
 
   buttonOptionSearch: any =  {
     text: 'Search',
@@ -303,5 +303,10 @@ export class CallMasterComponent implements OnInit {
         onClick: this.showSearchScreen.bind(this)
       }
     });
+  }
+
+  closeCall() {
+    console.log('closing call');
+    this.callService.closeCall(this.callService.getActiveCall());
   }
 }

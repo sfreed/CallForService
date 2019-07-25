@@ -22,6 +22,7 @@ import { LocationsComponent } from './calls/call_details/locations/locations.com
 import { CallRemarksComponent } from './calls/call_remarks/call_remarks.component';
 import {HotkeyModule} from 'angular2-hotkeys';
 import { UnitMapComponent } from './core/unitMap/unitMap.component';
+import { ActivityLogComponent } from './calls/call_details/activity_log/activity_log.component';
 
 @NgModule({
   imports: [ BrowserModule, DragDropModule,
@@ -29,7 +30,7 @@ import { UnitMapComponent } from './core/unitMap/unitMap.component';
     DxDrawerModule, DxTabPanelModule, DxContextMenuModule, DxTextAreaModule, DxPopupModule, DxFormModule, DxAccordionModule,
     DxDateBoxModule, DxTextBoxModule, DxAutocompleteModule, DxLoadPanelModule, HotkeyModule.forRoot(), DxMapModule ],
   declarations: [ActiveListComponent, DispatcherHistoryComponent, CallMasterComponent, UnitQueueComponent,
-    CallDetailsComponent, CallRemarksComponent, DetailsComponent, LocationsComponent,
+    CallDetailsComponent, CallRemarksComponent, DetailsComponent, LocationsComponent, ActivityLogComponent,
     InvolvedUnitsComponent, VehiclesComponent, ComplainantsComponent, InvolvedPersonsComponent, UnitMapComponent ],
   providers: [ UnitService, DispatcherHistory ],
   bootstrap: [  ],

@@ -33,7 +33,7 @@ export class WreckerRotationDAO extends BaseDAO {
   }
 
   public getNextRotation(id): Promise<any> {
-    return this.http.get(URL.CALL_FOR_SERVICE_WRECKER_ROTATION_ADDRESS + '/' + id, this.getHttpOptions()).toPromise();
+    return this.http.get(URL.CALL_FOR_SERVICE_WRECKER_ROTATION_SERVICE_ADDRESS + '/' + id, this.getHttpOptions()).toPromise();
   }
 
   private getWReckerRotation(key): Promise<any> {

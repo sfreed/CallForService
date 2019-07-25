@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/common/auth/auth.service';
 import { AdminService } from 'src/app/common/services/common/Admin.service';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
+import DataSource from 'devextreme/data/data_source';
+import { UnitService } from 'src/app/common/services/units/Unit.service';
 
 @Component({
   selector: 'app-header',
@@ -16,6 +18,8 @@ export class HeaderComponent implements OnInit {
 
   unitPanelVisible = false;
 
+  activatePopupVisible = false;
+
   dispatcherPanelVisible = false;
 
   agencyPanelVisible = false;
@@ -26,8 +30,19 @@ export class HeaderComponent implements OnInit {
 
   window: Window = window;
 
+  activeUnits: DataSource;
+
+  inactiveUnits: DataSource;
+
+  itemsToActivate: [] = [];
+
+  itemsToDeactivate: [] = [];
+
   constructor(public dispatcherService: DispatcherService, private router: Router, private authenticationService: AuthenticationService,
-    private adminService: AdminService, private _hotkeysService: HotkeysService) {
+    private adminService: AdminService, private _hotkeysService: HotkeysService, private unitService: UnitService) {
+
+    this.activeUnits = this.unitService.getActiveUnitsList();
+    this.inactiveUnits = this.unitService.getInactiveUnitsList();
 
     this._hotkeysService.add(new Hotkey('ctrl+alt+r', (event: KeyboardEvent): boolean => {
       this.showReportsScreen();
@@ -38,7 +53,18 @@ export class HeaderComponent implements OnInit {
       location: 'before',
       locateInMenu: 'never',
       template: () => {
-          return '<img height="100px" src="../../../assets/CW-CFS-LOGO.png">';
+          return '<img height="75px" style="vertical-align: center;" src="../../../assets/CW-CFS-LOGO.png">';
+      }
+    }, {
+      location: 'after',
+      widget: 'dxButton',
+      locateInMenu: 'never',
+      options: {
+          icon: 'card',
+          hint: 'Activate / Deactivate Units',
+          onClick: () => {
+            this.showActivatePopup();
+          }
       }
     }, {
       location: 'after',
@@ -141,5 +167,17 @@ export class HeaderComponent implements OnInit {
 
   showReportsScreen() {
     this.window.open('http://google.com', '_blank ', 'menubar=no, resizable=no, scrollbars=no, statusbar=no, titlebar=no, toolbar=no, top=0, left=0, width=' + this.window.screen.width + ', height=' + this.window.screen.height);
+  }
+
+  showActivatePopup() {
+    console.log('showing:');
+    this.activatePopupVisible = true;
+  }
+
+  activateUnits() {
+    console.log('activating', this.itemsToActivate);
+  }
+  deactivateUnits() {
+    console.log('deactivating', this.itemsToDeactivate);
   }
 }

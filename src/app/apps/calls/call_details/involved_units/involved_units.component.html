@@ -22,24 +22,18 @@
     <dxo-header-filter [visible]="true"></dxo-header-filter>
     <dxo-selection mode="single"></dxo-selection>
     <dxo-sorting mode="multiple"> </dxo-sorting>
-    <dxi-column dataField="dispatchDateTime" dataType="date" [format]="'shortDateShortTime'" caption="Dispatched"></dxi-column>
+    <dxi-column dataField="isPrimaryUnit" dataType="boolean" caption="Primary"></dxi-column>
+    <dxi-column dataField="callForServiceUnit.unitDescription" dataType="string" caption="Unit"></dxi-column>
+    <dxi-column dataField="dispatchDateTime" dataType="date" [format]="'shortDateShortTime'" caption="Dispatched" [sortIndex]="1" sortOrder="asc"></dxi-column>
     <dxi-column dataField="enrouteDateTime" dataType="date" [format]="'shortDateShortTime'" caption="Enroute"></dxi-column>
     <dxi-column dataField="arrivedDateTime" dataType="date" [format]="'shortDateShortTime'" caption="Arrived Scene"></dxi-column>
-    <dxi-column dataField="inserviceDateTime" dataType="date" [format]="'shortDateShortTime'" caption="In Service"></dxi-column>
-    <dxi-column dataField="callForServiceUnit.unitType" dataType="string" caption="Unit Type" width="10%">
+    <dxi-column dataField="inserviceDateTime" dataType="date" [format]="'shortDateShortTime'" caption="In Service" [sortIndex]="0" sortOrder="asc"></dxi-column>
+    <dxi-column dataField="callForServiceUnit.unitType" dataType="string" caption="Unit Type">
       <dxo-lookup
         [dataSource]="unitType.store()"
         valueExpr="id"
         displayExpr="unitDescription">
       </dxo-lookup>
-    </dxi-column>
-    <dxi-column dataField="callForServiceUnit.unitDescription" dataType="string" caption="Description"></dxi-column>
-    <dxi-column dataField="callForServiceUnit.unitAgencyId" dataType="string" caption="Agency">
-      <dxo-lookup
-        [dataSource]="unitAgencies.store()"
-        valueExpr="id"
-        displayExpr="agencyName">
-    </dxo-lookup>
     </dxi-column>
   </dx-data-grid>
 </div>

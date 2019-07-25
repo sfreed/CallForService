@@ -31,7 +31,14 @@
             <dxi-item itemType="group" caption="Tag Information" [colCount]="4">
               <dxi-item dataField="vehicle.tagInformation.tagNumber" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
               <dxi-item dataField="vehicle.tagInformation.tagState" [label]="{text: 'Tag State'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: states,  valueExpr:'id', displayExpr:'stateName', searchEnabled:true, searchExpr:'stateName', searchMode:'startsWith'}"></dxi-item>
-              <dxi-item dataField="vehicle.tagInformation.tagExpiresYear" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+              <dxi-item dataField="vehicle.tagInformation.tagExpiresYear" [editorOptions]="{ stylingMode: 'filled' }">
+                <dxi-validation-rule
+                  type="stringLength"
+                  [min]="4"
+                  [max]="4"
+                  message="Tag Expires Year must be a 4 digit Year.">
+            </dxi-validation-rule>
+              </dxi-item>
               <dxi-item [label]="{text: 'Manage', visible:false }">
                 <dx-button
                   icon="search"
@@ -211,7 +218,7 @@
       <dxi-button
           hint="Wrecker Service"
           icon="fas fa-truck"
-          [visible]="false"
+          [visible]="true"
           [onClick]="showWreckerService.bind(this)"></dxi-button>
     </dxi-column>
 
@@ -347,8 +354,8 @@
     [closeOnOutsideClick]="false"
     [(visible)]="addWreckerPopupVisible">
       <dx-form id="callForm" class="callForm" [formData]="selectedVehicle" [labelLocation]="'top'">
-        <dxi-item itemType="group" caption="Address" [colCount]="8">
-          <dxi-item dataField="isWrecker" [colSpan]="8" [label]="{text: 'Is Wrecker Needed?'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+        <dxi-item itemType="group" [colCount]="8">
+          <dxi-item dataField="isWrecker" editorType = "dxCheckBox" [colSpan]="8" [label]="{text: 'Is Wrecker Needed?'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
           <dxi-item dataField="wreckerRotation" [colSpan]="4" [label]="{text: 'Wrecker Rotation'}" editorType="dxSelectBox" [editorOptions]="wreckerRotationSelectOptions"></dxi-item>
           <dxi-item dataField="wreckerServerId" #wreckerServer [colSpan]="4" [label]="{text: 'Wrecker Service'}" editorType="dxSelectBox" [editorOptions]="wreckerServiceSelectOptions"></dxi-item>
           <dxi-item dataField="wreckerTimeCalled" [colSpan]="4"[label]="{text: 'Time Called'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>

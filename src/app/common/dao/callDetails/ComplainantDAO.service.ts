@@ -17,7 +17,7 @@ export class ComplainantDAO extends BaseDAO {
   constructor(private http: HttpClient, private callService: CallsService, private authService: AuthenticationService, private datePipe: DatePipe) {
     super();
     this.store = new CustomStore({
-      key: 'personId',
+      key: 'id',
       byKey: (key) => {
         return this.getComplainant(key);
       },
@@ -47,7 +47,7 @@ export class ComplainantDAO extends BaseDAO {
   private getComplainants(): Promise<any> {
     return this.http.get<any>(URL.CALL_FOR_SERVICE_COMPLAINANT_ADDRESS + '?callId=' + this.callService.getActiveCall().id, this.getHttpOptions()).toPromise()
       .then(results => {
-        console.log('involved Persons List', results);
+        console.log('Complainant List', results);
         return results;
       });
   }
