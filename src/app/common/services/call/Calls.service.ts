@@ -33,7 +33,7 @@ export class CallsService {
     newCall.createdUserId = this.authService.getUser().id;
     newCall.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
     if (newCall.complainantPerson) {
-      newCall.complainantPerson.id = '00000000-0000-0000-0000-000000000000';
+      newCall.complainantPerson.id = 0;
     }
 
     if (newCall.locationPrimary) {

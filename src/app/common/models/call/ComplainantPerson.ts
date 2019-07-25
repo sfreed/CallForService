@@ -1,12 +1,13 @@
 import { BaseModel } from '../BaseModel';
+import { InternalNgModuleRef } from '@angular/core/src/linker/ng_module_factory';
 
 export class ComplainantPerson extends BaseModel {
-  id: string;
+  id: number;
+  callForServiceId: number;
   namePrefixCodeId: number;
   firstName: string;
   middleName: string;
   lastName: string;
-  lastNameSuffixCodeId: number;
   fullName: string;
   homePhoneNumber: string;
   workPhoneNumber: string;
