@@ -6,6 +6,7 @@ import { PersonService } from 'src/app/common/services/lookups/person/Person.ser
 import DataSource from 'devextreme/data/data_source';
 import * as deepmerge from 'deepmerge';
 import { ComplainantService } from 'src/app/common/services/callDetails/Complainant.service';
+import { CallForService } from 'src/app/common/models/call/CallForService';
 
 @Component({
   selector: 'app-complainants',
@@ -27,7 +28,9 @@ export class ComplainantsComponent implements OnInit {
   };
 
   constructor(public callService: CallsService, private complainanyService: ComplainantService, private personService: PersonService) {
-    this.complainantList = this.complainanyService.getComplainantsList();
+    this.callService.callEmitter.subscribe((data: CallForService) => {
+      this.complainantList = this.complainanyService.getComplainantsList();
+    });
   }
 
   ngOnInit() {

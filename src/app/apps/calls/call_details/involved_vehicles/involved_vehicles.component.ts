@@ -22,6 +22,7 @@ import { StreetNameSuffix } from 'src/app/common/models/lookups/location/StreetN
 import { WreckerService } from 'src/app/common/services/callDetails/Wrecker.service';
 import { InvolvedVehiclesItem } from 'src/app/common/models/callDetails/InvolvedVehicleItem';
 import { DxSelectBoxComponent } from 'devextreme-angular';
+import { IdentificationClassService } from 'src/app/common/services/lookups/person/IdentificationClass.service';
 
 @Component({
   selector: 'app-vehicles',
@@ -32,6 +33,7 @@ export class VehiclesComponent implements OnInit {
   @ViewChild('wreckerServer') wreckerServerSelect: DxSelectBoxComponent;
 
   rules = { 'X': /[02-9]/ };
+  ssnRules = { 'X': /[0-9]/ };
 
   involvedVehiclesList: DataSource;
   streetNames: DataSource;
@@ -52,6 +54,7 @@ export class VehiclesComponent implements OnInit {
   eyeWearCodes: DataSource;
   eyeColorCodes: DataSource;
   facialHairCodes: DataSource;
+  idClass: DataSource;
 
   wreckerRotationList: DataSource;
   wreckerServiceList: DataSource;
@@ -77,10 +80,12 @@ export class VehiclesComponent implements OnInit {
   constructor(public callService: CallsService, private locationLookupService: LocationLookupService, private vehicleLookipService: VehicleLookupService,
     private personLookupService: PersonLookupService, private wreckerService: WreckerService, private involvedVehicleService: InvolvedVehicleService,
     private locationService: LocationService, private vehicleService: VehicleService, private involvedUnitService: InvolvedUnitsService,
-    private personService: PersonService) {
+    private personService: PersonService, private identificationClassService: IdentificationClassService) {
       this.callService.callEmitter.subscribe((data: CallForService) => {
         this.involvedVehiclesList = this.involvedVehicleService.getInvolvedVehicleList();
       });
+
+      this.idClass = this.identificationClassService.getIdentificationClassListDS();
   }
 
   ngOnInit() {

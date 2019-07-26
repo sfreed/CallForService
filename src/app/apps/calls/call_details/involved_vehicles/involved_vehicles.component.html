@@ -48,7 +48,14 @@
               </dxi-item>
             </dxi-item>
             <dxi-item itemType="group" caption="Vehicle Information" [colCount]="4">
-              <dxi-item dataField="vehicle.year" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+              <dxi-item dataField="vehicle.year" [editorOptions]="{ stylingMode: 'filled' }">
+                <dxi-validation-rule
+                  type="stringLength"
+                  [min]="4"
+                  [max]="4"
+                  message="Vehicle Year must be a 4 digit Year.">
+                </dxi-validation-rule>
+              </dxi-item>
               <dxi-item dataField="vehicle.model" [label]="{text: 'Model'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: vehicleModels,  valueExpr:'id', displayExpr: getVehicleModelDisplay, searchEnabled:true, searchExpr:'makeCodeDescription', searchMode:'startsWith' }"></dxi-item>
               <dxi-item dataField="vehicle.VIN" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
               <dxi-item [label]="{text: 'Manage', visible:false }">
@@ -83,7 +90,7 @@
             </dxi-item>
             <dxi-item itemType="group" caption="Information" [colCount]="2">
               <dxi-item dataField="vehicleDriverPerson.dateOfBirth" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-              <dxi-item dataField="vehicleDriverPerson.socialSecurityNumber" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+              <dxi-item dataField="vehicleDriverPerson.socialSecurityNumber" [editorOptions]="{ stylingMode: 'filled', mask: '000-00-0000', maskRules: ssnRules }"></dxi-item>
             </dxi-item>
             <dxi-item itemType="group" caption="Drivers License" [colCount]="3">
               <dxi-item dataField="vehicleDriverPerson.driversLicenseIssueState" [label]="{text: 'DL State'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: states,  valueExpr:'id', displayExpr:'stateName', searchEnabled:true, searchExpr:'stateName', searchMode:'startsWith'}"></dxi-item>
@@ -97,7 +104,7 @@
               </dxi-item>
               <dxi-item dataField="vehicleDriverPerson.driversLicenseExpirationDate" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
               <dxi-item dataField="vehicleDriverPerson.driversLicenseIssueDate" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-              <dxi-item dataField="vehicleDriverPerson.driversLicenseClass" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+              <dxi-item dataField="vehicleDriverPerson.driversLicenseClass" [colSpan]="2" [label]="{text: 'DL Class'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: idClass, valueExpr:'id', displayExpr:'description'}"></dxi-item>
             </dxi-item>
             <dxi-item itemType="group" caption="Phone" [colCount]="3">
               <dxi-item dataField="vehicleDriverPerson.homePhoneNumber" [editorOptions]="{ stylingMode: 'filled', mask: '(X00) 000-0000', maskRules: rules }"></dxi-item>
@@ -146,7 +153,7 @@
             </dxi-item>
             <dxi-item itemType="group" caption="Information" [colCount]="2">
               <dxi-item dataField="vehicle.ownerPerson.dateOfBirth" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-              <dxi-item dataField="vehicle.ownerPerson.socialSecurityNumber" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.socialSecurityNumber" [editorOptions]="{ stylingMode: 'filled', mask: '000-00-0000', maskRules: ssnRules }"></dxi-item>
             </dxi-item>
             <dxi-item itemType="group" caption="Drivers License" [colCount]="3">
               <dxi-item dataField="vehicle.ownerPerson.driversLicenseIssueState" [label]="{text: 'DL State'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: states,  valueExpr:'id', displayExpr:'stateName', searchEnabled:true, searchExpr:'stateName', searchMode:'startsWith'}"></dxi-item>
@@ -160,7 +167,7 @@
               </dxi-item>
               <dxi-item dataField="vehicle.ownerPerson.driversLicenseExpirationDate" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
               <dxi-item dataField="vehicle.ownerPerson.driversLicenseIssueDate" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-              <dxi-item dataField="vehicle.ownerPerson.driversLicenseClass" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+              <dxi-item dataField="vehicle.ownerPerson.driversLicenseClass" [colSpan]="2" [label]="{text: 'DL Class'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: idClass, valueExpr:'id', displayExpr:'description'}"></dxi-item>
             </dxi-item>
             <dxi-item itemType="group" caption="Phone" [colCount]="3">
               <dxi-item dataField="vehicle.ownerPerson.homePhoneNumber" [editorOptions]="{ stylingMode: 'filled', mask: '(X00) 000-0000', maskRules: rules }"></dxi-item>
