@@ -1,112 +1,59 @@
 
-    <div class="listHeader" style="height: 45px;">Active Units</div>
-    <dx-list
-      id="activeUnits"
-      #activeUnitsList
-      [searchExpr]="'status'"
-      [searchMode]="'startswith'"
-      [searchValue]="'2'"
-      [dataSource]="activeUnits"
-      [height]="window.innerHeight - 175"
-      [scrollingEnabled]="true"
-      selectionMode = "single"
-      (onItemClick)="selectUnit($event)"
-      class="example-container"
-      cdkDropList
-      (cdkDropListDropped)="drop($event)"
-      [cdkDropListConnectedTo]="['inActiveUnits', 'callHistoryGrid', 'complainantForm', 'hospitalGrid', 'involvedPersonsGrid', 'unitContainer', 'vehicleGrid', 'callDetailForm', 'wreckerGrid']">
-      <div *dxTemplate="let data of 'item'">
-        <div
-          id="switchdiv{{data.id}}"
-          class="OFFICER unitName badge{{data.id}} active{{data.active}} example-box" cdkDrag [cdkDragData]="data">
-          <table width="190px" style="margin: 0px; padding: 0px;">
-            <tr>
-              <td width="20%">
-                  <img [src]="getUnitActivityImage(data, true)" width="34px" height="34px">
-              </td>
-              <td width="80%">
-                <table width="100%">
-                    <tr>
-                      <td>
-                          #{{data.unitDescription}}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td *ngIf="data.currentCall">
-                          {{'#' + data.currentCall}}
-                      </td>
-                      <td *ngIf="!data.currentCall">
-                          Available
-                      </td>
-                    </tr>
-                </table>
-              </td>
-            </tr>
-          </table>
-        </div>
-
-        <dx-context-menu
-          id="cm{{data.id}}"
-          [items]="activeMenuItems"
-          [width]="200"
-          target="#switchdiv{{data.id}}"
-          (onItemClick)="contextItemClick($event, data)">
-        </dx-context-menu>
-      </div>
-    </dx-list>
-
-    <dx-list
-      [visible]="false"
-      id="inActiveUnits"
-      #inActiveUnitsList
-      [searchExpr]="'status'"
-      [searchMode]="'startswith'"
-      [searchValue]="'1'"
-      [dataSource]="inactiveUnits"
-      [height]="window.innerHeight/2 - 100"
-      [scrollingEnabled]="true"
-      selectionMode = "single"
-      (onItemClick)="selectUnit($event)"
-      class="example-container"
-      cdkDropList
-      (cdkDropListDropped)="drop($event)"
-      [cdkDropListConnectedTo]="['activeUnits']">
-      <div *dxTemplate="let data of 'item'">
-        <div
-          id="switchdiv{{data.id}}"
-          class="OFFICER unitName badge{{data.id}} active{{data.active}} example-box" cdkDrag [cdkDragData]="data">
-          <table width="190px" style="margin: 0px; padding: 0px;">
-              <tr>
-                <td width="20%">
-                  <img [src]="getUnitActivityImage(data, false)" width="34px" height="34px">
-                </td>
-                <td width="80%">
-                  <table width="100%">
-                      <tr>
-                        <td>
-                            #{{data.unitDescription}}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                            Off Duty
-                        </td>
-                      </tr>
-                  </table>
-                </td>
-              </tr>
+<div class="listHeader" style="height: 45px;">Active Units</div>
+<dx-list
+  id="activeUnits"
+  #activeUnitsList
+  [searchExpr]="'status'"
+  [searchMode]="'startswith'"
+  [searchValue]="'2'"
+  [dataSource]="activeUnits"
+  [height]="window.innerHeight - 175"
+  [scrollingEnabled]="true"
+  selectionMode = "single"
+  (onItemClick)="selectUnit($event)"
+  class="example-container"
+  cdkDropList
+  (cdkDropListDropped)="drop($event)"
+  [cdkDropListConnectedTo]="['unitContainer']">
+  <div *dxTemplate="let data of 'item'">
+    <div
+      id="switchdiv{{data.id}}"
+      class="OFFICER unitName badge{{data.id}} active{{data.active}} example-box" cdkDrag [cdkDragData]="data">
+      <table width="190px" style="margin: 0px; padding: 0px;">
+        <tr>
+          <td width="20%">
+              <img [src]="getUnitActivityImage(data, true)" width="34px" height="34px">
+          </td>
+          <td width="80%">
+            <table width="100%">
+                <tr>
+                  <td>
+                      #{{data.unitDescription}}
+                  </td>
+                </tr>
+                <tr>
+                  <td *ngIf="data.currentCall">
+                      {{'#' + data.currentCall}}
+                  </td>
+                  <td *ngIf="!data.currentCall">
+                      Available
+                  </td>
+                </tr>
             </table>
-        </div>
+          </td>
+        </tr>
+      </table>
+    </div>
 
-        <dx-context-menu
-          id="cm{{data.id}}"
-          [items]="inactiveMenuItems"
-          [width]="200"
-          target="#switchdiv{{data.id}}"
-          (onItemClick)="contextItemClick($event, data)">
-        </dx-context-menu>
-      </div>
-    </dx-list>
+    <dx-context-menu
+      id="cm{{data.id}}"
+      [items]="activeMenuItems"
+      [width]="200"
+      target="#switchdiv{{data.id}}"
+      (onItemClick)="contextItemClick($event, data)">
+    </dx-context-menu>
+  </div>
+</dx-list>
 <app-unit-queue></app-unit-queue>
 
 <dx-popup

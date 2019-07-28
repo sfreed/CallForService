@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DispatcherService } from 'src/app/common/services/master/Dispatcher.service';
 import notify from 'devextreme/ui/notify';
 import { Router } from '@angular/router';
@@ -7,6 +7,9 @@ import { AdminService } from 'src/app/common/services/common/Admin.service';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import DataSource from 'devextreme/data/data_source';
 import { UnitService } from 'src/app/common/services/units/Unit.service';
+import { DxListComponent } from 'devextreme-angular';
+import { AvailableUnit } from 'src/app/common/models/units/AvailableUnit';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-header',
@@ -14,6 +17,10 @@ import { UnitService } from 'src/app/common/services/units/Unit.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  @ViewChild('inActiveUnitsList') inActiveUnitsList: DxListComponent;
+
+  @ViewChild('activeUnitsList') activeUnitsList: DxListComponent;
+
   menuItems: any[];
 
   unitPanelVisible = false;
@@ -38,8 +45,8 @@ export class HeaderComponent implements OnInit {
 
   itemsToDeactivate: [] = [];
 
-  constructor(public dispatcherService: DispatcherService, private router: Router, private authenticationService: AuthenticationService,
-    private adminService: AdminService, private _hotkeysService: HotkeysService, private unitService: UnitService) {
+  constructor(public dispatcherService: DispatcherService, private router: Router, private authService: AuthenticationService,
+    private adminService: AdminService, private _hotkeysService: HotkeysService, private unitService: UnitService, private datePipe: DatePipe) {
 
     this.activeUnits = this.unitService.getActiveUnitsList();
     this.inactiveUnits = this.unitService.getInactiveUnitsList();
@@ -161,7 +168,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.authenticationService.logout();
+    this.authService.logout();
     this.router.navigate(['/login']);
   }
 
@@ -175,9 +182,31 @@ export class HeaderComponent implements OnInit {
   }
 
   activateUnits() {
-    console.log('activating', this.itemsToActivate);
+    this.itemsToActivate.forEach(unit => {
+      const unitToActivate: AvailableUnit = unit;
+      unitToActivate.dateTimeIn = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
+      unitToActivate.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
+      unitToActivate.createdUserId = this.authService.getUser().id;
+      unitToActivate.status = 2;
+      unitToActivate.startMiles = 0;
+
+      console.log('activating', unitToActivate);
+
+      this.unitService.changeUnitStatus(unitToActivate);
+    });
   }
   deactivateUnits() {
-    console.log('deactivating', this.itemsToDeactivate);
+    this.itemsToDeactivate.forEach(unit => {
+      const unitToDeactivate: AvailableUnit = unit;
+      unitToDeactivate.dateTimeIn = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
+      unitToDeactivate.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
+      unitToDeactivate.createdUserId = this.authService.getUser().id;
+      unitToDeactivate.status = 1;
+      unitToDeactivate.startMiles = 0;
+
+      console.log('deactivating', unitToDeactivate);
+
+      this.unitService.changeUnitStatus(unitToDeactivate);
+    });
   }
 }

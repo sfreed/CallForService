@@ -239,7 +239,6 @@ export class VehiclesComponent implements OnInit {
 
   showWreckerService(e) {
     this.selectedVehicle = e.row.data;
-    console.log('pressed', e);
     this.addWreckerPopupVisible = true;
 
     e.event.preventDefault();
@@ -251,5 +250,15 @@ export class VehiclesComponent implements OnInit {
 
   checkYearLength(e) {
     console.log('checkYearLength', e);
+  }
+
+  saveWrecker() {
+
+    console.log('saving', this.selectedVehicle);
+
+    this.selectedVehicle.isWrecker = true;
+    this.involvedVehiclesList.store().update(this.selectedVehicle.vehicleId, this.selectedVehicle).then(result => {
+      this.addWreckerPopupVisible = false;
+    });
   }
 }

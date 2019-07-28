@@ -360,19 +360,21 @@
     [dragEnabled]="false"
     [closeOnOutsideClick]="false"
     [(visible)]="addWreckerPopupVisible">
-      <dx-form id="callForm" class="callForm" [formData]="selectedVehicle" [labelLocation]="'top'">
-        <dxi-item itemType="group" [colCount]="8">
-          <dxi-item dataField="isWrecker" editorType = "dxCheckBox" [colSpan]="8" [label]="{text: 'Is Wrecker Needed?'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-          <dxi-item dataField="wreckerRotation" [colSpan]="4" [label]="{text: 'Wrecker Rotation'}" editorType="dxSelectBox" [editorOptions]="wreckerRotationSelectOptions"></dxi-item>
-          <dxi-item dataField="wreckerServerId" #wreckerServer [colSpan]="4" [label]="{text: 'Wrecker Service'}" editorType="dxSelectBox" [editorOptions]="wreckerServiceSelectOptions"></dxi-item>
-          <dxi-item dataField="wreckerTimeCalled" [colSpan]="4"[label]="{text: 'Time Called'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-          <dxi-item dataField="wreckerTimeArrived" [colSpan]="4"[label]="{text: 'Time Arrived'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-          <dxi-item dataField="wreckerTowedDateTime" [colSpan]="4"[label]="{text: 'Towed Date/Time'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-          <dxi-item dataField="wreckerTowedTo" [colSpan]="4"[label]="{text: 'Towed To' }" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-          <dxi-item dataField="wreckerRemarks" [colSpan]="8" [label]="{text: 'Remarks'}" editorType="dxTextArea" [editorOptions]="{ stylingMode: 'filled', height: 150 }"></dxi-item>
-
+      <dx-form id="callForm" class="callForm" [formData]="selectedVehicle" [labelLocation]="'top'" [colCount]="8">
+        <dxi-item dataField="wreckerRotation" [colSpan]="4" [label]="{text: 'Wrecker Rotation'}" editorType="dxSelectBox" [editorOptions]="wreckerRotationSelectOptions"></dxi-item>
+        <dxi-item dataField="wreckerServerId" #wreckerServer [colSpan]="4" [label]="{text: 'Wrecker Service'}" editorType="dxSelectBox" [editorOptions]="wreckerServiceSelectOptions"></dxi-item>
+        <dxi-item dataField="wreckerTimeCalled" [colSpan]="4" editorType="dxDateBox" [label]="{text: 'Time Called'}" [editorOptions]="{ stylingMode: 'filled', type: 'time', pickerType: 'rollers' }"></dxi-item>
+        <dxi-item dataField="wreckerTimeArrived" [colSpan]="4" editorType="dxDateBox" [label]="{text: 'Time Arrived'}" [editorOptions]="{ stylingMode: 'filled', type: 'time', pickerType: 'rollers' }"></dxi-item>
+        <dxi-item dataField="wreckerTowedDateTime" [colSpan]="4" editorType="dxDateBox" [label]="{text: 'Towed Date/Time'}" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+        <dxi-item dataField="wreckerTowedTo" [colSpan]="4" [label]="{text: 'Towed To' }" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
+        <dxi-item dataField="wreckerRemarks" [colSpan]="8" [label]="{text: 'Remarks'}" editorType="dxTextArea" [editorOptions]="{ stylingMode: 'filled', height: 150 }"></dxi-item>
+        <dxi-item style="float: right;" [colSpan]="8">
+          <dx-button
+            text="Save"
+            (onClick)="saveWrecker()"
+            style="margin-right:5px; margin-top: 18px;">
+          </dx-button>
         </dxi-item>
-
       </dx-form>
   </dx-popup>
 </div>

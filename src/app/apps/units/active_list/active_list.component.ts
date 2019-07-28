@@ -55,26 +55,6 @@ export class ActiveListComponent implements OnInit {
       }
     });
 
-    // this.activeMenuItems = [{
-    //  id: 1,
-    //  text: 'Log Off',
-    //  disabled: false
-    // }, {
-    //  id: 2,
-    //  text: 'Dispatch To Current Call',
-    //  disabled: false
-    // }, {
-    //  id: 3,
-    //  text: 'View Unit Call Queue',
-    //  disabled: false
-    // }];
-
-    // this.inactiveMenuItems = [{
-    //  id: 0,
-    //  text: 'Log In',
-    //  disabled: false
-    // }];
-
     this.callForServiceUnitTypeList = this.cfsLookupService.callForServiceUnitTypeList;
     this.activeUnits = this.unitService.getActiveUnitsList();
     this.inactiveUnits = this.unitService.getInactiveUnitsList();
