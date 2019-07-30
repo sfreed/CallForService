@@ -34,6 +34,7 @@
               <dxi-item dataField="vehicle.tagInformation.tagExpiresYear" [editorOptions]="{ stylingMode: 'filled' }">
                 <dxi-validation-rule
                   type="stringLength"
+                  [ignoreEmptyValue]="true"
                   [min]="4"
                   [max]="4"
                   message="Tag Expires Year must be a 4 digit Year.">
