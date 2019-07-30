@@ -67,8 +67,30 @@ export class HeaderComponent implements OnInit {
       widget: 'dxButton',
       locateInMenu: 'never',
       options: {
+          icon: '../../../../assets/truck.png',
+          hint: 'Wrecker Rotation Setup',
+          text: 'Wrecker',
+          onClick: () => {
+            notify('Wrecker Rotation Service has been clicked!');
+          }
+      }
+    }, {
+      location: 'after',
+      widget: 'dxButton',
+      options: {
+        icon: '../../../../assets/map.png',
+        hint: 'Patrol',
+        text: 'Patrol',
+        onClick: this.showMapScreen.bind(this)
+      }
+    }, {
+      location: 'after',
+      widget: 'dxButton',
+      locateInMenu: 'never',
+      options: {
           icon: '../../../../assets/activate-unit.png',
           hint: 'Activate / Deactivate Units',
+          text: 'Units',
           onClick: () => {
             this.showActivatePopup();
           }
@@ -78,11 +100,10 @@ export class HeaderComponent implements OnInit {
       widget: 'dxButton',
       locateInMenu: 'never',
       options: {
-          icon: 'fa fa-truck',
-          hint: 'Service Setup',
-          onClick: () => {
-            notify('Services has been clicked!');
-          }
+        icon: '../../../../assets/reports.png',
+        hint: 'Reports',
+        text: 'Reports',
+        onClick: this.showReportsScreen.bind(this)
       }
     }, {
       location: 'after',
@@ -91,20 +112,13 @@ export class HeaderComponent implements OnInit {
       options: {
         icon: '../../../../assets/settings-icon.png',
         hint: 'Settings',
+        text: 'Settings',
         onClick: () => {
           this.adminService.adminFormEmitter.emit(['typesPanelVisible', true]);
         }
       }
-    },  {
-      location: 'after',
-      widget: 'dxButton',
-      locateInMenu: 'never',
-      options: {
-        icon: '../../../../assets/reports.png',
-        hint: 'Reports',
-        onClick: this.showReportsScreen.bind(this)
-      },
     }
+
     // {
     //    locateInMenu: 'always',
     //    text: 'Settings',
@@ -208,5 +222,9 @@ export class HeaderComponent implements OnInit {
 
       this.unitService.changeUnitStatus(unitToDeactivate);
     });
+  }
+
+  showMapScreen() {
+    this.window.open('/map', '_blank ', 'menubar=no, resizable=no, scrollbars=no, statusbar=no, titlebar=no, toolbar=no, top=0, left=0, width=' + this.window.screen.width + ', height=' + this.window.screen.height);
   }
 }

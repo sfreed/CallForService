@@ -101,10 +101,6 @@ export class CallMasterComponent implements OnInit {
       });
   }
 
-  showMapScreen() {
-    this.window.open('/map', '_blank ', 'menubar=no, resizable=no, scrollbars=no, statusbar=no, titlebar=no, toolbar=no, top=0, left=0, width=' + this.window.screen.width + ', height=' + this.window.screen.height);
-  }
-
   showSearchScreen() {
     this.searchPopUpVisible = true;
   }
@@ -288,13 +284,6 @@ export class CallMasterComponent implements OnInit {
       }
     }, {
       template: 'callSetTemplate'
-    }, {
-      location: 'after',
-      widget: 'dxButton',
-      options: {
-        icon: '../../../../assets/map.png',
-        onClick: this.showMapScreen.bind(this)
-      }
     }, {
       location: 'after',
       widget: 'dxButton',
