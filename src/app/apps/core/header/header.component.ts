@@ -45,8 +45,12 @@ export class HeaderComponent implements OnInit {
 
   itemsToDeactivate: [] = [];
 
+  adminFormEmitter: any;
+
   constructor(public dispatcherService: DispatcherService, private router: Router, private authService: AuthenticationService,
     private adminService: AdminService, private _hotkeysService: HotkeysService, private unitService: UnitService, private datePipe: DatePipe) {
+
+      this.adminFormEmitter = adminService.adminFormEmitter;
 
     this.activeUnits = this.unitService.getActiveUnitsList();
     this.inactiveUnits = this.unitService.getInactiveUnitsList();
@@ -117,65 +121,7 @@ export class HeaderComponent implements OnInit {
           this.adminService.adminFormEmitter.emit(['typesPanelVisible', true]);
         }
       }
-    }
-
-    // {
-    //    locateInMenu: 'always',
-    //    text: 'Settings',
-    //    onClick: () => {
-    //        notify('Settings Clicked!');
-    //    }
-    // }, {
-    //  locateInMenu: 'always',
-    //  text: 'Preferences',
-    //  onClick: () => {
-    //      notify('Preferences Clicked!');
-    //  }
-    // }, {
-    //  locateInMenu: 'always',
-    //  text: 'Logout',
-    //  onClick: () => {
-    //      this.authenticationService.logout();
-    //  }
-    // }
-    // }, {
-    //   locateInMenu: 'always',
-    //   text: 'Add Officers',
-    //   onClick: () => {
-    //       this.adminService.adminFormEmitter.emit(['officerPanelVisible', true]);
-    //   }
-    // }, {
-    //   locateInMenu: 'always',
-    //   text: 'Add Dispatcher',
-    //   onClick: () => {
-    //     this.adminService.adminFormEmitter.emit(['dispatcherPanelVisible', true]);
-    //   }
-    // }, {
-    //   locateInMenu: 'always',
-    //   text: 'Add Agency',
-    //   onClick: () => {
-    //     this.adminService.adminFormEmitter.emit(['agencyPanelVisible', true]);
-    //   }
-    // }, {
-    //   locateInMenu: 'always',
-    //   text: 'Add Hospital',
-    //   onClick: () => {
-    //     this.adminService.adminFormEmitter.emit(['hospitalPanelVisible', true]);
-    //   }
-    // }, {
-    //   locateInMenu: 'always',
-    //   text: 'Add Unit',
-    //   onClick: () => {
-    //     this.adminService.adminFormEmitter.emit(['availableUnitsPanelVisible', true]);
-    //   }
-    // }, {
-    //   locateInMenu: 'always',
-    //   text: 'Add Types',
-    //   onClick: () => {
-    //     this.adminService.adminFormEmitter.emit(['typesPanelVisible', true]);
-    //   }
-    // }
-    ];
+    }];
   }
 
   ngOnInit() {
@@ -191,7 +137,8 @@ export class HeaderComponent implements OnInit {
   }
 
   showActivatePopup() {
-    console.log('showing:');
+    this.itemsToActivate = [];
+    this.itemsToDeactivate = [];
     this.activatePopupVisible = true;
   }
 
@@ -201,30 +148,39 @@ export class HeaderComponent implements OnInit {
       unitToActivate.dateTimeIn = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
       unitToActivate.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
       unitToActivate.createdUserId = this.authService.getUser().id;
-      unitToActivate.status = 2;
       unitToActivate.startMiles = 0;
 
       console.log('activating', unitToActivate);
 
       this.unitService.changeUnitStatus(unitToActivate);
     });
+
+    this.activeUnitsList.instance.reload();
+    this.inActiveUnitsList.instance.reload();
   }
   deactivateUnits() {
     this.itemsToDeactivate.forEach(unit => {
       const unitToDeactivate: AvailableUnit = unit;
-      unitToDeactivate.dateTimeIn = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
+      unitToDeactivate.dateTimeOut = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
       unitToDeactivate.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
       unitToDeactivate.createdUserId = this.authService.getUser().id;
-      unitToDeactivate.status = 1;
       unitToDeactivate.startMiles = 0;
 
       console.log('deactivating', unitToDeactivate);
 
       this.unitService.changeUnitStatus(unitToDeactivate);
     });
+
+    this.activeUnitsList.instance.reload();
+    this.inActiveUnitsList.instance.reload();
   }
 
   showMapScreen() {
     this.window.open('/map', '_blank ', 'menubar=no, resizable=no, scrollbars=no, statusbar=no, titlebar=no, toolbar=no, top=0, left=0, width=' + this.window.screen.width + ', height=' + this.window.screen.height);
+  }
+
+  closeActivatePopup() {
+    this.adminFormEmitter.emit(['refreshActiveUnitList', true, null]);
+    this.activatePopupVisible = false;
   }
 }

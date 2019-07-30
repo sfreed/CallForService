@@ -28,6 +28,7 @@
     <tr style="width: 100%;">
       <td style="width: 40%; vertical-align: top">
           <dx-list
+            #activeUnitsList
             [searchExpr]="'status'"
             [searchMode]="'startswith'"
             [searchValue]="'2'"
@@ -35,7 +36,8 @@
             [scrollingEnabled]="true"
             selectionMode = "multiple"
             [showSelectionControls]="true"
-            [(selectedItems)]="itemsToDeactivate">
+            [(selectedItems)]="itemsToDeactivate"
+            [height]="400">
               <div *dxTemplate="let data of 'item'">
               <div
                 id="switchdiv{{data.id}}"
@@ -67,6 +69,7 @@
       </td>
       <td style="width: 40%; vertical-align: top">
           <dx-list
+          #inActiveUnitsList
             [searchExpr]="'status'"
             [searchMode]="'startswith'"
             [searchValue]="'1'"
@@ -74,7 +77,8 @@
             [scrollingEnabled]="true"
             selectionMode = "multiple"
             [showSelectionControls]="true"
-            [(selectedItems)]="itemsToActivate">
+            [(selectedItems)]="itemsToActivate"
+            [height]="400">
             <div *dxTemplate="let data of 'item'">
               <div
                 id="switchdiv{{data.id}}"
@@ -95,6 +99,15 @@
               </div>
             </div>
           </dx-list>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3" align="right">
+        <dx-button
+          text="Close"
+          (onClick)="closeActivatePopup()"
+          style="margin-right:10px; margin-top: 18px;">
+        </dx-button>
       </td>
     </tr>
   </table>

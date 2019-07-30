@@ -183,7 +183,7 @@ export class CallMasterComponent implements OnInit {
   }
 
   editStreet () {
-    this.locationService.getStreetList().store().byKey(this.callService.getActiveCall().locationPrimary.streetId).then(results => {
+    this.locationService.getStreetList().store().byKey(this.newCall.locationPrimary.streetId).then(results => {
       this.selectedStreet = results;
       this.addStreetPopUpVisible = true;
     });
