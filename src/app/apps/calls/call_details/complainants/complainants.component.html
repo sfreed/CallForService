@@ -19,13 +19,12 @@
     <dxo-sorting mode="multiple"> </dxo-sorting>
     <dxo-editing
       mode="popup"
-      [refreshMode]="'full'"
       [allowUpdating]="true"
       [allowDeleting]="true"
       [allowAdding]="true"
       [useIcons]="true">
       <dxo-popup title="Involved Person" [showTitle]="true" [width]="1000" [height]="700"></dxo-popup>
-      <dx-form id="complainantForm" class="complainantForm" height="350" [colCount]="2" [labelLocation]="'top'">
+      <dxo-form id="complainantForm" class="complainantForm" height="350" [colCount]="2" [labelLocation]="'top'">
         <dxi-item itemType="group" caption="Complainant Information" [colSpan]="3" [colCount]="5">
           <dxi-item dataField="id" dataType="number" [visible]="false" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
           <dxi-item dataField="namePrefixCodeId" [label]="{text: 'Prefix'}" [colSpan]="1" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: namePrefix,  valueExpr:'id', displayExpr:'namePrefixDescription', searchEnabled:true, searchExpr:'namePrefixDescription', searchMode:'startsWith'}"></dxi-item>
@@ -38,14 +37,8 @@
           <dxi-item dataField="homePhoneNumber" dataType="string" [editorOptions]="{ stylingMode: 'filled', mask: '(X00) 000-0000', maskRules: rules }"></dxi-item>
           <dxi-item dataField="workPhoneNumber" dataType="string" [editorOptions]="{ stylingMode: 'filled',  mask: '(X00) 000-0000', maskRules: rules }"></dxi-item>
           <dxi-item dataField="mobilePhoneNumber" dataType="string" [editorOptions]="{ stylingMode: 'filled', mask: '(X00) 000-0000', maskRules: rules }"></dxi-item>
-          <dxi-item [colSpan]="2"
-            itemType="button"
-            horizontalAlignment="right"
-            verticalAlignment="bottom"
-            [buttonOptions]="buttonOptions">
-          </dxi-item>
         </dxi-item>
-      </dx-form>
+      </dxo-form>
     </dxo-editing>
     <dxi-column dataField="namePrefixCodeId" dataType="number" [caption]="'Prefix'"><dxo-lookup [dataSource]="namePrefix.store()" valueExpr="id" displayExpr="namePrefixDescription"> </dxo-lookup></dxi-column>
     <dxi-column dataField="firstName" dataType="string" [caption]="'First Name'"></dxi-column>

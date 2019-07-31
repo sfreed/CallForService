@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CallsService } from 'src/app/common/services/call/Calls.service';
-import { PersonLookupService } from 'src/app/common/services/lookups/person/PersonLookup.service';
-import { InvolvedUnitsService } from 'src/app/common/services/callDetails/InvolvedUnit.service';
 import { PersonService } from 'src/app/common/services/lookups/person/Person.service';
 import DataSource from 'devextreme/data/data_source';
 import * as deepmerge from 'deepmerge';
@@ -37,6 +35,8 @@ export class ComplainantsComponent implements OnInit {
     this.namePrefix = this.personService.getNamePrefixList();
 
     this.nameSuffix = this.personService.getNameSuffixList();
+
+    this.complainantList = this.complainanyService.getComplainantsList();
   }
 
   saveCall(e) {

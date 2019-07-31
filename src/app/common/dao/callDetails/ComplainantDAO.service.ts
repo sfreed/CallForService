@@ -64,11 +64,11 @@ export class ComplainantDAO extends BaseDAO {
   private updateComplainant (id, complainant: InvolvedPersonItem): Promise<any> {
     this.updateModel(complainant);
 
-    return this.http.put(URL.CALL_FOR_SERVICE_COMPLAINANT_ADDRESS + '?callId=' + this.callService.getActiveCall().id, JSON.stringify(complainant), this.getHttpOptions()).toPromise();
+    return this.http.put(URL.CALL_FOR_SERVICE_COMPLAINANT_ADDRESS + '/' + id + '?callId=' + this.callService.getActiveCall().id, JSON.stringify(complainant), this.getHttpOptions()).toPromise();
   }
 
   private deleteComplainant (id): Promise<any> {
-    return this.http.delete<any>(URL.CALL_FOR_SERVICE_COMPLAINANT_ADDRESS + '?callId=' + this.callService.getActiveCall().id, this.getHttpOptions()).toPromise();
+    return this.http.delete<any>(URL.CALL_FOR_SERVICE_COMPLAINANT_ADDRESS + '/' + id + '?callId=' + this.callService.getActiveCall().id, this.getHttpOptions()).toPromise();
   }
 
   protected updateModel(model: InvolvedPersonItem) {

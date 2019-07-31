@@ -64,7 +64,7 @@ export class HeaderComponent implements OnInit {
       location: 'before',
       locateInMenu: 'never',
       template: () => {
-          return '<img height="75px" style="vertical-align: center;" src="../../../assets/CW-CFS-LOGO.png">';
+          return '<img height="75px" style="vertical-align: center; padding-left: 5px;" src="../../../assets/CW-CFS-LOGO.png">';
       }
     }, {
       location: 'after',
