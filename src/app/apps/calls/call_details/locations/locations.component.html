@@ -5,7 +5,7 @@
         <dxi-item itemType="group" caption="Address" [colCount]="5">
           <dxi-item dataField="locationPrimary.addressTypeId" [colSpan]="5" [label]="{text: 'Address Type'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: addressTypes,  valueExpr:'id', displayExpr:'description', searchEnabled:true, searchExpr:'description', searchMode:'startsWith'}"></dxi-item>
           <dxi-item dataField="locationPrimary.streetNumber" [colSpan]="1" [label]="{text: 'Number' }" [editorOptions]="{ stylingMode: 'filled' }"></dxi-item>
-          <dxi-item dataField="locationPrimary.streetId" [colSpan]="3" [label]="{text: 'Street Name'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: streetNames,  valueExpr:'id', displayExpr: getStreetName, searchEnabled:true, searchExpr:'streetName', searchMode:'startsWith'}"></dxi-item>
+          <dxi-item #primaryStreetName dataField="locationPrimary.streetId" [colSpan]="3" [label]="{text: 'Street Name'}" editorType="dxSelectBox" [editorOptions]="{ stylingMode: 'filled', dataSource: streetNames,  valueExpr:'id', displayExpr: getStreetName, searchEnabled:true, searchExpr:'streetName', searchMode:'startsWith'}"></dxi-item>
 
           <dxi-item>
             <dx-button

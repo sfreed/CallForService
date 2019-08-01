@@ -52,6 +52,7 @@
               <dxi-item dataField="vehicle.year" [editorOptions]="{ stylingMode: 'filled' }">
                 <dxi-validation-rule
                   type="stringLength"
+                  [ignoreEmptyValue]="true"
                   [min]="4"
                   [max]="4"
                   message="Vehicle Year must be a 4 digit Year.">

@@ -76,21 +76,35 @@ export class InvolvedVehicleDAO extends BaseDAO {
     model.callForServiceId = this.callService.getActiveCall().id;
     model.createdUserId = this.authService.getUser().id;
     model.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
-    model.vehicle.createdUserId = this.authService.getUser().id;
-    model.vehicle.ownerPerson.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
-    model.vehicle.ownerPerson.createdUserId = this.authService.getUser().id;
 
-    model.vehicleDriverPerson.location.createdUserId = this.authService.getUser().id;
-    model.vehicleDriverPerson.location.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
-    model.vehicle.ownerPerson.location.createdUserId = this.authService.getUser().id;
+    if (model.vehicleDriverPerson) {
+      model.vehicleDriverPerson.createdUserId = this.authService.getUser().id;
+      model.vehicleDriverPerson.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
 
-    model.vehicle.ownerPerson.location.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
+      if (model.vehicleDriverPerson.location) {
+        model.vehicleDriverPerson.location.createdUserId = this.authService.getUser().id;
+        model.vehicleDriverPerson.location.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
+      }
+    }
 
-    model.vehicle.tagInformation.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
-    model.vehicle.tagInformation.createdUserId = this.authService.getUser().id;
+    if (model.vehicle) {
+      model.vehicle.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
+      model.vehicle.createdUserId = this.authService.getUser().id;
 
-    model.vehicle.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
-    model.vehicleDriverPerson.createdUserId = this.authService.getUser().id;
-    model.vehicleDriverPerson.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
+      if (model.vehicle.ownerPerson) {
+        model.vehicle.ownerPerson.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
+        model.vehicle.ownerPerson.createdUserId = this.authService.getUser().id;
+
+        if (model.vehicle.ownerPerson.location) {
+          model.vehicle.ownerPerson.location.createdUserId = this.authService.getUser().id;
+          model.vehicle.ownerPerson.location.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
+        }
+      }
+
+      if (model.vehicle.tagInformation) {
+        model.vehicle.tagInformation.effectiveDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
+        model.vehicle.tagInformation.createdUserId = this.authService.getUser().id;
+      }
+    }
   }
 }

@@ -19,6 +19,7 @@ import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { StreetNameSuffix } from 'src/app/common/models/lookups/location/StreetNameSuffix';
 import { StreetNameDirection } from 'src/app/common/models/lookups/location/StreetNameDirection';
 import { DatePipe } from '@angular/common';
+import { AdminService } from 'src/app/common/services/common/Admin.service';
 
 @Component({
   selector: 'app-call-master',
@@ -68,7 +69,7 @@ export class CallMasterComponent implements OnInit {
   constructor(public callService: CallsService, private personLookupService: PersonLookupService,
     private cfsLookupService: CallForServiceLookupService, private vehicleLookupService: VehicleLookupService, private locationService: LocationService,
     public authService: AuthenticationService, public cfsCallTypeDao: CallTypeDAO, private masterUserService: MasterUserService, private datePipe: DatePipe,
-    private locationLookupService: LocationLookupService, private _hotkeysService: HotkeysService) {
+    private locationLookupService: LocationLookupService, private _hotkeysService: HotkeysService, private adminService: AdminService) {
       this.callTypes = this.cfsCallTypeDao.getCallTypeListDS();
       this.dispatchers = this.masterUserService.getMasterUserList();
       this.streetNames = this.locationService.getStreetList();
@@ -80,6 +81,15 @@ export class CallMasterComponent implements OnInit {
         this.startCall();
         return false; // Prevent bubbling
       }));
+
+      this.adminService.callListFormEmitter.subscribe(data => {
+        console.log('received ' + data);
+          if (data === 'refresh') {
+            console.log('refreshing', this.dataGrid.instance.getRowIndexByKey(this.dataGrid.selectedRowKeys));
+
+            this.dataGrid.instance.repaint();
+          }
+        });
     }
 
   ngOnInit() {

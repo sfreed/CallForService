@@ -8,6 +8,7 @@ import { CallForServiceOriginated } from 'src/app/common/models/lookups/callForS
 import { InvolvedUnitsService } from 'src/app/common/services/callDetails/InvolvedUnit.service';
 import { MasterUserService } from 'src/app/common/services/master/MasterUser.service';
 import { DatePipe } from '@angular/common';
+import { AdminService } from 'src/app/common/services/common/Admin.service';
 
 @Component({
   selector: 'app-details',
@@ -38,7 +39,7 @@ export class DetailsComponent implements OnInit {
 };
 
   constructor(public callService: CallsService, private cfsLookupService: CallForServiceLookupService,
-    private masterUserService: MasterUserService, private cfsCallTypeDS: CallTypeDAO, private involvedUnitService: InvolvedUnitsService, private datePipe: DatePipe) {
+    private masterUserService: MasterUserService, private cfsCallTypeDS: CallTypeDAO, private datePipe: DatePipe, private adminService: AdminService) {
       this.callTypes = this.cfsCallTypeDS.getCallTypeListDS();
 
       this.dispatchers = this.masterUserService.getMasterUserList();
@@ -54,7 +55,13 @@ export class DetailsComponent implements OnInit {
 
   saveCall(e) {
     this.showWaitIndicator = true;
-    this.callService.saveCall(this.callService.getActiveCall()).then(res => this.showWaitIndicator = false);
+    this.callService.saveCall(this.callService.getActiveCall()).then(results => {
+      this.callService.setActiveCall(results);
+      this.showWaitIndicator = false;
+      this.adminService.callListFormEmitter.emit('refresh');
+    }
+
+    );
   }
 
   getCFSTypeDisplayValue (item) {

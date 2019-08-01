@@ -1,16 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CallsService } from 'src/app/common/services/call/Calls.service';
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { LocationLookupService } from 'src/app/common/services/lookups/location/LocationLookup.service';
 import DataSource from 'devextreme/data/data_source';
 import { StreetNameDirection } from 'src/app/common/models/lookups/location/StreetNameDirection';
-import { County } from 'src/app/common/models/lookups/location/County';
 import { PatrolArea } from 'src/app/common/models/lookups/location/PatrolArea';
 import { Street } from 'src/app/common/models/lookups/location/Street';
-import { InvolvedUnitsService } from 'src/app/common/services/callDetails/InvolvedUnit.service';
 import { LocationService } from 'src/app/common/services/lookups/location/Location.service';
 import { StreetNameSuffix } from 'src/app/common/models/lookups/location/StreetNameSuffix';
 import { Location } from 'src/app/common/models/call/Location';
+import { DxSelectBoxComponent } from 'devextreme-angular';
+import { AdminService } from 'src/app/common/services/common/Admin.service';
 
 @Component({
   selector: 'app-locations',
@@ -18,6 +17,7 @@ import { Location } from 'src/app/common/models/call/Location';
   styleUrls: ['./locations.component.css']
 })
 export class LocationsComponent implements OnInit {
+  @ViewChild('primaryStreetName') primaryStreetNameList: DxSelectBoxComponent;
   showWaitIndicator = false;
 
   addressTypes: DataSource;
@@ -41,7 +41,7 @@ export class LocationsComponent implements OnInit {
     onClick: this.saveCall.bind(this)
   };
 
-  constructor(public callService: CallsService, private locationLookupService: LocationLookupService, private locationService: LocationService) {
+  constructor(public callService: CallsService, private locationLookupService: LocationLookupService, private locationService: LocationService, private adminService: AdminService) {
       this.streetNames = this.locationService.getStreetList();
       this.cities = this.locationService.getCityList();
       this.counties = this.locationService.getCountyList();
@@ -57,9 +57,11 @@ export class LocationsComponent implements OnInit {
     this.streetNameSuffixs = this.locationLookupService.streetNameSuffix;
   }
 
-  saveCall(e) {
+  saveCall() {
     this.showWaitIndicator = true;
-    this.callService.saveCall(this.callService.getActiveCall()).then(res => this.showWaitIndicator = false);
+    this.callService.saveCall(this.callService.getActiveCall()).then(res => this.showWaitIndicator = false).then(data => {
+      this.adminService.callListFormEmitter.emit('refresh');
+    });
   }
 
   addStreet(location: Location) {
@@ -76,10 +78,13 @@ export class LocationsComponent implements OnInit {
   }
 
   saveStreet () {
+    console.log('updating', this.selectedStreet);
     if (this.selectedStreet.id) {
       this.locationService.getStreetList().store().update(this.selectedStreet.id, this.selectedStreet).then(results => {
-        console.log('updating', results);
-        this.locationService.getStreetList().reload();
+        console.log('updated', results);
+        this.primaryStreetNameList.instance.repaint();
+        // this.callService.getActiveCall().locationPrimary.name = this.getStreetName(results);
+        // this.saveCall();
         this.popupVisible = false;
       });
     } else {
@@ -106,7 +111,7 @@ export class LocationsComponent implements OnInit {
       let retVal = '';
 
       if (e.streetNamePreDirectionCode) {
-        retVal += e.streetNamePreDirectionCode + ' ';
+        retVal += e.streetNamePreDirectionDescription + ' ';
       }
 
       if (e.streetNamePreModifier) {
@@ -122,11 +127,11 @@ export class LocationsComponent implements OnInit {
       }
 
       if (e.streetNamePostModifier) {
-        retVal += e.streetNamePostModifier + ' ';
+        retVal += e.streetNamePreDirectionDescription + ' ';
       }
 
       if (e.streetNamePostDirectionCode) {
-        retVal += e.streetNamePostDirectionCode + ' ';
+        retVal += e.streetNamePostDirectionDescription + ' ';
       }
 
       return  retVal.trim();
