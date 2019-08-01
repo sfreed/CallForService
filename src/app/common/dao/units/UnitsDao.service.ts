@@ -39,10 +39,31 @@ export class UnitsDAO extends BaseDAO {
     });
   }
 
-  public getUnitsDS(): DataSource {
+  public getCurrentActiveUnitsDS(): DataSource {
     const ds =  new DataSource({
       store: this.store,
-      sort: ['currentCall', 'unitDescription']
+      sort: ['currentCall', 'unitDescription'],
+      filter: ['status', '=', '2']
+    });
+
+    return ds;
+  }
+
+  public getActiveUnitsDS(): DataSource {
+    const ds =  new DataSource({
+      store: this.store,
+      sort: ['currentCall', 'unitDescription'],
+      filter: [['status', '=', '2'], 'and', ['currentCall', '=', '0']]
+    });
+
+    return ds;
+  }
+
+  public getInactiveUnitsDS(): DataSource {
+    const ds =  new DataSource({
+      store: this.store,
+      sort: ['currentCall', 'unitDescription'],
+      filter: ['status', '=', '1']
     });
 
     return ds;

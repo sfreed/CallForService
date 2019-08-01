@@ -29,8 +29,6 @@ export class ActiveListComponent implements OnInit {
 
   activeUnits: DataSource;
 
-  inactiveUnits: DataSource;
-
   activeMenuItems: any;
 
   inactiveMenuItems: any;
@@ -56,8 +54,7 @@ export class ActiveListComponent implements OnInit {
     });
 
     this.callForServiceUnitTypeList = this.cfsLookupService.callForServiceUnitTypeList;
-    this.activeUnits = this.unitService.getActiveUnitsList();
-    this.inactiveUnits = this.unitService.getInactiveUnitsList();
+    this.activeUnits = this.unitService.getCurrentActiveUnitsDS();
   }
 
   ngOnInit() {

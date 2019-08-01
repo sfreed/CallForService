@@ -47,6 +47,8 @@ export class HeaderComponent implements OnInit {
 
   adminFormEmitter: any;
 
+  showWaitIndicator = true;
+
   constructor(public dispatcherService: DispatcherService, private router: Router, private authService: AuthenticationService,
     private adminService: AdminService, private _hotkeysService: HotkeysService, private unitService: UnitService, private datePipe: DatePipe) {
 
@@ -110,6 +112,7 @@ export class HeaderComponent implements OnInit {
         }
       }
     }];
+    this.showWaitIndicator = false;
   }
 
   ngOnInit() {
@@ -125,12 +128,17 @@ export class HeaderComponent implements OnInit {
   }
 
   showActivatePopup() {
+
+    // this.activeUnits.filter(['currentCall', '=', 0]);
+    // this.activeUnits.load();
+
     this.itemsToActivate = [];
     this.itemsToDeactivate = [];
     this.activatePopupVisible = true;
   }
 
   activateUnits() {
+    this.showWaitIndicator = true;
     this.itemsToActivate.forEach(unit => {
       const unitToActivate: AvailableUnit = unit;
       unitToActivate.dateTimeIn = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
@@ -140,13 +148,17 @@ export class HeaderComponent implements OnInit {
 
       console.log('activating', unitToActivate);
 
-      this.unitService.changeUnitStatus(unitToActivate);
+      this.unitService.changeUnitStatus(unitToActivate).then(data => {
+        this.activeUnitsList.instance.reload();
+        this.inActiveUnitsList.instance.reload();
+        this.showWaitIndicator = false;
+      });
     });
-
-    this.activeUnitsList.instance.reload();
+  this.activeUnitsList.instance.reload();
     this.inActiveUnitsList.instance.reload();
   }
   deactivateUnits() {
+    this.showWaitIndicator = true;
     this.itemsToDeactivate.forEach(unit => {
       const unitToDeactivate: AvailableUnit = unit;
       unitToDeactivate.dateTimeOut = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
@@ -156,11 +168,13 @@ export class HeaderComponent implements OnInit {
 
       console.log('deactivating', unitToDeactivate);
 
-      this.unitService.changeUnitStatus(unitToDeactivate);
+      this.unitService.changeUnitStatus(unitToDeactivate).then(data => {
+        this.activeUnitsList.instance.reload();
+        this.inActiveUnitsList.instance.reload();
+        this.showWaitIndicator = false;
+      });
     });
 
-    this.activeUnitsList.instance.reload();
-    this.inActiveUnitsList.instance.reload();
   }
 
   showMapScreen() {

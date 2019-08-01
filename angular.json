@@ -23,8 +23,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css",
-              "@fortawesome/fontawesome-free/css/all.css"
+              "src/styles.css"
             ],
             "scripts": [
             ]

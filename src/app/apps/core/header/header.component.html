@@ -29,9 +29,6 @@
       <td style="width: 40%; vertical-align: top">
           <dx-list
             #activeUnitsList
-            [searchExpr]="'status'"
-            [searchMode]="'startswith'"
-            [searchValue]="'2'"
             [dataSource]="activeUnits"
             [scrollingEnabled]="true"
             selectionMode = "multiple"
@@ -70,9 +67,6 @@
       <td style="width: 40%; vertical-align: top">
           <dx-list
           #inActiveUnitsList
-            [searchExpr]="'status'"
-            [searchMode]="'startswith'"
-            [searchValue]="'1'"
             [dataSource]="inactiveUnits"
             [scrollingEnabled]="true"
             selectionMode = "multiple"
@@ -112,3 +106,13 @@
     </tr>
   </table>
 </dx-popup>
+
+<dx-load-panel
+  #loadPanel
+  shadingColor="rgba(0,0,0,0.4)"
+  [position]="{ of: '#locationForm' }"
+  [(visible)]="showWaitIndicator"
+  [showIndicator]="true"
+  [showPane]="true"
+  [closeOnOutsideClick]="false">
+</dx-load-panel>
