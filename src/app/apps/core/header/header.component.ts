@@ -69,20 +69,8 @@ export class HeaderComponent implements OnInit {
     }, {
       location: 'after',
       widget: 'dxButton',
-      locateInMenu: 'never',
       options: {
-          icon: '../../../../assets/truck.png',
-          hint: 'Wrecker Rotation Setup',
-          text: 'Wrecker',
-          onClick: () => {
-            notify('Wrecker Rotation Service has been clicked!');
-          }
-      }
-    }, {
-      location: 'after',
-      widget: 'dxButton',
-      options: {
-        icon: '../../../../assets/map.png',
+        icon: 'globe',
         hint: 'Patrol',
         text: 'Patrol',
         onClick: this.showMapScreen.bind(this)
@@ -114,7 +102,7 @@ export class HeaderComponent implements OnInit {
       widget: 'dxButton',
       locateInMenu: 'never',
       options: {
-        icon: '../../../../assets/settings-icon.png',
+        icon: '../../../../assets/cogs.png',
         hint: 'Settings',
         text: 'Settings',
         onClick: () => {

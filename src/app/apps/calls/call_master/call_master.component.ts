@@ -294,14 +294,16 @@ export class CallMasterComponent implements OnInit {
       }
     }, {
       template: 'callSetTemplate'
-    }, {
-      location: 'after',
-      widget: 'dxButton',
-      options: {
-        icon: 'search',
-        onClick: this.showSearchScreen.bind(this)
-      }
-    });
+    }
+    // , {
+    //  location: 'after',
+    //  widget: 'dxButton',
+    //  options: {
+    //    icon: 'search',
+    //    onClick: this.showSearchScreen.bind(this)
+    //  }
+    //}
+    );
   }
 
   closeCall() {
