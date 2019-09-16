@@ -20,6 +20,7 @@ import { StreetNameSuffix } from 'src/app/common/models/lookups/location/StreetN
 import { StreetNameDirection } from 'src/app/common/models/lookups/location/StreetNameDirection';
 import { DatePipe } from '@angular/common';
 import { AdminService } from 'src/app/common/services/common/Admin.service';
+import { ComplainantService } from 'src/app/common/services/callDetails/Complainant.service';
 
 @Component({
   selector: 'app-call-master',
@@ -69,7 +70,7 @@ export class CallMasterComponent implements OnInit {
   constructor(public callService: CallsService, private personLookupService: PersonLookupService,
     private cfsLookupService: CallForServiceLookupService, private vehicleLookupService: VehicleLookupService, private locationService: LocationService,
     public authService: AuthenticationService, public cfsCallTypeDao: CallTypeDAO, private masterUserService: MasterUserService, private datePipe: DatePipe,
-    private locationLookupService: LocationLookupService, private _hotkeysService: HotkeysService, private adminService: AdminService) {
+    private locationLookupService: LocationLookupService, private _hotkeysService: HotkeysService, private adminService: AdminService, private complainantService: ComplainantService) {
       this.callTypes = this.cfsCallTypeDao.getCallTypeListDS();
       this.dispatchers = this.masterUserService.getMasterUserList();
       this.streetNames = this.locationService.getStreetList();
@@ -131,11 +132,21 @@ export class CallMasterComponent implements OnInit {
   }
 
   launchNewCall() {
+    console.log('saving new call', this.newCall);
+
     this.callService.startNewCall(this.newCall).then(response => {
-      this.addCallPopupVisible = false;
-      this.dataGrid.instance.refresh().then(res => {
-        this.dataGrid.focusedRowIndex = 0;
-        this.dataGrid.instance.selectRowsByIndexes([0]);
+      console.log('started new call', response);
+      console.log('checking for call', this.callService.getActiveCall());
+      this.newCall.complainantPerson.callForServiceId = this.callService.getActiveCall().id;
+
+      console.log('saving complainant', this.newCall.complainantPerson);
+      this.complainantService.getComplainantsList().store().insert(this.newCall.complainantPerson).then(result => {
+        console.log('complainant saved', result);
+        this.dataGrid.instance.refresh().then(res => {
+          this.dataGrid.focusedRowIndex = 0;
+          this.dataGrid.instance.selectRowsByIndexes([0]);
+          this.addCallPopupVisible = false;
+        });
       });
     });
   }
@@ -179,7 +190,7 @@ export class CallMasterComponent implements OnInit {
 
   getComplainantDisplayValue (item) {
     if (item.complainantPerson) {
-      return [item.complainantPerson.firstName, item.complainantPerson.middleName, item.complainantPerson.lastName].join(' ');
+      return [item.complainantPerson[0].firstName, item.complainantPerson[0].middleName, item.complainantPerson[0].lastName].join(' ');
     }
   }
 
@@ -302,7 +313,7 @@ export class CallMasterComponent implements OnInit {
     //    icon: 'search',
     //    onClick: this.showSearchScreen.bind(this)
     //  }
-    //}
+    // }
     );
   }
 
